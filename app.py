@@ -45,6 +45,30 @@ def chat():
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
 
+    @app.route("/chat", methods=["POST"])
+    def chat():
+        global messages
+        user_input = request.json.get("message", "").strip()
+
+        if not user_input:
+            return jsonify({"error": "Empty input"}), 400
+
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
+
+        # 👇 Insert this help handler block:
+        if user_input == "?":
+            help_text = (
+                "**Available Commands:**\n"
+                "- `save [name]` – Saves the current character sheet to the server\n"
+                "- `load [name]` – Loads the specified character sheet\n"
+                "- `show [elf|dwarf|hobbit|man]` – Displays one of the sample character sheets\n"
+                "- `hide` or `remove` – Hides the currently displayed sheet\n"
+                "- `?` – Show this help menu\n"
+            )
+            messages.append({"role": "assistant", "content": help_text, "timestamp": timestamp})
+            return jsonify({"response": help_text})
+
     filtered_messages = [m for m in messages if m["role"] in ["user", "assistant", "system"]]
     full_messages = [{"role": "system", "content": system_prompt}] + filtered_messages
 
