@@ -76,6 +76,12 @@ def chat():
 import base64
 from flask import send_file
 
+# Normalize character names for consistent filename formatting
+def normalize_filename(name):
+    name = name.lower().strip().rstrip(".")                    # strip trailing period
+    name = re.sub(r"[^\w\s-]", "", name)                       # remove non-alphanumeric/punctuation
+    return name.replace(" ", "_")
+
 # Save uploaded base64 PDF to disk
 @app.route('/save-character', methods=['POST'])
 def save_character():
@@ -86,7 +92,7 @@ def save_character():
     if not name or not pdf_data:
         return jsonify({'error': 'Missing name or pdfData'}), 400
 
-    filename = f"/mnt/data/{name.replace(' ', '_')}.pdf"
+    filename = f"/mnt/data/{normalize_filename(name)}.pdf"
     try:
         with open(filename, "wb") as f:
             f.write(base64.b64decode(pdf_data))
@@ -97,7 +103,7 @@ def save_character():
 # Load saved PDF by name
 @app.route('/load-character/<name>', methods=['GET'])
 def load_character(name):
-    filename = f"/mnt/data/{name.replace(' ', '_')}.pdf"
+    filename = f"/mnt/data/{normalize_filename(name)}.pdf"
     if not os.path.exists(filename):
         return jsonify({'error': 'Character not found'}), 404
     return send_file(filename, mimetype='application/pdf')
