@@ -1,8 +1,9 @@
 from flask_cors import CORS
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import datetime
 import re
 import os
+import base64
 from dotenv import load_dotenv
 from openai import OpenAI
 from token_counter import count_tokens
@@ -16,7 +17,7 @@ CORS(app)
 load_dotenv()
 client = OpenAI()
 
-# Load environment variables (e.g., API keys) from .env file and initialize OpenAI client
+# Load system prompt
 with open("system_prompt.txt", "r", encoding="utf-8") as f:
     system_prompt = f.read().strip()
 
@@ -45,29 +46,19 @@ def chat():
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
 
-    @app.route("/chat", methods=["POST"])
-    def chat():
-        global messages
-        user_input = request.json.get("message", "").strip()
-
-        if not user_input:
-            return jsonify({"error": "Empty input"}), 400
-
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
-
-        # 👇 Insert this help handler block:
-        if user_input == "?":
-            help_text = (
-                "**Available Commands:**\n"
-                "- `save [name]` – Saves the current character sheet to the server\n"
-                "- `load [name]` – Loads the specified character sheet\n"
-                "- `show [elf|dwarf|hobbit|man]` – Displays one of the sample character sheets\n"
-                "- `hide` or `remove` – Hides the currently displayed sheet\n"
-                "- `?` – Show this help menu\n"
-            )
-            messages.append({"role": "assistant", "content": help_text, "timestamp": timestamp})
-            return jsonify({"response": help_text})
+    # 🔹 Check for help command
+    if user_input == "?":
+        help_text = (
+            "**Available Commands:**\n"
+            "- `save [name]` – Saves the current character sheet to the server\n"
+            "- `load [name]` – Loads the specified character sheet\n"
+            "- `show [elf|dwarf|hobbit|man]` – Displays one of the sample character sheets\n"
+            "- `hide` or `remove` – Hides the currently displayed sheet\n"
+            "- `?` – Show this help menu\n"
+        )
+        messages.append({"role": "assistant", "content": help_text, "timestamp": timestamp})
+        save_messages_to_file(messages)
+        return jsonify({"response": help_text})
 
     filtered_messages = [m for m in messages if m["role"] in ["user", "assistant", "system"]]
     full_messages = [{"role": "system", "content": system_prompt}] + filtered_messages
@@ -79,8 +70,6 @@ def chat():
         full_messages = [summary_message] + recent
         messages = [summary_message] + recent
 
-    # Sends current conversation (with system prompt or summary) to OpenAI and extracts the reply.
-    # Limits output to approx. 5 sentences (~100 tokens).
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=full_messages,
@@ -89,21 +78,15 @@ def chat():
 
     trimmed = response.choices[0].message.content.strip()
 
-    # Appends the AI’s trimmed reply to the message history with a timestamp.
-    # Saves updated message history to disk via save_messages_to_file().
     messages.append({"role": "assistant", "content": trimmed, "timestamp": timestamp})
     save_messages_to_file(messages)
 
-    # Returns the reply.
     return jsonify({"response": trimmed})
-
-import base64
-from flask import send_file
 
 # Normalize character names for consistent filename formatting
 def normalize_filename(name):
-    name = name.lower().strip().rstrip(".")                    # strip trailing period
-    name = re.sub(r"[^\w\s-]", "", name)                       # remove non-alphanumeric/punctuation
+    name = name.lower().strip().rstrip(".")
+    name = re.sub(r"[^\w\s-]", "", name)
     return name.replace(" ", "_")
 
 # Save uploaded base64 PDF to disk
