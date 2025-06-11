@@ -21,7 +21,7 @@ def root():
 
 @app.route('/the-one-ring')
 def the_one_ring():
-    return app.send_static_file('The-One-Ring/index.html')
+    return app.send_static_file('the-one-ring/index.html')
 
 # Load environment variables and OpenAI client
 load_dotenv()
