@@ -15,6 +15,10 @@ from chapter_log import append_chapter_entry
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def root():
+    return app.send_static_file('index.html')
+    
 # Load environment variables and OpenAI client
 load_dotenv()
 client = OpenAI()
