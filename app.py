@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from flask import Flask, request, jsonify
 import datetime
 import re
@@ -9,17 +10,22 @@ from message_history import load_messages_from_file, save_messages_to_file
 from chapter_log import append_chapter_entry
 
 app = Flask(__name__)
+CORS(app)
 
-# Load env vars and system prompt
+# Load environment variables (e.g., API keys) from .env file and initialize OpenAI client
 load_dotenv()
 client = OpenAI()
 
+# Load environment variables (e.g., API keys) from .env file and initialize OpenAI client
 with open("system_prompt.txt", "r", encoding="utf-8") as f:
     system_prompt = f.read().strip()
 
+# Set a token threshold for summarization. If total tokens exceed this, older messages will be summarized.
 TOKEN_THRESHOLD = 150
 messages = load_messages_from_file()
 
+# Takes the last 12 user/assistant messages and sends them to OpenAI with a prompt to summarize.
+# Returns a new system message containing the summary, used to compress old context.
 def summarize_messages(messages):
     to_summarize = [m for m in messages if m["role"] in ["user", "assistant"]][-12:]
     summary_prompt = [{"role": "system", "content": "Summarize the following RPG conversation so far in a concise but detailed paragraph. Focus on world events, decisions made, and NPC interactions. Be specific."}] + to_summarize
@@ -27,6 +33,7 @@ def summarize_messages(messages):
     summary = response.choices[0].message.content.strip()
     return [{"role": "system", "content": f"SUMMARY OF EARLIER CHAT: {summary}"}]
 
+# Listens for POST requests from frontend.
 @app.route("/chat", methods=["POST"])
 def chat():
     global messages
@@ -48,17 +55,25 @@ def chat():
         full_messages = [summary_message] + recent
         messages = [summary_message] + recent
 
-    response = client.chat.completions.create(model="gpt-3.5-turbo", messages=full_messages)
-    reply = response.choices[0].message.content.strip()
-    sentences = re.split(r'(?<=[.!?]) +', reply)
-    trimmed = ' '.join(sentences[:5]).strip()
+    # Sends current conversation (with system prompt or summary) to OpenAI and extracts the reply.
+    # Limits output to approx. 5 sentences (~100 tokens).
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=full_messages,
+        max_tokens=100
+    )
 
-    assert len(sentences[:5]) <= 5, "GPT exceeded 5 sentence limit."
+    trimmed = response.choices[0].message.content.strip()
 
+    # Appends the AI’s trimmed reply to the message history with a timestamp.
+    # Saves updated message history to disk via save_messages_to_file().
     messages.append({"role": "assistant", "content": trimmed, "timestamp": timestamp})
     save_messages_to_file(messages)
 
+    # Returns the reply.
     return jsonify({"response": trimmed})
 
+
+# Runs the App
 if __name__ == "__main__":
     app.run(debug=True)
