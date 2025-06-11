@@ -18,7 +18,11 @@ CORS(app)
 @app.route('/')
 def root():
     return app.send_static_file('index.html')
-    
+
+@app.route('/the-one-ring')
+def the_one_ring():
+    return app.send_static_file('The-One-Ring/index.html')
+
 # Load environment variables and OpenAI client
 load_dotenv()
 client = OpenAI()
