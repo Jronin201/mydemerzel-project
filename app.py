@@ -73,6 +73,34 @@ def chat():
     # Returns the reply.
     return jsonify({"response": trimmed})
 
+import base64
+from flask import send_file
+
+# Save uploaded base64 PDF to disk
+@app.route('/save-character', methods=['POST'])
+def save_character():
+    data = request.json
+    name = data.get('name')
+    pdf_data = data.get('pdfData')
+
+    if not name or not pdf_data:
+        return jsonify({'error': 'Missing name or pdfData'}), 400
+
+    filename = f"/mnt/data/{name.replace(' ', '_')}.pdf"
+    try:
+        with open(filename, "wb") as f:
+            f.write(base64.b64decode(pdf_data))
+        return jsonify({'message': f'Character sheet saved as {name}.'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Load saved PDF by name
+@app.route('/load-character/<name>', methods=['GET'])
+def load_character(name):
+    filename = f"/mnt/data/{name.replace(' ', '_')}.pdf"
+    if not os.path.exists(filename):
+        return jsonify({'error': 'Character not found'}), 404
+    return send_file(filename, mimetype='application/pdf')
 
 # Runs the App
 if __name__ == "__main__":
