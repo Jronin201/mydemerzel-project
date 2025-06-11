@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Choose Character Sheet – The One Ring</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 300px;
+      padding: 20px;
+      background-color: #1e1e1e;
+      border-right: 1px solid #333;
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .race-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      background-color: #2c2c2c;
+      border: 1px solid #444;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .race-button:hover {
+      background-color: #444;
+    }
+
+    .pdf-viewer {
+      flex: 1;
+      height: 100%;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Select Character Race</h2>
+    <button class="race-button" onclick="loadPDF('elf')">Elf</button>
+    <button class="race-button" onclick="loadPDF('dwarf')">Dwarf</button>
+    <button class="race-button" onclick="loadPDF('hobbit')">Hobbit</button>
+    <button class="race-button" onclick="loadPDF('men')">Man</button>
+  </div>
+
+  <div class="pdf-viewer" id="viewer">
+    <iframe id="pdfFrame" src=""></iframe>
+  </div>
+
+  <script>
+    function loadPDF(race) {
+      const path = `pdfs/${race}.pdf`;
+      document.getElementById("pdfFrame").src = path;
+      localStorage.setItem("selectedSheet", path);
+    }
+
+    // Load previously selected sheet if exists
+    window.onload = () => {
+      const last = localStorage.getItem("selectedSheet");
+      if (last) document.getElementById("pdfFrame").src = last;
+    }
+  </script>
+</body>
+</html>
