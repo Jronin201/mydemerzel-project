@@ -1,4 +1,4 @@
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask import Flask, request, jsonify, send_file
 import datetime
 import re
@@ -50,6 +50,7 @@ def summarize_messages(messages):
     return [{"role": "system", "content": f"SUMMARY OF EARLIER CHAT: {summary}"}]
 
 @app.route("/chat", methods=["POST"])
+@cross_origin()       # explicitly allow all origins
 def chat():
     global messages
     user_input = request.json.get("message", "").strip()
@@ -100,6 +101,7 @@ def normalize_filename(name):
 
 # NEW: Save character via fieldData and template
 @app.route('/save-character', methods=['POST'])
+@cross_origin()       # explicitly allow all origins
 def save_character():
     data = request.json
     name = data.get('name')
@@ -122,6 +124,7 @@ def save_character():
         return jsonify({'error': f'PDF generation failed: {str(e)}'}), 500
 
 @app.route('/load-character/<name>', methods=['GET'])
+@cross_origin()       # explicitly allow all origins
 def load_character(name):
     filename = f"/mnt/data/{normalize_filename(name)}.pdf"
     if not os.path.exists(filename):
