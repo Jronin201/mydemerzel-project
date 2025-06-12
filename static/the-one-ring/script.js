@@ -37,10 +37,13 @@ async function extractPdfFields() {
       const viewer = pdfFrame.contentWindow.PDFViewerApplication;
       const fields = {};
 
-      const annotations = viewer._annotationStorage._storage;
-      for (const [key, value] of Object.entries(annotations)) {
-        if (value && value.value !== undefined) {
-          fields[key] = value.value;
+      const annotationStorage = viewer?.pdfDocument?.annotationStorage;
+      const map = annotationStorage?.serializable?.map;
+      if (map) {
+        for (const [key, value] of map.entries()) {
+          if (value && value.value !== undefined) {
+            fields[key] = value.value;
+          }
         }
       }
 
