@@ -2,10 +2,9 @@ import json
 import os
 import subprocess
 
-os.makedirs('/mnt/data', exist_ok=True)
-
 
 def test_fill_pdf_accepts_prefixed_template():
+    os.makedirs('/mnt/data', exist_ok=True)
     json_path = '/mnt/data/tmp_fields.json'
     pdf_path = '/mnt/data/tmp.pdf'
     with open(json_path, 'w') as f:
