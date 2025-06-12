@@ -125,11 +125,24 @@ def save_character():
     try:
         with open(field_json_path, "w", encoding="utf-8") as f:
             json.dump(field_data, f)
+    except Exception as e:
+        return jsonify({'error': f'Failed to save field data: {str(e)}'}), 500
 
-        subprocess.run(["node", "fill_pdf.js", template, normalized], check=True)
-        return jsonify({'message': f"Character sheet saved as {normalized}."})
+    try:
+        result = subprocess.run(
+            ["node", "fill_pdf.js", template, normalized],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:
+            err = result.stderr.strip() or result.stdout.strip() or "Unknown error"
+            return jsonify({'error': f'PDF generation failed: {err}'}), 500
+    except FileNotFoundError:
+        return jsonify({'error': 'Node.js or fill_pdf.js not found'}), 500
     except Exception as e:
         return jsonify({'error': f'PDF generation failed: {str(e)}'}), 500
+
+    return jsonify({'message': f"Character sheet saved as {normalized}."})
 
 @app.route('/load-character/<name>', methods=['GET'])
 @cross_origin()       # explicitly allow all origins
