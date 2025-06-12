@@ -11,7 +11,11 @@ async function main() {
 
   // The template name is validated by the Flask application, so we simply
   // resolve it within the bundled pdfs directory.
-  const templatePath = path.join(__dirname, 'static', 'pdfjs', 'web', 'pdfs', template);
+  // Allow template to be passed either as "dwarf.pdf" or "pdfs/dwarf.pdf".
+  const templateName = template.startsWith('pdfs' + path.sep)
+    ? template.slice(5)
+    : template;
+  const templatePath = path.join(__dirname, 'static', 'pdfjs', 'web', 'pdfs', templateName);
   const dataPath = path.join('/mnt/data', `${name}_fields.json`);
   const outputPath = path.join('/mnt/data', `${name}.pdf`);
 
