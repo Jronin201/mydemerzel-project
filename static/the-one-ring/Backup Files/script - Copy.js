@@ -29,6 +29,12 @@ async function saveCharacterSheet(name) {
       body: JSON.stringify({ name, fieldData: formData })
     });
 
+    if (!res.ok) {
+      const text = await res.text();
+      appendMessage("System", `Error ${res.status}: ${text}` , "assistant");
+      return;
+    }
+
     const result = await res.json();
     appendMessage("System", result.message || result.error || "Unknown response.", "assistant");
   } catch (err) {
@@ -118,6 +124,12 @@ Available commands:
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: userMessage })
         });
+
+        if (!response.ok) {
+          const text = await response.text();
+          appendMessage("Error", `Server error ${response.status}: ${text}` , "assistant");
+          return;
+        }
 
         const data = await response.json();
         appendMessage("Demerzel", data.response, "assistant");
