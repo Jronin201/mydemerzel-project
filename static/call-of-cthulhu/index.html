@@ -105,6 +105,12 @@
             body: JSON.stringify({ message: userMessage })
           });
 
+          if (!response.ok) {
+            const text = await response.text();
+            appendMessage("Error", `Server error ${response.status}: ${text}` , "assistant");
+            return;
+          }
+
           const data = await response.json();
           appendMessage("Demerzel", data.response, "assistant");
         } catch (error) {
