@@ -2,8 +2,10 @@ const messages = document.getElementById("messages");
 const input = document.getElementById("userInput");
 const pdfFrame = document.getElementById("pdfFrame");
 
-// Path to the PDF.js viewer relative to this script/index.html file
-const PDF_VIEWER_PATH = "../../pdfjs/web/viewer.html";
+// Path to the PDF.js viewer. Using an absolute path ensures the viewer and
+// referenced PDF files are correctly resolved regardless of the current page
+// location.
+const PDF_VIEWER_PATH = "/static/pdfjs/web/viewer.html";
 
 // Store currently used template (race PDF), to pass to backend on save
 let currentTemplatePdfPath = null;
