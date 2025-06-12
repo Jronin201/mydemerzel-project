@@ -113,7 +113,9 @@ def save_character():
         return jsonify({'error': 'Missing name, template, or fieldData'}), 400
 
     normalized = normalize_filename(name)
-    field_json_path = f"/mnt/data/{normalized}_fields.json"
+    data_dir = "/mnt/data"
+    os.makedirs(data_dir, exist_ok=True)
+    field_json_path = os.path.join(data_dir, f"{normalized}_fields.json")
 
     try:
         with open(field_json_path, "w", encoding="utf-8") as f:
