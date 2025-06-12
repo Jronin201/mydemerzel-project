@@ -63,7 +63,7 @@ async function saveCharacterSheet(name) {
 
     const fields = await extractPdfFields();
 
-    const res = await fetch("https://mydemerzel.onrender.com/save-character", {
+    const res = await fetch("/save-character", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -85,7 +85,7 @@ async function loadCharacterSheet(name) {
   const safeName = normalizeName(name);
   try {
     // Use the direct endpoint; PDF.js can fetch directly.
-    const pdfUrl = `https://mydemerzel.onrender.com/load-character/${safeName}`;
+    const pdfUrl = `/load-character/${safeName}`;
     pdfFrame.src = `${PDF_VIEWER_PATH}?file=${encodeURIComponent(pdfUrl)}`;
     appendMessage("System", `Character sheet '${name}' loaded successfully.`, "assistant");
     // Optionally, clear currentTemplatePdfPath here because we loaded a saved character
@@ -158,7 +158,7 @@ Available commands:
 
     if (!systemResponded) {
       try {
-        const response = await fetch("https://mydemerzel.onrender.com/chat", {
+        const response = await fetch("/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: userMessage })

@@ -23,7 +23,7 @@ async function saveCharacterSheet(name) {
       formData[key] = val;
     }
 
-    const res = await fetch("https://mydemerzel.onrender.com/save-character", {
+    const res = await fetch("/save-character", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, fieldData: formData })
@@ -40,7 +40,7 @@ async function saveCharacterSheet(name) {
 async function loadCharacterSheet(name) {
   const safeName = name.toLowerCase().trim().replace(/\s+/g, "_");
   try {
-    const response = await fetch(`https://mydemerzel.onrender.com/load-character/${safeName}`);
+    const response = await fetch(`/load-character/${safeName}`);
     if (!response.ok) {
       appendMessage("System", "Character not found.", "assistant");
       return;
@@ -113,7 +113,7 @@ Available commands:
 
     if (!systemResponded) {
       try {
-        const response = await fetch("https://mydemerzel.onrender.com/chat", {
+        const response = await fetch("/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: userMessage })
