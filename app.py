@@ -1,4 +1,4 @@
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask import Flask, request, jsonify, send_file
 import datetime
 import re
@@ -50,6 +50,7 @@ def summarize_messages(messages):
     return [{"role": "system", "content": f"SUMMARY OF EARLIER CHAT: {summary}"}]
 
 @app.route("/chat", methods=["POST"])
+@cross_origin()
 def chat():
     global messages
     user_input = request.json.get("message", "").strip()
