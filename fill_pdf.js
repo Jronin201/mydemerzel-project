@@ -9,7 +9,9 @@ async function main() {
     process.exit(1);
   }
 
-  const templatePath = path.join(__dirname, 'static', 'pdfjs', 'web', template);
+  // The template name is validated by the Flask application, so we simply
+  // resolve it within the bundled pdfs directory.
+  const templatePath = path.join(__dirname, 'static', 'pdfjs', 'web', 'pdfs', template);
   const dataPath = path.join('/mnt/data', `${name}_fields.json`);
   const outputPath = path.join('/mnt/data', `${name}.pdf`);
 
