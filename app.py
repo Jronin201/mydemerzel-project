@@ -13,7 +13,8 @@ from message_history import load_messages_from_file, save_messages_to_file
 from chapter_log import append_chapter_entry
 
 app = Flask(__name__, static_folder='static')
-CORS(app)
+# Explicitly allow cross-origin requests from any domain to fix frontend CORS errors
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/')
 def root():
