@@ -60,6 +60,15 @@ with open("system_prompt.txt", "r", encoding="utf-8") as f:
 TOKEN_THRESHOLD = 150
 messages = load_messages_from_file()
 
+# Allowable PDF templates that can be filled. These are relative to
+# static/pdfjs/web and are validated before invoking the Node script.
+ALLOWED_TEMPLATES = {
+    "pdfs/dwarf.pdf",
+    "pdfs/elf.pdf",
+    "pdfs/hobbit.pdf",
+    "pdfs/men.pdf",
+}
+
 def summarize_messages(messages):
     to_summarize = [m for m in messages if m["role"] in ["user", "assistant"]][-12:]
     summary_prompt = [{"role": "system", "content": "Summarize the following RPG conversation so far in a concise but detailed paragraph. Focus on world events, decisions made, and NPC interactions. Be specific."}] + to_summarize
@@ -133,6 +142,12 @@ def save_character():
 
     if not name or not template or not field_data:
         return jsonify({'error': 'Missing name, template, or fieldData'}), 400
+
+    template = template.strip()
+    if ".." in template or template.startswith(('/', '\\')):
+        return jsonify({'error': 'Invalid template path'}), 400
+    if template not in ALLOWED_TEMPLATES:
+        return jsonify({'error': 'Template not allowed'}), 400
 
     normalized = normalize_filename(name)
     data_dir = "/mnt/data"
