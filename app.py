@@ -23,6 +23,14 @@ def root():
 def the_one_ring():
     return app.send_static_file('the-one-ring/index.html')
 
+@app.route('/call-of-cthulhu')
+def call_of_cthulhu():
+    return app.send_static_file('call-of-cthulhu/index.html')
+
+@app.route('/master-template')
+def master_template():
+    return app.send_static_file('master-template/index.html')
+
 # Load environment variables and OpenAI client
 load_dotenv()
 client = OpenAI()
