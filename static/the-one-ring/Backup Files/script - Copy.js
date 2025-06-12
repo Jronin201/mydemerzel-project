@@ -62,7 +62,7 @@ function interpretCommand(text) {
   if (lowered.includes("show") && lowered.includes("elf")) return "pdfs/elf.pdf";
   if (lowered.includes("show") && lowered.includes("dwarf")) return "pdfs/dwarf.pdf";
   if (lowered.includes("show") && lowered.includes("hobbit")) return "pdfs/hobbit.pdf";
-  if (lowered.includes("show") && (lowered.includes("man") || lowered.includes("men"))) return "pdfs/men.pdf";
+  if (lowered.includes("show") && (lowered.includes("man") || lowered.includes("men"))) return "pdfs/man.pdf";
   if (lowered.includes("remove") || lowered.includes("hide")) return "remove";
   return null;
 }
