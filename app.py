@@ -54,7 +54,10 @@ def summarize_messages(messages):
 @cross_origin()       # explicitly allow all origins
 def chat():
     global messages
-    user_input = request.json.get("message", "").strip()
+    data = request.get_json(silent=True)
+    if data is None:
+        return jsonify({"error": "Invalid JSON payload"}), 400
+    user_input = data.get("message", "").strip()
 
     if not user_input:
         return jsonify({"error": "Empty input"}), 400
@@ -104,7 +107,9 @@ def normalize_filename(name):
 @app.route('/save-character', methods=['POST'])
 @cross_origin()       # explicitly allow all origins
 def save_character():
-    data = request.json
+    data = request.get_json(silent=True)
+    if data is None:
+        return jsonify({'error': 'Invalid JSON payload'}), 400
     name = data.get('name')
     template = data.get('template')
     field_data = data.get('fieldData')
