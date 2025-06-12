@@ -14,6 +14,9 @@ Install the Node dependency by running:
 npm install pdf-lib
 ```
 
+The `/save-character` feature relies on this package. Be sure to run the above
+command before trying to save a character or the PDF generation will fail.
+
 ## Running
 
 1. Ensure the `node` command is available and the `pdf-lib` package is installed as shown above.

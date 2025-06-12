@@ -16,6 +16,23 @@ app = Flask(__name__, static_folder='static')
 # Explicitly allow cross-origin requests from any domain to fix frontend CORS errors
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+# Startup check for the pdf-lib dependency used by fill_pdf.js
+def check_pdf_lib():
+    """Log a helpful message if the pdf-lib npm package is missing."""
+    try:
+        result = subprocess.run(["node", "-e", "require('pdf-lib')"], capture_output=True, text=True)
+        if result.returncode != 0:
+            app.logger.error(
+                "The 'pdf-lib' npm package is required for the save character feature. "
+                "Run 'npm install pdf-lib' as described in README.md."
+            )
+    except FileNotFoundError:
+        app.logger.error(
+            "Node.js is required to use the save character feature but was not found."
+        )
+
+check_pdf_lib()
+
 @app.route('/')
 def root():
     return app.send_static_file('index.html')
