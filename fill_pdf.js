@@ -47,6 +47,7 @@ async function main() {
 
     form.flatten();
     const outBytes = await pdfDoc.save();
+    fs.mkdirSync('/mnt/data', { recursive: true });
     fs.writeFileSync(outputPath, outBytes);
   } catch (err) {
     console.error(err.message || err);
