@@ -2,6 +2,7 @@ import os
 import json
 import datetime
 
+
 def save_messages_to_file(messages, filename="chat_history.json"):
     # Inject timestamp into any message that doesn't already have one
     for message in messages:
