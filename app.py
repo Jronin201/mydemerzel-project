@@ -1,11 +1,9 @@
 from flask_cors import CORS, cross_origin
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify
 import datetime
 import re
 import os
-import base64
 import json
-import subprocess
 from dotenv import load_dotenv
 from openai import OpenAI
 from token_counter import count_tokens
@@ -16,22 +14,6 @@ app = Flask(__name__, static_folder='static')
 # Explicitly allow cross-origin requests from any domain to fix frontend CORS errors
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Startup check for the pdf-lib dependency used by fill_pdf.js
-def check_pdf_lib():
-    """Log a helpful message if the pdf-lib npm package is missing."""
-    try:
-        result = subprocess.run(["node", "-e", "require('pdf-lib')"], capture_output=True, text=True)
-        if result.returncode != 0:
-            app.logger.error(
-                "The 'pdf-lib' npm package is required for the save character feature. "
-                "Run 'npm install pdf-lib' as described in README.md."
-            )
-    except FileNotFoundError:
-        app.logger.error(
-            "Node.js is required to use the save character feature but was not found."
-        )
-
-check_pdf_lib()
 
 @app.route('/')
 def root():
@@ -60,14 +42,6 @@ with open("system_prompt.txt", "r", encoding="utf-8") as f:
 TOKEN_THRESHOLD = 150
 messages = load_messages_from_file()
 
-# Allowable PDF templates that can be filled. These are relative to
-# static/pdfjs/web and are validated before invoking the Node script.
-ALLOWED_TEMPLATES = {
-    "pdfs/dwarf.pdf",
-    "pdfs/elf.pdf",
-    "pdfs/hobbit.pdf",
-    "pdfs/men.pdf",
-}
 
 def summarize_messages(messages):
     to_summarize = [m for m in messages if m["role"] in ["user", "assistant"]][-12:]
@@ -92,14 +66,7 @@ def chat():
     messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
 
     if user_input == "?":
-        help_text = (
-            "**Available Commands:**\n"
-            "- `save [name]` – Saves the current character sheet to the server\n"
-            "- `load [name]` – Loads the specified character sheet\n"
-            "- `show [elf|dwarf|hobbit|man]` – Displays one of the sample character sheets\n"
-            "- `hide` or `remove` – Hides the currently displayed sheet\n"
-            "- `?` – Show this help menu\n"
-        )
+        help_text = "**Available Commands:**\n- `?` – Show this help menu"
         messages.append({"role": "assistant", "content": help_text, "timestamp": timestamp})
         save_messages_to_file(messages)
         return jsonify({"response": help_text})
@@ -123,66 +90,6 @@ def chat():
     save_messages_to_file(messages)
 
     return jsonify({"response": trimmed})
-
-def normalize_filename(name):
-    name = name.lower().strip().rstrip(".")
-    name = re.sub(r"[^\w\s-]", "", name)
-    return name.replace(" ", "_")
-
-# NEW: Save character via fieldData and template
-@app.route('/save-character', methods=['POST'])
-@cross_origin()       # explicitly allow all origins
-def save_character():
-    data = request.get_json(silent=True)
-    if data is None:
-        return jsonify({'error': 'Invalid JSON payload'}), 400
-    name = data.get('name')
-    template = data.get('template')
-    field_data = data.get('fieldData')
-
-    if not name or not template or not field_data:
-        return jsonify({'error': 'Missing name, template, or fieldData'}), 400
-
-    template = template.strip()
-    if ".." in template or template.startswith(('/', '\\')):
-        return jsonify({'error': 'Invalid template path'}), 400
-    if template not in ALLOWED_TEMPLATES:
-        return jsonify({'error': 'Template not allowed'}), 400
-
-    normalized = normalize_filename(name)
-    data_dir = "/mnt/data"
-    os.makedirs(data_dir, exist_ok=True)
-    field_json_path = os.path.join(data_dir, f"{normalized}_fields.json")
-
-    try:
-        with open(field_json_path, "w", encoding="utf-8") as f:
-            json.dump(field_data, f)
-    except Exception as e:
-        return jsonify({'error': f'Failed to save field data: {str(e)}'}), 500
-
-    try:
-        result = subprocess.run(
-            ["node", "fill_pdf.js", template, normalized],
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode != 0:
-            err = result.stderr.strip() or result.stdout.strip() or "Unknown error"
-            return jsonify({'error': f'PDF generation failed: {err}'}), 500
-    except FileNotFoundError:
-        return jsonify({'error': 'Node.js or fill_pdf.js not found'}), 500
-    except Exception as e:
-        return jsonify({'error': f'PDF generation failed: {str(e)}'}), 500
-
-    return jsonify({'message': f"Character sheet saved as {normalized}."})
-
-@app.route('/load-character/<name>', methods=['GET'])
-@cross_origin()       # explicitly allow all origins
-def load_character(name):
-    filename = f"/mnt/data/{normalize_filename(name)}.pdf"
-    if not os.path.exists(filename):
-        return jsonify({'error': 'Character not found'}), 404
-    return send_file(filename, mimetype='application/pdf')
 
 if __name__ == "__main__":
     app.run(debug=True)
