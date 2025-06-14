@@ -2,8 +2,9 @@
 *
 
 # Only allow this folder
-!the-one-ring/
-!the-one-ring/**
+!static/
+!static/the-one-ring/
+!static/the-one-ring/**
 
 # Common bloat/exclusions
 node_modules/
