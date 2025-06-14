@@ -1,0 +1,4 @@
+*
+!static/
+!static/the-one-ring/
+!static/the-one-ring/**
