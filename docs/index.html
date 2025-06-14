@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The One Ring</title>
+
+  <!-- Link to Figma Exported Styles -->
+  <link href="css/main.css" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+    }
+
+    /* Left Panel: Figma layout */
+    .left-panel {
+      flex: 1;
+      overflow-y: auto;
+      background-color: #111;
+      padding: 20px;
+    }
+
+    /* Right Panel: Chatbot */
+    .right-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #f8f8f8;
+      border-bottom: 1px solid #444;
+      padding-bottom: 10px;
+    }
+
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: #2c2c2c;
+    }
+
+    .message {
+      margin-bottom: 12px;
+    }
+
+    .user {
+      color: #00bcd4;
+    }
+
+    .assistant {
+      color: #cddc39;
+    }
+
+    #userInput {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      background-color: #333;
+      color: #f0f0f0;
+    }
+
+    #userInput:focus {
+      outline: none;
+      border-color: #888;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- LEFT PANEL: Figma Layout -->
+  <div class="left-panel">
+    <div class="v3_19">
+      <div class="v5_6"></div><input class="v9_90 invisible-input" type="text" /><input class="v9_92 invisible-input" type="text" /><input class="v9_88 invisible-input" type="text" />
+      <input class="v9_86 invisible-input" type="text" /><input class="v9_84 invisible-input" type="text" /><input class="v9_82 invisible-input" type="text" /><input class="v9_80 invisible-input" type="text" />
+      <input class="v9_78 invisible-input" type="text" /><input class="v9_76 invisible-input" type="text" /><input class="v9_74 invisible-input" type="text" /><input class="v9_72 invisible-input" type="text" />
+      <input class="v9_70 invisible-input" type="text" /><input class="v9_68 invisible-input" type="text" /><input class="v9_66 invisible-input" type="text" /><input class="v9_64 invisible-input" type="text" />
+      <input class="v9_62 invisible-input" type="text" /><input class="v9_58 invisible-input" type="text" /><input class="v9_59 invisible-input" type="text" /><input class="v9_60 invisible-input" type="text" />
+      <input class="v9_54 invisible-input" type="text" /><input class="v9_55 invisible-input" type="text" /><input class="v9_56 invisible-input" type="text" /><input class="v9_52 invisible-input" type="text" />
+      <input class="v9_50 invisible-input" type="text" /><input class="v9_48 invisible-input" type="text" /><input class="v9_18 invisible-input" type="text" /><input class="v7_220 invisible-input" type="text" />
+      <input class="v7_221 invisible-input" type="text" /><input class="v7_222 invisible-input" type="text" /><input class="v7_223 invisible-input" type="text" /><input class="v7_224 invisible-input" type="text" />
+      <input class="v7_225 invisible-input" type="text" /><input class="v7_206 invisible-input" type="text" /><input class="v7_207 invisible-input" type="text" /><input class="v7_208 invisible-input" type="text" />
+      <input class="v7_209 invisible-input" type="text" /><input class="v7_210 invisible-input" type="text" /><input class="v7_211 invisible-input" type="text" /><input class="v7_199 invisible-input" type="text" />
+      <input class="v7_200 invisible-input" type="text" /><input class="v7_201 invisible-input" type="text" /><input class="v7_202 invisible-input" type="text" /><input class="v7_203 invisible-input" type="text" />
+      <input class="v7_204 invisible-input" type="text" /><input class="v7_192 invisible-input" type="text" /><input class="v7_193 invisible-input" type="text" /><input class="v7_194 invisible-input" type="text" />
+      <input class="v7_195 invisible-input" type="text" /><input class="v7_196 invisible-input" type="text" /><input class="v7_197 invisible-input" type="text" /><input class="v7_185 invisible-input" type="text" />
+      <input class="v7_186 invisible-input" type="text" /><input class="v7_187 invisible-input" type="text" /><input class="v7_188 invisible-input" type="text" /><input class="v7_189 invisible-input" type="text" />
+      <input class="v7_190 invisible-input" type="text" /><input class="v7_171 invisible-input" type="text" /><input class="v7_172 invisible-input" type="text" /><input class="v7_173 invisible-input" type="text" />
+      <input class="v7_174 invisible-input" type="text" /><input class="v7_175 invisible-input" type="text" /><input class="v7_176 invisible-input" type="text" /><input class="v7_164 invisible-input" type="text" />
+      <input class="v7_165 invisible-input" type="text" /><input class="v7_166 invisible-input" type="text" /><input class="v7_167 invisible-input" type="text" /><input class="v7_168 invisible-input" type="text" />
+      <input class="v7_169 invisible-input" type="text" /><input class="v7_157 invisible-input" type="text" /><input class="v7_158 invisible-input" type="text" /><input class="v7_159 invisible-input" type="text" />
+      <input class="v7_160 invisible-input" type="text" /><input class="v7_161 invisible-input" type="text" /><input class="v7_162 invisible-input" type="text" /><input class="v7_150 invisible-input" type="text" />
+      <input class="v7_151 invisible-input" type="text" /><input class="v7_152 invisible-input" type="text" /><input class="v7_153 invisible-input" type="text" /><input class="v7_154 invisible-input" type="text" />
+      <input class="v7_155 invisible-input" type="text" /><input class="v7_143 invisible-input" type="text" /><input class="v7_144 invisible-input" type="text" /><input class="v7_145 invisible-input" type="text" />
+      <input class="v7_146 invisible-input" type="text" /><input class="v7_147 invisible-input" type="text" /><input class="v7_148 invisible-input" type="text" /><input class="v6_54 invisible-input" type="text" />
+      <input class="v6_52 invisible-input" type="text" /><input class="v6_39 invisible-input" type="text" /><input class="v6_27 invisible-input" type="text" /><input class="v6_28 invisible-input" type="text" />
+      <input class="v6_29 invisible-input" type="text" /><div class="v5_3"></div><input class="v6_8 invisible-input" type="text" /><input class="v6_9 invisible-input" type="text" />
+      <input class="v6_14 invisible-input" type="text" /><div class="v6_37"></div><input class="v9_94 invisible-input" type="text" /><input class="v6_42 invisible-input" type="text" />
+      <input class="v6_56 invisible-input" type="text" /><input class="v6_68 invisible-input" type="text" /><input class="v6_70 invisible-input" type="text" /><input class="v6_72 invisible-input" type="text" />
+      <input class="v6_74 invisible-input" type="text" /><input class="v6_76 invisible-input" type="text" /><input class="v6_78 invisible-input" type="text" /><input class="v7_122 invisible-input" type="text" />
+      <input class="v7_123 invisible-input" type="text" /><input class="v7_124 invisible-input" type="text" /><input class="v7_125 invisible-input" type="text" /><input class="v7_126 invisible-input" type="text" />
+      <input class="v7_127 invisible-input" type="text" /><input class="v6_80 invisible-input" type="text" /><input class="v6_81 invisible-input" type="text" /><input class="v6_82 invisible-input" type="text" />
+      <input class="v6_83 invisible-input" type="text" /><input class="v6_84 invisible-input" type="text" /><input class="v6_85 invisible-input" type="text" /><input class="v7_87 invisible-input" type="text" />
+      <input class="v7_88 invisible-input" type="text" /><input class="v7_89 invisible-input" type="text" /><input class="v7_90 invisible-input" type="text" /><input class="v7_91 invisible-input" type="text" />
+      <input class="v7_92 invisible-input" type="text" /><input class="v7_94 invisible-input" type="text" /><input class="v7_95 invisible-input" type="text" /><input class="v7_96 invisible-input" type="text" />
+      <input class="v7_97 invisible-input" type="text" /><input class="v7_98 invisible-input" type="text" /><input class="v7_99 invisible-input" type="text" /><input class="v7_101 invisible-input" type="text" />
+      <input class="v7_102 invisible-input" type="text" /><input class="v7_103 invisible-input" type="text" /><input class="v7_104 invisible-input" type="text" /><input class="v7_105 invisible-input" type="text" />
+      <input class="v7_106 invisible-input" type="text" /><input class="v7_213 invisible-input" type="text" /><input class="v7_214 invisible-input" type="text" /><input class="v7_215 invisible-input" type="text" />
+      <input class="v7_216 invisible-input" type="text" /><input class="v7_217 invisible-input" type="text" /><input class="v7_218 invisible-input" type="text" /><input class="v7_108 invisible-input" type="text" />
+      <input class="v7_109 invisible-input" type="text" /><input class="v7_110 invisible-input" type="text" /><input class="v7_111 invisible-input" type="text" /><input class="v7_112 invisible-input" type="text" />
+      <input class="v7_113 invisible-input" type="text" /><input class="v7_227 invisible-input" type="text" /><input class="v7_228 invisible-input" type="text" /><input class="v7_229 invisible-input" type="text" />
+      <input class="v7_230 invisible-input" type="text" /><input class="v7_231 invisible-input" type="text" /><input class="v7_232 invisible-input" type="text" /><input class="v7_234 invisible-input" type="text" />
+      <input class="v7_235 invisible-input" type="text" /><input class="v7_236 invisible-input" type="text" /><input class="v7_237 invisible-input" type="text" /><input class="v7_238 invisible-input" type="text" />
+      <input class="v7_239 invisible-input" type="text" /><input class="v9_2 invisible-input" type="text" /><input class="v9_3 invisible-input" type="text" /><input class="v9_4 invisible-input" type="text" />
+      <input class="v9_5 invisible-input" type="text" /><input class="v9_6 invisible-input" type="text" /><input class="v9_7 invisible-input" type="text" /><input class="v9_9 invisible-input" type="text" />
+      <input class="v9_10 invisible-input" type="text" /><input class="v9_11 invisible-input" type="text" /><input class="v9_12 invisible-input" type="text" /><input class="v9_13 invisible-input" type="text" />
+      <input class="v9_14 invisible-input" type="text" /><input class="v9_16 invisible-input" type="text" /><input class="v6_58 invisible-input" type="text" /><input class="v6_60 invisible-input" type="text" />
+      <input class="v6_62 invisible-input" type="text" /><input class="v6_64 invisible-input" type="text" /><input class="v6_66 invisible-input" type="text" /><input class="v7_115 invisible-input" type="text" />
+      <input class="v7_116 invisible-input" type="text" /><input class="v7_117 invisible-input" type="text" /><input class="v7_118 invisible-input" type="text" /><input class="v7_119 invisible-input" type="text" />
+      <input class="v7_120 invisible-input" type="text" /><input class="v7_178 invisible-input" type="text" /><input class="v7_179 invisible-input" type="text" /><input class="v7_180 invisible-input" type="text" />
+      <input class="v7_181 invisible-input" type="text" /><input class="v7_182 invisible-input" type="text" /><input class="v7_183 invisible-input" type="text" /><input class="v6_44 invisible-input" type="text" />
+      <input class="v6_48 invisible-input" type="text" /><input class="v6_46 invisible-input" type="text" /><input class="v6_50 invisible-input" type="text" /><input class="v6_33 invisible-input" type="text" />
+      <input class="v6_25 invisible-input" type="text" /><input class="v6_10 invisible-input" type="text" /><input class="v6_16 invisible-input" type="text" /><input class="v6_18 invisible-input" type="text" />
+      <input class="v6_12 invisible-input" type="text" /><input class="v9_20 invisible-input" type="text" /><input class="v9_28 invisible-input" type="text" /><input class="v9_22 invisible-input" type="text" />
+      <input class="v9_24 invisible-input" type="text" /><input class="v9_26 invisible-input" type="text" /><input class="v9_30 invisible-input" type="text" /><input class="v9_31 invisible-input" type="text" />
+      <input class="v9_32 invisible-input" type="text" /><input class="v9_33 invisible-input" type="text" /><input class="v9_34 invisible-input" type="text" /><input class="v9_36 invisible-input" type="text" />
+      <input class="v9_37 invisible-input" type="text" /><input class="v9_38 invisible-input" type="text" /><input class="v9_39 invisible-input" type="text" /><input class="v9_40 invisible-input" type="text" />
+      <input class="v9_42 invisible-input" type="text" /><input class="v9_43 invisible-input" type="text" /><input class="v9_44 invisible-input" type="text" /><input class="v9_45 invisible-input" type="text" />
+      <input class="v9_46 invisible-input" type="text" /><input class="v12_109 invisible-input" type="text" />
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL: Chatbot -->
+  <div class="right-panel">
+    <h1>The One Ring</h1>
+    <div id="messages"></div>
+    <input id="userInput" type="text" placeholder="Say something..." />
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
