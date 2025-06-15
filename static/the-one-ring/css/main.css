@@ -2026,7 +2026,7 @@ body {
 }
 .invisible-input {
   background-color: transparent;
-  border: 1px solid #fff;
+  border: 1px solid #000;
   outline: none;
   color: black;
   font-size: 14px;
@@ -2051,7 +2051,7 @@ body {
 
 /* Add white borders to all rectangles that don't use background images */
 div[class^="v"]:not(.v5_3):not(.v5_6):not(.v12_109) {
-  border: 1px solid #fff;
+  border: 1px solid #000;
 }
 
 /* Hide decorative background images */
