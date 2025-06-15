@@ -13,18 +13,18 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #1e1e1e;
       color: #f0f0f0;
-      height: 100vh;
-      display: flex;
-      flex-direction: row;
     }
 
-
-
-    /* Right Panel: Chatbot */
-    .right-panel {
-      flex: 1;
+    .container {
       display: flex;
       flex-direction: column;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 50%;
+      margin-left: 100px; /* 100px to the right of center */
+      width: calc(50% - 100px);
       padding: 20px;
       box-sizing: border-box;
     }
@@ -79,7 +79,7 @@
 </head>
 
 <body>
-  <div class="right-panel">
+  <div class="container">
     <h1>The One Ring</h1>
     <div id="messages"></div>
     <input id="userInput" type="text" placeholder="Say something..." />
