@@ -1,6 +1,17 @@
 const messages = document.getElementById("messages");
 const input = document.getElementById("userInput");
 
+// Prevent Tab from shifting focus between Figma inputs so their positions stay fixed
+document.querySelectorAll(".invisible-input").forEach((el) => {
+  // Remove Figma inputs from the normal tab order
+  el.tabIndex = -1;
+  el.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+      e.preventDefault();
+    }
+  });
+});
+
 function appendMessage(sender, text, className) {
   const msg = document.createElement("div");
   msg.classList.add("message", className);

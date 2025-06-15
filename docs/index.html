@@ -25,7 +25,10 @@
       flex: 1;
       overflow-y: auto;
       background-color: #111;
-      padding: 20px;
+      /* Ensure absolutely positioned elements inside follow the coordinates
+         defined in main.css by making this container the positioning context */
+      position: relative;
+      padding: 0;
     }
 
     /* Right Panel: Chatbot */
