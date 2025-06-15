@@ -2035,3 +2035,22 @@ body {
   font-size: inherit;
   font-family: inherit;
 }
+
+/* Ensure background images don't block input interaction */
+.v5_3,
+.v5_6,
+.v12_109 {
+  z-index: 1;
+}
+
+/* Add white borders to all rectangles that don't use background images */
+div[class^="v"]:not(.v5_3):not(.v5_6):not(.v12_109) {
+  border: 1px solid #000;
+}
+
+/* Hide decorative background images */
+.v5_3,
+.v5_6,
+.v12_109 {
+  opacity: 0;
+}
