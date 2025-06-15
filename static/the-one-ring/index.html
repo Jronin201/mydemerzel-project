@@ -11,8 +11,9 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       height: 100vh;
+      align-items: stretch;
     }
 
     #chat-container {
@@ -20,8 +21,21 @@
       display: flex;
       flex-direction: column;
       max-width: 800px;
-      margin: 0 auto;
+      margin-left: auto;
       padding: 1em;
+    }
+
+    #image-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1em;
+    }
+
+    #image-container img {
+      max-width: 100%;
+      height: auto;
     }
 
     #messages {
@@ -63,6 +77,9 @@
   </style>
 </head>
 <body>
+  <div id="image-container">
+    <img src="images/v25_3.png" alt="The One Ring" />
+  </div>
   <div id="chat-container">
     <h1>Demerzel</h1>
     <div id="messages"></div>
