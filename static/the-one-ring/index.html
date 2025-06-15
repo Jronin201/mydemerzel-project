@@ -21,7 +21,9 @@
 
     /* Left Panel: Figma layout */
     .left-panel {
-      flex: 1;
+       /* Fixed width so the right edge ends 60px left of center */
+      flex: 0 0 calc(50% - 60px);
+      width: calc(50% - 60px);
       overflow-y: auto;
       background-color: #111;
       /* Ensure absolutely positioned elements inside follow the coordinates
