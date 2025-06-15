@@ -20,7 +20,7 @@ body {
   background: url("../images/v25_3.png");
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
+  background-size: left top;
   opacity: 1;
   position: relative;
   top: 0px;
