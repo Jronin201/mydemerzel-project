@@ -2036,4 +2036,15 @@ body {
   padding: 0;
   margin: 0;
   text-align: center;
+  position: absolute;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Ensure background images don't block input interaction */
+.v5_3,
+.v5_6,
+.v6_37,
+.v12_109 {
+  z-index: 1;
 }
