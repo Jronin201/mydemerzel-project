@@ -108,7 +108,27 @@ def chat():
 
     # Add The One Ring reference text if user is on that page
     if page == "the-one-ring" and the_one_ring_texts:
-        reference = "\n\n".join(the_one_ring_texts.values())
+        parts = []
+        total = 0
+        trimmed = False
+        for name in sorted(the_one_ring_texts):
+            text = the_one_ring_texts[name]
+            if total >= 5000:
+                trimmed = True
+                break
+            remaining = 5000 - total
+            if len(text) > remaining:
+                parts.append(text[:remaining])
+                total += remaining
+                trimmed = True
+                break
+            parts.append(text)
+            total += len(text)
+
+        if trimmed:
+            print("Warning: Trimming The One Ring reference text due to size limit")
+
+        reference = "\n\n".join(parts)
         full_messages.append(
             {
                 "role": "system",
