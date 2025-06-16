@@ -1,6 +1,12 @@
 import types
+import base64
 from unittest.mock import patch
 from app import app
+
+AUTH_HEADER = {
+    "Authorization": "Basic "
+    + base64.b64encode(b"Demerzel:Seraphine").decode("utf-8")
+}
 
 
 def fake_openai_response(content="Hello from OpenAI"):
@@ -11,7 +17,7 @@ def fake_openai_response(content="Hello from OpenAI"):
 
 def test_root_page():
     with app.test_client() as client:
-        resp = client.get("/")
+        resp = client.get("/", headers=AUTH_HEADER)
         assert resp.status_code == 200
         assert b"Demerzel" in resp.data
 
@@ -20,7 +26,7 @@ def test_static_pages():
     paths = ["/the-one-ring", "/call-of-cthulhu", "/master-template"]
     with app.test_client() as client:
         for path in paths:
-            resp = client.get(path)
+            resp = client.get(path, headers=AUTH_HEADER)
             assert resp.status_code == 200
 
 
