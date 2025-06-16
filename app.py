@@ -206,7 +206,7 @@ def chat():
             print("Embedding search failed:", e)
 
     response = client.chat.completions.create(
-        model="gpt-4o", messages=full_messages, max_tokens=2000
+        model="gpt-4o", messages=full_messages, max_tokens=4096
     )
     trimmed = response.choices[0].message.content.strip()
     messages.append({"role": "assistant", "content": trimmed, "timestamp": timestamp})
