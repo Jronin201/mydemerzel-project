@@ -1,6 +1,7 @@
 from flask_cors import CORS, cross_origin
 from flask import Flask, jsonify, request
 import datetime
+import os
 from dotenv import load_dotenv
 from openai import OpenAI
 from token_counter import count_tokens
@@ -42,6 +43,15 @@ with open("system_prompt.txt", "r", encoding="utf-8") as f:
 TOKEN_THRESHOLD = 150
 messages = load_messages_from_file()
 
+# Preload reference texts for The One Ring on startup
+the_one_ring_texts = {}
+tor_dir = os.path.join(app.static_folder, "text", "the-one-ring")
+if os.path.isdir(tor_dir):
+    for fname in os.listdir(tor_dir):
+        if fname.endswith(".txt"):
+            with open(os.path.join(tor_dir, fname), "r", encoding="utf-8") as f:
+                the_one_ring_texts[fname] = f.read()
+
 
 def summarize_messages(messages):
     to_summarize = [m for m in messages if m["role"] in ["user", "assistant"]][-12:]
@@ -67,6 +77,12 @@ def chat():
         return jsonify({"error": "Invalid JSON payload"}), 400
     user_input = data.get("message", "").strip()
 
+    page = data.get("page") or ""
+    if not page:
+        ref = request.headers.get("Referer", "")
+        if "the-one-ring" in ref:
+            page = "the-one-ring"
+
     if not user_input:
         return jsonify({"error": "Empty input"}), 400
 
@@ -89,6 +105,19 @@ def chat():
         recent = [m for m in messages if m["role"] in ["user", "assistant"]][-12:]
         full_messages = [summary_message] + recent
         messages = [summary_message] + recent
+
+    # Add The One Ring reference text if user is on that page
+    if page == "the-one-ring" and the_one_ring_texts:
+        reference = "\n\n".join(the_one_ring_texts.values())
+        full_messages.append(
+            {
+                "role": "system",
+                "content": (
+                    "The following text from 'The One Ring' is provided for your reference. "
+                    "Do not reveal or quote it unless the user asks explicitly:\n" + reference
+                ),
+            }
+        )
 
     response = client.chat.completions.create(
         model="gpt-3.5-turbo", messages=full_messages, max_tokens=100
