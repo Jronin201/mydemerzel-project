@@ -1,5 +1,6 @@
 from flask_cors import CORS, cross_origin
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
+from functools import wraps
 import datetime
 import os
 from dotenv import load_dotenv
@@ -16,22 +17,52 @@ app = Flask(__name__, static_folder="static")
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 
+# Simple HTTP Basic Auth setup
+USERNAME = "Demerzel"
+PASSWORD = "Seraphine"
+
+
+def check_auth(username, password):
+    return username == USERNAME and password == PASSWORD
+
+
+def authenticate():
+    return Response(
+        "Authentication required", 401, {"WWW-Authenticate": 'Basic realm="Login Required"'}
+    )
+
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or not check_auth(auth.username, auth.password):
+            return authenticate()
+        return f(*args, **kwargs)
+
+    return decorated
+
+
 @app.route("/")
+@requires_auth
 def root():
     return app.send_static_file("index.html")
 
 
 @app.route("/the-one-ring")
+@requires_auth
 def the_one_ring():
     return app.send_static_file("the-one-ring/index.html")
 
 
 @app.route("/call-of-cthulhu")
+@requires_auth
 def call_of_cthulhu():
     return app.send_static_file("call-of-cthulhu/index.html")
 
 
 @app.route("/master-template")
+@requires_auth
 def master_template():
     return app.send_static_file("master-template/index.html")
 
