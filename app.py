@@ -40,9 +40,21 @@ def master_template():
 load_dotenv()
 client = OpenAI()
 
-# Load system prompt
-with open("system_prompt.txt", "r", encoding="utf-8") as f:
-    system_prompt = f.read().strip()
+
+def load_system_prompt(page: str) -> str:
+    """Load base prompt and optional page-specific prompt."""
+    base_path = Path("system_prompt.txt")
+    base_prompt = base_path.read_text(encoding="utf-8").strip() if base_path.exists() else ""
+
+    if page:
+        page_paths = [Path("static") / page / "system_prompt.txt", Path("system_prompts") / f"{page}.txt"]
+        for p in page_paths:
+            if p.exists():
+                page_prompt = p.read_text(encoding="utf-8").strip()
+                return base_prompt + "\n" + page_prompt if base_prompt else page_prompt
+
+    return base_prompt
+
 
 TOKEN_THRESHOLD = 150
 messages = load_messages_from_file()
@@ -114,6 +126,7 @@ def chat():
         return jsonify({"response": help_text})
 
     filtered = [m for m in messages if m["role"] in ["user", "assistant", "system"]]
+    system_prompt = load_system_prompt(page)
     full_messages = [{"role": "system", "content": system_prompt}] + filtered
 
     if count_tokens(full_messages) > TOKEN_THRESHOLD:
