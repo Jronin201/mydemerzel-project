@@ -162,6 +162,10 @@ def chat():
             user_embedding = embedding_client.embeddings.create(
                 model="text-embedding-3-small", input=user_input
             ).data[0].embedding
+            print("[DEBUG] User embedding generated:", bool(user_embedding))
+
+            num_chunks = len(the_one_ring_embeddings)
+            print(f"[DEBUG] Checked {num_chunks} text chunks for similarity.")
 
             # Find most similar chunk
             best = max(
@@ -170,6 +174,10 @@ def chat():
             )
             best_text = best["text"]
             best_source = best["source"]
+            best_score = cosine_similarity(user_embedding, best["embedding"])
+            print(
+                f"[DEBUG] Best match from '{best_source}' with similarity score: {best_score:.4f}"
+            )
 
             # Inject it into the system prompt
             full_messages.append(
