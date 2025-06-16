@@ -1,6 +1,13 @@
 from flask_cors import CORS, cross_origin
-from flask import Flask, jsonify, request, Response
-from functools import wraps
+from flask import Flask, jsonify, request, render_template_string, redirect, url_for
+from flask_login import (
+    LoginManager,
+    login_user,
+    login_required,
+    logout_user,
+    UserMixin,
+    current_user,
+)
 import datetime
 import os
 from dotenv import load_dotenv
@@ -16,53 +23,71 @@ app = Flask(__name__, static_folder="static")
 # Explicitly allow cross-origin requests from any domain to fix frontend CORS errors
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-
-# Simple HTTP Basic Auth setup
-USERNAME = "Demerzel"
-PASSWORD = "Seraphine"
-
-
-def check_auth(username, password):
-    return username == USERNAME and password == PASSWORD
+app.secret_key = "REPLACE_WITH_A_SECRET_KEY"
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
 
 
-def authenticate():
-    return Response(
-        "Authentication required", 401, {"WWW-Authenticate": 'Basic realm="Login Required"'}
+class User(UserMixin):
+    def __init__(self, id):
+        self.id = id
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User(user_id)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        if username == "Demerzel" and password == "Seraphine":
+            user = User(id="Demerzel")
+            login_user(user)
+            return redirect(url_for("root"))
+        return "Invalid credentials", 401
+
+    return render_template_string(
+        """
+        <form method="POST">
+            <input name="username" placeholder="Username"><br>
+            <input name="password" type="password" placeholder="Password"><br>
+            <button type="submit">Login</button>
+        </form>
+    """
     )
 
 
-def requires_auth(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth = request.authorization
-        if not auth or not check_auth(auth.username, auth.password):
-            return authenticate()
-        return f(*args, **kwargs)
-
-    return decorated
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("login"))
 
 
 @app.route("/")
-@requires_auth
+@login_required
 def root():
     return app.send_static_file("index.html")
 
 
 @app.route("/the-one-ring")
-@requires_auth
+@login_required
 def the_one_ring():
     return app.send_static_file("the-one-ring/index.html")
 
 
 @app.route("/call-of-cthulhu")
-@requires_auth
+@login_required
 def call_of_cthulhu():
     return app.send_static_file("call-of-cthulhu/index.html")
 
 
 @app.route("/master-template")
-@requires_auth
+@login_required
 def master_template():
     return app.send_static_file("master-template/index.html")
 
