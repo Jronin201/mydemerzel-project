@@ -6,6 +6,10 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from token_counter import count_tokens
 from message_history import load_messages_from_file, save_messages_to_file
+import numpy as np
+from pathlib import Path
+import json
+import tiktoken
 
 app = Flask(__name__, static_folder="static")
 # Explicitly allow cross-origin requests from any domain to fix frontend CORS errors
@@ -43,6 +47,12 @@ with open("system_prompt.txt", "r", encoding="utf-8") as f:
 TOKEN_THRESHOLD = 150
 messages = load_messages_from_file()
 
+# Load embeddings for The One Ring at startup
+the_one_ring_embeddings = []
+if Path("embeddings/the-one-ring.json").exists():
+    with open("embeddings/the-one-ring.json", "r", encoding="utf-8") as f:
+        the_one_ring_embeddings = json.load(f)
+
 # Preload reference texts for The One Ring on startup
 the_one_ring_texts = {}
 tor_dir = os.path.join(app.static_folder, "text", "the-one-ring")
@@ -66,6 +76,12 @@ def summarize_messages(messages):
     )
     summary = response.choices[0].message.content.strip()
     return [{"role": "system", "content": f"SUMMARY OF EARLIER CHAT: {summary}"}]
+
+
+def cosine_similarity(a, b):
+    a = np.array(a)
+    b = np.array(b)
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
 
 @app.route("/chat", methods=["POST"])
@@ -138,6 +154,35 @@ def chat():
                 ),
             }
         )
+
+    if page == "the-one-ring" and the_one_ring_embeddings:
+        try:
+            # Get embedding of the current user message
+            embedding_client = OpenAI()
+            user_embedding = embedding_client.embeddings.create(
+                model="text-embedding-3-small", input=user_input
+            ).data[0].embedding
+
+            # Find most similar chunk
+            best = max(
+                the_one_ring_embeddings,
+                key=lambda x: cosine_similarity(user_embedding, x["embedding"]),
+            )
+            best_text = best["text"]
+            best_source = best["source"]
+
+            # Inject it into the system prompt
+            full_messages.append(
+                {
+                    "role": "system",
+                    "content": (
+                        f"The following excerpt from '{best_source}' may be relevant. "
+                        f"Do not reveal it unless the user explicitly asks:\n{best_text}"
+                    ),
+                }
+            )
+        except Exception as e:
+            print("Embedding search failed:", e)
 
     response = client.chat.completions.create(
         model="gpt-3.5-turbo", messages=full_messages, max_tokens=100
