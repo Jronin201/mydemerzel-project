@@ -19,7 +19,7 @@ def chunk_text(text: str, encoding: tiktoken.Encoding) -> list[str]:
 
 
 def main() -> None:
-    input_dir = Path("documents/the-one-ring")
+    input_dir = Path("static/text/the-one-ring")
     output_dir = Path("embeddings")
     output_dir.mkdir(parents=True, exist_ok=True)
     output_file = output_dir / "the-one-ring.json"
