@@ -1,64 +1,6 @@
-the adventures
-James Smith (Order #47812382)
-
-James Smith (Order #47812382)
-
-LEAD WRITER
-James Michael Spahn
-ADDITIONAL WRITING
-Francesco Nepitello, Jacob Rodgers
-GAME DESIGNERS
-Francesco Nepitello and Marco Maggi
-ADDITIONAL RULES DEVELOPMENT
-Michele Garbuggio
-CONCEPT ART
-Alvaro Tapia
-COVER ART
-Martin Grip
-OTHER ART
-Alvaro Tapia, Martin Grip, Jan Pospíšil, Niklas Brandt, Henrik Rosenborg,  
-Antonio De Luca, Federica Costantini, Melissa Spandri, Giuditta Betti
-GRAPHIC DESIGN
-Christian Granath, Dan Algstrand, Niklas Brandt
-MAPS
-Francesco Mattioli
-EDITORS
-John Marron, Jacob Rodgers
-PROJECT MANAGERS
-Martin Takaichi, Tomas Härenstam
-BRAND MANAGER
-Robert Hyde / Sophisticated Games
-EVENT MANAGER
-Anna Westerling
-PR MANAGER
-Boel Bermann
-STREAMING
-Doug Shute, Matthew Jowett
-ISBN
-978-91-89143-48-7
-SPECIAL THANKS TO
-Claudio Muraro and Umberto Pignatelli
-PLAYTESTING OF THE 2ND EDITION
-Adam Rawson, Agnes Rudbo, Amanda Stenback, Andreas Lundström, Anna Ave, Charlie Conley, Chiara Ave, 
-Dan Price, Daniel Raab, Dennis Detwiller, Francisca Hoogenboom, Giuliano Nepitello, Kathleen Kiker, 
-Kyle Wood, Lorenzo Perassi, Luca Donati, Maja Emilie Søgaard Widerberg, Maner Samuel, Marco Beltramino, 
-Michael Kiker, Michela Baù, Peter Bergman, Peter Link, Ric Wagner, Stephen Buck, Steven Nguyen Dinh, 
-Umberto Pignatelli, Vanessa Ratschinske.
-The One Ring, Middle-­earth, and The Lord of the Rings and the characters, items, events, and places therein  
-are trademarks or registered trademarks of the Saul Zaentz Company d/b/a Middle-­earth Enterprises (SZC)  
-and are used under license by Sophisticated Games Ltd. and their respective licensees. All rights reserved.
-James Smith (Order #47812382)
-
-James Smith (Order #47812382)
-
-THE CONSPIRACY
- 
-                         OF	
-  
-THE RED BOOK
+THE CONSPIRACY OF THE RED BOOK
 “Then we formed our conspiracy; and as we were serious, too, 
 and meant business, we have not been too scrupulous.”
-James Smith (Order #47812382)
 
 ADVENTURES
 4
@@ -99,7 +41,6 @@ these new heroes a secret until they become available, so as
 to not spoil the surprise for the players. These additional pre-­
 generated characters are the Dwarf Balin, son of Fundin, and 
 Bilbo Baggins himself!
-James Smith (Order #47812382)
 
 A Conspiracy Most Cracked
 5
@@ -143,7 +84,6 @@ standing in the front hall none other than Master Baggins
 himself. He offers each of you an energetic greeting and 
 quickly ushers you in with a plethora of welcomes, thank 
 yous, and lovely to see yous. 
-James Smith (Order #47812382)
 
 ADVENTURES
 6
@@ -216,7 +156,7 @@ harder to make their way across. ­Hobbits who fail their
 ATHLETICS roll return to the near bank, coughing and 
 spluttering, and fully soaked. 
 Bilbo Baggins
-James Smith (Order #47812382)
+
 
 A Conspiracy Most Cracked
 7
@@ -309,7 +249,7 @@ good look at Michel Delving upon the White Downs. Quite
 a bit larger than ­Hobbiton, it is a tightly packed collection 
 of homes built of wood, brick, and stone, and the occa-
 sional ­Hobbit-­hole. But as the last of its people go about 
-James Smith (Order #47812382)
+
 
 ADVENTURES
 8
@@ -404,7 +344,7 @@ without making noise, the dog is curled up asleep under a
 writing desk, letting out heavy snores. If they made noise 
 entering, the terrier (whose name is “Firework”) is well 
 awake.
-James Smith (Order #47812382)
+
 
 A Conspiracy Most Cracked
 9
@@ -479,7 +419,7 @@ Characters that even bring up such an act should
 be ashamed of themselves.
 Malva Slowfoot 
 and Fireworks
-James Smith (Order #47812382)
+
 
 ADVENTURES
 10
@@ -537,7 +477,7 @@ No need to damage the original, after all!” He shoves the
 fresh copy at you before throwing open the front door to 
 Bag End and stepping out onto the road. “Come on!” he 
 cries, “We’d best be off!”
-James Smith (Order #47812382)
+
 
 Expert Treasure Hunters
 11
@@ -630,7 +570,7 @@ a short sword he had used for decoration instead
 of warfare, a small axe for cutting wood, and one 
 dagger for each of them. Sting is not among the 
 weapons, as it is carried by Bilbo.
-James Smith (Order #47812382)
+
 
 ADVENTURES
 12
@@ -703,7 +643,7 @@ Myrtle, the Lore­master should ask them how they are going
 about doing so, and determine which skill is appropriate 
 based on their preferred methods. 
 Myrtle Mudfoot
-James Smith (Order #47812382)
+
 
 Expert Treasure Hunters
 13
@@ -792,7 +732,7 @@ A FATHER’S AID
 Mort can help the Player-­heroes. He is sharp-­eyed 
 — One single Player-­hero searching for evidence 
 of Myrtle gains (1d) to their rolls.
-James Smith (Order #47812382)
+
 
 ADVENTURES
 14
@@ -835,7 +775,7 @@ It would seem I still have much to learn.”
 “My name is Halbarad, and I am a Ranger, although 
 that title may not tell you much. Suffice it to know that 
 I, like yourselves, was searching for young Myrtle for two 
-James Smith (Order #47812382)
+
 
 Expert Treasure Hunters
 15
@@ -887,7 +827,7 @@ end of the adventure, Bilbo will keep the club at Bag End
 for study, and he will later donate it to the Mathom-­house 
 of Michel Delving, for everyone to admire. 
 Balin, son of Fundin
-James Smith (Order #47812382)
+
 
 ADVENTURES
 16
@@ -944,7 +884,7 @@ stately house surrounded by farm buildings, in the middle of
 wheat and barley fields and orchards. There are scorch marks 
 in a couple of the fields and a larger one closer to the house. 
 A rutted lane between low hedges leads to the front door. 
-James Smith (Order #47812382)
+
 
 Most Excellent Fireworks
 17
@@ -1017,7 +957,7 @@ If questioned, Filibert seems to take for granted that the
 Lobelia’s family name (the Bracegirdles have a flourishing 
 local business in construction), and thus proves to be quite 
 cooperative. 
-James Smith (Order #47812382)
+
 
 ADVENTURES
 18
@@ -1113,7 +1053,7 @@ relit (lose 1 Hope on a failure).
 4.	 SORROWFUL SONGS BENEATH THE STONE. An indeci-
 pherable and ominous lament echoes across the stone 
 and fades to nothing. 
-James Smith (Order #47812382)
+
 
 Most Excellent Fireworks
 19
@@ -1181,7 +1121,7 @@ no signs of Orcs...
 Upon their return to Bag End, Bilbo stores the 
 remaining fireworks in one of his cellars, under lock 
 and key.
-James Smith (Order #47812382)
+
 
 ADVENTURES
 20
@@ -1242,7 +1182,7 @@ set on one of the barrels for light (using it to start a fire in
 the middle of Michel Delving is probably not the best idea). 
 Their usual possessions and any weapons have naturally been 
 taken from them by the Bounders, and have been stored in 
-James Smith (Order #47812382)
+
 
 Involuntary Postmen
 21
@@ -1313,7 +1253,7 @@ that opening the letter would be a most improper
 invasion of privacy, and the misdeed would cost 
 them 1 point of Hope
 Odo Proudfoot
-James Smith (Order #47812382)
+
 
 ADVENTURES
 22
@@ -1408,7 +1348,7 @@ for travelling, and must make a WISDOM
 roll to avoid losing 1 Hope as they suf-
 fer the incomprehensible fate of going to 
 bed with no supper.
-James Smith (Order #47812382)
+
 
 Involuntary Postmen
 23
@@ -1465,7 +1405,7 @@ awake. He tells them that he has an errand to attend to, and
 must now depart. He offers them blessings and cautions 
 regarding further adventures. Moments later, he vanishes 
 into the forest of the Woody End.
-James Smith (Order #47812382)
+
 
 ADVENTURES
 24
@@ -1505,7 +1445,7 @@ heroes.
 “Oh, I see you got my letter, good Mister Maggot! Now that 
 we’re all here, we’ll get to the business at hand!”
 Farmer Maggot
-James Smith (Order #47812382)
+
 
 To Soothe a Savage Beast
 25
@@ -1567,7 +1507,7 @@ lantern in one hand you see, and my chopping axe. If it was
 going to take me, I wasn’t going down without a fight. Before 
 I knew what happened, it was on me, crossing the field in a 
 bound and pinning me to the soil, snarling and slavering.” 
-James Smith (Order #47812382)
+
 
 ADVENTURES
 26
@@ -1630,7 +1570,7 @@ your own, but the water is calm, and the stars are bright.
 A sigh of released tension is prematurely interrupted when 
 you see a pair of red eyes come up from the ditch along the 
 western side of the Causeway. 
-James Smith (Order #47812382)
+
 
 To Soothe a Savage Beast
 27
@@ -1723,7 +1663,7 @@ everyone that they’ll have proper lodging for the night. It’s
 only then that he brings up the subject of the creature, ask-
 ing anyone injured in their previous encounter with the 
 beast where they got their wounds. He tells them that the 
-James Smith (Order #47812382)
+
 
 ADVENTURES
 28
@@ -1796,7 +1736,7 @@ Forest trying to get in.
 Careful examination of the gate via a HUNTING or SCAN 
 roll reveals a few tufts of black fur caught in a hinge. It is clear 
 Gorbadoc Brandybuck
-James Smith (Order #47812382)
+
 
 To Soothe a Savage Beast
 29
@@ -1880,7 +1820,7 @@ make this journey even more dangerous, and the
 Lore­master should consider increasing the num-
 ber of HUNTING rolls required by 1 if they speak 
 so foolishly.
-James Smith (Order #47812382)
+
 
 ADVENTURES
 30
@@ -1971,7 +1911,7 @@ their wretched state.
 If the Player-­heroes agree, Tom tells them that the Burnt 
 Beasts must be again given proper names, and if the Player-­
 heroes will give them such names, the true and loyal nature 
-James Smith (Order #47812382)
+
 
 To Soothe a Savage Beast
 31
@@ -2050,15 +1990,10 @@ As time goes on, Bilbo becomes more reclusive, and the
 other ­Hobbits return to their lives. Gossip regarding their 
 mischief fades away over the years, and life once again returns 
 to normal in the Shire, for a few years at least... 
-James Smith (Order #47812382)
+
 
 He looked at maps, and wondered what lay beyond their edges:  
 maps made in the Shire showed mostly white spaces beyond its borders.
 This page marks the end of your adventures in the Shire for the moment! You can continue 
 by creating your own, using the information contained in The Shire. You can further widen 
 your exploration of Middle-earth with the second edition of The One Ring roleplaying game.
-James Smith (Order #47812382)
-
-James Smith (Order #47812382)
-
-James Smith (Order #47812382)
