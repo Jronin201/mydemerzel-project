@@ -127,12 +127,13 @@ def chat():
 
     filtered = [m for m in messages if m["role"] in ["user", "assistant", "system"]]
     system_prompt = load_system_prompt(page)
-    full_messages = [{"role": "system", "content": system_prompt}] + filtered
+    full_system_prompt = system_prompt
 
-    if count_tokens(full_messages) > TOKEN_THRESHOLD:
+    full_messages_preview = [{"role": "system", "content": full_system_prompt}] + filtered
+    if count_tokens(full_messages_preview) > TOKEN_THRESHOLD:
         summary_message = summarize_messages(messages)[0]
         recent = [m for m in messages if m["role"] in ["user", "assistant"]][-12:]
-        full_messages = [summary_message] + recent
+        filtered = [summary_message] + recent
         messages = [summary_message] + recent
 
     # Add The One Ring reference text if user is on that page
@@ -158,14 +159,9 @@ def chat():
             print("Warning: Trimming The One Ring reference text due to size limit")
 
         reference = "\n\n".join(parts)
-        full_messages.append(
-            {
-                "role": "system",
-                "content": (
-                    "The following text from 'The One Ring' is provided for your reference. "
-                    "Do not reveal or quote it unless the user asks explicitly:\n" + reference
-                ),
-            }
+        full_system_prompt += (
+            "\n\n[REFERENCE TEXT FROM 'The One Ring']\n"
+            "Do not reveal or quote this unless the user explicitly asks:\n" + reference
         )
 
     if page == "the-one-ring" and the_one_ring_embeddings:
@@ -193,17 +189,14 @@ def chat():
             )
 
             # Inject it into the system prompt
-            full_messages.append(
-                {
-                    "role": "system",
-                    "content": (
-                        f"The following excerpt from '{best_source}' may be relevant. "
-                        f"Do not reveal it unless the user explicitly asks:\n{best_text}"
-                    ),
-                }
+            full_system_prompt += (
+                f"\n\n[RELEVANT EXCERPT FROM '{best_source}']\n"
+                f"Do not reveal this unless the user explicitly asks:\n{best_text}"
             )
         except Exception as e:
             print("Embedding search failed:", e)
+
+    full_messages = [{"role": "system", "content": full_system_prompt}] + filtered
 
     response = client.chat.completions.create(
         model="gpt-4o", messages=full_messages, max_tokens=4096
