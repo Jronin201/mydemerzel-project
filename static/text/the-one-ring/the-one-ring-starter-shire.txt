@@ -54,7 +54,7 @@ know that the Oldbucks, who could trace their lineage back
 to Bucca of the Marish, first Thain of the Shire, were so bold 
 as to cross the Brandy­wine River going east and establish the 
 community of Buckland, now home to Brandy Hall and the 
-* To those outside the Shire their method of reckoning the passage of time 
+*  To those outside the Shire their method of reckoning the passage of time 
 may seem odd or even out of touch with the rest of Middle-­earth. Quite so. 
 Hobbits do not concern themselves with the affairs of Men or Elves, and it 
 was in the 1601st year of the Third Age that they began living according 
@@ -66,7 +66,7 @@ THE SHIRE
 At once the western Hobbits fell in love with their new land,  
 and they remained there, and soon passed once more 
 out of the history of Men and of Elves.
-James Smith (Order #47812382)
+
 
 A brief history of the Shire
 3
@@ -121,7 +121,7 @@ battle were grievous, and combined with the famine from an
 absent growing season, the people of the Shire suffered many 
 deaths. But hope often comes when unlooked for, and it was 
 in that time that Gandalf, the Grey Wizard, came to the aid of 
-James Smith (Order #47812382)
+
 
 THE SHIRE
 4
@@ -194,7 +194,7 @@ their finest tobacco, so that they might further study the
 art. However, the winner is still held in high regard, and 
 can expect a filled tankard and a free meal at the losers’ 
 table within the next few days.
-James Smith (Order #47812382)
+
 
 A brief history of the Shire
 5
@@ -302,7 +302,7 @@ dalf, while more than a few consider Bilbo Baggins to be
 responsible for bringing ill-fortune to the Shire, along 
 with his piles of gold and jewels that he has stuffed away 
 in Bag End.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 6
@@ -404,7 +404,7 @@ NO BUSINESS OF OURS
 As we have seen already, Hobbits have little concern for the 
 affairs and doings of those beyond their borders. Dwarves, 
 in their constant search for riches above all else, are often 
-James Smith (Order #47812382)
+
 
 A brief history of the Shire
 7
@@ -486,7 +486,7 @@ Midsummer-­eve Parties, and every Hobbit, whether
 they will admit it or not, secretly hopes the wandering 
 Wizard will grace their celebrations with his fantastic 
 displays.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 8
@@ -547,7 +547,7 @@ erly wind, as an angry gaffer or gammer bids them stop such
 foolishness before they rightly hurt themselves — or worse, 
 knock down the stone. But through all the generations of the 
 Shire-­folk, the Three-­Farthing Stone has endured.
-James Smith (Order #47812382)
+
 
 The Geography of the Shire
 9
@@ -640,7 +640,7 @@ than three fine establishments of its own, though the long
 trek across the Far Downs will leave most travellers with a 
 powerful thirst before they reach Greenholm and its unusual 
 inn, the West End.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 10
@@ -741,13 +741,13 @@ imbibe more than a few mugs of finely brewed bit-
 ters. If they’re not watchful of their own actions, and 
 fail a WISDOM roll, they wake up the next morning 
 feeling Weary for the following day.
-James Smith (Order #47812382)
 
-James Smith (Order #47812382)
+
+
 
 THE SHIRE
 12
-James Smith (Order #47812382)
+
 
 The Westfarthing
 13
@@ -836,7 +836,7 @@ ily support forcing out the Dwarvish scoundrels at any cost —
 even if it means seeing their own home burnt to the ground. 
 Dwarves are horrid people, Birba claims, and deserve what’s 
 coming to them.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 14
@@ -921,7 +921,7 @@ A pair of Bree-­Hobbit merchants have stopped for a pint while passing through 
 Shire, and have had a bit too much. Irritated by a poor sale recently, they’ve decided 
 to try to pick a fight! Unless they can be calmed down with a PERSUADE or COURTESY 
 roll, a brawl may be imminent.
-James Smith (Order #47812382)
+
 
 The Westfarthing
 15
@@ -1018,7 +1018,7 @@ wife”. Whether this is true or not, a vein of rebel-
 lious foolishness runs in your family and manifests 
 in you as a deep streak of mischievousness, often 
 leading you to cause trouble for its own sake.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 16
@@ -1116,7 +1116,7 @@ he secretly enjoys almost as much as gardening
 itself. Recently, he has acquired a property at 3 
 Bagshot Row, and he is building a house to move 
 into with his future wife Bell.
-James Smith (Order #47812382)
+
 
 The Westfarthing
 17
@@ -1186,7 +1186,7 @@ the Player-­heroes, what began as a most awkward relationship
 could develop into a genuine friendship. It’s quite possible the 
 characters may be invited to Gerda’s personal table to sample 
 the freshest and best mushrooms available!
-James Smith (Order #47812382)
+
 
 THE SHIRE
 18
@@ -1263,7 +1263,7 @@ tion of a new Mayor (or the confirmation of the previous
 one); the last election occurred in the year 1357 S.R., when 
 old Cotman Bunce resigned his office, and Pott Whitfoot was 
 elected in his place.
-James Smith (Order #47812382)
+
 
 The Westfarthing
 19
@@ -1319,7 +1319,7 @@ on his magical fireworks, during the Old Took’s Midsummer-­eve
 parties — a display no Hobbit could ever forget. Unfortunately, 
 the Wizard hasn’t shown up for the occasion in the last forty 
 years or so, since his good friend the Old Took died.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 20
@@ -1413,7 +1413,7 @@ Hobbit reckless enough to traipse into the North Moors
 or beneath the eaves of the Woody End. Best to wash 
 his hands of such concerns, and leave them to younger, 
 less dignified Hobbits.
-James Smith (Order #47812382)
+
 
 The Westfarthing
 21
@@ -1507,7 +1507,7 @@ everyone in the Shire. This is likely due to the legacy they
 carry as the holders of the Thainship since Isumbras the First 
 accepted both the title and role from Gorhendad over five 
 hundred years ago.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 22
@@ -1584,7 +1584,7 @@ crossing the Shire has stopped at the tables of Waymeet for
 a pint and a game of ninepenny marl, while being forcefully 
 brought up to date on the latest gossip offered by the idle 
 gammers and shopkeepers.
-James Smith (Order #47812382)
+
 
 The Westfarthing
 23
@@ -1657,11 +1657,11 @@ side), Paladin stands out as an oddity among the many
 chicken farmers, for he has begun tilling land and planting 
 seeds in hopes of turning his new farm into a grand enter-
 prise worthy of attracting a fine wife.
-James Smith (Order #47812382)
 
-James Smith (Order #47812382)
 
-James Smith (Order #47812382)
+
+
+
 
 THE SHIRE
 26
@@ -1698,7 +1698,7 @@ the Shire leaf over the Southlinch crop grown in those parts.
 Wherever their destination may be, travellers leaving 
 Longbottom and taking the road north are likely to stop at 
 the inn at Sparrow’s Rest, located about a day’s travel towards 
-James Smith (Order #47812382)
+
 
 The Southfarthing
 27
@@ -1780,7 +1780,7 @@ Bloodthirsty
 Beast!
 Bounder Burt Underhill, from Woodhall, returned home last week, bloody and wounded! 
 In a sheer, raving panic, he claimed he was ravaged by the Black Wolf of Woody End!
-James Smith (Order #47812382)
+
 
 THE SHIRE
 28
@@ -1870,7 +1870,7 @@ ing in this bog. Nothing dangerous has emerged from the
 marshes in living memory, but mournful noises and barely 
 heard songs seem to drift above its still waters, carried by the 
 breeze from the Old Forest.
-James Smith (Order #47812382)
+
 
 The Northfarthing
 29
@@ -1911,7 +1911,7 @@ out mention of Greenfields. Known throughout the Shire as
 the place where Bandobras ‘Bullroarer’ Took drove back Golf-
 imbul and the Goblin horde from Mount Gram, it is bordered 
 on the south by the Norbourn, a watercourse descending 
-James Smith (Order #47812382)
+
 
 THE SHIRE
 30
@@ -1995,7 +1995,7 @@ The Northway ends in the village of Oatbarton, a settlement
 of modest size, surrounded by extensive oat fields. Its stone 
 houses seem to emerge from a veritable sea of long stalks, 
 bright green in Spring, golden by late summer. In winter, 
-James Smith (Order #47812382)
+
 
 The Northfarthing
 31
@@ -2078,11 +2078,11 @@ A ghastly spirit rises out of a darkened shadow to plague the Player-­heroes, t
 of “Angmar” on its spectral lips as it passes through them and leaves a chill far deeper 
 in their bones than any winter ever could. They will have dark dreams about it for a 
 few days.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 32
-James Smith (Order #47812382)
+
 
 The Eastfarthing
 33
@@ -2161,7 +2161,7 @@ of trees. From here, the Rangers use their small,
 flat-­bottomed boats to move swiftly up and down 
 the Brandywine, easily moving as far north as Lake 
 Evendim or south to Sarn Ford.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 34
@@ -2235,7 +2235,7 @@ A particularly cantankerous Dwarf halts one of the Player-­heroes as they pass,
 ing them of theft and mistaking the befuddled travellers for someone else. The 
 Player-­heroes will need to do some fast talking if they hope to avoid an awkward 
 confrontation.
-James Smith (Order #47812382)
+
 
 The Eastfarthing
 35
@@ -2305,7 +2305,7 @@ and Budgeford are not worth mentioning). A fine establish-
 ment certainly, if only its proprietor Juniper Broadbelt would 
 give up her family’s endless quest to somehow prepare frog 
 legs as a proper meal.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 36
@@ -2394,7 +2394,7 @@ following the Stock Road out of Tuckborough, by slipping out
 of Woodhall following the Stock-­brook, or simply by walking 
 on the causeway. This bustling community is just as full of life 
 as Hobbiton or Michel Delving, and has the best fish market 
-James Smith (Order #47812382)
+
 
 The Eastfarthing
 37
@@ -2485,7 +2485,7 @@ or even as far as Michel Delving, or even tasked
 by a curious local with making an expedition to 
 far off Bree to see if all the foolish tales from 
 that town are true.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 38
@@ -2534,7 +2534,7 @@ A sad Elf travels alone. He sees the Hobbits, smiles without mirth, then gazes t
 stars and vanishes into the darkness. The sight of one so bright and beautiful laid low 
 by the weight of the world’s troubles leaves a stain on the heart of the Player-­heroes, 
 causing them to lose 1 Hope.
-James Smith (Order #47812382)
+
 
 The Eastfarthing
 39
@@ -2580,11 +2580,11 @@ have rung out for a Bounder to make a
 proper investigation. The Bounders are not 
 very inclined to investigate, and it may fall to more 
 adventurous locals to get to the bottom of things.
-James Smith (Order #47812382)
 
-James Smith (Order #47812382)
 
-James Smith (Order #47812382)
+
+
+
 
 THE SHIRE
 42
@@ -2635,7 +2635,7 @@ by all reasonable conclusion that is what it is. It was founded
 over six hundred years ago, when Gorhendad Oldbuck 
 decided the Shire was getting too crowded for his liking. The 
 enterprising Hobbit took himself and his relations over the 
-James Smith (Order #47812382)
+
 
 Buckland
 43
@@ -2694,7 +2694,7 @@ as a reckless youth, Gorbadoc is quick to undercut such
 tales with reminders that this mischievousness come at a 
 cost, and one must always keep a keen eye and a sharp 
 mind in all deeds.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 44
@@ -2756,7 +2756,7 @@ wood. We were adventurous back in those days. Got down on my knee in front of th
 the wood. It was like a dream, slow and hazy. Last thing I heard before we both fell into that slumber 
 was her saying ‘yes,’ but when I woke up she was gone, and I swear that tree looked bigger than it did 
 when I first went out.”
-James Smith (Order #47812382)
+
 
 Buckland
 45
@@ -2816,7 +2816,7 @@ until you sit at Orald’s table!”
 10
 “Blades in barrows, deathless kings entombed, Elf-­Lord spoke Black Captain’s doom.”
 “Go not, go not, for trees remember! First to burn in blackened embers!”
-James Smith (Order #47812382)
+
 
 THE SHIRE
 46
@@ -2883,7 +2883,7 @@ and other tools. In return, they keep that
 community well stocked with pork and wild 
 berries, both of which are found in abun-
 dance in the village.
-James Smith (Order #47812382)
+
 
 Buckland
 47
@@ -2937,7 +2937,7 @@ nothing to do with the likes of you and me. Just want to be left to their own pe
 “Of course the animals in the Old Forest can talk! Everything can! The birds, the beasts, the trees! Got 
 a sorcerous master they all do, and he’ll transform you into a furry critter just to bind you to his service 
 he will — all with a promise and a song.”
-James Smith (Order #47812382)
+
 
 THE SHIRE
 48
@@ -2981,7 +2981,7 @@ about the truth of the Old Forest, let alone ventures within
 it. Even so, legends persist that there are some among the 
 Shire-­folk who dare to make such journeys in search of some 
 secret wisdom, which they keep private from their fellows.
-James Smith (Order #47812382)
+
 
 The Old Forest
 49
@@ -3058,11 +3058,11 @@ Hunted by a
 Forest Predator
 A pack of wolves (one per Player-­hero; or the Burnt Beast, if it still exists, see Adven-
 tures, page 27) is hunting the Company while they are lost in the Old Forest.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 50
-James Smith (Order #47812382)
+
 
 The Old Forest
 51
@@ -3148,7 +3148,7 @@ verbal commands of their master. Finally, such a beast
 blessed by Bombadil will always be able to find their 
 way back to Tom if they become lost in the Old Forest 
 or Barrow-­downs.
-James Smith (Order #47812382)
+
 
 THE SHIRE
 52
@@ -3204,7 +3204,3 @@ darkness seems far away. Hearts are lightened by the joy
 of her presence and the fairness of her voice, and those 
 who hear her regain 1 point of Hope from the gift of 
 such a song and a smile.
-
-James Smith (Order #47812382)
-
-James Smith (Order #47812382)
