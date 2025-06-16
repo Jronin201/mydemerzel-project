@@ -40,7 +40,7 @@ def test_chat_success():
         return_value=fake_openai_response("test reply"),
     ) as mock_create:
         with app.test_client() as client:
-            resp = client.post("/chat", json={"message": "hello"})
+            resp = client.post("/chat", json={"message": "hello"}, headers=AUTH_HEADER)
             assert resp.status_code == 200
             data = resp.get_json()
             assert data["response"] == "test reply"
