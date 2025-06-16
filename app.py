@@ -1,5 +1,5 @@
 from flask_cors import CORS, cross_origin
-from flask import Flask, jsonify, request, render_template_string, redirect, url_for
+from flask import Flask, jsonify, request, render_template, redirect, url_for
 from flask_login import (
     LoginManager,
     login_user,
@@ -41,6 +41,7 @@ def load_user(user_id):
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    error = None
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -48,17 +49,8 @@ def login():
             user = User(id="Demerzel")
             login_user(user)
             return redirect(url_for("root"))
-        return "Invalid credentials", 401
-
-    return render_template_string(
-        """
-        <form method="POST">
-            <input name="username" placeholder="Username"><br>
-            <input name="password" type="password" placeholder="Password"><br>
-            <button type="submit">Login</button>
-        </form>
-    """
-    )
+        error = "Invalid username or password."
+    return render_template("login.html", error=error)
 
 
 @app.route("/logout")
