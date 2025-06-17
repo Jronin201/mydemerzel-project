@@ -11,20 +11,19 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       display: flex;
-      flex-direction: row;
       height: 100vh; /* Total height of the screen */
       align-items: stretch;
     }
 
     /* Styles for the left container and character sheet */
     #left-container {
-      width: 50vw; /* Half of the viewport's width */
-      height: 100vh; /* Entire viewport height */
+      flex: 1; /* Take up one half of the screen */
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 1em;
       position: relative;
+      background-color: #1e1e1e; /* Match character sheet */
     }
 
     #character-sheet {
@@ -48,19 +47,6 @@
       max-width: 800px;
       margin-left: auto;
       padding: 1em;
-    }
-
-    #image-container {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1em;
-    }
-
-    #image-container img {
-      max-width: 100%;
-      height: auto;
     }
 
     #messages {
@@ -110,10 +96,7 @@
     </div>
   </div>
 
-  <div id="image-container">
-    <img src="images/v25_3.png" alt="The One Ring" />
-  </div>
-
+  <!-- Right-side container for the chatbot -->
   <div id="chat-container">
     <h1>Demerzel</h1>
     <div id="messages"></div>
