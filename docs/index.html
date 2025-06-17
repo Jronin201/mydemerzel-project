@@ -32,12 +32,12 @@
       background-color: #2a2a2a;
     }
 
-    /* CHARACTER/STAT: Absolute with vw/vh positioning! */
-    #character-sheet {
+    /* CHARACTER NAME block */
+    #character-name-block {
       position: absolute;
-      top: 1vh;   /* 10% from top of viewport */
-      left: 2vw;   /* 7% from left of viewport */
-      width: 15vw; /* fits nicely within half screen */
+      top: 1vh;
+      left: 2vw;
+      width: 15vw;
       min-height: 6vh;
       background-color: #1e1e1e;
       padding: 1vh 1vw;
@@ -46,14 +46,15 @@
       color: #e0e0e0;
     }
 
-    #Strength {
+    /* STAT block (e.g. Strength) */
+    #strength-block {
       position: absolute;
-      top: 10vh;   /* adjust for vertical stacking */
+      top: 10vh;
       left: 4vw;
-      width: 1vw;
+      width: 12vw;
       min-height: 6vh;
       background-color: #1e1e1e;
-      padding: 0h 0vw;
+      padding: 1vh 1vw;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       color: #e0e0e0;
@@ -115,17 +116,19 @@
 <body>
   <!-- Left-side container for the character sheet -->
   <div id="left-container">
+
     <!-- Character Name -->
-    <div id="character-sheet" class="character-sheet">
+    <div id="character-name-block" class="character-name">
       <label for="character-name">Character Name:</label>
       <input type="text" id="character-name" class="styled-input">
     </div>
 
     <!-- Strength -->
-    <div id="Strength" class="character-sheet">
-      <label for="stat-value">Strength:</label>
-      <input type="text" id="stat-value" class="styled-input">
+    <div id="strength-block" class="stat-block">
+      <label for="strength-value">Strength:</label>
+      <input type="text" id="strength-value" class="styled-input">
     </div>
+
   </div>
 
   <!-- Right-side container for the chatbot -->
@@ -138,10 +141,10 @@
   <script>
     // JavaScript to interact with inputs
     const characterNameInput = document.getElementById("character-name");
-    const StrengthInput = document.getElementById("stat-value");
+    const strengthInput = document.getElementById("strength-value");
     function logInputValues() {
       console.log("Character Name:", characterNameInput.value);
-      console.log("Strength:", StrengthInput.value);
+      console.log("Strength:", strengthInput.value);
     }
     document.addEventListener("DOMContentLoaded", logInputValues);
 
