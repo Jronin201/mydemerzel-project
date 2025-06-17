@@ -37,7 +37,7 @@
       position: absolute;
       top: 1vh;   /* 10% from top of viewport */
       left: 2vw;   /* 7% from left of viewport */
-      width: 36vw; /* fits nicely within half screen */
+      width: 15vw; /* fits nicely within half screen */
       min-height: 6vh;
       background-color: #1e1e1e;
       padding: 1vh 1vw;
@@ -46,7 +46,7 @@
       color: #e0e0e0;
     }
 
-    #Stat-One {
+    #Strength {
       position: absolute;
       top: 10vh;   /* adjust for vertical stacking */
       left: 4vw;
@@ -121,9 +121,9 @@
       <input type="text" id="character-name" class="styled-input">
     </div>
 
-    <!-- Stat One -->
+    <!-- Strength -->
     <div id="Stat-One" class="character-sheet">
-      <label for="stat-value">Stat One:</label>
+      <label for="stat-value">Strength:</label>
       <input type="text" id="stat-value" class="styled-input">
     </div>
   </div>
@@ -138,10 +138,10 @@
   <script>
     // JavaScript to interact with inputs
     const characterNameInput = document.getElementById("character-name");
-    const statOneInput = document.getElementById("stat-value");
+    const StrengthInput = document.getElementById("stat-value");
     function logInputValues() {
       console.log("Character Name:", characterNameInput.value);
-      console.log("Stat One:", statOneInput.value);
+      console.log("Strength:", StrengthInput.value);
     }
     document.addEventListener("DOMContentLoaded", logInputValues);
 
