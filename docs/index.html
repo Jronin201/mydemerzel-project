@@ -43,7 +43,6 @@
       color: #e0e0e0;
     }
 
-    /* --- CHANGED: Increase width so all 3 inputs fit --- */
     #strength-block,
     #heart-block,
     #wits-block {
@@ -60,8 +59,6 @@
     #strength-block     { left:  4vw; }
     #heart-block        { left: 16vw; }
     #wits-block         { left: 28vw; }
-
-    /* --- END CHANGES --- */
 
     .styled-input {
       margin-top: 1px;
@@ -100,6 +97,71 @@
       outline: none;
       border: 1px solid #81d4fa;
     }
+
+    /* --- Diamond Checkbox Row below --- */
+    .diamond-row {
+      position: absolute;
+      top: 24vh;
+      left: 4vw;
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+      background: #1e1e1e;
+      padding: 1vh 1vw;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      min-width: 30vw;
+    }
+    .custom-checkbox {
+      width: 23px; height: 23px;
+      border: 2px solid #b38867;
+      border-radius: 3px;
+      background: #232323;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .custom-checkbox.checked {
+      background: #b38867;
+      border-color: #b38867;
+    }
+    .custom-checkbox.checked::after {
+      content: '';
+      display: block;
+      width: 14px; height: 14px;
+      background: #3e2723;
+      border-radius: 2px;
+    }
+    .exhaust-label {
+      margin-right: 1vw;
+      font-weight: 600;
+      color: #be9b7b;
+      letter-spacing: 0.02em;
+      font-size: 1.15em;
+    }
+    .diamond-checkbox {
+      width: 30px; height: 30px;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      margin-right: 0.2vw;
+    }
+    .diamond {
+      width: 20px; height: 20px;
+      background: #232323;
+      border: 2px solid #b38867;
+      transform: rotate(45deg);
+      box-sizing: border-box;
+      transition: background 0.2s, border 0.2s;
+    }
+    .diamond.checked {
+      background: #b38867;
+      border-color: #3e2723;
+    }
+
 
     #messages {
       flex: 1;
@@ -178,7 +240,26 @@
       </div>
     </div>
 
+    <!-- Diamond Checkbox Row -->
+    <div class="diamond-row">
+      <!-- Square Checkbox -->
+      <span class="custom-checkbox" id="mainCheckbox"></span>
+
+      <!-- Label -->
+      <span class="exhaust-label">Exhausten</span>
+
+      <!-- Diamonds -->
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+    </div>
+    <!-- End Diamond Checkbox Row -->
+
   </div>
+  <!-- END left-container -->
 
   <!-- Right-side container for the chatbot -->
   <div id="chat-container">
@@ -214,6 +295,18 @@
     }
     document.addEventListener("DOMContentLoaded", logInputValues);
 
+    // Custom Checkbox Toggle (square)
+    document.getElementById('mainCheckbox').addEventListener('click', function() {
+      this.classList.toggle('checked');
+    });
+
+    // Diamond Checkboxes Toggle
+    document.querySelectorAll('.diamond-checkbox').forEach(function(wrap) {
+      wrap.addEventListener('click', function() {
+        this.querySelector('.diamond').classList.toggle('checked');
+      });
+    });
+
     const messages = document.getElementById("messages");
     const input = document.getElementById("userInput");
     input.addEventListener("keydown", async (e) => {
@@ -237,4 +330,11 @@
     });
 
     function appendMessage(sender, text, className) {
-      const msg = document.createElement
+      const msg = document.createElement("p");
+      msg.className = `message ${className}`;
+      msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      messages.appendChild(msg);
+    }
+  </script>
+</body>
+</html>
