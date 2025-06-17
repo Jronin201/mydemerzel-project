@@ -51,7 +51,35 @@
       position: absolute;
       top: 10vh;
       left: 4vw;
-      width: 12vw;
+      width: 1vw;
+      min-height: 6vh;
+      background-color: #1e1e1e;
+      padding: 1vh 1vw;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      color: #e0e0e0;
+    }
+
+    /* STAT block (e.g. Heart) */
+    #heart-block {
+      position: absolute;
+      top: 10vh;
+      left: 12vw;
+      width: 1vw;
+      min-height: 6vh;
+      background-color: #1e1e1e;
+      padding: 1vh 1vw;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      color: #e0e0e0;
+    }
+
+    /* STAT block (e.g. Wits) */
+    #wits-block {
+      position: absolute;
+      top: 10vh;
+      left: 18vw;
+      width: 1vw;
       min-height: 6vh;
       background-color: #1e1e1e;
       padding: 1vh 1vw;
@@ -129,6 +157,18 @@
       <input type="text" id="strength-value" class="styled-input">
     </div>
 
+    <!-- Heart -->
+    <div id="heart-block" class="stat-block">
+      <label for="heart-value">Heart:</label>
+      <input type="text" id="heart-value" class="styled-input">
+    </div>
+
+    <!-- Wits -->
+    <div id="wits-block" class="stat-block">
+      <label for="wits-value">Wits:</label>
+      <input type="text" id="wits-value" class="styled-input">
+    </div>
+
   </div>
 
   <!-- Right-side container for the chatbot -->
@@ -142,9 +182,15 @@
     // JavaScript to interact with inputs
     const characterNameInput = document.getElementById("character-name");
     const strengthInput = document.getElementById("strength-value");
+    const heartInput = document.getElementById("heart-value");
+    const witsInput = document.getElementById("wits-value");
+
     function logInputValues() {
       console.log("Character Name:", characterNameInput.value);
       console.log("Strength:", strengthInput.value);
+      console.log("Heart:", heartInput.value);
+      console.log("Wits:", witsInput.value);
+
     }
     document.addEventListener("DOMContentLoaded", logInputValues);
 
