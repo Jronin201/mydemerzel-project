@@ -21,37 +21,33 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column; /* Align items vertically */
       padding: 1em;
       position: relative;
       background-color: #1e1e1e; /* Match character sheet */
     }
 
-    #character-sheet {
+    #character-sheet, /* Combined styles for both elements */
+    #Stat-One {
       position: absolute;
-      width: 80%; /* Takes up 80% of the container's width */
-      max-width: 40vw; /* Ensure it does not surpass container limits */
-      height: 30vh; /* Heights are set relative to viewport height */
+      width: 80%;
+      max-width: 40vw;
+      height: 30vh;
       background-color: #1e1e1e;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       color: #e0e0e0;
-      left: 01%; /* Offset for centering */
-      top: 01%; /* Roughly center vertically */
     }
 
-      #Stat-One {
-      position: absolute;
-      width: 80%; /* Takes up 80% of the container's width */
-      max-width: 40vw; /* Ensure it does not surpass container limits */
-      height: 30vh; /* Heights are set relative to viewport height */
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      color: #e0e0e0;
-      left: 01%; /* Offset for centering */
-      top: 10%; /* Roughly center vertically */
+    #character-sheet {
+      left: 10%; /* Center the first box */
+      top: 10%; /* Position this box near the top */
+    }
+
+    #Stat-One {
+      left: 10%; /* Center the second box */
+      top: 45%; /* Position this box below the first one */
     }
     
     #chat-container {
@@ -104,10 +100,19 @@
 <body>
   <!-- Left-side container for the character sheet -->
   <div id="left-container">
+
+    <!-- Character Name -->
     <div id="character-sheet" class="character-sheet">
       <label for="character-name">Character Name:</label>
       <input type="text" id="character-name" class="styled-input">
     </div>
+
+    <!-- Stat One -->
+    <div id="Stat-One" class="character-sheet">
+      <label for="stat-value">Stat One:</label>
+      <input type="text" id="stat-value" class="styled-input">
+    </div>
+
   </div>
 
   <!-- Right-side container for the chatbot -->
@@ -118,6 +123,19 @@
   </div>
 
   <script>
+    // JavaScript to interact with inputs
+    const characterNameInput = document.getElementById("character-name");
+    const statOneInput = document.getElementById("stat-value");
+
+    // Function to get input values
+    function logInputValues() {
+      console.log("Character Name:", characterNameInput.value);
+      console.log("Stat One:", statOneInput.value);
+    }
+
+    // For demonstration: log values on page load
+    document.addEventListener("DOMContentLoaded", logInputValues);
+
     // Your existing JavaScript code remains unchanged
     const messages = document.getElementById("messages");
     const input = document.getElementById("userInput");
