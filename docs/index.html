@@ -30,7 +30,7 @@
     #character-sheet, /* Combined styles for both elements */
     #Stat-One {
       position: absolute;
-      width: 20%;
+      width: 80%;
       max-width: 40vw;
       height: 30vh;
       background-color: #1e1e1e;
@@ -40,30 +40,61 @@
       color: #e0e0e0;
     }
 
-    /* --- ADD THESE LINES --- */
-    #character-sheet input {
-      width: 80%;
-      box-sizing: border-box;
-      min-width: 0;
-    }
-
-    #Stat-One input {
-      width: 40%;
-      box-sizing: border-box;
-      min-width: 0;
-    }
-    /* --- END OF NEW CSS --- */
-
     #character-sheet {
-      left: 01%; /* Center the first box */
-      top: 01%; /* Position this box near the top */
+      left: 10%; /* Center the first box */
+      top: 10%; /* Position this box near the top */
     }
 
     #Stat-One {
-      left: 05%; /* Center the second box */
-      top: 07%; /* Position this box below the first one */
+      left: 10%; /* Center the second box */
+      top: 45%; /* Position this box below the first one */
     }
-    /* ...rest of your CSS... */
+    
+    #chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 800px;
+      margin-left: auto;
+      padding: 1em;
+    }
+
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1em;
+      border-radius: 8px;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      margin-bottom: 1em;
+    }
+
+    .message {
+      margin: 0.5em 0;
+      line-height: 1.5;
+    }
+
+    .user {
+      color: #81d4fa;
+    }
+
+    .assistant {
+      color: #c5e1a5;
+    }
+
+    #userInput {
+      padding: 1em;
+      border: none;
+      border-radius: 5px;
+      background-color: #2a2a2a;
+      color: white;
+      font-size: 1em;
+    }
+
+    #userInput:focus {
+      outline: none;
+      border: 1px solid #555;
+    }
   </style>
 </head>
 <body>
