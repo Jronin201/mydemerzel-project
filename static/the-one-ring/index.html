@@ -6,73 +6,165 @@
   <title>Demerzel</title>
   <style>
     body {
-      background-color: #121212;
-      color: #e0e0e0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      display: flex;
-      flex-direction: row;
-      height: 100vh;
-      align-items: stretch;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demerzel</title>
+  <style>
+    body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* Total height of the screen */
+  align-items: stretch;
+}
 
-    #chat-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      max-width: 800px;
-      margin-left: auto;
-      padding: 1em;
-    }
+/* New styles for the left container and character sheet */
+#left-container {
+  width: 50vw; /* Half of the viewport's width */
+  height: 100vh; /* Entire viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  position: relative;
+}
 
-    #image-container {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1em;
-    }
+#character-sheet {
+  position: absolute;
+  width: 80%; /* Takes up 80% of the container's width */
+  max-width: 40vw; /* Ensure it does not surpass container limits */
+  height: 30vh; /* Heights are set relative to viewport height */
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #e0e0e0;
+  left: 10%; /* Offset for centering */
+  top: 35%; /* Roughly center vertically */
+}
 
-    #image-container img {
-      max-width: 100%;
-      height: auto;
-    }
+#chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin-left: auto;
+  padding: 1em;
+}
 
-    #messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1em;
-      border-radius: 8px;
-      background: #1e1e1e;
-      border: 1px solid #333;
-      margin-bottom: 1em;
-    }
+#image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+}
 
-    .message {
-      margin: 0.5em 0;
-      line-height: 1.5;
-    }
+#image-container img {
+  max-width: 100%;
+  height: auto;
+}
 
-    .user {
-      color: #81d4fa;
-    }
+#messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1em;
+  border-radius: 8px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  margin-bottom: 1em;
+}
 
-    .assistant {
-      color: #c5e1a5;
-    }
+.message {
+  margin: 0.5em 0;
+  line-height: 1.5;
+}
 
-    #userInput {
-      padding: 1em;
-      border: none;
-      border-radius: 5px;
-      background-color: #2a2a2a;
-      color: white;
-      font-size: 1em;
-    }
+.user {
+  color: #81d4fa;
+}
 
-    #userInput:focus {
-      outline: none;
-      border: 1px solid #555;
+.assistant {
+  color: #c5e1a5;
+}
+
+#userInput {
+  padding: 1em;
+  border: none;
+  border-radius: 5px;
+  background-color: #2a2a2a;
+  color: white;
+  font-size: 1em;
+}
+
+#userInput:focus {
+  outline: none;
+  border: 1px solid #555;    }
+  </style>
+</head>
+<body>
+  <!-- New left-side container for the character sheet -->
+  <div id="left-container">
+    <div id="character-sheet" class="character-sheet">
+      <label for="character-name">Character Name:</label>
+      <input type="text" id="character-name" class="styled-input">
+    </div>
+  </div>
+
+  <div id="image-container">
+    <img src="images/v25_3.png" alt="The One Ring" />
+  </div>
+
+  <div id="chat-container">
+    <h1>Demerzel</h1>
+    <div id="messages"></div>
+    <input id="userInput" type="text" placeholder="Type your message and press Enter..." autocomplete="off" />
+  </div>
+
+  <script>
+    // Your existing JavaScript code remains unchanged
+    const messages = document.getElementById("messages");
+    const input = document.getElementById("userInput");
+
+    // Existing event listeners and functions
+    input.addEventListener("keydown", async (e) => {
+      if (e.key === "Enter" && input.value.trim()) {
+        const userMessage = input.value.trim();
+        appendMessage("You", userMessage, "user");
+        input.value = "";
+
+        try {
+          const response = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMessage })
+          });
+
+          const data = await response.json();
+          appendMessage("Demerzel", data.response, "assistant");
+        } catch (error) {
+          appendMessage("Error", "There was a problem contacting the server.", "assistant");
+        }
+
+        messages.scrollTop = messages.scrollHeight;
+      }
+    });
+
+    function appendMessage(sender, text, className) {
+      const msg = document.createElement("p");
+      msg.className = `message ${className}`;
+      msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      messages.appendChild(msg);
+    }
+  </script>
+</body>
+</html>
     }
   </style>
 </head>
