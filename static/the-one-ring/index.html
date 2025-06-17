@@ -77,9 +77,18 @@
   </style>
 </head>
 <body>
+  <!-- New left-side container for the character sheet -->
+  <div id="left-container">
+    <div id="character-sheet" class="character-sheet">
+      <label for="character-name">Character Name:</label>
+      <input type="text" id="character-name" class="styled-input">
+    </div>
+  </div>
+
   <div id="image-container">
     <img src="images/v25_3.png" alt="The One Ring" />
   </div>
+
   <div id="chat-container">
     <h1>Demerzel</h1>
     <div id="messages"></div>
@@ -87,9 +96,11 @@
   </div>
 
   <script>
+    // Your existing JavaScript code remains unchanged
     const messages = document.getElementById("messages");
     const input = document.getElementById("userInput");
 
+    // Existing event listeners and functions
     input.addEventListener("keydown", async (e) => {
       if (e.key === "Enter" && input.value.trim()) {
         const userMessage = input.value.trim();
