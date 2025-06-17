@@ -15,7 +15,6 @@
       align-items: stretch;
     }
 
-    /* Left container fills left half, position: relative for abs. children */
     #left-container {
       flex: 1;
       position: relative;
@@ -23,7 +22,6 @@
       overflow: visible;
     }
 
-    /* Right container unchanged */
     #chat-container {
       flex: 1;
       display: flex;
@@ -32,7 +30,6 @@
       background-color: #2a2a2a;
     }
 
-    /* CHARACTER NAME block */
     #character-name-block {
       position: absolute;
       top: 1vh;
@@ -46,40 +43,13 @@
       color: #e0e0e0;
     }
 
-    /* STAT block (e.g. Strength) */
-    #strength-block {
-      position: absolute;
-      top: 10vh;
-      left: 4vw;
-      width: 1vw;
-      min-height: 6vh;
-      background-color: #1e1e1e;
-      padding: 1vh 1vw;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      color: #e0e0e0;
-    }
-
-    /* STAT block (e.g. Heart) */
-    #heart-block {
-      position: absolute;
-      top: 10vh;
-      left: 12vw;
-      width: 1vw;
-      min-height: 6vh;
-      background-color: #1e1e1e;
-      padding: 1vh 1vw;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      color: #e0e0e0;
-    }
-
-    /* STAT block (e.g. Wits) */
+    /* --- CHANGED: Increase width so all 3 inputs fit --- */
+    #strength-block,
+    #heart-block,
     #wits-block {
       position: absolute;
       top: 10vh;
-      left: 18vw;
-      width: 1vw;
+      width: 7vw;
       min-height: 6vh;
       background-color: #1e1e1e;
       padding: 1vh 1vw;
@@ -87,8 +57,12 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       color: #e0e0e0;
     }
+    #strength-block     { left:  4vw; }
+    #heart-block        { left: 12vw; }
+    #wits-block         { left: 18vw; }
 
-    /* Style inputs in left container, basic focus etc. */
+    /* --- END CHANGES --- */
+
     .styled-input {
       margin-top: 1px;
       width: 90%;
@@ -100,6 +74,29 @@
       font-size: 1em;
     }
     .styled-input:focus {
+      outline: none;
+      border: 1px solid #81d4fa;
+    }
+
+    /* --- NEW: Row of 3 inputs side by side --- */
+    .triple-input-row {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5vw;
+      margin-top: 6px;
+    }
+    .small-input {
+      width: 1vw;
+      min-width: 0;
+      padding: 0.2em 0.3em;
+      border-radius: 6px;
+      border: none;
+      background-color: #232323;
+      color: #f0f0f0;
+      font-size: 1em;
+      text-align: center;
+    }
+    .small-input:focus {
       outline: none;
       border: 1px solid #81d4fa;
     }
@@ -153,20 +150,32 @@
 
     <!-- Strength -->
     <div id="strength-block" class="stat-block">
-      <label for="strength-value">Strength:</label>
-      <input type="text" id="strength-value" class="styled-input">
+      <label>Strength:</label>
+      <div class="triple-input-row">
+        <input type="text" maxlength="2" class="styled-input small-input" id="strength-1" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="strength-2" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="strength-3" />
+      </div>
     </div>
 
     <!-- Heart -->
     <div id="heart-block" class="stat-block">
-      <label for="heart-value">Heart:</label>
-      <input type="text" id="heart-value" class="styled-input">
+      <label>Heart:</label>
+      <div class="triple-input-row">
+        <input type="text" maxlength="2" class="styled-input small-input" id="heart-1" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="heart-2" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="heart-3" />
+      </div>
     </div>
 
     <!-- Wits -->
     <div id="wits-block" class="stat-block">
-      <label for="wits-value">Wits:</label>
-      <input type="text" id="wits-value" class="styled-input">
+      <label>Wits:</label>
+      <div class="triple-input-row">
+        <input type="text" maxlength="2" class="styled-input small-input" id="wits-1" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="wits-2" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="wits-3" />
+      </div>
     </div>
 
   </div>
@@ -179,18 +188,29 @@
   </div>
 
   <script>
-    // JavaScript to interact with inputs
+    // JavaScript to interact with new inputs
     const characterNameInput = document.getElementById("character-name");
-    const strengthInput = document.getElementById("strength-value");
-    const heartInput = document.getElementById("heart-value");
-    const witsInput = document.getElementById("wits-value");
+    const strengthInputs = [
+      document.getElementById("strength-1"),
+      document.getElementById("strength-2"),
+      document.getElementById("strength-3")
+    ];
+    const heartInputs = [
+      document.getElementById("heart-1"),
+      document.getElementById("heart-2"),
+      document.getElementById("heart-3")
+    ];
+    const witsInputs = [
+      document.getElementById("wits-1"),
+      document.getElementById("wits-2"),
+      document.getElementById("wits-3")
+    ];
 
     function logInputValues() {
       console.log("Character Name:", characterNameInput.value);
-      console.log("Strength:", strengthInput.value);
-      console.log("Heart:", heartInput.value);
-      console.log("Wits:", witsInput.value);
-
+      console.log("Strength:", strengthInputs.map(inp => inp.value).join(","));
+      console.log("Heart:", heartInputs.map(inp => inp.value).join(","));
+      console.log("Wits:", witsInputs.map(inp => inp.value).join(","));
     }
     document.addEventListener("DOMContentLoaded", logInputValues);
 
@@ -217,11 +237,4 @@
     });
 
     function appendMessage(sender, text, className) {
-      const msg = document.createElement("p");
-      msg.className = `message ${className}`;
-      msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
-      messages.appendChild(msg);
-    }
-  </script>
-</body>
-</html>
+      const msg = document.createElement
