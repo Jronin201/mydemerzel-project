@@ -15,48 +15,38 @@
       align-items: stretch;
     }
 
-    /* Styles for the left container and character sheet */
+    /* Styles for the left container */
     #left-container {
-      flex: 1; /* Take up one half of the screen */
+      flex: 1; /* Use equal space with chat-container */
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column; /* Align items vertically */
       padding: 1em;
-      position: relative;
-      background-color: #1e1e1e; /* Match character sheet */
+      background-color: #1e1e1e;
     }
 
-    #character-sheet, /* Combined styles for both elements */
+    /* Styles for the right container */
+    #chat-container {
+      flex: 1; /* Use equal space with left-container */
+      display: flex;
+      flex-direction: column;
+      padding: 1em;
+      background-color: #2a2a2a;
+    }
+
+    /* Combined styles for elements within the left container */
+    #character-sheet,
     #Stat-One {
-      position: absolute;
-      width: 80%;
-      max-width: 40vw;
-      height: 30vh;
+      width: 80%; /* Takes up 80% of the container's width */
+      max-width: 40vw; /* Ensure it does not surpass container limits */
+      min-height: 100px; /* Ensure it is visible */
       background-color: #1e1e1e;
       padding: 20px;
+      margin: 10px 0;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       color: #e0e0e0;
-    }
-
-    #character-sheet {
-      left: 10%; /* Center the first box */
-      top: 10%; /* Position this box near the top */
-    }
-
-    #Stat-One {
-      left: 10%; /* Center the second box */
-      top: 45%; /* Position this box below the first one */
-    }
-    
-    #chat-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      max-width: 800px;
-      margin-left: auto;
-      padding: 1em;
     }
 
     #messages {
@@ -100,7 +90,6 @@
 <body>
   <!-- Left-side container for the character sheet -->
   <div id="left-container">
-
     <!-- Character Name -->
     <div id="character-sheet" class="character-sheet">
       <label for="character-name">Character Name:</label>
@@ -112,7 +101,6 @@
       <label for="stat-value">Stat One:</label>
       <input type="text" id="stat-value" class="styled-input">
     </div>
-
   </div>
 
   <!-- Right-side container for the chatbot -->
