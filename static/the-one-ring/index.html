@@ -6,57 +6,22 @@
   <title>Demerzel</title>
   <style>
     body {
-      background-color: #121212;
-      color: #e0e0e0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      /* Remove: display: flex; align-items: ...; height: ...; */
+      background: #181818;
+      color: #f1f1f1;
       margin: 0;
-      display: flex;
-      height: 100vh; /* Total height of the screen */
-      align-items: stretch;
+      padding: 2rem 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
     }
 
-    /* Styles for the left container and character sheet */
-    #left-container {
-      flex: 1; /* Take up one half of the screen */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column; /* Align items vertically */
-      padding: 1em;
-      position: relative;
-      background-color: #1e1e1e; /* Match character sheet */
-    }
-
-    #character-sheet, /* Combined styles for both elements */
-    #Stat-One {
-      position: absolute;
-      width: 80%;
-      max-width: 40vw;
-      height: 30vh;
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      color: #e0e0e0;
-    }
-
-    #character-sheet {
-      left: 01%; /* Center the first box */
-      top: 01%; /* Position this box near the top */
-    }
-
-    #Stat-One {
-      left: 05%; /* Center the second box */
-      top: 05%; /* Position this box below the first one */
-    }
-    
     #chat-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+      margin: 0 auto;
       max-width: 800px;
-      margin-left: auto;
-      padding: 1em;
+      width: 90%;
+      background: #232323;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+      padding: 2rem;
     }
 
     #messages {
@@ -95,26 +60,13 @@
       outline: none;
       border: 1px solid #555;
     }
+
+    h1 {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-  <!-- Left-side container for the character sheet -->
-  <div id="left-container">
-
-    <!-- Character Name -->
-    <div id="character-sheet" class="character-sheet">
-      <label for="character-name">Character Name:</label>
-      <input type="text" id="character-name" class="styled-input">
-    </div>
-
-    <!-- Stat One -->
-    <div id="Stat-One" class="character-sheet">
-      <label for="stat-value">Stat One:</label>
-      <input type="text" id="stat-value" class="styled-input">
-    </div>
-
-  </div>
-
   <!-- Right-side container for the chatbot -->
   <div id="chat-container">
     <h1>Demerzel</h1>
