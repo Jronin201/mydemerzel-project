@@ -3,60 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Demerzel</title>
+  <title>Dune Chat</title>
   <style>
     body {
       background-color: #121212;
       color: #e0e0e0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
+      padding: 0;
+      height: 100vh;
       display: flex;
-      height: 100vh; /* Total height of the screen */
-      align-items: stretch;
-    }
-
-    /* Styles for the left container and character sheet */
-    #left-container {
-      flex: 1; /* Take up one half of the screen */
-      display: flex;
-      align-items: center;
       justify-content: center;
-      flex-direction: column; /* Align items vertically */
-      padding: 1em;
-      position: relative;
-      background-color: #1e1e1e; /* Match character sheet */
+      align-items: center;
     }
 
-    #character-sheet, /* Combined styles for both elements */
-    #Stat-One {
-      position: absolute;
-      width: 80%;
-      max-width: 40vw;
-      height: 30vh;
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      color: #e0e0e0;
-    }
-
-    #character-sheet {
-      left: 10%; /* Center the first box */
-      top: 10%; /* Position this box near the top */
-    }
-
-    #Stat-One {
-      left: 10%; /* Center the second box */
-      top: 45%; /* Position this box below the first one */
-    }
-    
     #chat-container {
-      flex: 1;
+      width: 100%;
+      max-width: 900px;
+      height: 90vh;
       display: flex;
       flex-direction: column;
-      max-width: 800px;
-      margin-left: auto;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background-color: #1e1e1e;
       padding: 1em;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
     }
 
     #messages {
@@ -98,49 +69,16 @@
   </style>
 </head>
 <body>
-  <!-- Left-side container for the character sheet -->
-  <div id="left-container">
 
-    <!-- Character Name -->
-    <div id="character-sheet" class="character-sheet">
-      <label for="character-name">Character Name:</label>
-      <input type="text" id="character-name" class="styled-input">
-    </div>
-
-    <!-- Stat One -->
-    <div id="Stat-One" class="character-sheet">
-      <label for="stat-value">Stat One:</label>
-      <input type="text" id="stat-value" class="styled-input">
-    </div>
-
-  </div>
-
-  <!-- Right-side container for the chatbot -->
   <div id="chat-container">
-    <h1>Demerzel</h1>
     <div id="messages"></div>
-    <input id="userInput" type="text" placeholder="Type your message and press Enter..." autocomplete="off" />
+    <input id="userInput" type="text" placeholder="Speak, noble traveler..." autocomplete="off" />
   </div>
 
   <script>
-    // JavaScript to interact with inputs
-    const characterNameInput = document.getElementById("character-name");
-    const statOneInput = document.getElementById("stat-value");
-
-    // Function to get input values
-    function logInputValues() {
-      console.log("Character Name:", characterNameInput.value);
-      console.log("Stat One:", statOneInput.value);
-    }
-
-    // For demonstration: log values on page load
-    document.addEventListener("DOMContentLoaded", logInputValues);
-
-    // Your existing JavaScript code remains unchanged
     const messages = document.getElementById("messages");
     const input = document.getElementById("userInput");
 
-    // Existing event listeners and functions
     input.addEventListener("keydown", async (e) => {
       if (e.key === "Enter" && input.value.trim()) {
         const userMessage = input.value.trim();
@@ -151,7 +89,7 @@
           const response = await fetch("/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: userMessage })
+            body: JSON.stringify({ message: userMessage, page: "dune" })
           });
 
           const data = await response.json();
