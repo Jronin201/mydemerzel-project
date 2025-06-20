@@ -87,28 +87,37 @@ def call_of_cthulhu():
 def master_template():
     return app.send_static_file("master-template/index.html")
 
-
 # Load environment variables and OpenAI client
 load_dotenv()
 client = OpenAI()
 
-
 def load_system_prompt(page: str) -> str:
-    """Load base prompt and optional page-specific prompt."""
-    base_path = Path("system_prompt.txt")
-    base_prompt = base_path.read_text(encoding="utf-8").strip() if base_path.exists() else ""
+    """Load global prompt first, then append any page-specific prompt."""
+    base_prompt = ""
+    page_prompt = ""
 
+    # Load global prompt
+    base_path = Path("static/system_prompt.txt")
+    if base_path.exists():
+        base_prompt = base_path.read_text(encoding="utf-8").strip()
+
+    # Load page-specific prompt (from either location)
     if page:
-        page_paths = [Path("static") / page / "system_prompt.txt", Path("system_prompts") / f"{page}.txt"]
+        page_paths = [
+            Path("static") / page / "system_prompt.txt",
+            Path("system_prompts") / f"{page}.txt"
+        ]
         for p in page_paths:
             if p.exists():
                 page_prompt = p.read_text(encoding="utf-8").strip()
-                return base_prompt + "\n" + page_prompt if base_prompt else page_prompt
+                break
 
-    return base_prompt
+    # Combine both
+    return f"{base_prompt}\n\n{page_prompt}".strip()
 
 
-TOKEN_THRESHOLD = 150
+TOKEN_THRESHOLD = 12000
+
 messages = load_messages_from_file()
 
 # Load embeddings for The One Ring at startup
