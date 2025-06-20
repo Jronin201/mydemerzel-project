@@ -71,6 +71,10 @@ def root():
 def the_one_ring():
     return app.send_static_file("the-one-ring/index.html")
 
+@app.route("/dune")
+@login_required
+def dune():
+    return app.send_static_file("dune/index.html")
 
 @app.route("/call-of-cthulhu")
 @login_required
@@ -112,6 +116,12 @@ the_one_ring_embeddings = []
 if Path("embeddings/the-one-ring.json").exists():
     with open("embeddings/the-one-ring.json", "r", encoding="utf-8") as f:
         the_one_ring_embeddings = json.load(f)
+
+# Load embeddings for Dune at startup
+dune_embeddings = []
+if Path("embeddings/dune.json").exists():
+    with open("embeddings/dune.json", "r", encoding="utf-8") as f:
+        dune_embeddings = json.load(f)
 
 # Preload reference texts for The One Ring on startup
 the_one_ring_texts = {}
@@ -243,6 +253,32 @@ def chat():
             )
         except Exception as e:
             print("Embedding search failed:", e)
+
+    if page == "dune" and dune_embeddings:
+        try:
+            embedding_client = OpenAI()
+            user_embedding = embedding_client.embeddings.create(
+                model="text-embedding-3-small", input=user_input
+            ).data[0].embedding
+            print("[DEBUG] User embedding generated for Dune:", bool(user_embedding))
+
+            best = max(
+                dune_embeddings,
+                key=lambda x: cosine_similarity(user_embedding, x["embedding"]),
+            )
+            best_text = best["text"]
+            best_source = best["source"]
+            best_score = cosine_similarity(user_embedding, best["embedding"])
+            print(
+                f"[DEBUG] Best Dune match from '{best_source}' with similarity score: {best_score:.4f}"
+            )
+
+            full_system_prompt += (
+                f"\n\n[RELEVANT EXCERPT FROM '{best_source}']\n"
+                f"Do not reveal this unless the user explicitly asks:\n{best_text}"
+            )
+        except Exception as e:
+            print("Dune embedding search failed:", e)
 
     full_messages = [{"role": "system", "content": full_system_prompt}] + filtered
 
