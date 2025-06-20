@@ -244,7 +244,15 @@ def chat():
             print("[DEBUG] User embedding generated:", bool(user_embedding))
 
             num_chunks = len(the_one_ring_embeddings)
-            print(f"[DEBUG] Checked {num_chunks} text chunks for similarity.")
+            #print(f"[DEBUG] Checked {num_chunks} text chunks for similarity.")
+
+            print("\n" + "="*50)
+            print(f"[VERIFICATION] EMBEDDING MATCH FOR PAGE: {page.upper()}")
+            print(f"Similarity Score: {best_score:.4f}")
+            print(f"Source: {best_source}")
+            print(f"\nMatched Text:\n{best_text}")
+            print("="*50 + "\n")
+
 
             # Find most similar chunk
             best = max(
