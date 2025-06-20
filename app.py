@@ -175,8 +175,11 @@ def chat():
     page = data.get("page") or ""
     if not page:
         ref = request.headers.get("Referer", "")
-        if "the-one-ring" in ref:
-            page = "the-one-ring"
+        for candidate in ["the-one-ring", "dune", "call-of-cthulhu", "master-template"]:
+            if candidate in ref:
+                page = candidate
+                break
+
 
     if not user_input:
         return jsonify({"error": "Empty input"}), 400
