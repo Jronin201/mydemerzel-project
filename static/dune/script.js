@@ -18,7 +18,7 @@ input.addEventListener("keydown", async (e) => {
       const response = await fetch("https://mydemerzel-backend.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage })
+        body: JSON.stringify({ message: userMessage, page: "dune" })
       });
 
       if (!response.ok) {
