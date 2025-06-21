@@ -1,0 +1,15 @@
+./static/index.html
+./static/master-template/index.html
+./static/pdfjs-backup/web/wasm/openjpeg_nowasm_fallback.js
+./static/pdfjs-backup/web/viewer.css
+./static/pdfjs-backup/web/viewer.html
+./static/pdfjs-backup/web/debugger.css
+./static/the-one-ring/index.html
+./static/the-one-ring/css/main.css
+./static/the-one-ring/script.js
+./static/call-of-cthulhu/index.html
+./static/dune/index.html
+./static/dune/css/main.css
+./static/dune/script.js
+./templates/login.html
+./docs/index.html
