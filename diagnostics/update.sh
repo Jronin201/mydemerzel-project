@@ -13,3 +13,43 @@ code --list-extensions > diagnostics/extensions.txt
 python --version > diagnostics/python_version.txt
 
 echo "[✓] Diagnostics updated in /diagnostics"
+
+# Combine all diagnostics into a single file for easy copy/paste
+COMBINED=diagnostics/combined.txt
+echo "[+] Creating combined diagnostics file..."
+{
+  echo "===== TREE ====="
+  cat diagnostics/tree.txt
+  echo
+
+  echo "===== PIP FREEZE ====="
+  cat diagnostics/pip.txt
+  echo
+
+  echo "===== PYTHON LINE COUNT ====="
+  cat diagnostics/py_lines.txt
+  echo
+
+  echo "===== FRONTEND FILES ====="
+  cat diagnostics/frontend_files.txt
+  echo
+
+  echo "===== .ENV ====="
+  [ -f .env ] && cat diagnostics/env.txt || echo "No .env file found."
+  echo
+
+  echo "===== GIT STATUS ====="
+  cat diagnostics/git.txt
+  echo
+
+  echo "===== EXTENSIONS ====="
+  cat diagnostics/extensions.txt
+  echo
+
+  echo "===== PYTHON VERSION ====="
+  cat diagnostics/python_version.txt
+  echo
+
+} > "$COMBINED"
+
+echo "[✓] Combined diagnostics saved to diagnostics/combined.txt"
