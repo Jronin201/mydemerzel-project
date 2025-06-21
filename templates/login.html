@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>Login - MyDemerzel</title>
-  <link rel="stylesheet" href="/static/styles.css" />
+
+  <!-- 1 – Absolute path to your shared stylesheet -->
+  <link rel="stylesheet" href="https://mydemerzel.com/static/styles.css" />
+
+  <!-- 2 – Quick JS failsafe: logs whether the input fields were found -->
+  <script>
+    window.onload = () => {
+      const input = document.querySelector('input');
+      if (!input) {
+        console.warn('No input fields found.');
+      } else {
+        console.log('Inputs loaded successfully.');
+      }
+    };
+  </script>
+
+  <!-- 3 – Page-specific inline styles (unchanged theme) -->
   <style>
     body {
       background-color: #121212;
@@ -58,14 +74,16 @@
     }
   </style>
 </head>
+
 <body>
   <div class="login-box">
     <h2>Welcome to MyDemerzel</h2>
     <form method="POST">
-      <input type="text" name="username" placeholder="Username" required />
+      <input type="text"     name="username" placeholder="Username" required />
       <input type="password" name="password" placeholder="Password" required />
       <button type="submit">Login</button>
     </form>
+
     {% if error %}
       <div class="error-msg">{{ error }}</div>
     {% endif %}
