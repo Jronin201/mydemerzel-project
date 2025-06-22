@@ -159,8 +159,13 @@ def process_user_request(user_request, session_state=None):
         # All questions answered: create & save campaign
         logging.debug("All questions answered, creating campaign...")
         scenario = create_campaign(**session_state["answers"])
-        campaign_file_path = os.path.abspath("dune_campaign.txt")
-        save_campaign_to_file(scenario, campaign_file_path)
+        campaign_text = scenario["campaign_markdown"]
+
+        import os
+        project_root = os.path.dirname(os.path.abspath(__file__))
+        campaign_file_path = os.path.join(project_root, "dune_campaign.txt")
+        with open(campaign_file_path, "w", encoding="utf-8") as f:
+            f.write(campaign_text)
         run_git_commands()
         logging.debug(f"Campaign saved to {campaign_file_path}")
 
