@@ -1,9 +1,8 @@
 import random
-import json
 import os
-from difflib import SequenceMatcher
+import json
 
-# Predefined randomization tables
+# Predefined randomization tables, edit as needed!
 random_elements = {
     "settings": ["Arrakis", "Giedi Prime", "Caladan"],
     "factions": ["House Atreides", "House Harkonnen", "Fremen", "Spacing Guild"],
@@ -12,142 +11,112 @@ random_elements = {
     "challenges": ["Political betrayal", "Desert storm", "Resource scarcity"]
 }
 
+# List of onboarding Q&A steps for campaign creation
+campaign_questions = [
+    {"key": "setting", "prompt": "Choose a setting (Arrakis, Giedi Prime, Caladan) or type 'random':"},
+    {"key": "factions", "prompt": "Name the main faction(s) or type 'random':"},
+    {"key": "npc_roles", "prompt": "List a key NPC or type 'random':"},
+    {"key": "player_goals", "prompt": "Describe player goals or type 'random':"},
+    {"key": "story_challenge", "prompt": "Choose a challenge/conflict or type 'random':"}
+]
+
 def select_random(element, choice):
-    # Randomly selects an element if 'random' is chosen by player
-    if choice.lower() == "random":
+    """Pick a random value unless user supplies a specific one."""
+    if not choice or choice.lower() == "random":
         return random.choice(random_elements[element])
     return choice
 
-def query_player():
-    # Ask the player for campaign preferences
-    player_preferences = {
-        "setting": input("Choose a setting or type 'random' for it to be chosen randomly: "),
-        "factions": input("Name the factions involved or type 'random' for them to be chosen randomly: "),
-        "npc_roles": input("List key NPCs or type 'random' for them to be chosen randomly: "),
-        "player_goals": input("Describe player goals or type 'random' for them to be chosen randomly: "),
-        "story_challenge": input("What conflicts or challenges would you prefer, or type 'random': ")
-    }
-    return player_preferences
-
-def similar(a, b):
-    # Returns a similarity ratio between two strings
-    return SequenceMatcher(None, a, b).ratio()
-
-def check_compliance(scenario, rules_file_path, threshold=0.5):
-    """
-    Checks the generated campaign scenario for compliance with Dune rules and lore.
-    
-    Parameters:
-    scenario (dict): The generated campaign scenario.
-    rules_file_path (str): The path to the Dune rules text file.
-    threshold (float): The similarity threshold for considering text as compliant.
-    
-    Returns:
-    compliant (bool): Whether the scenario is compliant.
-    corrections (list): List of corrections needed if any.
-    """
-    try:
-        with open(rules_file_path, 'r') as file:
-            rules_text = file.read().lower()
-
-        corrections = []
-
-        # Helper function to check compliance with a similarity threshold
-        def is_compliant(element, text):
-            return any(similar(element.lower(), line.strip()) >= threshold for line in text.splitlines())
-        
-        # Check compliance for each scenario element
-        for key in ['setting', 'factions', 'npc_roles', 'player_goals', 'story_challenge']:
-            element = scenario.get(key, '')
-            if isinstance(element, list):
-                for item in element:
-                    if not is_compliant(item, rules_text):
-                        corrections.append(f"{key[:-1].capitalize()} not found in Dune lore: {item}.")
-            else:
-                if not is_compliant(element, rules_text):
-                    corrections.append(f"{key[:-1].capitalize()} not found in Dune lore: {element}.")
-        
-        compliant = len(corrections) == 0
-        return compliant, corrections
-
-    except FileNotFoundError:
-        print("Rules file not found.")
-        return False, ["Rules file not available for compliance check."]
-
-def create_campaign(
-    setting='random', factions='random', npc_roles='random',
-    player_goals='random', story_challenge='random'
-):
-    # Generate campaign scenario based on player input
-    player_input = query_player()
-    
+def create_campaign(setting=None, factions=None, npc_roles=None, player_goals=None, story_challenge=None):
+    """Assembles a campaign scenario dictionary from given or random answers."""
     scenario = {
-        "setting": select_random("settings", player_input["setting"]),
-        "factions": [select_random("factions", player_input["factions"])],
-        "npc_roles": select_random("npcs", player_input["npc_roles"]),
-        "player_goals": select_random("goals", player_input["player_goals"]),
-        "story_challenge": select_random("challenges", player_input["story_challenge"])
+        "setting": select_random("settings", setting),
+        "factions": [select_random("factions", factions)],
+        "npc_roles": select_random("npcs", npc_roles),
+        "player_goals": select_random("goals", player_goals),
+        "story_challenge": select_random("challenges", story_challenge)
     }
-    
     scenario["starting_event"] = (
         f"On {scenario['setting']}, amidst tension between {', '.join(scenario['factions'])}, "
         f"the key figure {scenario['npc_roles']} plays a crucial role. "
         f"Objectives include {scenario['player_goals']} against the backdrop of {scenario['story_challenge']}."
     )
-    
-    # Build the path to dune.txt relative to this script's directory
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    rules_file_path = os.path.abspath(os.path.join(script_dir, "../../documents/dune/dune.txt"))
-    print(f"DEBUG: Attempting to open rules file at: {rules_file_path}")
-    if not os.path.exists(rules_file_path):
-        print(f"ERROR: File not found at {rules_file_path}")
-    else:
-        print(f"File found: {rules_file_path}")
-        
-    # Rule compliance check
-    compliant, corrections = check_compliance(scenario, rules_file_path)
-    if not compliant:
-        print("Scenario is not compliant with rules. Corrections needed:")
-        for correction in corrections:
-            print("-", correction)
-    else:
-        print("Scenario is compliant.")
-    
     return scenario
 
-def confirm_and_create_campaign():
-    # Path to the campaign file
-    campaign_file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "campaign.txt"))
-    
-    # Ask for user confirmation
-    user_confirmation = input("Would you like me to create a new campaign? (yes/no): ").strip().lower()
-    
-    if user_confirmation in ['yes', 'y', 'sure', 'ok', 'okay']:
-        # Delete existing campaign file if it exists
-        if os.path.exists(campaign_file_path):
-            os.remove(campaign_file_path)
-            print("Existing campaign deleted.")
-        
-        # Create new campaign
-        new_campaign = create_campaign()
+def save_campaign_to_file(scenario, campaign_file_path):
+    """Save scenario dictionary as formatted json to campaign_file_path."""
+    with open(campaign_file_path, "w") as f:
+        json.dump(scenario, f, indent=2)
 
-        # Save the new campaign to a file
-        with open(campaign_file_path, 'w') as f:
-            json.dump(new_campaign, f, indent=2)
-        print("New campaign created and saved to campaign.txt.")
+def process_user_request(user_request, session_state=None):
+    """
+    Manages onboarding logic and campaign creation.
+    Returns a dict: {response: str, takeover: bool, session_state: dict}
+    """
+    # Defensive: Always start with state
+    if session_state is None:
+        session_state = {"onboarding": False, "answers": {}, "current_q": 0}
 
-    else:
-        print("Campaign creation cancelled.")
+    # Lowercase/normalize input for trigger detection
+    user_msg = user_request.strip().lower()
+    TRIGGERS = ["start a new campaign", "create a new campaign"]
 
-# Then update process_user_request to use those params, maybe via a dict.
-def process_user_request(user_request, preferences=None):
-    # If needed, parse preferences from user_request or take as argument.
-    if "create a new campaign" in user_request.lower() or "start a new campaign" in user_request.lower():
-        scenario = create_campaign(**(preferences or {}))
-        return scenario
-    return {"error": "Request not recognized."}
+    # 1. Start takeover if trigger detected or onboarding in progress
+    if user_msg in TRIGGERS or session_state.get("onboarding", False):
 
+        # If beginning onboarding
+        if not session_state.get("onboarding", False):
+            session_state["onboarding"] = True
+            session_state["answers"] = {}
+            session_state["current_q"] = 0
+            return {
+                "response": campaign_questions[0]["prompt"],
+                "takeover": True,
+                "session_state": session_state
+            }
+
+        # 2. We're in onboarding: record answer for previous question
+        qidx = session_state.get("current_q", 0)
+        if qidx > 0 and qidx <= len(campaign_questions):
+            prev_key = campaign_questions[qidx-1]["key"]
+            session_state["answers"][prev_key] = user_request
+
+        # 3. More questions needed?
+        if qidx < len(campaign_questions):
+            prompt = campaign_questions[qidx]["prompt"]
+            session_state["current_q"] += 1
+            return {
+                "response": prompt,
+                "takeover": True,
+                "session_state": session_state
+            }
+        else:
+            # 4. All questions answered, create & save campaign
+            scenario = create_campaign(**session_state["answers"])
+            campaign_file_path = os.path.abspath("dune_campaign.txt")
+            save_campaign_to_file(scenario, campaign_file_path)
+            # Reset state so future "start a new campaign" works
+            session_state = {"onboarding": False, "answers": {}, "current_q": 0}
+            return {
+                "response": f"Campaign created!\n\n{scenario['starting_event']}",
+                "takeover": False,
+                "session_state": session_state
+            }
+
+    # Not a campaign trigger; let the calling code use the normal chatbot
+    return {
+        "response": None,
+        "takeover": False,
+        "session_state": session_state
+    }
+
+# Optional: CLI quick test
 if __name__ == "__main__":
-    # Simulate a chatbot session
-    user_request = input("How can I assist you today? ")
-    process_user_request(user_request)
+    # Stateful Q&A loop
+    sess = None
+    while True:
+        u = input("You: ")
+        bot = process_user_request(u, sess)
+        print("Bot:", bot["response"])
+        sess = bot.get("session_state", {})
+        if not bot["takeover"]:
+            break

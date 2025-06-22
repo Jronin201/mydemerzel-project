@@ -1,12 +1,7 @@
 from flask_cors import CORS, cross_origin
-from flask import Flask, jsonify, request, render_template, redirect, url_for
+from flask import Flask, jsonify, request, session, render_template, redirect, url_for
 from flask_login import (
-    LoginManager,
-    login_user,
-    login_required,
-    logout_user,
-    UserMixin,
-    current_user,
+    LoginManager, login_user, login_required, logout_user, UserMixin, current_user
 )
 import datetime
 import os
@@ -105,22 +100,6 @@ def dune():
     return app.send_static_file("dune/index.html")
 
 from flask import request, jsonify
-
-@app.route('/dune_campaign', methods=['POST'])
-def dune_campaign():
-    data = request.get_json(silent=True)
-    if data is None:
-        return jsonify({"error": "Invalid JSON payload"}), 400
-
-    user_input = data.get("message", "").strip()
-    preferences = data.get("preferences", None)  # Optional: add support for custom options
-
-    if not user_input:
-        return jsonify({"error": "Missing campaign request message"}), 400
-
-    # The manager should return a scenario dict or error dict.
-    scenario = process_user_request(user_input, preferences)
-    return jsonify({"campaign": scenario})
 
 @app.route("/call-of-cthulhu")
 @login_required
@@ -229,16 +208,16 @@ def cosine_similarity(a, b):
     b = np.array(b)
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
-
 @app.route("/chat", methods=["POST"])
 @cross_origin()  # explicitly allow all origins
 def chat():
     global messages
+
     data = request.get_json(silent=True)
     if data is None:
         return jsonify({"error": "Invalid JSON payload"}), 400
-    user_input = data.get("message", "").strip()
 
+    user_input = data.get("message", "").strip()
     page = data.get("page") or ""
     if not page:
         ref = request.headers.get("Referer", "")
@@ -246,15 +225,30 @@ def chat():
             if candidate in ref:
                 page = candidate
                 break
-
     if not user_input:
         return jsonify({"error": "Empty input"}), 400
 
-    # --- FIX: Add campaign management logic for Dune ---
-    response_text = ""
-    if page == "dune" and ("create a new campaign" in user_input.lower() or "start a new campaign" in user_input.lower()):
-        process_user_request(user_input)
-        response_text = "Processing campaign creation request."
+    # ---------- AGENT TAKEOVER FOR DUNE ----------
+    if page == "dune":
+        session_state = session.get("campaign_state", None)
+        result = process_user_request(user_input, session_state)
+        session["campaign_state"] = result.get("session_state", {})
+
+        if result.get("takeover", False):
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
+            messages.append({"role": "assistant", "content": result["response"], "timestamp": timestamp})
+            save_messages_to_file(messages)
+            return jsonify({"response": result["response"]})
+
+        if result.get("response") and not result.get("takeover"):
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
+            messages.append({"role": "assistant", "content": result["response"], "timestamp": timestamp})
+            save_messages_to_file(messages)
+            return jsonify({"response": result["response"]})
+    # -------- END AGENT TAKEOVER SECTION --------
+
 
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
