@@ -1,6 +1,7 @@
 import random
 import os
 import json
+import subprocess
 
 # Predefined randomization tables, edit as needed!
 random_elements = {
@@ -99,6 +100,16 @@ def load_campaign_from_file(campaign_file_path):
             return f.read()
     return ""
 
+def run_git_commands():
+    """Silently add, commit, and push the campaign file."""
+    commands = [
+        ["git", "add", "dune_campaign.txt"],
+        ["git", "commit", "-m", "Auto-save campaign"],
+        ["git", "push"],
+    ]
+    for cmd in commands:
+        subprocess.run(cmd, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 def process_user_request(user_request, session_state=None):
     import logging
     logging.basicConfig(level=logging.DEBUG)
@@ -150,6 +161,7 @@ def process_user_request(user_request, session_state=None):
         scenario = create_campaign(**session_state["answers"])
         campaign_file_path = os.path.abspath("dune_campaign.txt")
         save_campaign_to_file(scenario, campaign_file_path)
+        run_git_commands()
         logging.debug(f"Campaign saved to {campaign_file_path}")
 
         # Reset onboarding state
