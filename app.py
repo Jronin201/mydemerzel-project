@@ -92,6 +92,7 @@ def dune():
     if Path("embeddings/dune.json").exists():
         with open("embeddings/dune.json", "r", encoding="utf-8") as f:
             dune_embeddings = json.load(f)
+    system_prompt = load_system_prompt("dune")
     return app.send_static_file("dune/index.html")
 
 @app.route("/call-of-cthulhu")
@@ -132,34 +133,23 @@ client = OpenAI()
 
 def load_system_prompt(page: str) -> str:
     """Load global prompt first, then append any page-specific prompt."""
-    base_prompt = ""
-    page_prompt = ""
-
     # Load global prompt
-    base_path = Path("static/system_prompt.txt")
-    if base_path.exists():
-        base_prompt = base_path.read_text(encoding="utf-8").strip()
+    base_prompt_path = Path("system_prompt.txt")
+    base_prompt = base_prompt_path.read_text(encoding="utf-8").strip() if base_prompt_path.exists() else ""
 
-    # Load page-specific prompt (from either location)
+    # Load page-specific prompt if the page parameter is provided
+    page_prompt = ""
     if page:
-        page_paths = [
-            Path("static") / page / "system_prompt.txt",
-            Path("system_prompts") / f"{page}.txt"
-        ]
-        for p in page_paths:
-            if p.exists():
-                page_prompt = p.read_text(encoding="utf-8").strip()
-                break
+        page_path = Path("static") / page / "system_prompt.txt"
+        if page_path.exists():
+            page_prompt = page_path.read_text(encoding="utf-8").strip()
 
     # Combine both
     return f"{base_prompt}\n\n{page_prompt}".strip()
 
-
 TOKEN_THRESHOLD = 12000
 
 messages = load_messages_from_file()
-
-
 
 def summarize_messages(messages):
     to_summarize = [m for m in messages if m["role"] in ["user", "assistant"]][-12:]
