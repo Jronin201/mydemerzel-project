@@ -17,12 +17,12 @@ from message_history import load_messages_from_file, save_messages_to_file
 import numpy as np
 from pathlib import Path
 import json
-# import tiktoken  # Unused, can be removed if not needed
-
 # --- FIX: Import campaign manager for Dune ---
-# Fallback stub for process_user_request since dune.chatbot_campaign_manager_dune cannot be imported
+# from dune.chatbot_campaign_manager_dune import process_user_request
+
+# Stub for process_user_request if module is missing
 def process_user_request(user_request):
-    print("process_user_request stub called. Module not found.")
+    print(f"[STUB] process_user_request called with: {user_request}")
 
 app = Flask(__name__, static_folder="static")
 CORS(app, resources={r"/*": {"origins": "*"}})
