@@ -1,6 +1,7 @@
 import random
 import json
 import re
+import os
 
 # Predefined randomization tables
 random_elements = {
@@ -107,8 +108,12 @@ def create_campaign():
         f"Objectives include {scenario['player_goals']} against the backdrop of {scenario['story_challenge']}."
     )
 
+    # Build the path to dune.txt relative to this script's directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    rules_file_path = os.path.abspath(os.path.join(script_dir, "../../documents/dune/dune.txt"))
+
     # Rule compliance check
-    compliant, corrections = check_compliance(scenario, 'dune.txt')  # Adjust path as needed
+    compliant, corrections = check_compliance(scenario, rules_file_path)
 
     if not compliant:
         print("Scenario is not compliant with rules. Corrections needed:")
