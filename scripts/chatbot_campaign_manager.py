@@ -126,7 +126,7 @@ def process_user_request(user_request, session_state=None):
         qidx = session_state.get("current_q", 0)
 
         # Store user input only if we previously asked a question (qidx > 0)
-        if qidx > 0 and qidx <= len(campaign_questions):
+        if 0 < qidx <= len(campaign_questions):
             prev_key = campaign_questions[qidx - 1]["key"]
             if prev_key not in session_state["answers"]:
                 session_state["answers"][prev_key] = user_msg
