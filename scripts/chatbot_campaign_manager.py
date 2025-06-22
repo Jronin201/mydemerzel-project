@@ -115,7 +115,7 @@ def process_user_request(user_request, session_state=None):
     if user_msg.lower() in TRIGGERS or session_state["onboarding"]:
         if not session_state["onboarding"]:
             session_state["onboarding"] = True
-            session_state["current_q"] = 0
+            session_state["current_q"] = 1
             logging.debug("Starting onboarding, sending first prompt")
             return {
                 "response": campaign_questions[0]["prompt"],
