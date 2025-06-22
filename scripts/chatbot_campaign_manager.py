@@ -188,20 +188,21 @@ def process_user_request(user_request, session_state=None):
             subprocess.run(["git", "push"], cwd=project_root)
             logging.debug("✅ Campaign committed to GitHub.")
         except Exception as e:
+            logging.error(f"Error while saving campaign: {e}")
 
-        # Reset onboarding state
-        session_state = {"onboarding": False, "answers": {}, "current_q": 0}
+            # Reset onboarding state
+            session_state = {"onboarding": False, "answers": {}, "current_q": 0}
 
-        return {
-            "response": (
-                f"✅ Campaign created and saved to `dune_campaign.txt`!\n\n"
-                f"Here’s a preview:\n\n"
-                f"{scenario['campaign_markdown'][:1000]}...\n\n"
-                f"(Full file is available in your repo.)"
-            ),
-            "takeover": False,
-            "session_state": session_state,
-        }
+            return {
+                "response": (
+                    f"✅ Campaign created and saved to `dune_campaign.txt`!\n\n"
+                    f"Here’s a preview:\n\n"
+                    f"{scenario['campaign_markdown'][:1000]}...\n\n"
+                    f"(Full file is available in your repo.)"
+                ),
+                "takeover": False,
+                "session_state": session_state,
+            }
 
     else:
         # Not onboarding; normal chat processing
