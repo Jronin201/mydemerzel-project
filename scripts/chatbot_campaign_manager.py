@@ -204,6 +204,30 @@ def process_user_request(user_request, session_state=None):
                 "session_state": session_state,
             }
 
+        # Reset onboarding state after successful save
+        session_state = {"onboarding": False, "answers": {}, "current_q": 0}
+
+        logging.debug(f"Scenario response payload: {scenario['campaign_markdown'][:200]}")
+
+        try:
+            return {
+                "response": (
+                    f"✅ Campaign created and saved to `dune_campaign.txt`!\n\n"
+                    f"Here’s a preview:\n\n"
+                    f"{scenario['campaign_markdown'][:1000]}...\n\n"
+                    f"(Full file is available in your repo.)"
+                ),
+                "takeover": False,
+                "session_state": session_state,
+            }
+        except Exception as e:
+            logging.error(f"❌ Exception during response build: {e}")
+            return {
+                "response": "❌ Internal server error while finalizing campaign.",
+                "takeover": False,
+                "session_state": session_state,
+            }
+
     else:
         # Not onboarding; normal chat processing
         logging.debug("Not onboarding; passing back control")
