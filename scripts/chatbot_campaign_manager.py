@@ -74,7 +74,10 @@ def check_compliance(scenario, rules_file_path, threshold=0.5):
         print("Rules file not found.")
         return False, ["Rules file not available for compliance check."]
 
-def create_campaign():
+def create_campaign(
+    setting='random', factions='random', npc_roles='random',
+    player_goals='random', story_challenge='random'
+):
     # Generate campaign scenario based on player input
     player_input = query_player()
     
@@ -136,12 +139,13 @@ def confirm_and_create_campaign():
     else:
         print("Campaign creation cancelled.")
 
-def process_user_request(user_request):
-    # Check user request for creating a new campaign
+# Then update process_user_request to use those params, maybe via a dict.
+def process_user_request(user_request, preferences=None):
+    # If needed, parse preferences from user_request or take as argument.
     if "create a new campaign" in user_request.lower() or "start a new campaign" in user_request.lower():
-        confirm_and_create_campaign()
-    else:
-        print("Request not recognized for campaign creation.")
+        scenario = create_campaign(**(preferences or {}))
+        return scenario
+    return {"error": "Request not recognized."}
 
 if __name__ == "__main__":
     # Simulate a chatbot session

@@ -17,8 +17,10 @@ from message_history import load_messages_from_file, save_messages_to_file
 import numpy as np
 from pathlib import Path
 import json
-# --- FIX: Import campaign manager for Dune ---
-# from dune.chatbot_campaign_manager_dune import process_user_request
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent / "scripts"))
+from chatbot_campaign_manager import process_user_request
 
 # Stub for process_user_request if module is missing
 def process_user_request(user_request):
@@ -102,6 +104,23 @@ def dune():
     system_prompt = load_system_prompt("dune")
     return app.send_static_file("dune/index.html")
 
+from flask import request, jsonify
+
+@app.route('/dune_campaign', methods=['POST'])
+def dune_campaign():
+    data = request.get_json(silent=True)
+    if data is None:
+        return jsonify({"error": "Invalid JSON payload"}), 400
+
+    user_input = data.get("message", "").strip()
+    preferences = data.get("preferences", None)  # Optional: add support for custom options
+
+    if not user_input:
+        return jsonify({"error": "Missing campaign request message"}), 400
+
+    # The manager should return a scenario dict or error dict.
+    scenario = process_user_request(user_input, preferences)
+    return jsonify({"campaign": scenario})
 
 @app.route("/call-of-cthulhu")
 @login_required
