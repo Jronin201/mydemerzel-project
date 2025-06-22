@@ -69,11 +69,29 @@ def root():
 @app.route("/the-one-ring")
 @login_required
 def the_one_ring():
+    # Load embeddings for The One Ring at startup
+    the_one_ring_embeddings = []
+    if Path("embeddings/the-one-ring.json").exists():
+        with open("embeddings/the-one-ring.json", "r", encoding="utf-8") as f:
+            the_one_ring_embeddings = json.load(f)
+    # Preload reference texts for The One Ring on startup
+    the_one_ring_texts = {}   
+    tor_dir = os.path.join(app.static_folder, "text", "the-one-ring")
+    if os.path.isdir(tor_dir):
+        for fname in os.listdir(tor_dir):
+            if fname.endswith(".txt"):
+                with open(os.path.join(tor_dir, fname), "r", encoding="utf-8") as f:
+                    the_one_ring_texts[fname] = f.read()
     return app.send_static_file("the-one-ring/index.html")
 
 @app.route("/dune")
 @login_required
 def dune():
+    # Load embeddings for Dune at startup
+    dune_embeddings = []
+    if Path("embeddings/dune.json").exists():
+        with open("embeddings/dune.json", "r", encoding="utf-8") as f:
+            dune_embeddings = json.load(f)
     return app.send_static_file("dune/index.html")
 
 @app.route("/call-of-cthulhu")
@@ -141,26 +159,6 @@ TOKEN_THRESHOLD = 12000
 
 messages = load_messages_from_file()
 
-# Load embeddings for The One Ring at startup
-the_one_ring_embeddings = []
-if Path("embeddings/the-one-ring.json").exists():
-    with open("embeddings/the-one-ring.json", "r", encoding="utf-8") as f:
-        the_one_ring_embeddings = json.load(f)
-
-# Load embeddings for Dune at startup
-dune_embeddings = []
-if Path("embeddings/dune.json").exists():
-    with open("embeddings/dune.json", "r", encoding="utf-8") as f:
-        dune_embeddings = json.load(f)
-
-# Preload reference texts for The One Ring on startup
-the_one_ring_texts = {}
-tor_dir = os.path.join(app.static_folder, "text", "the-one-ring")
-if os.path.isdir(tor_dir):
-    for fname in os.listdir(tor_dir):
-        if fname.endswith(".txt"):
-            with open(os.path.join(tor_dir, fname), "r", encoding="utf-8") as f:
-                the_one_ring_texts[fname] = f.read()
 
 
 def summarize_messages(messages):
