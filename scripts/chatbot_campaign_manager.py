@@ -26,26 +26,78 @@ def select_random(element, choice):
         return random.choice(random_elements[element])
     return choice
 
+from openai import OpenAI
+import os
+
+client = OpenAI()
+
 def create_campaign(setting=None, factions=None, npc_roles=None, player_goals=None, story_challenge=None):
-    """Assembles a campaign scenario dictionary from given or random answers."""
-    scenario = {
-        "setting": select_random("settings", setting),
-        "factions": [select_random("factions", factions)],
-        "npc_roles": select_random("npcs", npc_roles),
-        "player_goals": select_random("goals", player_goals),
-        "story_challenge": select_random("challenges", story_challenge)
-    }
-    scenario["starting_event"] = (
-        f"On {scenario['setting']}, amidst tension between {', '.join(scenario['factions'])}, "
-        f"the key figure {scenario['npc_roles']} plays a crucial role. "
-        f"Objectives include {scenario['player_goals']} against the backdrop of {scenario['story_challenge']}."
+    """
+    Uses OpenAI's GPT to generate a full, detailed TTRPG campaign based on onboarding answers.
+    """
+    # Use random selections if any input is 'random' or None
+    setting_choice = select_random("settings", setting)
+    factions_choice = select_random("factions", factions)
+    npc_roles_choice = select_random("npcs", npc_roles)
+    player_goals_choice = select_random("goals", player_goals)
+    story_challenge_choice = select_random("challenges", story_challenge)
+
+    prompt = f"""
+You are an expert TTRPG Game Master designing a campaign using the Dune universe.
+Create a detailed campaign with the following parameters:
+
+- Setting: {setting_choice}
+- Factions: {factions_choice}
+- Key NPCs: {npc_roles_choice}
+- Player Goals: {player_goals_choice}
+- Major Challenge/Conflict: {story_challenge_choice}
+
+Include:
+
+- A campaign introduction and overview
+- Descriptions of important factions and their motivations
+- Profiles of key NPCs and their secret motives
+- Detailed player goals and possible subplots
+- Main story arcs with plot twists and branching paths
+- Suggestions for side quests, unique locations, and recurring antagonists
+- An opening scene to set the tone and start the campaign
+
+Format the campaign as markdown text with headings and lists.
+"""
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a creative and detailed TTRPG campaign creator."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=2048,
+        temperature=0.7
     )
+
+    campaign_text = response.choices[0].message.content if response.choices else "Unable to generate campaign at this time."
+
+    scenario = {
+        "setting": setting_choice,
+        "factions": [factions_choice],
+        "npc_roles": npc_roles_choice,
+        "player_goals": player_goals_choice,
+        "story_challenge": story_challenge_choice,
+        "campaign_markdown": campaign_text
+    }
+
     return scenario
 
 def save_campaign_to_file(scenario, campaign_file_path):
     """Save scenario dictionary as formatted json to campaign_file_path."""
     with open(campaign_file_path, "w") as f:
         json.dump(scenario, f, indent=2)
+
+def load_campaign_from_file(campaign_file_path):
+    if os.path.exists(campaign_file_path):
+        with open(campaign_file_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return ""
 
 def process_user_request(user_request, session_state=None):
     """
