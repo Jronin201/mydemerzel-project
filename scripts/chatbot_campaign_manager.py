@@ -161,12 +161,36 @@ def process_user_request(user_request, session_state=None):
         scenario = create_campaign(**session_state["answers"])
         campaign_text = scenario["campaign_markdown"]
 
+        import subprocess
         import os
-        project_root = os.path.dirname(os.path.abspath(__file__))
-        campaign_file_path = os.path.join(project_root, "dune_campaign.txt")
-        with open(campaign_file_path, "w", encoding="utf-8") as f:
-            f.write(campaign_text)
+
+        def get_git_root():
+            try:
+                return subprocess.check_output(["git", "rev-parse", "--show-toplevel"]).decode().strip()
+            except subprocess.CalledProcessError as e:
+                logging.error(f"Git root lookup failed: {e}")
+                return os.getcwd()  # Fallback if git fails
+
+        try:
+            project_root = get_git_root()
+            campaign_file_path = os.path.join(project_root, "dune_campaign.txt")
+            with open(campaign_file_path, "w", encoding="utf-8") as f:
+                f.write(campaign_text)
+            logging.debug(f"✅ Campaign written to {campaign_file_path}")
+        except Exception as e:
+            logging.error(f"❌ Failed to write campaign: {e}")
+
+        if os.path.exists(campaign_file_path):
+            logging.debug(f"✅ Verified: File exists at {campaign_file_path}")
+        else:
+            logging.error(f"❌ File not found after writing: {campaign_file_path}")
         run_git_commands()
+        if not os.path.exists(campaign_file_path):
+            try:
+                files = os.listdir(project_root)
+                logging.debug(f"Files in project root: {files}")
+            except Exception as e:
+                logging.error(f"Failed to list project directory: {e}")
         logging.debug(f"Campaign saved to {campaign_file_path}")
 
         # Reset onboarding state
