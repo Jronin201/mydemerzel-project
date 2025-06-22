@@ -1,4 +1,5 @@
 #!/bin/bash
+# Used by Codex for UTF-8 enforcement on .gitignore edits
 
 if file .gitignore | grep -vq 'UTF-8'; then
   echo "❌ .gitignore is not UTF-8 encoded! Commit aborted."
