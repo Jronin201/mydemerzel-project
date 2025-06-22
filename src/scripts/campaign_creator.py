@@ -111,7 +111,15 @@ def create_campaign():
     # Build the path to dune.txt relative to this script's directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
     rules_file_path = os.path.abspath(os.path.join(script_dir, "../../documents/dune/dune.txt"))
-
+    
+    # Build the path to dune.txt relative to this script's directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    rules_file_path = os.path.abspath(os.path.join(script_dir, "../../documents/dune/dune.txt"))
+    print(f"DEBUG: Attempting to open rules file at: {rules_file_path}")
+    if not os.path.exists(rules_file_path):
+        print(f"ERROR: File not found at {rules_file_path}")
+    else:
+        print(f"File found: {rules_file_path}")
     # Rule compliance check
     compliant, corrections = check_compliance(scenario, rules_file_path)
 
