@@ -15,11 +15,13 @@ import json
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent / "scripts"))
-from chatbot_campaign_manager import process_user_request
 
-# Stub for process_user_request if module is missing
-def process_user_request(user_request):
-    print(f"[STUB] process_user_request called with: {user_request}")
+try:
+    from chatbot_campaign_manager import process_user_request
+except ImportError:
+    def process_user_request(user_request, session_state=None):
+        print(f"[STUB] process_user_request called with: {user_request}")
+        return {"response": "Campaign manager not available.", "takeover": False, "session_state": session_state or {}}
 
 app = Flask(__name__, static_folder="static")
 CORS(app, resources={r"/*": {"origins": "*"}})
