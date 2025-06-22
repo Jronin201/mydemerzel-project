@@ -19,18 +19,6 @@ from pathlib import Path
 import json
 import tiktoken
 
-# Import the necessary functions from chatbot_campaign_manager.py
-from src.scripts.chatbot_campaign_manager import (
-    select_random,
-    query_player,
-    similar,
-    check_compliance,
-    is_compliant,
-    create_campaign,
-    confirm_and_create_campaign,
-    process_user_request
-)
-
 app = Flask(__name__, static_folder="static")
 # Explicitly allow cross-origin requests from any domain to fix frontend CORS errors
 CORS(app, resources={r"/*": {"origins": "*"}})
