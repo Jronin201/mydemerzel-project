@@ -157,18 +157,29 @@ def process_request_endpoint():
 load_dotenv()
 client = OpenAI()
 
+from pathlib import Path
 
 def load_system_prompt(page: str) -> str:
-    """Load global prompt first, then append any page-specific prompt."""
+    """Load global prompt first, then append any page-specific prompt.
+    For 'dune' page, also append the dune_campaign.txt content."""
     base_prompt_path = Path("system_prompt.txt")
     base_prompt = base_prompt_path.read_text(encoding="utf-8").strip() if base_prompt_path.exists() else ""
+    
     page_prompt = ""
     if page:
         page_path = Path("static") / page / "system_prompt.txt"
         if page_path.exists():
             page_prompt = page_path.read_text(encoding="utf-8").strip()
-    return f"{base_prompt}\n\n{page_prompt}".strip()
-
+    
+    campaign_prompt = ""
+    if page == "dune":
+        campaign_path = Path("dune_campaign.txt")
+        if campaign_path.exists():
+            campaign_prompt = campaign_path.read_text(encoding="utf-8").strip()
+    
+    # Combine all prompts
+    combined_prompt = "\n\n".join(filter(None, [base_prompt, page_prompt, campaign_prompt]))
+    return combined_prompt
 
 TOKEN_THRESHOLD = 12000
 
