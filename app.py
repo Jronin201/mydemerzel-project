@@ -1,7 +1,6 @@
-import os
-import subprocess
+import os, subprocess
 
-# — Ensure Git has a committer identity on Render
+# Ensure Git has an identity on Render
 subprocess.run(
     ["git", "config", "--global", "user.email", "render-bot@yourdomain.com"],
     check=False
@@ -11,15 +10,20 @@ subprocess.run(
     check=False
 )
 
-# — Rewrite the origin URL to include your GitHub deploy token
+# Rewrite or add the origin URL to include your GitHub deploy token
 token = os.environ.get("GITHUB_TOKEN")
 if token:
-    # Replace with your actual GitHub repo
     repo = "github.com/Jronin201/mydemerzel-project.git"
-    subprocess.run([
-        "git", "remote", "set-url", "origin",
-        f"https://{token}@{repo}"
-    ], check=False)
+    # Add origin if missing
+    subprocess.run(
+        ["git", "remote", "add", "origin", f"https://{token}@{repo}"],
+        check=False
+    )
+    # In any case set-url so future pushes go through
+    subprocess.run(
+        ["git", "remote", "set-url", "origin", f"https://{token}@{repo}"],
+        check=False
+    )
 
 from flask_cors import CORS, cross_origin
 from flask import Flask, jsonify, request, session, render_template, redirect, url_for
