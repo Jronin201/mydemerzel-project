@@ -163,35 +163,31 @@ def process_user_request(user_request, session_state=None):
 
         import subprocess
         import os
+        import logging
 
         def get_git_root():
             try:
                 return subprocess.check_output(["git", "rev-parse", "--show-toplevel"]).decode().strip()
             except subprocess.CalledProcessError as e:
                 logging.error(f"Git root lookup failed: {e}")
-                return os.getcwd()  # Fallback if git fails
-
+                return os.getcwd()
         try:
             project_root = get_git_root()
             campaign_file_path = os.path.join(project_root, "dune_campaign.txt")
             with open(campaign_file_path, "w", encoding="utf-8") as f:
                 f.write(campaign_text)
             logging.debug(f"✅ Campaign written to {campaign_file_path}")
-        except Exception as e:
-            logging.error(f"❌ Failed to write campaign: {e}")
+            
+            if os.path.exists(campaign_file_path):
+                logging.debug("✅ Verified: File exists")
+            else:
+                logging.error("❌ File not found after write!")
 
-        if os.path.exists(campaign_file_path):
-            logging.debug(f"✅ Verified: File exists at {campaign_file_path}")
-        else:
-            logging.error(f"❌ File not found after writing: {campaign_file_path}")
-        run_git_commands()
-        if not os.path.exists(campaign_file_path):
-            try:
-                files = os.listdir(project_root)
-                logging.debug(f"Files in project root: {files}")
-            except Exception as e:
-                logging.error(f"Failed to list project directory: {e}")
-        logging.debug(f"Campaign saved to {campaign_file_path}")
+            subprocess.run(["git", "add", "dune_campaign.txt"], cwd=project_root)
+            subprocess.run(["git", "commit", "-m", "Auto-save Dune campaign"], cwd=project_root)
+            subprocess.run(["git", "push"], cwd=project_root)
+            logging.debug("✅ Campaign committed to GitHub.")
+        except Exception as e:
 
         # Reset onboarding state
         session_state = {"onboarding": False, "answers": {}, "current_q": 0}
