@@ -1,6 +1,14 @@
 .
 ├── combined.txt
 ├── diagnostics
+│   ├── combined.txt
+│   ├── env.txt
+│   ├── extensions.txt
+│   ├── frontend_files.txt
+│   ├── git.txt
+│   ├── pip.txt
+│   ├── py_lines.txt
+│   ├── python_version.txt
 │   └── tree.txt
 ├── env.txt
 ├── extensions.txt
@@ -12,4 +20,4 @@
 ├── tree.txt
 └── update.sh
 
-1 directory, 11 files
+1 directory, 19 files
