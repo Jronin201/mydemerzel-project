@@ -152,24 +152,25 @@ def process_user_request(user_request, session_state=None):
         save_campaign_to_file(scenario, campaign_file_path)
         logging.debug(f"Campaign saved to {campaign_file_path}")
 
-# Reset onboarding state
-session_state = {"onboarding": False, "answers": {}, "current_q": 0}
+        # Reset onboarding state
+        session_state = {"onboarding": False, "answers": {}, "current_q": 0}
 
-return {
-    "response": (
-        f"✅ Campaign created and saved to `dune_campaign.txt`!\n\n"
-        f"Here’s a preview:\n\n"
-        f"{scenario['campaign_markdown'][:1000]}...\n\n"
-        f"(Full file is available in your repo.)"
-    ),
-    "takeover": False,
-    "session_state": session_state,
-}
+        return {
+            "response": (
+                f"✅ Campaign created and saved to `dune_campaign.txt`!\n\n"
+                f"Here’s a preview:\n\n"
+                f"{scenario['campaign_markdown'][:1000]}...\n\n"
+                f"(Full file is available in your repo.)"
+            ),
+            "takeover": False,
+            "session_state": session_state,
+        }
 
-    # Not onboarding; normal chat processing
-    logging.debug("Not onboarding; passing back control")
-    return {
-        "response": None,
-        "takeover": False,
-        "session_state": session_state,
-    }
+    else:
+        # Not onboarding; normal chat processing
+        logging.debug("Not onboarding; passing back control")
+        return {
+            "response": None,
+            "takeover": False,
+            "session_state": session_state,
+        }
