@@ -100,75 +100,61 @@ def load_campaign_from_file(campaign_file_path):
     return ""
 
 def process_user_request(user_request, session_state=None):
-    """
-    Manages onboarding logic and campaign creation.
-    Returns a dict: {response: str, takeover: bool, session_state: dict}
-    """
-    # Defensive: Always start with state
     if session_state is None:
         session_state = {"onboarding": False, "answers": {}, "current_q": 0}
 
-    # Lowercase/normalize input for trigger detection
-    user_msg = user_request.strip().lower()
+    user_msg = user_request.strip()
     TRIGGERS = ["start a new campaign", "create a new campaign"]
 
-    # 1. Start takeover if trigger detected or onboarding in progress
-    if user_msg in TRIGGERS or session_state.get("onboarding", False):
-
-        # If beginning onboarding
-        if not session_state.get("onboarding", False):
+    # Start onboarding if triggered or ongoing
+    if user_msg.lower() in TRIGGERS or session_state["onboarding"]:
+        if not session_state["onboarding"]:
             session_state["onboarding"] = True
-            session_state["answers"] = {}
             session_state["current_q"] = 0
             return {
                 "response": campaign_questions[0]["prompt"],
                 "takeover": True,
-                "session_state": session_state
+                "session_state": session_state,
             }
 
-        # 2. We're in onboarding: record answer for previous question
+        # If we are expecting an answer to a previously sent question
         qidx = session_state.get("current_q", 0)
-        if qidx > 0 and qidx <= len(campaign_questions):
-            prev_key = campaign_questions[qidx-1]["key"]
-            session_state["answers"][prev_key] = user_request
 
-        # 3. More questions needed?
+        # Only store user input if it is a response to the previous question, i.e., qidx > 0
+        if qidx > 0 and qidx <= len(campaign_questions):
+            prev_key = campaign_questions[qidx - 1]["key"]
+
+            # Store response only if the key not already populated to prevent overwrite on repeated calls
+            if prev_key not in session_state["answers"]:
+                session_state["answers"][prev_key] = user_msg
+
+        # After storing the answer, move to next question if any
         if qidx < len(campaign_questions):
             prompt = campaign_questions[qidx]["prompt"]
-            session_state["current_q"] += 1
+            session_state["current_q"] = qidx + 1
             return {
                 "response": prompt,
                 "takeover": True,
-                "session_state": session_state
-            }
-        else:
-            # 4. All questions answered, create & save campaign
-            scenario = create_campaign(**session_state["answers"])
-            campaign_file_path = os.path.abspath("dune_campaign.txt")
-            save_campaign_to_file(scenario, campaign_file_path)
-            # Reset state so future "start a new campaign" works
-            session_state = {"onboarding": False, "answers": {}, "current_q": 0}
-            return {
-                "response": f"Campaign created!\n\n{scenario['starting_event']}",
-                "takeover": False,
-                "session_state": session_state
+                "session_state": session_state,
             }
 
-    # Not a campaign trigger; let the calling code use the normal chatbot
+        # All questions answered — create campaign, reset onboarding
+        scenario = create_campaign(**session_state["answers"])
+        campaign_file_path = os.path.abspath("dune_campaign.txt")
+        save_campaign_to_file(scenario, campaign_file_path)
+
+        # Reset session state
+        session_state = {"onboarding": False, "answers": {}, "current_q": 0}
+
+        return {
+            "response": f"Campaign created!\n\n{scenario['starting_event']}",
+            "takeover": False,
+            "session_state": session_state,
+        }
+
+    # Normal chat response here
     return {
         "response": None,
         "takeover": False,
-        "session_state": session_state
+        "session_state": session_state,
     }
-
-# Optional: CLI quick test
-if __name__ == "__main__":
-    # Stateful Q&A loop
-    sess = None
-    while True:
-        u = input("You: ")
-        bot = process_user_request(u, sess)
-        print("Bot:", bot["response"])
-        sess = bot.get("session_state", {})
-        if not bot["takeover"]:
-            break
