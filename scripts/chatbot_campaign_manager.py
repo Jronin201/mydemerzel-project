@@ -100,50 +100,59 @@ def load_campaign_from_file(campaign_file_path):
     return ""
 
 def process_user_request(user_request, session_state=None):
+    import logging
+    logging.basicConfig(level=logging.DEBUG)
+
     if session_state is None:
         session_state = {"onboarding": False, "answers": {}, "current_q": 0}
 
     user_msg = user_request.strip()
     TRIGGERS = ["start a new campaign", "create a new campaign"]
 
+    logging.debug(f"Received user message: '{user_msg}' with session_state: {session_state}")
+
     # Start onboarding if triggered or ongoing
     if user_msg.lower() in TRIGGERS or session_state["onboarding"]:
         if not session_state["onboarding"]:
             session_state["onboarding"] = True
             session_state["current_q"] = 0
+            logging.debug("Starting onboarding, sending first prompt")
             return {
                 "response": campaign_questions[0]["prompt"],
                 "takeover": True,
                 "session_state": session_state,
             }
 
-        # If we are expecting an answer to a previously sent question
         qidx = session_state.get("current_q", 0)
 
-        # Only store user input if it is a response to the previous question, i.e., qidx > 0
+        # Store user input only if we previously asked a question (qidx > 0)
         if qidx > 0 and qidx <= len(campaign_questions):
             prev_key = campaign_questions[qidx - 1]["key"]
-
-            # Store response only if the key not already populated to prevent overwrite on repeated calls
             if prev_key not in session_state["answers"]:
                 session_state["answers"][prev_key] = user_msg
+                logging.debug(f"Stored answer for '{prev_key}': '{user_msg}'")
+            else:
+                logging.debug(f"Answer for '{prev_key}' already stored as '{session_state['answers'][prev_key]}'")
 
-        # After storing the answer, move to next question if any
+        # Next question
         if qidx < len(campaign_questions):
             prompt = campaign_questions[qidx]["prompt"]
             session_state["current_q"] = qidx + 1
+            logging.debug(f"Asking question {qidx + 1}: {prompt}")
             return {
                 "response": prompt,
                 "takeover": True,
                 "session_state": session_state,
             }
 
-        # All questions answered — create campaign, reset onboarding
+        # All questions answered: create & save campaign
+        logging.debug("All questions answered, creating campaign...")
         scenario = create_campaign(**session_state["answers"])
         campaign_file_path = os.path.abspath("dune_campaign.txt")
         save_campaign_to_file(scenario, campaign_file_path)
+        logging.debug(f"Campaign saved to {campaign_file_path}")
 
-        # Reset session state
+        # Reset onboarding state
         session_state = {"onboarding": False, "answers": {}, "current_q": 0}
 
         return {
@@ -152,7 +161,8 @@ def process_user_request(user_request, session_state=None):
             "session_state": session_state,
         }
 
-    # Normal chat response here
+    # Not onboarding; normal chat processing
+    logging.debug("Not onboarding; passing back control")
     return {
         "response": None,
         "takeover": False,
