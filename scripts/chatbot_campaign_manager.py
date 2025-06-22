@@ -156,7 +156,7 @@ def process_user_request(user_request, session_state=None):
         session_state = {"onboarding": False, "answers": {}, "current_q": 0}
 
         return {
-            "response": f"Campaign created!\n\n{scenario['starting_event']}",
+            "response": f"Campaign created!\n\n{scenario['campaign_markdown']}",
             "takeover": False,
             "session_state": session_state,
         }
