@@ -181,20 +181,12 @@ No .env file found.
 On branch main
 Your branch is up to date with 'origin/main'.
 
-Changes to be committed:
-  (use "git restore --staged <file>..." to unstage)
-	deleted:    ../.env
-
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git restore <file>..." to discard changes in working directory)
 	modified:   diagnostics/git.txt
-	modified:   diagnostics/tree.txt
 
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-	../.env
-
+no changes added to commit (use "git add" and/or "git commit -a")
 
 ===== EXTENSIONS =====
 Extensions installed on Codespaces: verbose goggles:
