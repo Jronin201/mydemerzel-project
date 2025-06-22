@@ -19,11 +19,10 @@ from pathlib import Path
 import json
 import tiktoken
 
-# NEW IMPORT FOR DUNE CAMPAIGN MANAGEMENT
+# Campaign management for Dune
 from dune.chatbot_campaign_manager_dune import process_user_request
 
 app = Flask(__name__, static_folder="static")
-# Explicitly allow cross-origin requests from any domain to fix frontend CORS errors
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.secret_key = "REPLACE_WITH_A_SECRET_KEY"
@@ -186,14 +185,14 @@ def chat():
     if not user_input:
         return jsonify({"error": "Empty input"}), 400
 
-    # CAMPAIGN MANAGEMENT HANDLING FOR DUNE
+    # Campaign management logic for Dune
     response_text = ""
     if page == "dune" and ("create a new campaign" in user_input.lower() or "start a new campaign" in user_input.lower()):
         process_user_request(user_input)
         response_text = "Processing campaign creation request."
 
     trimmed = ""
-    if not response_text:  # If the input wasn't for campaign creation
+    if not response_text:  # If not a campaign creation request, proceed as normal
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
 
@@ -247,7 +246,6 @@ def chat():
         # The One Ring embedding
         if page == "the-one-ring" and the_one_ring_embeddings:
             try:
-                # Get embedding of the current user message
                 embedding_client = OpenAI()
                 user_embedding = embedding_client.embeddings.create(
                     model="text-embedding-3-small", input=user_input
@@ -266,7 +264,6 @@ def chat():
                     f"[DEBUG] Best match from '{best_source}' with similarity score: {best_score:.4f}"
                 )
 
-                # Inject it into the system prompt
                 full_system_prompt += (
                     f"\n\n[RELEVANT EXCERPT FROM '{best_source}']\n"
                     f"Do not reveal this unless the user explicitly asks:\n{best_text}"
