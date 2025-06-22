@@ -107,10 +107,6 @@ def create_campaign():
         f"the key figure {scenario['npc_roles']} plays a crucial role. "
         f"Objectives include {scenario['player_goals']} against the backdrop of {scenario['story_challenge']}."
     )
-
-    # Build the path to dune.txt relative to this script's directory
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    rules_file_path = os.path.abspath(os.path.join(script_dir, "../../documents/dune/dune.txt"))
     
     # Build the path to dune.txt relative to this script's directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -120,6 +116,7 @@ def create_campaign():
         print(f"ERROR: File not found at {rules_file_path}")
     else:
         print(f"File found: {rules_file_path}")
+        
     # Rule compliance check
     compliant, corrections = check_compliance(scenario, rules_file_path)
 
