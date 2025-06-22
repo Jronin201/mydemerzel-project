@@ -100,15 +100,47 @@ def load_campaign_from_file(campaign_file_path):
             return f.read()
     return ""
 
+import subprocess
+import os
+
 def run_git_commands():
-    """Silently add, commit, and push the campaign file."""
-    commands = [
-        ["git", "add", "dune_campaign.txt"],
-        ["git", "commit", "-m", "Auto-save campaign"],
-        ["git", "push"],
-    ]
-    for cmd in commands:
-        subprocess.run(cmd, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # 1. Find the Git repo root
+    project_root = subprocess.check_output(
+        ["git", "rev-parse", "--show-toplevel"],
+        cwd=os.path.dirname(__file__)
+    ).decode().strip()
+
+    # 2. Configure a bot identity so commits don’t error out
+    subprocess.run(
+        ["git", "config", "--global", "user.email", "render-bot@yourdomain.com"],
+        cwd=project_root
+    )
+    subprocess.run(
+        ["git", "config", "--global", "user.name", "Render Bot"],
+        cwd=project_root
+    )
+
+    # 3. Point “origin” at your GitHub repo using the personal access token
+    token = os.getenv("GITHUB_TOKEN")
+    if token:
+        repo_path = "github.com/Jronin201/mydemerzel-project.git"
+        auth_url = f"https://{token}@{repo_path}"
+        subprocess.run(
+            ["git", "remote", "set-url", "origin", auth_url],
+            cwd=project_root
+        )
+
+    # 4. Add, commit, and push the campaign file from repo root
+    subprocess.run(["git", "add", "dune_campaign.txt"], cwd=project_root)
+    subprocess.run(
+        ["git", "commit", "-m", "Auto-save Dune campaign"],
+        cwd=project_root
+    )
+    subprocess.run(
+        ["git", "push", "origin", "main"],
+        cwd=project_root
+    )
+
 
 def process_user_request(user_request, session_state=None):
     import logging
