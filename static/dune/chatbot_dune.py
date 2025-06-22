@@ -67,6 +67,16 @@ def logout():
 def root():
     return app.send_static_file("index.html")
 
+@app.route("/chat", methods=["POST"])
+def chat():
+    user_input = request.json.get("message", "").strip()
+    # Implement the Dune-specific chat logic here
+    # ...
+
+    return jsonify({"response": "Handling Dune-specific chatbot logic"})
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 
 @app.route("/the-one-ring")
 @login_required
