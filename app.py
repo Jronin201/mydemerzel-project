@@ -99,6 +99,27 @@ def call_of_cthulhu():
 def master_template():
     return app.send_static_file("master-template/index.html")
 
+@app.route('/create_campaign', methods=['POST'])
+def create_campaign_endpoint():
+    scenario = create_campaign()
+    return jsonify(scenario)
+
+@app.route('/compliance_check', methods=['POST'])
+def compliance_check_endpoint():
+    data = request.json
+    scenario = data.get('scenario', {})
+    rules_file_path = data.get('rules_file_path', '')
+    threshold = data.get('threshold', 0.5)
+    
+    compliant, corrections = check_compliance(scenario, rules_file_path, threshold)
+    return jsonify({"compliant": compliant, "corrections": corrections})
+
+@app.route('/process_request', methods=['POST'])
+def process_request_endpoint():
+    user_request = request.json.get('user_request', '')
+    process_user_request(user_request)
+    return jsonify({"status": "Processed"})
+
 # Load environment variables and OpenAI client
 load_dotenv()
 client = OpenAI()
