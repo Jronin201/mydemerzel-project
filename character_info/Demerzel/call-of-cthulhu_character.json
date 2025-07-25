@@ -1,0 +1,124 @@
+{
+  "username": "Demerzel",
+  "ttrpg_system": "call-of-cthulhu",
+  "last_updated": "2025-07-20 12:07:00",
+  "last_source": "user",
+  "character_info": {
+    "name": "Detective",
+    "stats": "Investigator"
+  },
+  "history": [
+    {
+      "character_info": {
+        "name": "Detective Sarah Williams",
+        "stats": "Experienced investigator with a keen eye for detail. Has encountered the supernatural before and lived to tell the tale."
+      },
+      "timestamp": "2025-07-15 08:18:35",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective",
+        "stats": "Investigator"
+      },
+      "timestamp": "2025-07-20 11:29:56",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective Sarah Williams",
+        "stats": "Experienced investigator with a keen eye for detail. Has encountered the supernatural before and lived to tell the tale."
+      },
+      "timestamp": "2025-07-20 11:29:57",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective",
+        "stats": "Investigator"
+      },
+      "timestamp": "2025-07-20 11:46:01",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective Sarah Williams",
+        "stats": "Experienced investigator with a keen eye for detail. Has encountered the supernatural before and lived to tell the tale."
+      },
+      "timestamp": "2025-07-20 11:46:02",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective",
+        "stats": "Investigator"
+      },
+      "timestamp": "2025-07-20 11:49:38",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective Sarah Williams",
+        "stats": "Experienced investigator with a keen eye for detail. Has encountered the supernatural before and lived to tell the tale."
+      },
+      "timestamp": "2025-07-20 11:49:39",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective",
+        "stats": "Investigator"
+      },
+      "timestamp": "2025-07-20 11:54:00",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective Sarah Williams",
+        "stats": "Experienced investigator with a keen eye for detail. Has encountered the supernatural before and lived to tell the tale."
+      },
+      "timestamp": "2025-07-20 11:54:01",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective",
+        "stats": "Investigator"
+      },
+      "timestamp": "2025-07-20 11:58:13",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective Sarah Williams",
+        "stats": "Experienced investigator with a keen eye for detail. Has encountered the supernatural before and lived to tell the tale."
+      },
+      "timestamp": "2025-07-20 11:58:14",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective",
+        "stats": "Investigator"
+      },
+      "timestamp": "2025-07-20 12:03:06",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective",
+        "stats": "Investigator"
+      },
+      "timestamp": "2025-07-20 12:04:07",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective",
+        "stats": "Investigator"
+      },
+      "timestamp": "2025-07-20 12:04:58",
+      "source": "user"
+    }
+  ]
+}

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Functionality Test - Horizontal Expansion</title>
+    <style>
+      /* Simplified test with horizontal expansion */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #121212;
+        color: #e0e0e0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        overflow-x: auto;
+      }
+
+      #left-container {
+        flex: 1 1 auto;
+        min-width: 400px;
+        max-width: 60vw;
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+        background-color: #1e1e1e;
+        overflow-y: auto;
+      }
+
+      #character-sheet,
+      #notes-sheet {
+        width: 100%;
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 8px;
+        color: #e0e0e0;
+        border: 1px solid #333;
+        margin-bottom: 1em;
+      }
+
+      .styled-textarea {
+        width: 100%;
+        padding: 0.5em;
+        border: 1px solid #555;
+        border-radius: 4px;
+        background-color: #2a2a2a;
+        color: #e0e0e0;
+        font-family: inherit;
+        resize: none;
+        overflow: hidden;
+        min-height: 2.5em;
+        line-height: 1.4;
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: pre-wrap;
+      }
+
+      #chat-container {
+        flex: 2 1 auto;
+        min-width: 400px;
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+      }
+
+      #messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1em;
+        border-radius: 8px;
+        background: #1e1e1e;
+        border: 1px solid #333;
+        margin-bottom: 1em;
+      }
+
+      .message {
+        margin: 0.5em 0;
+        line-height: 1.5;
+      }
+      .user {
+        color: #81d4fa;
+      }
+      .assistant {
+        color: #c5e1a5;
+      }
+
+      #userInput {
+        padding: 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #2a2a2a;
+        color: white;
+        font-size: 1.15em;
+        width: 100%;
+      }
+
+      .test-controls {
+        background-color: #333;
+        padding: 1em;
+        border-radius: 8px;
+        margin-bottom: 1em;
+      }
+
+      .test-button {
+        background-color: #444;
+        color: #e0e0e0;
+        border: 1px solid #666;
+        padding: 0.5em 1em;
+        margin: 0.25em;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      @media (min-width: 1200px) {
+        #left-container {
+          max-width: 70vw;
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          flex-direction: column;
+        }
+        #left-container {
+          height: 40vh;
+          min-width: auto;
+          max-width: 100%;
+        }
+        #chat-container {
+          height: 60vh;
+          min-width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="left-container">
+      <div class="test-controls">
+        <h3>Horizontal Expansion Test + Chat Test</h3>
+        <button class="test-button" onclick="addWideCharacterInfo()">
+          Add Wide Character Info
+        </button>
+        <button class="test-button" onclick="addLongNotes()">
+          Add Long Notes
+        </button>
+        <button class="test-button" onclick="testChatFunctionality()">
+          Test Chat Function
+        </button>
+        <button class="test-button" onclick="clearAll()">Clear All</button>
+      </div>
+
+      <div id="character-sheet">
+        <label for="character-name">Character Information:</label>
+        <textarea
+          id="character-name"
+          class="styled-textarea"
+          placeholder="Character info..."
+          rows="2"
+        ></textarea>
+      </div>
+
+      <div id="notes-sheet">
+        <label for="stat-value">Notes:</label>
+        <textarea
+          id="stat-value"
+          class="styled-textarea"
+          placeholder="Notes..."
+          rows="2"
+        ></textarea>
+      </div>
+    </div>
+
+    <div id="chat-container">
+      <h1>Chat Test</h1>
+      <div id="messages"></div>
+      <input
+        id="userInput"
+        type="text"
+        placeholder="Type a message and press Enter to test chat..."
+        autocomplete="off"
+      />
+    </div>
+
+    <script>
+      // Auto-resize function
+      function autoResize(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = textarea.scrollHeight + "px";
+      }
+
+      // Setup auto-resize
+      function setupAutoResize(element) {
+        if (!element) return;
+        element.addEventListener("input", () => autoResize(element));
+        autoResize(element);
+      }
+
+      // Test functions
+      function addWideCharacterInfo() {
+        const textarea = document.getElementById("character-name");
+        textarea.value =
+          "Duncan Idaho - Legendary Swordmaster of House Atreides - Born on Ginaz and trained in the most prestigious sword schools of the known universe - Expert in all forms of blade combat including traditional Ginaz techniques, shield fighting methodologies, and advanced tactical combat - Physical Stats: Exceptional strength and agility combined with lightning-fast reflexes - Mental Capabilities: Strategic genius with deep understanding of political intrigue and military tactics - Equipment: Traditional Ginaz longsword (family heirloom), personal energy shield, stillsuit adapted for Arrakis conditions, full Atreides military dress uniform with ceremonial decorations - Background: Grew up in harsh training environments, formed deep bonds with House Atreides, developed unwavering loyalty to the Duke and his family - Personality: Honor-bound warrior with strong moral compass, protective of allies, feared by enemies throughout the Imperium";
+        autoResize(textarea);
+      }
+
+      function addLongNotes() {
+        const textarea = document.getElementById("stat-value");
+        textarea.value =
+          "Campaign Notes:\n\nSession 1: Party arrived on Arrakis, met local Fremen contacts, learned about spice harvesting operations, discovered evidence of Harkonnen sabotage activities\n\nSession 2: Investigated mysterious desert phenomena, encountered sandworm activity, established diplomatic relations with tribal leaders, uncovered ancient technological artifacts\n\nSession 3: Participated in major political negotiations, navigated complex inter-house rivalries, made crucial alliance decisions that will impact future storylines\n\nImportant NPCs: Stilgar (Fremen leader), Liet-Kynes (planetary ecologist), Baron Harkonnen (primary antagonist), Guild Navigator (mysterious figure)\n\nOngoing Plotlines: Water rights disputes, spice production quotas, mysterious prescient visions affecting character decisions, growing rebellion against Imperial control\n\nCharacter Development: Increasing combat skills, developing political awareness, forming deeper relationships with party members and important NPCs";
+        autoResize(textarea);
+      }
+
+      function testChatFunctionality() {
+        appendMessage(
+          "System",
+          "Testing chat functionality with current character info...",
+          "assistant"
+        );
+
+        // Simulate sending character info to server
+        const charInfo = document.getElementById("character-name").value;
+        const notes = document.getElementById("stat-value").value;
+
+        if (charInfo || notes) {
+          appendMessage(
+            "System",
+            "✅ Character information detected and would be sent to AI",
+            "assistant"
+          );
+          appendMessage(
+            "System",
+            `Character Info Length: ${charInfo.length} characters`,
+            "assistant"
+          );
+          appendMessage(
+            "System",
+            `Notes Length: ${notes.length} characters`,
+            "assistant"
+          );
+        } else {
+          appendMessage(
+            "System",
+            "No character information to send",
+            "assistant"
+          );
+        }
+      }
+
+      function clearAll() {
+        document.getElementById("character-name").value = "";
+        document.getElementById("stat-value").value = "";
+        autoResize(document.getElementById("character-name"));
+        autoResize(document.getElementById("stat-value"));
+        document.getElementById("messages").innerHTML = "";
+      }
+
+      function appendMessage(sender, text, className) {
+        const msg = document.createElement("p");
+        msg.className = "message " + className;
+        const senderNode = document.createElement("strong");
+        senderNode.textContent = sender + ": ";
+        msg.appendChild(senderNode);
+        msg.appendChild(document.createTextNode(text));
+        document.getElementById("messages").appendChild(msg);
+        document.getElementById("messages").scrollTop =
+          document.getElementById("messages").scrollHeight;
+      }
+
+      // Chat input handler
+      document
+        .getElementById("userInput")
+        .addEventListener("keydown", function (e) {
+          if (e.key === "Enter" && this.value.trim()) {
+            const message = this.value.trim();
+            appendMessage("You", message, "user");
+            this.value = "";
+
+            // Simulate AI response
+            setTimeout(() => {
+              appendMessage(
+                "AI",
+                "This is a test response. The horizontal expansion is working properly!",
+                "assistant"
+              );
+            }, 500);
+          }
+        });
+
+      // Initialize
+      window.addEventListener("load", function () {
+        setupAutoResize(document.getElementById("character-name"));
+        setupAutoResize(document.getElementById("stat-value"));
+        appendMessage(
+          "System",
+          "Horizontal expansion test ready! Try adding wide content to see the layout adapt.",
+          "assistant"
+        );
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+# Ignore everything
+*
+
+# Only allow this folder
+!static/
+!static/the-one-ring/
+!static/the-one-ring/**
+
+# Common bloat/exclusions
+node_modules/
+dist/
+build/
+.cache/
+coverage/
+logs/
+tmp/
+temp/
+.env
+.env.*
+*.log
+.DS_Store
+*.swp
+*.swo
+*.bak
+*.tmp
+.vscode/
+.idea/
+*.iml
+__pycache__/
+*.pyc
+*.pyo
+*.class
+*.map
+*.fig
+*.psd
+*.ai
+*.mp4
+*.mov
+*.zip
+*.tar.gz

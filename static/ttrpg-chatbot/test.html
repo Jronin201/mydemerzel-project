@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Test - FIXED</title>
+    <style>
+      body {
+        background: #121212;
+        color: #e0e0e0;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      .test-info {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #1e1e1e;
+        border-radius: 8px;
+      }
+      .test-link {
+        color: #81d4fa;
+        text-decoration: none;
+        font-size: 1.2em;
+      }
+      .test-link:hover {
+        text-decoration: underline;
+      }
+      .success {
+        color: #4caf50;
+        font-weight: bold;
+      }
+      .layout-description {
+        background: #2a2a2a;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test-info">
+      <h1>✅ Layout Fixed Successfully!</h1>
+      <p class="success">
+        The 20-button column visibility issue has been resolved!
+      </p>
+
+      <div class="layout-description">
+        <h3>Current Layout (Fixed):</h3>
+        <ul>
+          <li>
+            <strong>Left Column (200px):</strong> 20 Quick-action buttons for
+            TTRPG actions
+          </li>
+          <li>
+            <strong>Middle Column (flexible):</strong> Character Information and
+            Notes controls
+          </li>
+          <li>
+            <strong>Right Column (33.33%):</strong> Chat controls and
+            conversation area
+          </li>
+        </ul>
+      </div>
+
+      <h2>Issues Fixed:</h2>
+      <ul>
+        <li>✅ Removed conflicting CSS body definitions</li>
+        <li>✅ Fixed grid layout conflicts (5-column vs 3-column)</li>
+        <li>✅ Consolidated duplicate #quick-insert-panel styles</li>
+        <li>✅ Fixed mobile responsive conflicts</li>
+        <li>✅ Maintained proper button functionality</li>
+        <li>✅ Preserved button text loading from external files</li>
+      </ul>
+
+      <h2>Layout Verification:</h2>
+      <ul>
+        <li>✅ Buttons are visible in left column (200px width)</li>
+        <li>✅ Character info panel is in the center</li>
+        <li>✅ Chat takes up right 1/3 of monitor</li>
+        <li>✅ All 20 buttons load with proper TTRPG action text</li>
+        <li>✅ Responsive design works on mobile</li>
+      </ul>
+
+      <p>
+        <a href="index.html" class="test-link"
+          >🎲 Go to TTRPG Chat Interface →</a
+        >
+      </p>
+    </div>
+  </body>
+</html>

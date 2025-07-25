@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1200, initial-scale=1.0" />
+    <title>Demerzel - TTRPG Chat</title>
+    <link rel="stylesheet" href="../mouse-guard/css/markdown.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+      /* CSS Reset for better cross-browser compatibility */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #121212;
+        color: #e0e0e0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, Arial,
+          Helvetica;
+        font-size: 1.15em;
+        margin: 0;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: 250px 1fr 40%; /* Optimized for PC: Wider buttons, More chat space */
+        gap: 20px;
+        height: 100vh;
+        box-sizing: border-box;
+      }
+
+      /* Middle Panel (Character Information and Notes) */
+      #character-sheet-container {
+        grid-column: 2;
+        padding: 15px;
+        background: #1e1e1e;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        height: calc(100vh - 20px);
+      }
+
+      /* Right Panel (Chat Box - 40% of monitor for PC optimization) */
+      #chat-container {
+        grid-column: 3;
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        background: #1e1e1e;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        height: calc(100vh - 20px);
+      }
+
+      /* Character Information Styles */
+      #ttrpg-info {
+        margin-bottom: 1em;
+      }
+
+      #ttrpg-info h2 {
+        font-size: 1.5em;
+        margin-bottom: 0.5em;
+        color: #f0f0f0;
+      }
+
+      #ttrpg-info p {
+        font-size: 1.1em;
+        color: #e0e0e0;
+      }
+
+      #character-name,
+      #stat-value {
+        margin-bottom: 1.2em; /* Increased spacing for PC */
+        padding: 1em; /* More padding for PC */
+        border: 1px solid #555;
+        border-radius: 6px; /* Slightly larger radius */
+        background-color: #2a2a2a;
+        color: #e0e0e0;
+        font-size: 1.15em; /* Slightly larger font */
+        width: 100%;
+        min-height: 80px; /* Increased minimum height for PC */
+        resize: vertical;
+      }
+
+      /* Labels for form elements */
+      label {
+        display: block;
+        margin-bottom: 0.5em;
+        color: #f0f0f0;
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+
+      /* Remove the left-container wrapper styling */
+      #left-container {
+        display: contents;
+      }
+
+      #chat-container h1 {
+        margin-top: 0;
+        margin-bottom: 0.5em;
+        color: #f0f0f0;
+        font-size: 2.1em;
+      }
+
+      #back-button {
+        background-color: #333;
+        border: 1px solid #555;
+        color: #f0f0f0;
+        padding: 0.5em 1em;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 1em;
+        font-size: 1.05em;
+        transition: background-color 0.3s ease;
+      }
+
+      #back-button:hover {
+        background-color: #555;
+      }
+
+      #messages {
+        flex: 1;
+        overflow-y: auto;
+        margin-bottom: 1em;
+        padding: 1em;
+        background: #121212;
+        border: 1px solid #333;
+        border-radius: 8px;
+      }
+
+      .message {
+        margin: 0.5em 0;
+        line-height: 1.6;
+        word-wrap: break-word;
+        word-break: break-word;
+        font-size: 1.1em;
+        padding: 0.8em;
+        border-radius: 8px;
+        border-left: 4px solid;
+        position: relative;
+      }
+
+      .user {
+        background-color: #1a2332;
+        border-left-color: #81d4fa;
+        color: #e1f5fe;
+      }
+
+      .assistant {
+        background-color: #1e2d1e;
+        border-left-color: #c5e1a5;
+        color: #f1f8e9;
+      }
+
+      .assistant.markdown {
+        background: linear-gradient(135deg, #1e2d1e 0%, #2d3e2d 100%);
+      }
+
+      /* Enhanced Markdown Formatting for AI Messages */
+      .assistant.markdown h1,
+      .assistant.markdown h2,
+      .assistant.markdown h3 {
+        color: #81c784;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        margin: 1em 0 0.5em 0;
+        border-bottom: 2px solid #4caf50;
+        padding-bottom: 0.3em;
+      }
+
+      .assistant.markdown h1 {
+        font-size: 1.4em;
+        color: #a5d6a7;
+      }
+
+      .assistant.markdown h2 {
+        font-size: 1.3em;
+        color: #c8e6c9;
+      }
+
+      .assistant.markdown h3 {
+        font-size: 1.2em;
+        color: #dcedc8;
+      }
+
+      .assistant.markdown p {
+        margin: 0.8em 0;
+        line-height: 1.7;
+      }
+
+      .assistant.markdown strong {
+        color: #ffeb3b;
+        font-weight: bold;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+      }
+
+      .assistant.markdown em {
+        color: #ffc107;
+        font-style: italic;
+      }
+
+      .assistant.markdown code {
+        background-color: #263238;
+        color: #ff7043;
+        padding: 0.2em 0.5em;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        border: 1px solid #37474f;
+      }
+
+      .assistant.markdown pre {
+        background: linear-gradient(135deg, #263238 0%, #37474f 100%);
+        color: #eceff1;
+        padding: 1em;
+        border-radius: 8px;
+        overflow-x: auto;
+        border-left: 4px solid #ff7043;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .assistant.markdown pre code {
+        background: none;
+        border: none;
+        color: inherit;
+        padding: 0;
+      }
+
+      .assistant.markdown ul,
+      .assistant.markdown ol {
+        margin: 0.8em 0;
+        padding-left: 2em;
+      }
+
+      .assistant.markdown li {
+        margin: 0.4em 0;
+        position: relative;
+      }
+
+      .assistant.markdown ul li::marker {
+        color: #81c784;
+      }
+
+      .assistant.markdown ol li::marker {
+        color: #81c784;
+        font-weight: bold;
+      }
+
+      .assistant.markdown blockquote {
+        border-left: 4px solid #ff9800;
+        background: linear-gradient(90deg, #2e1a0a 0%, #1e1e1e 100%);
+        padding: 1em 1.5em;
+        margin: 1em 0;
+        color: #ffcc80;
+        font-style: italic;
+        border-radius: 0 8px 8px 0;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .assistant.markdown a {
+        color: #4fc3f7;
+        text-decoration: underline;
+      }
+
+      .assistant.markdown a:hover {
+        color: #29b6f6;
+        text-shadow: 0 0 4px rgba(79, 195, 247, 0.5);
+      }
+
+      /* Dice roll and game mechanic highlighting */
+      .assistant.markdown .dice-roll,
+      .assistant.markdown [data-dice] {
+        background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+        color: white;
+        padding: 0.3em 0.6em;
+        border-radius: 6px;
+        font-weight: bold;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Status effects and conditions */
+      .assistant.markdown .status-effect {
+        background: linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%);
+        color: white;
+        padding: 0.2em 0.5em;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-weight: bold;
+      }
+
+      /* Important notices and alerts */
+      .assistant.markdown .alert,
+      .assistant.markdown .notice {
+        background: linear-gradient(135deg, #f57c00 0%, #ff9800 100%);
+        color: white;
+        padding: 0.8em 1em;
+        border-radius: 6px;
+        margin: 1em 0;
+        border-left: 4px solid #e65100;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Success messages */
+      .assistant.markdown .success {
+        background: linear-gradient(135deg, #388e3c 0%, #4caf50 100%);
+        color: white;
+        padding: 0.8em 1em;
+        border-radius: 6px;
+        margin: 1em 0;
+        border-left: 4px solid #2e7d32;
+      }
+
+      /* Error messages */
+      .assistant.markdown .error {
+        background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+        color: white;
+        padding: 0.8em 1em;
+        border-radius: 6px;
+        margin: 1em 0;
+        border-left: 4px solid #c62828;
+      }
+
+      /* Character stats and information */
+      .assistant.markdown .character-stat {
+        background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
+        color: white;
+        padding: 0.3em 0.6em;
+        border-radius: 4px;
+        font-weight: bold;
+        margin: 0 0.2em;
+        display: inline-block;
+      }
+
+      /* Tables for character sheets and stats */
+      .assistant.markdown table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 1em 0;
+        background: linear-gradient(135deg, #263238 0%, #37474f 100%);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .assistant.markdown th,
+      .assistant.markdown td {
+        border: 1px solid #455a64;
+        padding: 0.8em;
+        text-align: left;
+      }
+
+      .assistant.markdown th {
+        background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
+        color: white;
+        font-weight: bold;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .assistant.markdown tr:nth-child(even) td {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      .assistant.markdown tr:hover td {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      /* Enhanced emoji support */
+      .assistant.markdown .emoji {
+        font-size: 1.2em;
+        margin: 0 0.1em;
+      }
+
+      /* Custom classes for special formatting */
+      .assistant.markdown .highlight {
+        background: linear-gradient(135deg, #ff6f00 0%, #ff8f00 100%);
+        color: white;
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+
+      .assistant.markdown .whisper {
+        font-style: italic;
+        color: #90a4ae;
+        font-size: 0.95em;
+        opacity: 0.8;
+      }
+
+      .assistant.markdown .shout {
+        font-weight: bold;
+        color: #f44336;
+        text-transform: uppercase;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Animation for new messages */
+      .message.new-message {
+        animation: slideInMessage 0.3s ease-out;
+      }
+
+      @keyframes slideInMessage {
+        from {
+          transform: translateX(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      #userInput {
+        padding: 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #2a2a2a;
+        color: white;
+        font-size: 1.15em;
+        width: 100%;
+        font-family: inherit;
+        resize: none;
+        overflow: hidden;
+        min-height: 3.2em;
+        line-height: 1.4;
+        transition: height 0.2s ease;
+      }
+
+      #userInput:focus {
+        outline: 2px solid #81d4fa;
+        border: 1px solid #555;
+      }
+
+      /* Input area container - PC optimized */
+      .input-container {
+        display: flex;
+        align-items: flex-end;
+        gap: 1em; /* Increased gap for PC */
+        width: 100%;
+        padding: 10px 0; /* Extra padding for PC */
+      }
+
+      .input-wrapper {
+        flex: 1;
+      }
+
+      /* Undo button styles */
+      #undo-button {
+        background-color: #333;
+        color: #e0e0e0;
+        border: 1px solid #555;
+        border-radius: 5px;
+        padding: 0.7em 1em;
+        font-size: 1.05em;
+        cursor: pointer;
+        transition: background-color 0.2s, opacity 0.2s, border-color 0.2s;
+        min-width: 60px;
+        height: 3.2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #undo-button:hover:not(:disabled) {
+        background-color: #444;
+        border-color: #777;
+      }
+
+      #undo-button:disabled {
+        background-color: #222;
+        border-color: #333;
+        color: #666;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      #undo-button:focus {
+        outline: 2px solid #81d4fa;
+        border-color: #81d4fa;
+      }
+
+      /* Screen reader support */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* High contrast mode support */
+      @media (prefers-contrast: high) {
+        body {
+          background-color: #000000;
+          color: #ffffff;
+        }
+
+        #left-container,
+        #ttrpg-info,
+        #character-sheet,
+        #Stat-One,
+        #chat-container,
+        #messages {
+          background-color: #000000;
+          border-color: #ffffff;
+        }
+
+        .styled-input,
+        .styled-textarea,
+        #userInput {
+          background-color: #000000;
+          border-color: #ffffff;
+          color: #ffffff;
+        }
+
+        #back-button {
+          background-color: #000000;
+          border-color: #ffffff;
+        }
+      }
+
+      /* --- Quick Insert Buttons Panel Styles --- */
+      #quick-insert-panel {
+        /* Grid positioning and layout */
+        grid-column: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.7em; /* PC-optimized spacing */
+        padding: 15px; /* Enhanced padding for PC */
+        overflow-y: auto;
+        background: #1e1e1e;
+        border-right: 2px solid #222;
+        border-radius: 8px;
+        height: calc(100vh - 20px);
+        /* PC-optimized for 250px column width */
+      }
+      .quick-insert-btn {
+        background: linear-gradient(135deg, #232b2b 0%, #1e1e1e 100%);
+        color: #e0e0e0;
+        border: 1px solid #333;
+        border-radius: 8px; /* PC-optimized larger radius */
+        font-size: 1em; /* PC-optimized larger font */
+        font-family: inherit;
+        padding: 0.8em 1em; /* PC-optimized enhanced padding */
+        margin: 0;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s, color 0.2s;
+        outline: none;
+        width: 100%; /* Full width for PC */
+        min-height: 2.5em; /* PC-optimized minimum height */
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        user-select: none;
+        word-wrap: break-word;
+        overflow: hidden;
+      }
+      .quick-insert-btn:hover,
+      .quick-insert-btn:focus {
+        background: linear-gradient(135deg, #2a3a3a 0%, #232b2b 100%);
+        color: #81d4fa;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Left Column: Quick Insert Buttons Panel -->
+    <div id="quick-insert-panel"></div>
+
+    <!-- Middle Column: Character Information -->
+    <div
+      id="character-sheet-container"
+      class="character-sheet"
+      role="form"
+      aria-label="Character information"
+    >
+      <div id="ttrpg-info" role="banner" aria-label="Current TTRPG information">
+        <h2 id="ttrpg-title">Loading...</h2>
+        <p id="ttrpg-description">Preparing your adventure...</p>
+      </div>
+
+      <label for="character-name">Character Information:</label>
+      <textarea
+        id="character-name"
+        class="styled-textarea auto-resize"
+        aria-label="Enter character information"
+        placeholder="Enter character information"
+        rows="2"
+      ></textarea>
+
+      <!-- Notes -->
+      <div
+        id="Stat-One"
+        class="character-sheet"
+        role="form"
+        aria-label="Character notes"
+      >
+        <label for="stat-value">Notes:</label>
+        <textarea
+          id="stat-value"
+          class="styled-textarea auto-resize"
+          aria-label="Enter notes"
+          placeholder="Enter notes"
+          rows="2"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Right Column: Chat Container (40% of monitor for PC optimization) -->
+    <div id="chat-container" role="main">
+      <a href="/" id="back-button" aria-label="Return to main menu"
+        >← Back to Main Menu</a
+      >
+      <h1>Demerzel</h1>
+      <div
+        id="messages"
+        role="log"
+        aria-live="polite"
+        aria-label="Chat messages"
+      ></div>
+      <label for="userInput" class="sr-only">Enter your message</label>
+      <div class="input-container">
+        <div class="input-wrapper">
+          <textarea
+            id="userInput"
+            placeholder="Type your message and press Enter..."
+            autocomplete="off"
+            role="textbox"
+            aria-label="Chat input"
+            rows="1"
+            class="styled-textarea"
+          ></textarea>
+        </div>
+        <button
+          id="undo-button"
+          type="button"
+          aria-label="Undo last message exchange"
+          title="Undo the last AI response and your message, allowing you to edit and resend"
+        >
+          ↶ Undo
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // --- Quick Insert Buttons Implementation ---
+      (function () {
+        const BUTTON_COUNT = 20;
+        const panel = document.getElementById("quick-insert-panel");
+        const input = document.getElementById("userInput");
+
+        // Function to fetch text from external files
+        async function fetchButtonText(index) {
+          try {
+            const response = await fetch(`button-texts/button${index + 1}.txt`);
+            if (!response.ok) throw new Error("Failed to load text file");
+            return await response.text();
+          } catch (error) {
+            console.error(`Error loading text for button ${index + 1}:`, error);
+            return `Text for Button ${index + 1}`; // Fallback text
+          }
+        }
+
+        async function renderButtons() {
+          panel.innerHTML = "";
+          for (let i = 0; i < BUTTON_COUNT; i++) {
+            const button = document.createElement("button");
+            button.className = "quick-insert-btn";
+            button.textContent = `#${i + 1}`;
+            button.title = `Quick action button ${i + 1}`;
+            button.tabIndex = 0;
+
+            // Fetch text dynamically for each button and update label
+            fetchButtonText(i).then((buttonText) => {
+              const trimmedText = buttonText.trim();
+              // Use first few words as button label
+              const words = trimmedText.split(" ");
+              const label =
+                words.length > 3
+                  ? words.slice(0, 3).join(" ") + "..."
+                  : trimmedText;
+              button.textContent = label || `#${i + 1}`;
+              button.title = trimmedText;
+
+              // Insert text on click
+              button.addEventListener("click", function () {
+                if (!input) return;
+                if (input.value && !input.value.endsWith(" "))
+                  input.value += " ";
+                input.value += trimmedText;
+                input.focus();
+                // Optionally trigger input event for auto-resize
+                if (typeof Event === "function")
+                  input.dispatchEvent(new Event("input"));
+              });
+            });
+
+            panel.appendChild(button);
+          }
+        }
+
+        renderButtons();
+      })();
+      // Browser compatibility check and fallbacks
+      (function () {
+        "use strict";
+
+        // Check for required features
+        if (
+          !document.getElementById ||
+          !document.createElement ||
+          !window.JSON
+        ) {
+          alert("This browser is not supported. Please use a modern browser.");
+          return;
+        }
+
+        // TTRPG configurations
+        var ttrpgConfigs = {
+          dune: {
+            title: "Dune",
+            description: "Enter the dangerous political landscape of Arrakis",
+          },
+          "the-one-ring": {
+            title: "The One Ring",
+            description: "Adventure in the lands of Middle-earth",
+          },
+          "call-of-cthulhu": {
+            title: "Call of Cthulhu",
+            description: "Investigate cosmic horrors and ancient mysteries",
+          },
+          "mouse-guard": {
+            title: "Mouse Guard",
+            description:
+              "Heroic mice defending their territories from dangers great and small",
+          },
+          pendragon: {
+            title: "Pendragon 6th Edition",
+            description:
+              "Live the legend of King Arthur, chivalry, and the knights of the Round Table.",
+          },
+          general: {
+            title: "General Chat",
+            description:
+              "Open conversation with Demerzel. Ask anything, explore ideas, or get help.",
+          },
+        };
+
+        // Get current TTRPG from URL parameter or default
+        function getCurrentTTRPG() {
+          var urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get("ttrpg") || "general";
+        }
+
+        // Set TTRPG information on page load
+        function initializeTTRPG() {
+          var currentTTRPG = getCurrentTTRPG();
+          var config = ttrpgConfigs[currentTTRPG] || {
+            title: "Unknown System",
+            description: "Adventure awaits...",
+          };
+
+          var titleElement = document.getElementById("ttrpg-title");
+          var descElement = document.getElementById("ttrpg-description");
+
+          if (titleElement) titleElement.textContent = config.title;
+          if (descElement) descElement.textContent = config.description;
+
+          // Store current TTRPG for use in chat requests
+          window.currentTTRPG = currentTTRPG;
+        }
+
+        // JavaScript to interact with inputs
+        var characterNameInput = document.getElementById("character-name");
+        var statOneInput = document.getElementById("stat-value");
+
+        // Auto-resize functionality for textareas
+        function autoResize(textarea) {
+          if (!textarea) return;
+
+          // Reset height to get accurate scrollHeight
+          textarea.style.height = "auto";
+
+          // Calculate the new height
+          var newHeight = Math.max(textarea.scrollHeight, 40); // Minimum height of ~2.5em
+
+          // Set the new height
+          textarea.style.height = newHeight + "px";
+        }
+
+        function setupAutoResize(element) {
+          if (!element) return;
+
+          // Auto-resize on input (including when Enter is pressed)
+          addEvent(element, "input", function () {
+            autoResize(element);
+          });
+
+          // Auto-resize on paste
+          addEvent(element, "paste", function () {
+            // Use setTimeout to allow paste content to be processed
+            setTimeout(function () {
+              autoResize(element);
+            }, 10);
+          });
+
+          // Auto-resize when focus is lost (blur event)
+          addEvent(element, "blur", function () {
+            autoResize(element);
+          });
+
+          // Initial resize
+          autoResize(element);
+        }
+
+        // Function to load chat history for current TTRPG
+        function loadChatHistory() {
+          var currentTTRPG = window.currentTTRPG || "general";
+
+          makeFetchRequest(
+            "/api/chat-history?ttrpg=" + encodeURIComponent(currentTTRPG),
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            },
+            function (error, data) {
+              if (error) {
+                console.error("Error loading chat history:", error);
+                return;
+              }
+
+              if (data && data.messages && data.messages.length > 0) {
+                // Clear existing messages (if any)
+                messages.innerHTML = "";
+
+                // Load previous messages
+                data.messages.forEach(function (message) {
+                  if (message.role === "user" || message.role === "assistant") {
+                    var className =
+                      message.role === "user" ? "user" : "assistant";
+                    var sender = message.role === "user" ? "You" : "AI";
+                    appendMessage(sender, message.content, className);
+                  }
+                });
+
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+                console.log(
+                  "Loaded " +
+                    data.messages.length +
+                    " previous messages for " +
+                    currentTTRPG
+                );
+              } else {
+                // Update undo button state even if no messages loaded
+                updateUndoButtonState();
+              }
+            }
+          );
+        }
+
+        // Function to load character info for current TTRPG
+        function loadCharacterInfo() {
+          var currentTTRPG = window.currentTTRPG || "general";
+
+          makeFetchRequest(
+            "/api/character-info?ttrpg=" + encodeURIComponent(currentTTRPG),
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            },
+            function (error, data) {
+              if (error) {
+                console.error("Error loading character info:", error);
+                return;
+              }
+
+              if (data) {
+                // Load character information into textboxes
+                if (characterNameInput && data.character_name) {
+                  characterNameInput.value = data.character_name;
+                  autoResize(characterNameInput);
+                }
+                if (statOneInput && data.character_stats) {
+                  statOneInput.value = data.character_stats;
+                  autoResize(statOneInput);
+                }
+                console.log(
+                  "Loaded character info for " +
+                    currentTTRPG +
+                    " (last updated: " +
+                    data.last_updated +
+                    ")"
+                );
+              }
+            }
+          );
+        }
+
+        // Function to update character info in backend
+        function updateCharacterInfo() {
+          var character_name = characterNameInput
+            ? characterNameInput.value.trim()
+            : "";
+          var character_stats = statOneInput ? statOneInput.value.trim() : "";
+
+          // Send to backend via new persistent character info API endpoint
+          makeFetchRequest(
+            "/api/character-info",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                ttrpg: window.currentTTRPG || "general",
+                character_name: character_name,
+                character_stats: character_stats,
+              }),
+            },
+            function (error, data) {
+              if (error) {
+                console.error("Error saving character info:", error);
+              } else {
+                console.log(
+                  "Character info saved successfully for " + window.currentTTRPG
+                );
+              }
+            }
+          );
+        }
+
+        // Function to get input values
+        function logInputValues() {
+          if (characterNameInput && statOneInput) {
+            console.log("Character Information:", characterNameInput.value);
+            console.log("Notes:", statOneInput.value);
+          }
+        }
+
+        // Fallback for browsers without addEventListener
+        function addEvent(element, event, handler) {
+          if (element.addEventListener) {
+            element.addEventListener(event, handler, false);
+          } else if (element.attachEvent) {
+            element.attachEvent("on" + event, handler);
+          } else {
+            element["on" + event] = handler;
+          }
+        }
+
+        // Initialize TTRPG info on page load
+        addEvent(window, "load", function () {
+          initializeTTRPG();
+          loadChatHistory(); // Load previous chat messages
+          loadCharacterInfo(); // Load previous character information
+          logInputValues();
+
+          // Setup auto-resize for textareas
+          setupAutoResize(characterNameInput);
+          setupAutoResize(statOneInput);
+          setupAutoResize(input); // Add auto-resize for main chat input
+
+          // Add event listeners to character inputs for automatic updates
+          if (characterNameInput) {
+            addEvent(characterNameInput, "blur", updateCharacterInfo);
+            addEvent(characterNameInput, "change", updateCharacterInfo);
+          }
+          if (statOneInput) {
+            addEvent(statOneInput, "blur", updateCharacterInfo);
+            addEvent(statOneInput, "change", updateCharacterInfo);
+          }
+        });
+
+        // Chat functionality
+        var messages = document.getElementById("messages");
+        var input = document.getElementById("userInput");
+        var undoButton = document.getElementById("undo-button");
+
+        if (!messages || !input || !undoButton) {
+          console.error("Required chat elements not found");
+          return;
+        }
+
+        // Function to update undo button state
+        function updateUndoButtonState() {
+          // Check if there are messages to undo (need at least user + assistant pair)
+          var messageElements = messages.getElementsByClassName("message");
+          var hasMessages = messageElements.length >= 2;
+
+          undoButton.disabled = !hasMessages;
+          undoButton.title = hasMessages
+            ? "Undo the last AI response and your message, allowing you to edit and resend"
+            : "No messages to undo";
+        }
+
+        // Function to handle chat undo
+        function undoChatStep() {
+          if (undoButton.disabled) {
+            return;
+          }
+
+          // Disable button during request
+          undoButton.disabled = true;
+          var originalText = undoButton.textContent;
+          undoButton.textContent = "...";
+
+          makeFetchRequest(
+            "/api/chat-history/undo",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                ttrpg: window.currentTTRPG || "general",
+              }),
+            },
+            function (error, data) {
+              undoButton.textContent = originalText;
+
+              if (error) {
+                console.error("Undo error:", error);
+                appendMessage(
+                  "Error",
+                  "Could not undo: " + error.message,
+                  "assistant"
+                );
+              } else if (data && data.success) {
+                // Remove messages from UI to match backend state
+                var messageElements =
+                  messages.getElementsByClassName("message");
+                var toRemove = [];
+
+                // Collect elements to remove (working backwards)
+                for (
+                  var i = messageElements.length - 1;
+                  i >= 0 && toRemove.length < 10;
+                  i--
+                ) {
+                  var msg = messageElements[i];
+                  toRemove.push(msg);
+
+                  // Stop when we find the start of the conversation or have removed enough
+                  if (
+                    msg.textContent.includes("Welcome") ||
+                    msg.textContent.includes("Would you like")
+                  ) {
+                    break;
+                  }
+                }
+
+                // Actually remove the collected elements, but preserve any initial greeting
+                var removed = 0;
+                for (var j = 0; j < toRemove.length && removed < 2; j++) {
+                  var msgToRemove = toRemove[j];
+                  if (
+                    !msgToRemove.textContent.includes("Welcome") &&
+                    !msgToRemove.textContent.includes("Would you like") &&
+                    !msgToRemove.textContent.includes(
+                      "Excellent! Before we begin"
+                    )
+                  ) {
+                    msgToRemove.remove();
+                    removed++;
+                  }
+                }
+
+                // Restore the undone user message to the input field for editing
+                if (data.undone_user_message) {
+                  input.value = data.undone_user_message;
+                  autoResize(input);
+                  input.focus();
+
+                  // Set cursor to end of text
+                  if (input.setSelectionRange) {
+                    input.setSelectionRange(
+                      input.value.length,
+                      input.value.length
+                    );
+                  }
+                }
+
+                console.log("Chat step undone successfully. " + data.message);
+              } else {
+                appendMessage(
+                  "Error",
+                  data.message || "Could not undo chat step",
+                  "assistant"
+                );
+              }
+
+              updateUndoButtonState();
+              messages.scrollTop = messages.scrollHeight;
+            }
+          );
+        }
+
+        // Add click event to undo button
+        addEvent(undoButton, "click", undoChatStep);
+
+        function appendMessage(sender, text, className) {
+          var msg;
+
+          if (className === "assistant") {
+            // Enhanced formatting for AI responses
+            msg = document.createElement("div");
+            msg.className = "message assistant markdown new-message";
+
+            var senderNode = document.createElement("strong");
+            senderNode.textContent = "🤖 " + sender + ": ";
+            senderNode.style.color = "#81c784";
+            senderNode.style.fontSize = "1.1em";
+            msg.appendChild(senderNode);
+
+            var contentNode = document.createElement("div");
+
+            // Enhanced text processing for better formatting
+            var enhancedText = enhanceAIText(text);
+
+            // Parse markdown and render
+            if (typeof marked !== "undefined") {
+              contentNode.innerHTML = marked.parse(enhancedText);
+            } else {
+              // Fallback if marked.js isn't loaded
+              contentNode.innerHTML = formatTextFallback(enhancedText);
+            }
+
+            msg.appendChild(contentNode);
+
+            // Add accessibility
+            msg.setAttribute(
+              "aria-label",
+              "AI response: " + text.substring(0, 100)
+            );
+          } else {
+            // User messages with simpler formatting
+            msg = document.createElement("div");
+            msg.className = "message user new-message";
+
+            var senderNode = document.createElement("strong");
+            senderNode.textContent = "👤 " + sender + ": ";
+            senderNode.style.color = "#81d4fa";
+            senderNode.style.fontSize = "1.1em";
+            msg.appendChild(senderNode);
+
+            var textNode = document.createElement("span");
+            textNode.textContent = text;
+            msg.appendChild(textNode);
+          }
+
+          messages.appendChild(msg);
+
+          // Remove animation class after animation completes
+          setTimeout(function () {
+            msg.classList.remove("new-message");
+          }, 300);
+
+          // Update undo button state whenever a message is added
+          updateUndoButtonState();
+        }
+
+        // Enhanced text processing function
+        function enhanceAIText(text) {
+          // Add emojis for common words and phrases
+          var emojiMap = {
+            welcome: "🎉",
+            congratulations: "🎊",
+            success: "✅",
+            failed: "❌",
+            error: "⚠️",
+            warning: "⚠️",
+            critical: "🚨",
+            health: "❤️",
+            damage: "⚔️",
+            attack: "⚔️",
+            defend: "🛡️",
+            magic: "✨",
+            spell: "✨",
+            treasure: "💎",
+            gold: "💰",
+            death: "💀",
+            "level up": "🆙",
+            quest: "📋",
+            adventure: "🗺️",
+            explore: "🧭",
+            dungeon: "🏰",
+            dragon: "🐉",
+            fire: "🔥",
+            ice: "❄️",
+            poison: "☠️",
+            healing: "💚",
+            rest: "😴",
+            travel: "🚶",
+            town: "🏘️",
+            city: "🏙️",
+            forest: "🌲",
+            mountain: "⛰️",
+            ocean: "🌊",
+            cave: "🕳️",
+            night: "🌙",
+            day: "☀️",
+          };
+
+          var enhancedText = text;
+
+          // Add contextual emojis
+          for (var word in emojiMap) {
+            var regex = new RegExp(
+              "\\b" + word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b",
+              "gi"
+            );
+            enhancedText = enhancedText.replace(
+              regex,
+              emojiMap[word] + " " + word
+            );
+          }
+
+          // Enhance dice rolls
+          enhancedText = enhancedText.replace(
+            /\b(\d+d\d+(?:\+\d+)?)\b/gi,
+            "🎲 **$1**"
+          );
+
+          // Enhance damage/healing numbers
+          enhancedText = enhancedText.replace(
+            /\b(\d+)\s+(damage|healing|health|hp)\b/gi,
+            "**$1** $2"
+          );
+
+          // Enhance status effects
+          enhancedText = enhancedText.replace(
+            /\b(poisoned|stunned|paralyzed|charmed|frightened|exhausted|unconscious|prone)\b/gi,
+            '<span class="status-effect">$1</span>'
+          );
+
+          // Enhance character stats
+          enhancedText = enhancedText.replace(
+            /\b(strength|dexterity|constitution|intelligence|wisdom|charisma|level|experience|AC|HP)\s*:?\s*(\d+)/gi,
+            '<span class="character-stat">$1: $2</span>'
+          );
+
+          // Add line breaks for better readability
+          enhancedText = enhancedText.replace(/\n\n/g, "\n\n---\n\n");
+
+          // Enhance important notices
+          enhancedText = enhancedText.replace(
+            /\*\[(.*?)\]\*/g,
+            '<div class="notice">ℹ️ **$1**</div>'
+          );
+
+          return enhancedText;
+        }
+
+        // Fallback formatting function if marked.js fails
+        function formatTextFallback(text) {
+          var formatted = text
+            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+            .replace(/\*(.*?)\*/g, "<em>$1</em>")
+            .replace(/`(.*?)`/g, "<code>$1</code>")
+            .replace(/\n/g, "<br>");
+
+          return formatted;
+        }
+
+        // Polyfill for fetch if not available
+        function makeFetchRequest(url, options, callback) {
+          if (window.fetch) {
+            fetch(url, options)
+              .then(function (response) {
+                if (!response.ok) {
+                  return response.text().then(function (text) {
+                    callback(
+                      new Error("Server error " + response.status + ": " + text)
+                    );
+                  });
+                }
+                return response.json();
+              })
+              .then(function (data) {
+                callback(null, data);
+              })
+              .catch(function (error) {
+                callback(error);
+              });
+          } else {
+            // XMLHttpRequest fallback
+            var xhr = new XMLHttpRequest();
+            xhr.open(options.method || "GET", url, true);
+
+            if (options.headers) {
+              for (var key in options.headers) {
+                xhr.setRequestHeader(key, options.headers[key]);
+              }
+            }
+
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                  try {
+                    var data = JSON.parse(xhr.responseText);
+                    callback(null, data);
+                  } catch (e) {
+                    callback(new Error("Invalid JSON response"));
+                  }
+                } else {
+                  callback(
+                    new Error(
+                      "Server error " + xhr.status + ": " + xhr.responseText
+                    )
+                  );
+                }
+              }
+            };
+
+            xhr.onerror = function () {
+              callback(new Error("Network error"));
+            };
+
+            xhr.send(options.body || null);
+          }
+        }
+
+        function handleKeyDown(e) {
+          var keyCode = e.keyCode || e.which;
+
+          // Handle Enter key - send message unless Shift is held
+          if (keyCode === 13) {
+            if (e.shiftKey) {
+              // Shift+Enter: Allow new line (default behavior)
+              return true;
+            } else {
+              // Plain Enter: Send message
+              e.preventDefault(); // Prevent default new line
+
+              var userMessage = input.value.trim();
+
+              if (!userMessage) {
+                return false; // Don't send empty messages
+              }
+
+              appendMessage("You", userMessage, "user");
+              input.value = "";
+              autoResize(input); // Reset textarea size after clearing
+              input.disabled = true;
+
+              // Include current TTRPG and character info in the request
+              var requestData = {
+                message: userMessage,
+                page: window.currentTTRPG || "general",
+                character_name: characterNameInput
+                  ? characterNameInput.value
+                  : "",
+                character_stats: statOneInput ? statOneInput.value : "",
+              };
+
+              makeFetchRequest(
+                "/chat",
+                {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(requestData),
+                },
+                function (error, data) {
+                  input.disabled = false;
+
+                  if (error) {
+                    appendMessage(
+                      "Error",
+                      "There was a problem contacting the server: " +
+                        error.message,
+                      "assistant"
+                    );
+                  } else if (data && data.response) {
+                    appendMessage("Demerzel", data.response, "assistant");
+
+                    // Check if AI mentioned updating character info and refresh if needed
+                    if (data.response.includes("*[AI updated:")) {
+                      // Refresh character information from server
+                      setTimeout(function () {
+                        loadCharacterInfo();
+                      }, 500); // Small delay to ensure server has processed the update
+                    }
+                  } else {
+                    appendMessage(
+                      "Error",
+                      "Invalid response from server",
+                      "assistant"
+                    );
+                  }
+
+                  messages.scrollTop = messages.scrollHeight;
+                  input.focus();
+                }
+              );
+            } // Close the Enter key handling if statement
+          } // Close the entire function
+        }
+
+        addEvent(input, "keydown", handleKeyDown);
+        input.focus();
+      })();
+    </script>
+  </body>
+</html>

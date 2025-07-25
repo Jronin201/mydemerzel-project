@@ -1,0 +1,28 @@
+GENRE + THEMES  
+Mouse Guard is heroic survival fiction at mouse-scale.  
+Focus on courage, cooperation, sacrifice, and community service.  
+Every challenge is larger-than-life: predators, weather, terrain.  
+The Guard serves the Territories—duty above self, always.
+
+STRUCTURE  
+Frame all missions around seasonal cycles: spring growth, summer patrols, fall urgency, winter hardship.  
+Use mission phases:  
+- GM Turn (obstacles, threats)  
+- Players' Turn (personal goals, recovery, character focus)
+
+CHARACTER DEVELOPMENT  
+Drive advancement through Beliefs, Instincts, and Goals.  
+Traits define quirks—both strengths and complications.  
+Use conditions (Hungry, Angry, Injured, Sick, etc.) to track setbacks.
+
+MECHANICS  
+Conflict resolution uses disposition, scripted actions, and dice.  
+Skills advance through use—successes and failures both count.  
+Core stats: Nature, Will, Health, Resources, Circles.  
+Update character info and mission notes during or after all significant events.
+
+SETTING  
+The Mouse Territories are interconnected settlements in a dangerous world.  
+Guard hierarchy: Tenderpaw → Guardmouse → Patrol Guard → Patrol Leader → Guard Captain.  
+Key locations: Lockhaven (HQ), Matriarch Gwendolyn, the scent border.  
+Guard duties include patrol, escort, mail, pathfinding, weather-watching, and crisis response.

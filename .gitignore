@@ -1,0 +1,20 @@
+﻿.env
+__pycache__/
+*.pyc
+
+# Large embedding files (can be regenerated with run_embedding_optimization.sh)
+embeddings/*_optimized.json
+embeddings/dune.json
+embeddings/the-one-ring.json
+
+# Ignore pytest cache
+.pytest_cache/
+
+# Optional: ignore other virtual environment or editor cruft
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.env
+.vscode/
+.venv/

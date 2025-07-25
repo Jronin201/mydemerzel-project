@@ -1,0 +1,23 @@
+{
+  "name": "Demerzel TTRPG Gateway",
+  "short_name": "Demerzel",
+  "description": "AI-assisted tabletop roleplaying game interface",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#1e1e1e",
+  "orientation": "any",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23f0f0f0'/><text x='50' y='60' text-anchor='middle' font-size='40' fill='%23121212'>D</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23f0f0f0'/><text x='50' y='60' text-anchor='middle' font-size='40' fill='%23121212'>D</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

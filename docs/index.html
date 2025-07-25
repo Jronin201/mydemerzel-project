@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demerzel</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      display: flex;
+      height: 100vh; /* Total height of the screen */
+      align-items: stretch;
+    }
+
+    #left-container {
+      flex: 1;
+      position: relative;
+      background-color: #1e1e1e;
+      overflow: visible;
+    }
+
+    #chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 1em;
+      background-color: #2a2a2a;
+    }
+
+    #character-name-block {
+      position: absolute;
+      top: 1vh;
+      left: 2vw;
+      width: 15vw;
+      min-height: 6vh;
+      background-color: #1e1e1e;
+      padding: 1vh 1vw;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      color: #e0e0e0;
+    }
+
+    #strength-block,
+    #heart-block,
+    #wits-block {
+      position: absolute;
+      top: 10vh;
+      width: 7vw;
+      min-height: 6vh;
+      background-color: #1e1e1e;
+      padding: 1vh 1vw;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      color: #e0e0e0;
+    }
+    #strength-block     { left:  4vw; }
+    #heart-block        { left: 16vw; }
+    #wits-block         { left: 28vw; }
+
+    .styled-input {
+      margin-top: 1px;
+      width: 90%;
+      padding: 0.6em;
+      border-radius: 8px;
+      border: none;
+      background-color: #232323;
+      color: #f0f0f0;
+      font-size: 1em;
+    }
+    .styled-input:focus {
+      outline: none;
+      border: 1px solid #81d4fa;
+    }
+
+    /* --- NEW: Row of 3 inputs side by side --- */
+    .triple-input-row {
+      display: flex;
+      flex-direction: row;
+      gap: 1.0vw;
+      margin-top: 6px;
+    }
+    .small-input {
+      width: 1vw;
+      min-width: 0;
+      padding: 0.2em 0.3em;
+      border-radius: 6px;
+      border: none;
+      background-color: #232323;
+      color: #f0f0f0;
+      font-size: 1em;
+      text-align: center;
+    }
+    .small-input:focus {
+      outline: none;
+      border: 1px solid #81d4fa;
+    }
+
+    /* --- Diamond Checkbox Row below --- */
+    .diamond-row {
+      position: absolute;
+      top: 24vh;
+      left: 4vw;
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+      background: #1e1e1e;
+      padding: 1vh 1vw;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      min-width: 30vw;
+    }
+    .custom-checkbox {
+      width: 23px; height: 23px;
+      border: 1.3px solid #fff;
+      border-radius: 3px;
+      background: #232323;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .custom-checkbox.checked {
+      background: #fff;
+      border-color: #fff;
+    }
+    .custom-checkbox.checked::after {
+      content: '';
+      display: block;
+      width: 14px; height: 14px;
+      background: #fff;
+      border-radius: 2px;
+    }
+    .awe-label{
+      margin-right: 1vw;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.02em;
+      font-size: 1.15em;
+    }
+    .diamond-checkbox {
+      width: 30px; height: 30px;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      margin-right: 0.2vw;
+    }
+    .diamond {
+      width: 20px; height: 20px;
+      background: #232323;
+      border: 1.3px solid #fff;
+      transform: rotate(45deg);
+      box-sizing: border-box;
+      transition: background 0.2s, border 0.2s;
+    }
+    .diamond.checked {
+      background: #fff;
+      border-color: #fff;
+    }
+
+
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1em;
+      border-radius: 8px;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      margin-bottom: 1em;
+    }
+
+    .message {
+      margin: 0.5em 0;
+      line-height: 1.5;
+    }
+
+    .user {
+      color: #81d4fa;
+    }
+
+    .assistant {
+      color: #c5e1a5;
+    }
+
+    #userInput {
+      padding: 1em;
+      border: none;
+      border-radius: 5px;
+      background-color: #2a2a2a;
+      color: white;
+      font-size: 1em;
+    }
+    #userInput:focus {
+      outline: none;
+      border: 1px solid #555;
+    }
+  </style>
+</head>
+<body>
+  <!-- Left-side container for the character sheet -->
+  <div id="left-container">
+
+    <!-- Character Name -->
+    <div id="character-name-block" class="character-name">
+      <label for="character-name">Character Name:</label>
+      <input type="text" id="character-name" class="styled-input">
+    </div>
+
+    <!-- Strength -->
+    <div id="strength-block" class="stat-block">
+      <label>Strength TN/Rating/Endurance:</label>
+      <div class="triple-input-row">
+        <input type="text" maxlength="2" class="styled-input small-input" id="strength-1" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="strength-2" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="strength-3" />
+      </div>
+    </div>
+
+    <!-- Heart -->
+    <div id="heart-block" class="stat-block">
+      <label>Heart TN/Rating/Hope:</label>
+      <div class="triple-input-row">
+        <input type="text" maxlength="2" class="styled-input small-input" id="heart-1" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="heart-2" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="heart-3" />
+      </div>
+    </div>
+
+    <!-- Wits -->
+    <div id="wits-block" class="stat-block">
+      <label>Wits TN/Rating/Parry:</label>
+      <div class="triple-input-row">
+        <input type="text" maxlength="2" class="styled-input small-input" id="wits-1" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="wits-2" />
+        <input type="text" maxlength="2" class="styled-input small-input" id="wits-3" />
+      </div>
+    </div>
+
+    <!-- Diamond Checkbox Row -->
+    <div class="diamond-row">
+      <!-- Square Checkbox -->
+      <span class="custom-checkbox" id="mainCheckbox"></span>
+
+      <!-- Label -->
+      <span class="awe-label">Awe</span>
+
+      <!-- Diamonds -->
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+      <span class="diamond-checkbox"><span class="diamond"></span></span>
+    </div>
+    <!-- End Diamond Checkbox Row -->
+
+  </div>
+  <!-- END left-container -->
+
+  <!-- Right-side container for the chatbot -->
+  <div id="chat-container">
+    <h1>Demerzel</h1>
+    <div id="messages"></div>
+    <input id="userInput" type="text" placeholder="Type your message and press Enter..." autocomplete="off" />
+  </div>
+
+  <script>
+    // JavaScript to interact with new inputs
+    const characterNameInput = document.getElementById("character-name");
+    const strengthInputs = [
+      document.getElementById("strength-1"),
+      document.getElementById("strength-2"),
+      document.getElementById("strength-3")
+    ];
+    const heartInputs = [
+      document.getElementById("heart-1"),
+      document.getElementById("heart-2"),
+      document.getElementById("heart-3")
+    ];
+    const witsInputs = [
+      document.getElementById("wits-1"),
+      document.getElementById("wits-2"),
+      document.getElementById("wits-3")
+    ];
+
+    function logInputValues() {
+      console.log("Character Name:", characterNameInput.value);
+      console.log("Strength:", strengthInputs.map(inp => inp.value).join(","));
+      console.log("Heart:", heartInputs.map(inp => inp.value).join(","));
+      console.log("Wits:", witsInputs.map(inp => inp.value).join(","));
+    }
+    document.addEventListener("DOMContentLoaded", logInputValues);
+
+    // Custom Checkbox Toggle (square)
+    document.getElementById('mainCheckbox').addEventListener('click', function() {
+      this.classList.toggle('checked');
+    });
+
+    // Diamond Checkboxes Toggle
+    document.querySelectorAll('.diamond-checkbox').forEach(function(wrap) {
+      wrap.addEventListener('click', function() {
+        this.querySelector('.diamond').classList.toggle('checked');
+      });
+    });
+
+    const messages = document.getElementById("messages");
+    const input = document.getElementById("userInput");
+    input.addEventListener("keydown", async (e) => {
+      if (e.key === "Enter" && input.value.trim()) {
+        const userMessage = input.value.trim();
+        appendMessage("You", userMessage, "user");
+        input.value = "";
+        try {
+          const response = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMessage })
+          });
+          const data = await response.json();
+          appendMessage("Demerzel", data.response, "assistant");
+        } catch (error) {
+          appendMessage("Error", "There was a problem contacting the server.", "assistant");
+        }
+        messages.scrollTop = messages.scrollHeight;
+      }
+    });
+
+    function appendMessage(sender, text, className) {
+      const msg = document.createElement("p");
+      msg.className = `message ${className}`;
+      msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      messages.appendChild(msg);
+    }
+  </script>
+</body>
+</html>

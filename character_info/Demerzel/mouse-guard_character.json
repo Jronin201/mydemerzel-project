@@ -1,0 +1,228 @@
+{
+  "username": "Demerzel",
+  "ttrpg_system": "mouse-guard",
+  "last_updated": "2025-07-20 12:07:21",
+  "last_source": "user",
+  "character_info": {
+    "name": "STORED Character - Oak",
+    "stats": "STORED Stats - Will 4, Health 5"
+  },
+  "history": [
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-16 02:16:06",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-16 02:16:07",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Name: Rowan\nRank: Guardmouse\nAge: Young adult\nNature (Mouse): 4\nWill: 3\nHealth: 4\nResources: 2\nCircles: 2\nSkills: Pathfinder 3, Scout 3, Survivalist 2, Fighter 2, Weather Watcher 2\nTraits: Clever 1, Brave 1\nBelief: \"Knowledge is the best armor.\"\nInstinct: \"Always have a plan before setting out.\"\nGoal: \"Map the safest routes through the territories for the coming season.\"\nGear: Map case, compass, small sword\nDescription: Rowan is a determined and resourceful guardmouse, known for relying on strategy and wit.",
+        "stats": "LIVE Stats - Nature 3, Fighter 2"
+      },
+      "timestamp": "2025-07-16 02:16:16",
+      "source": "ai"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-16 02:18:07",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Name: Thistle  \nRank: Tenderpaw  \nAge: Adolescent  \nNature (Mouse): 5  \nWill: 2  \nHealth: 3  \nResources: 1  \nCircles: 1  \nSkills: Scout 3, Healer 2, Harvester 3, Fighter 1  \nTraits: Inquisitive 1, Quick-Witted 1  \nBelief: \"There's always a way to help others, no matter the danger.\"  \nInstinct: \"Look before you leap.\"  \nGoal: \"Prove my worth to my mentor by saving a fellow Guardmouse's life.\"  \nGear: Herb pouch, bandages, short staff  \nDescription: Thistle is an eager and quick-thinking Tenderpaw, just beginning their journey with the Guard.",
+        "stats": ""
+      },
+      "timestamp": "2025-07-16 02:18:17",
+      "source": "ai"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-16 02:18:18",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-16 02:23:59",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-16 02:24:07",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-20 11:30:14",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-20 11:30:28",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-20 11:44:53",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-20 11:45:00",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-20 11:46:15",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-20 11:46:23",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-20 11:49:50",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-20 11:49:58",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-20 11:54:13",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-20 11:54:20",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-20 11:58:26",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-20 11:58:34",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-20 12:05:17",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "- Character Name: Rowan\n- Rank: Guardmouse\n- Abilities: Will 4, Health 5\n- Skills: Fighter 3, Scout 4, Pathfinder 3, Survivalist 2, Weather Watcher 2\n- Traits: Brave (1), Quick-Witted (1)\n- Belief: \"The safety of the Mouse Territories is worth any risk.\"\n- Instinct: Always seek higher ground in unfamiliar territory.\n- Gear: Spear, Light Armor, Map of the Mouse Territories",
+        "stats": ""
+      },
+      "timestamp": "2025-07-20 12:05:27",
+      "source": "ai"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-20 12:05:28",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-20 12:05:44",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "- Character Name: Hazel\n- Rank: Patrol Guard\n- Abilities: Will 5, Health 4\n- Skills: Fighter 4, Scout 3, Pathfinder 2, Survivalist 3, Healer 2\n- Traits: Cunning (2), Compassionate (1)\n- Belief: \"Only through teamwork can we overcome the dangers of the wild.\"\n- Instinct: Always double-check the safety of a camp before settling in.\n- Gear: Sword, Sturdy Cloak, Healing Herbs",
+        "stats": ""
+      },
+      "timestamp": "2025-07-20 12:05:51",
+      "source": "ai"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-20 12:05:52",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-07-20 12:07:12",
+      "source": "user"
+    }
+  ]
+}

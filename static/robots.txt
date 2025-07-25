@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Sitemap: /sitemap.txt
+
+# Allow access to static resources
+Allow: /static/
+
+# Disallow sensitive areas
+Disallow: /chat
+Disallow: /admin
+Disallow: /.env

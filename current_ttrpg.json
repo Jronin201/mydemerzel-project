@@ -1,0 +1,15 @@
+{
+  "current_ttrpg": "general",
+  "session_start": "2025-07-15T06:34:08.037202",
+  "last_updated": "2025-07-21T08:50:44.803105",
+  "character_info": {
+    "name": "Gandalf the Wise",
+    "stats": "Wizard of great power, keeper of ancient secrets"
+  },
+  "available_systems": [
+    "dune",
+    "the-one-ring",
+    "call-of-cthulhu",
+    "master-template"
+  ]
+}

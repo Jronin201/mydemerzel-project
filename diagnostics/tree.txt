@@ -1,0 +1,228 @@
+.
+├── .codex
+│   └── setup.sh
+├── .codexignore
+├── .env
+├── .git
+│   ├── COMMIT_EDITMSG
+│   ├── FETCH_HEAD
+│   ├── HEAD
+│   ├── ORIG_HEAD
+│   ├── config
+│   ├── description
+│   ├── filter-repo
+│   │   ├── already_ran
+│   │   ├── changed-refs
+│   │   ├── commit-map
+│   │   ├── first-changed-commits
+│   │   ├── ref-map
+│   │   └── suboptimal-issues
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── fsmonitor-watchman.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── pre-merge-commit.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   ├── pre-receive.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── push-to-checkout.sample
+│   │   ├── sendemail-validate.sample
+│   │   └── update.sample
+│   ├── index
+│   ├── info
+│   │   ├── exclude
+│   │   └── refs
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   ├── objects
+│   │   ├── 01
+│   │   ├── 03
+│   │   ├── 05
+│   │   ├── 0b
+│   │   ├── 0d
+│   │   ├── 0e
+│   │   ├── 11
+│   │   ├── 13
+│   │   ├── 15
+│   │   ├── 16
+│   │   ├── 17
+│   │   ├── 19
+│   │   ├── 1c
+│   │   ├── 1e
+│   │   ├── 1f
+│   │   ├── 20
+│   │   ├── 21
+│   │   ├── 22
+│   │   ├── 25
+│   │   ├── 26
+│   │   ├── 29
+│   │   ├── 2c
+│   │   ├── 2e
+│   │   ├── 31
+│   │   ├── 32
+│   │   ├── 34
+│   │   ├── 36
+│   │   ├── 38
+│   │   ├── 39
+│   │   ├── 3c
+│   │   ├── 3d
+│   │   ├── 3e
+│   │   ├── 41
+│   │   ├── 44
+│   │   ├── 45
+│   │   ├── 46
+│   │   ├── 48
+│   │   ├── 49
+│   │   ├── 4a
+│   │   ├── 4d
+│   │   ├── 54
+│   │   ├── 55
+│   │   ├── 60
+│   │   ├── 61
+│   │   ├── 67
+│   │   ├── 68
+│   │   ├── 6d
+│   │   ├── 6f
+│   │   ├── 70
+│   │   ├── 71
+│   │   ├── 78
+│   │   ├── 7a
+│   │   ├── 7c
+│   │   ├── 82
+│   │   ├── 85
+│   │   ├── 89
+│   │   ├── 8b
+│   │   ├── 8c
+│   │   ├── 8e
+│   │   ├── 8f
+│   │   ├── 91
+│   │   ├── 93
+│   │   ├── 94
+│   │   ├── 95
+│   │   ├── 97
+│   │   ├── 98
+│   │   ├── 9b
+│   │   ├── a3
+│   │   ├── a4
+│   │   ├── aa
+│   │   ├── ac
+│   │   ├── b1
+│   │   ├── c0
+│   │   ├── c1
+│   │   ├── c4
+│   │   ├── c6
+│   │   ├── c7
+│   │   ├── cb
+│   │   ├── cc
+│   │   ├── cd
+│   │   ├── cf
+│   │   ├── d0
+│   │   ├── d1
+│   │   ├── d5
+│   │   ├── d7
+│   │   ├── da
+│   │   ├── de
+│   │   ├── e0
+│   │   ├── e1
+│   │   ├── e2
+│   │   ├── e5
+│   │   ├── eb
+│   │   ├── f1
+│   │   ├── f2
+│   │   ├── f9
+│   │   ├── fe
+│   │   ├── info
+│   │   └── pack
+│   ├── packed-refs
+│   └── refs
+│       ├── heads
+│       ├── remotes
+│       └── tags
+├── .gitignore
+├── .gnupg-backup
+│   ├── private-key.asc
+│   └── public-key.asc
+├── .vscode
+│   ├── launch.json
+│   └── settings.json
+├── 01 chatgpt simple
+├── README.md
+├── __pycache__
+│   ├── message_history.cpython-312.pyc
+│   └── token_counter.cpython-312.pyc
+├── app.py
+├── chapter_log.json
+├── chapter_log.py
+├── chat_cli.py
+├── chat_history.json
+├── diagnostics
+│   ├── env.txt
+│   ├── extensions.txt
+│   ├── frontend_files.txt
+│   ├── git.txt
+│   ├── pip.txt
+│   ├── py_lines.txt
+│   ├── python_version.txt
+│   ├── tree.txt
+│   └── update.sh
+├── docs
+│   └── index.html
+├── documents
+│   ├── dune
+│   │   ├── dune.txt
+│   │   └── sections
+│   └── the-one-ring
+│       ├── archive-the-one-ring-starter-adventures.txt
+│       ├── archive-the-one-ring-starter-rules.txt
+│       ├── desktop.ini
+│       ├── the-one-ring-core-rules.pdf
+│       └── the-one-ring-starter-shire.pdf
+├── embeddings
+│   ├── dune.json
+│   └── the-one-ring.json
+├── extract_ring_pdfs.py
+├── message_history.py
+├── requirements.txt
+├── scripts
+│   ├── extract_dune_text.py
+│   ├── extract_pdf_texts.py
+│   └── generate_embeddings.py
+├── split_dune.py
+├── static
+│   ├── call-of-cthulhu
+│   │   └── index.html
+│   ├── dune
+│   │   ├── css
+│   │   ├── images
+│   │   ├── index.html
+│   │   ├── script.js
+│   │   └── system_prompt.txt
+│   ├── index.html
+│   ├── master-template
+│   │   └── index.html
+│   ├── pdfjs-backup
+│   │   ├── LICENSE
+│   │   ├── build
+│   │   └── web
+│   ├── text
+│   │   └── the-one-ring
+│   └── the-one-ring
+│       ├── css
+│       ├── images
+│       ├── index.html
+│       ├── script.js
+│       └── system_prompt.txt
+├── system_prompt.txt
+├── templates
+│   └── login.html
+├── test_app_invalid_json.py
+├── test_full_app.py
+├── test_token_counter.py
+└── token_counter.py
+
+136 directories, 89 files

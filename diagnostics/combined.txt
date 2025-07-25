@@ -1,0 +1,453 @@
+===== TREE =====
+.
+├── .codex
+│   └── setup.sh
+├── .codexignore
+├── .env
+├── .git
+│   ├── COMMIT_EDITMSG
+│   ├── FETCH_HEAD
+│   ├── HEAD
+│   ├── ORIG_HEAD
+│   ├── config
+│   ├── description
+│   ├── filter-repo
+│   │   ├── already_ran
+│   │   ├── changed-refs
+│   │   ├── commit-map
+│   │   ├── first-changed-commits
+│   │   ├── ref-map
+│   │   └── suboptimal-issues
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── fsmonitor-watchman.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── pre-merge-commit.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   ├── pre-receive.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── push-to-checkout.sample
+│   │   ├── sendemail-validate.sample
+│   │   └── update.sample
+│   ├── index
+│   ├── info
+│   │   ├── exclude
+│   │   └── refs
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   ├── objects
+│   │   ├── 01
+│   │   ├── 03
+│   │   ├── 05
+│   │   ├── 0b
+│   │   ├── 0d
+│   │   ├── 0e
+│   │   ├── 11
+│   │   ├── 13
+│   │   ├── 15
+│   │   ├── 16
+│   │   ├── 17
+│   │   ├── 19
+│   │   ├── 1c
+│   │   ├── 1e
+│   │   ├── 1f
+│   │   ├── 20
+│   │   ├── 21
+│   │   ├── 22
+│   │   ├── 25
+│   │   ├── 26
+│   │   ├── 29
+│   │   ├── 2c
+│   │   ├── 2e
+│   │   ├── 31
+│   │   ├── 32
+│   │   ├── 34
+│   │   ├── 36
+│   │   ├── 38
+│   │   ├── 39
+│   │   ├── 3c
+│   │   ├── 3d
+│   │   ├── 3e
+│   │   ├── 41
+│   │   ├── 44
+│   │   ├── 45
+│   │   ├── 46
+│   │   ├── 48
+│   │   ├── 49
+│   │   ├── 4a
+│   │   ├── 4d
+│   │   ├── 54
+│   │   ├── 55
+│   │   ├── 60
+│   │   ├── 61
+│   │   ├── 67
+│   │   ├── 68
+│   │   ├── 6d
+│   │   ├── 6f
+│   │   ├── 70
+│   │   ├── 71
+│   │   ├── 78
+│   │   ├── 7a
+│   │   ├── 7c
+│   │   ├── 82
+│   │   ├── 85
+│   │   ├── 89
+│   │   ├── 8b
+│   │   ├── 8c
+│   │   ├── 8e
+│   │   ├── 8f
+│   │   ├── 91
+│   │   ├── 93
+│   │   ├── 94
+│   │   ├── 95
+│   │   ├── 97
+│   │   ├── 98
+│   │   ├── 9b
+│   │   ├── a3
+│   │   ├── a4
+│   │   ├── aa
+│   │   ├── ac
+│   │   ├── b1
+│   │   ├── c0
+│   │   ├── c1
+│   │   ├── c4
+│   │   ├── c6
+│   │   ├── c7
+│   │   ├── cb
+│   │   ├── cc
+│   │   ├── cd
+│   │   ├── cf
+│   │   ├── d0
+│   │   ├── d1
+│   │   ├── d5
+│   │   ├── d7
+│   │   ├── da
+│   │   ├── de
+│   │   ├── e0
+│   │   ├── e1
+│   │   ├── e2
+│   │   ├── e5
+│   │   ├── eb
+│   │   ├── f1
+│   │   ├── f2
+│   │   ├── f9
+│   │   ├── fe
+│   │   ├── info
+│   │   └── pack
+│   ├── packed-refs
+│   └── refs
+│       ├── heads
+│       ├── remotes
+│       └── tags
+├── .gitignore
+├── .gnupg-backup
+│   ├── private-key.asc
+│   └── public-key.asc
+├── .vscode
+│   ├── launch.json
+│   └── settings.json
+├── 01 chatgpt simple
+├── README.md
+├── __pycache__
+│   ├── message_history.cpython-312.pyc
+│   └── token_counter.cpython-312.pyc
+├── app.py
+├── chapter_log.json
+├── chapter_log.py
+├── chat_cli.py
+├── chat_history.json
+├── diagnostics
+│   ├── env.txt
+│   ├── extensions.txt
+│   ├── frontend_files.txt
+│   ├── git.txt
+│   ├── pip.txt
+│   ├── py_lines.txt
+│   ├── python_version.txt
+│   ├── tree.txt
+│   └── update.sh
+├── docs
+│   └── index.html
+├── documents
+│   ├── dune
+│   │   ├── dune.txt
+│   │   └── sections
+│   └── the-one-ring
+│       ├── archive-the-one-ring-starter-adventures.txt
+│       ├── archive-the-one-ring-starter-rules.txt
+│       ├── desktop.ini
+│       ├── the-one-ring-core-rules.pdf
+│       └── the-one-ring-starter-shire.pdf
+├── embeddings
+│   ├── dune.json
+│   └── the-one-ring.json
+├── extract_ring_pdfs.py
+├── message_history.py
+├── requirements.txt
+├── scripts
+│   ├── extract_dune_text.py
+│   ├── extract_pdf_texts.py
+│   └── generate_embeddings.py
+├── split_dune.py
+├── static
+│   ├── call-of-cthulhu
+│   │   └── index.html
+│   ├── dune
+│   │   ├── css
+│   │   ├── images
+│   │   ├── index.html
+│   │   ├── script.js
+│   │   └── system_prompt.txt
+│   ├── index.html
+│   ├── master-template
+│   │   └── index.html
+│   ├── pdfjs-backup
+│   │   ├── LICENSE
+│   │   ├── build
+│   │   └── web
+│   ├── text
+│   │   └── the-one-ring
+│   └── the-one-ring
+│       ├── css
+│       ├── images
+│       ├── index.html
+│       ├── script.js
+│       └── system_prompt.txt
+├── system_prompt.txt
+├── templates
+│   └── login.html
+├── test_app_invalid_json.py
+├── test_full_app.py
+├── test_token_counter.py
+└── token_counter.py
+
+136 directories, 89 files
+
+===== PIP FREEZE =====
+annotated-types==0.7.0
+anyio==4.9.0
+argon2-cffi==23.1.0
+argon2-cffi-bindings==21.2.0
+arrow==1.3.0
+asttokens==3.0.0
+async-lru==2.0.5
+attrs==25.3.0
+babel==2.17.0
+beautifulsoup4==4.13.3
+bleach==6.2.0
+blinker==1.9.0
+certifi==2025.4.26
+cffi==1.17.1
+charset-normalizer==3.4.2
+click==8.2.1
+colorama==0.4.6
+comm==0.2.2
+contourpy==1.3.1
+cycler==0.12.1
+debugpy==1.8.13
+decorator==5.2.1
+defusedxml==0.7.1
+distro==1.9.0
+executing==2.2.0
+fastjsonschema==2.21.1
+filelock==3.13.1
+Flask==3.1.1
+flask-cors==6.0.1
+Flask-Login==0.6.3
+fonttools==4.56.0
+fqdn==1.5.1
+fsspec==2024.6.1
+git-filter-repo==2.47.0
+gitdb==4.0.12
+GitPython==3.1.44
+gunicorn==23.0.0
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.28.1
+idna==3.10
+ipykernel==6.29.5
+ipython==9.0.2
+ipython_pygments_lexers==1.1.1
+isoduration==20.11.0
+itsdangerous==2.2.0
+jedi==0.19.2
+Jinja2==3.1.6
+jiter==0.10.0
+joblib==1.4.2
+json5==0.10.0
+jsonpointer==3.0.0
+jsonschema==4.23.0
+jsonschema-specifications==2024.10.1
+jupyter-events==0.12.0
+jupyter-lsp==2.2.5
+jupyter-server-mathjax==0.2.6
+jupyter_client==8.6.3
+jupyter_core==5.7.2
+jupyter_server==2.15.0
+jupyter_server_terminals==0.5.3
+jupyterlab==4.3.6
+jupyterlab_git==0.51.0
+jupyterlab_pygments==0.3.0
+jupyterlab_server==2.27.3
+kiwisolver==1.4.8
+MarkupSafe==3.0.2
+matplotlib==3.10.1
+matplotlib-inline==0.1.7
+mistune==3.1.2
+mpmath==1.3.0
+narwhals==1.31.0
+nbclient==0.10.2
+nbconvert==7.16.6
+nbdime==4.0.2
+nbformat==5.10.4
+nest-asyncio==1.6.0
+networkx==3.3
+notebook_shim==0.2.4
+numpy==2.3.0
+openai==1.84.0
+overrides==7.7.0
+packaging==25.0
+pandas==2.2.3
+pandocfilters==1.5.1
+parso==0.8.4
+pexpect==4.9.0
+pillow==11.1.0
+platformdirs==4.3.6
+plotly==6.0.1
+prometheus_client==0.21.1
+prompt_toolkit==3.0.50
+psutil==7.0.0
+ptyprocess==0.7.0
+pure_eval==0.2.3
+pycparser==2.22
+pydantic==2.11.5
+pydantic_core==2.33.2
+Pygments==2.19.1
+PyMuPDF==1.26.1
+pyparsing==3.2.1
+pypdf==5.6.0
+python-dateutil==2.9.0.post0
+python-dotenv==1.1.0
+python-json-logger==3.3.0
+pytz==2025.1
+PyYAML==6.0.2
+pyzmq==26.3.0
+referencing==0.36.2
+regex==2024.11.6
+requests==2.32.3
+rfc3339-validator==0.1.4
+rfc3986-validator==0.1.1
+rpds-py==0.23.1
+scikit-learn==1.6.1
+scipy==1.15.2
+seaborn==0.13.2
+Send2Trash==1.8.3
+setuptools==76.0.0
+six==1.17.0
+smmap==5.0.2
+sniffio==1.3.1
+soupsieve==2.6
+stack-data==0.6.3
+sympy==1.13.1
+terminado==0.18.1
+threadpoolctl==3.6.0
+tiktoken==0.9.0
+tinycss2==1.4.0
+torch==2.6.0+cpu
+tornado==6.4.2
+tqdm==4.67.1
+traitlets==5.14.3
+types-python-dateutil==2.9.0.20241206
+typing-inspection==0.4.1
+typing_extensions==4.14.0
+tzdata==2025.1
+uri-template==1.3.0
+urllib3==2.4.0
+wcwidth==0.2.13
+webcolors==24.11.1
+webencodings==0.5.1
+websocket-client==1.8.0
+Werkzeug==3.1.3
+
+===== PYTHON LINE COUNT =====
+   14 ./token_counter.py
+   24 ./chapter_log.py
+  137 ./chat_cli.py
+   10 ./test_app_invalid_json.py
+   59 ./test_full_app.py
+   21 ./extract_ring_pdfs.py
+   50 ./scripts/generate_embeddings.py
+   14 ./scripts/extract_dune_text.py
+   13 ./scripts/extract_pdf_texts.py
+  316 ./app.py
+   20 ./message_history.py
+   11 ./test_token_counter.py
+   23 ./split_dune.py
+  712 total
+
+===== FRONTEND FILES =====
+./static/index.html
+./static/master-template/index.html
+./static/pdfjs-backup/web/wasm/openjpeg_nowasm_fallback.js
+./static/pdfjs-backup/web/viewer.css
+./static/pdfjs-backup/web/viewer.html
+./static/pdfjs-backup/web/debugger.css
+./static/the-one-ring/index.html
+./static/the-one-ring/css/main.css
+./static/the-one-ring/script.js
+./static/call-of-cthulhu/index.html
+./static/dune/index.html
+./static/dune/css/main.css
+./static/dune/script.js
+./templates/login.html
+./docs/index.html
+
+===== .ENV =====
+# OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+===== GIT STATUS =====
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   diagnostics/git.txt
+	modified:   diagnostics/tree.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+===== EXTENSIONS =====
+Extensions installed on Codespaces: verbose goggles:
+christian-kohler.path-intellisense
+davidanson.vscode-markdownlint
+esbenp.prettier-vscode
+fantasy.markdown-all-in-one-for-web
+github.codespaces
+github.copilot
+github.copilot-chat
+github.github-vscode-theme
+github.remotehub
+github.vscode-github-actions
+github.vscode-pull-request-github
+humao.rest-client
+ms-python.autopep8
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+ms-toolsai.jupyter
+ms-toolsai.jupyter-keymap
+ms-toolsai.jupyter-renderers
+ms-toolsai.vscode-jupyter-cell-tags
+ms-toolsai.vscode-jupyter-slideshow
+ms-vscode.azure-repos
+ms-vscode.remote-repositories
+ritwickdey.liveserver
+
+===== PYTHON VERSION =====
+Python 3.12.1
+

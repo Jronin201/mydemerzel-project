@@ -1,0 +1,14 @@
+   14 ./token_counter.py
+   24 ./chapter_log.py
+  137 ./chat_cli.py
+   10 ./test_app_invalid_json.py
+   59 ./test_full_app.py
+   21 ./extract_ring_pdfs.py
+   50 ./scripts/generate_embeddings.py
+   14 ./scripts/extract_dune_text.py
+   13 ./scripts/extract_pdf_texts.py
+  316 ./app.py
+   20 ./message_history.py
+   11 ./test_token_counter.py
+   23 ./split_dune.py
+  712 total

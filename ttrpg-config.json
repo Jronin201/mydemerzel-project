@@ -1,0 +1,86 @@
+{
+  "systems": {
+    "dune": {
+      "display_name": "Dune: Adventures in the Imperium",
+      "description": "Political intrigue and survival in Frank Herbert's Dune universe",
+      "active": true,
+      "has_custom_page": false,
+      "has_embeddings": true,
+      "created_date": "2024-01-01",
+      "version": "1.0",
+      "game_master_title": "Game Master",
+      "themes": [
+        "political intrigue",
+        "resource scarcity",
+        "existential stakes"
+      ],
+      "setting": "Frank Herbert's Dune universe"
+    },
+    "the-one-ring": {
+      "display_name": "The One Ring",
+      "description": "Adventures in Tolkien's Middle-earth during the Third Age",
+      "active": true,
+      "has_custom_page": false,
+      "has_embeddings": true,
+      "created_date": "2024-01-01",
+      "version": "1.0",
+      "game_master_title": "Loremaster",
+      "themes": ["heroic fantasy", "fellowship", "good vs evil"],
+      "setting": "J.R.R. Tolkien's Middle-earth"
+    },
+    "call-of-cthulhu": {
+      "display_name": "Call of Cthulhu",
+      "description": "Cosmic horror investigations in the 1920s",
+      "active": true,
+      "has_custom_page": false,
+      "has_embeddings": false,
+      "created_date": "2024-01-01",
+      "version": "1.0",
+      "game_master_title": "Keeper",
+      "themes": ["cosmic horror", "investigation", "sanity"],
+      "setting": "1920s historical with Lovecraftian horror"
+    },
+    "master-template": {
+      "display_name": "Master Template",
+      "description": "Template system for creating new TTRPGs",
+      "active": false,
+      "has_custom_page": true,
+      "has_embeddings": false,
+      "created_date": "2024-01-01",
+      "version": "1.0",
+      "game_master_title": "Game Master",
+      "themes": ["template", "development"],
+      "setting": "Development template"
+    },
+    "vampire-the-masquerade": {
+      "display_name": "Vampire: The Masquerade",
+      "description": "Gothic horror in the modern world",
+      "active": true,
+      "has_custom_page": false,
+      "has_embeddings": false,
+      "created_date": "2025-07-15",
+      "version": "1.0",
+      "game_master_title": "Storyteller",
+      "themes": ["gothic horror", "political intrigue", "personal horror"],
+      "setting": "World of Darkness modern vampire setting"
+    },
+    "mouse-guard": {
+      "display_name": "Mouse Guard",
+      "description": "Heroic mice defending their territories from dangers great and small",
+      "active": true,
+      "has_custom_page": false,
+      "has_embeddings": true,
+      "created_date": "2025-07-15",
+      "version": "2.0",
+      "game_master_title": "Game Master",
+      "themes": ["heroic sacrifice", "seasonal survival", "community defense"],
+      "setting": "Mouse territories with anthropomorphic animal society"
+    }
+  },
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2025-07-15T13:45:00.000000",
+    "total_systems": 6,
+    "active_systems": 5
+  }
+}

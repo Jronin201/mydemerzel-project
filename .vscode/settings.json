@@ -1,0 +1,19 @@
+{
+  "editor.inlineSuggest.enabled": true,
+  "editor.tabCompletion": "on",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.languageServer": "Pylance",
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": true,
+    "markdown": true,
+    "python": true,
+    "javascript": true
+  },
+  "github.copilotChat.showEditorTools": true,
+  "github.copilotChat.showChatTab": true,
+  "github.copilotChat.experimental.quickActions": true
+}

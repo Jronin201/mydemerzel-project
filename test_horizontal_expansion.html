@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Horizontal Expansion Test - Character Information & Notes</title>
+    <style>
+      /* Copy the new responsive styles for testing */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #121212;
+        color: #e0e0e0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        align-items: stretch;
+        overflow-x: auto;
+      }
+
+      #left-container {
+        flex: 1 1 auto;
+        min-width: 400px;
+        max-width: 60vw;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        padding: 1em;
+        position: relative;
+        background-color: #1e1e1e;
+        overflow-y: auto;
+      }
+
+      #ttrpg-info {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        color: #e0e0e0;
+        border: 1px solid #333;
+        text-align: center;
+        margin-bottom: 1em;
+      }
+
+      #character-sheet,
+      #Stat-One {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        min-height: 8em;
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        color: #e0e0e0;
+        border: 1px solid #333;
+        margin-bottom: 1em;
+      }
+
+      .styled-textarea {
+        width: 100%;
+        padding: 0.5em;
+        border: 1px solid #555;
+        border-radius: 4px;
+        background-color: #2a2a2a;
+        color: #e0e0e0;
+        font-size: 1.15em;
+        font-family: inherit;
+        resize: none;
+        overflow: hidden;
+        min-height: 2.5em;
+        line-height: 1.4;
+        transition: height 0.2s ease;
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: pre-wrap;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5em;
+        font-weight: bold;
+        font-size: 1.15em;
+      }
+
+      #chat-container {
+        flex: 2 1 auto;
+        min-width: 400px;
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+        background-color: #1a1a1a;
+      }
+
+      #test-content {
+        flex: 1;
+        padding: 1em;
+        background-color: #2a2a2a;
+        overflow-y: auto;
+        border-radius: 8px;
+        border: 1px solid #333;
+      }
+
+      .test-button {
+        background-color: #333;
+        color: #e0e0e0;
+        border: 1px solid #555;
+        padding: 0.5em 1em;
+        margin: 0.5em;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .test-button:hover {
+        background-color: #444;
+      }
+
+      .dimension-info {
+        background-color: #333;
+        padding: 1em;
+        border-radius: 4px;
+        margin-top: 1em;
+        font-family: monospace;
+      }
+
+      @media (min-width: 1200px) {
+        body {
+          overflow-x: auto;
+        }
+
+        #left-container {
+          max-width: 70vw;
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          flex-direction: column;
+        }
+
+        #left-container {
+          height: 50vh;
+          min-width: auto;
+          max-width: 100%;
+        }
+
+        #chat-container {
+          height: 50vh;
+          min-width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="left-container">
+      <div id="ttrpg-info">
+        <h2>Horizontal Expansion Test</h2>
+        <p>
+          Testing horizontal expansion when Character Information grows large
+        </p>
+      </div>
+
+      <div id="character-sheet">
+        <label for="character-name">Character Information:</label>
+        <textarea
+          id="character-name"
+          class="styled-textarea auto-resize"
+          placeholder="Type here to test horizontal expansion..."
+          rows="2"
+        ></textarea>
+      </div>
+
+      <div id="Stat-One">
+        <label for="stat-value">Notes:</label>
+        <textarea
+          id="stat-value"
+          class="styled-textarea auto-resize"
+          placeholder="This should not be obscured by Character Information..."
+          rows="2"
+        ></textarea>
+      </div>
+    </div>
+
+    <div id="chat-container">
+      <div id="test-content">
+        <h3>Horizontal Expansion Test Controls</h3>
+        <p>
+          Test the horizontal expansion functionality by adding content that
+          would normally cause overlap issues.
+        </p>
+
+        <button class="test-button" onclick="addWideText()">
+          Add Wide Text (Many Characters)
+        </button>
+        <button class="test-button" onclick="addTableText()">
+          Add Table-like Text
+        </button>
+        <button class="test-button" onclick="addLongListText()">
+          Add Long List
+        </button>
+        <button class="test-button" onclick="addExtremeLengthText()">
+          Add Extreme Length Text
+        </button>
+        <button class="test-button" onclick="clearText()">
+          Clear All Text
+        </button>
+
+        <h4>Expected Behavior:</h4>
+        <ul>
+          <li>
+            ✅ Left container expands horizontally when content requires more
+            space
+          </li>
+          <li>
+            ✅ Chat container adjusts to accommodate left container expansion
+          </li>
+          <li>
+            ✅ Notes textbox stays below Character Information without overlap
+          </li>
+          <li>✅ Text wraps appropriately within textboxes</li>
+          <li>✅ Horizontal scrolling available if needed</li>
+        </ul>
+
+        <div class="dimension-info">
+          <h4>Layout Dimensions:</h4>
+          <p>
+            Left Container Width: <span id="left-width">-</span>px (<span
+              id="left-percent"
+              >-</span
+            >%)
+          </p>
+          <p>
+            Chat Container Width: <span id="chat-width">-</span>px (<span
+              id="chat-percent"
+              >-</span
+            >%)
+          </p>
+          <p>Total Body Width: <span id="body-width">-</span>px</p>
+          <p>Viewport Width: <span id="viewport-width">-</span>px</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Auto-resize function for textareas
+      function autoResize(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = textarea.scrollHeight + "px";
+        updateDimensions();
+      }
+
+      // Set up auto-resize for textareas
+      function setupAutoResize(element) {
+        if (!element) return;
+
+        element.addEventListener("input", function () {
+          autoResize(this);
+        });
+
+        element.addEventListener("keydown", function () {
+          setTimeout(() => autoResize(this), 0);
+        });
+
+        // Initial resize
+        autoResize(element);
+      }
+
+      // Test functions
+      function addWideText() {
+        const charTextarea = document.getElementById("character-name");
+        charTextarea.value = `Duncan Idaho - A very detailed character description that spans many columns and should test horizontal expansion functionality - Background: Born on Ginaz trained in finest sword schools with exceptional combat skills - Stats: Might 8 Agility 9 Intellect 7 Cunning 6 Resolve 9 - Skills: Blade Fighting Master Tactics Expert Leadership Competent Shield Fighting Master Desert Survival Competent - Equipment: Traditional Ginaz sword family heirloom Personal shield generator Stillsuit desert adapted Atreides uniform with house insignia`;
+        autoResize(charTextarea);
+      }
+
+      function addTableText() {
+        const charTextarea = document.getElementById("character-name");
+        charTextarea.value = `Character Stats Table:
+Name            | Level | Class      | HP  | MP  | STR | DEX | INT | WIS | CON | CHA
+Duncan Idaho    | 15    | Swordmaster| 156 | 45  | 18  | 20  | 14  | 12  | 16  | 13
+Gurney Halleck  | 14    | Bard       | 134 | 89  | 16  | 14  | 12  | 15  | 14  | 18
+Paul Atreides   | 20    | Psionicist | 189 | 234 | 14  | 16  | 20  | 18  | 13  | 17
+
+Equipment Inventory:
+Weapon                   | Damage | Type      | Special Properties
+Crysknife                | 2d4+2  | Piercing  | Ritual significance
+Maula Pistol            | 2d6    | Projectile| Silent operation
+Lasgun                  | 3d8    | Energy    | Shield interaction danger`;
+        autoResize(charTextarea);
+      }
+
+      function addLongListText() {
+        const charTextarea = document.getElementById("character-name");
+        charTextarea.value = `Comprehensive Character Background:
+
+Personal History: Born on the harsh desert world of Arrakis, trained from childhood in the ancient ways of the Fremen, learned to walk without rhythm, mastered the art of stillsuit maintenance, became skilled in water conservation techniques, developed exceptional desert survival instincts, formed deep connections with sandworms, gained mystical understanding of spice effects, achieved mental clarity through meditation
+
+Combat Skills: Expert in knife fighting techniques passed down through generations, proficient with traditional crysknife combat forms, trained in shield fighting methodologies, experienced in guerrilla warfare tactics, knowledgeable about explosive devices and traps, capable of silent movement across sand dunes, skilled in mounted combat on sandworms
+
+Social Connections: Respected leader among Fremen tribes, trusted advisor to noble houses, experienced diplomat in inter-house negotiations, keeper of ancient tribal secrets, mentor to younger warriors, mediator in tribal disputes, bridge between old ways and new technologies
+
+Goals and Motivations: Protect the sacred desert ecosystem, preserve ancient Fremen traditions, resist imperial oppression, maintain tribal independence, ensure survival of future generations, defend against technological encroachment, uphold water discipline customs, guard the secrets of spice production`;
+        autoResize(charTextarea);
+      }
+
+      function addExtremeLengthText() {
+        const charTextarea = document.getElementById("character-name");
+        let extremeText = "EXTREME LENGTH TEST: ";
+        for (let i = 0; i < 50; i++) {
+          extremeText += `This is line ${
+            i + 1
+          } with extensive detail about character background, abilities, equipment, relationships, goals, fears, motivations, and personal history that should test the horizontal expansion limits. `;
+        }
+        charTextarea.value = extremeText;
+        autoResize(charTextarea);
+      }
+
+      function clearText() {
+        const charTextarea = document.getElementById("character-name");
+        const notesTextarea = document.getElementById("stat-value");
+        charTextarea.value = "";
+        notesTextarea.value = "";
+        autoResize(charTextarea);
+        autoResize(notesTextarea);
+      }
+
+      function updateDimensions() {
+        const leftContainer = document.getElementById("left-container");
+        const chatContainer = document.getElementById("chat-container");
+        const body = document.body;
+
+        const leftRect = leftContainer.getBoundingClientRect();
+        const chatRect = chatContainer.getBoundingClientRect();
+        const bodyRect = body.getBoundingClientRect();
+
+        const viewportWidth = window.innerWidth;
+
+        document.getElementById("left-width").textContent = Math.round(
+          leftRect.width
+        );
+        document.getElementById("chat-width").textContent = Math.round(
+          chatRect.width
+        );
+        document.getElementById("body-width").textContent = Math.round(
+          bodyRect.width
+        );
+        document.getElementById("viewport-width").textContent = viewportWidth;
+
+        document.getElementById("left-percent").textContent = Math.round(
+          (leftRect.width / viewportWidth) * 100
+        );
+        document.getElementById("chat-percent").textContent = Math.round(
+          (chatRect.width / viewportWidth) * 100
+        );
+      }
+
+      // Initialize
+      window.addEventListener("load", function () {
+        const charTextarea = document.getElementById("character-name");
+        const notesTextarea = document.getElementById("stat-value");
+
+        setupAutoResize(charTextarea);
+        setupAutoResize(notesTextarea);
+
+        // Update dimensions periodically
+        setInterval(updateDimensions, 1000);
+        updateDimensions();
+      });
+
+      // Update dimensions on window resize
+      window.addEventListener("resize", updateDimensions);
+    </script>
+  </body>
+</html>

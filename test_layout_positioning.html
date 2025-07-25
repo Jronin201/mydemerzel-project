@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Test - Character Information Positioning</title>
+    <style>
+        /* Copy the relevant styles to test positioning */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            align-items: stretch;
+        }
+
+        #left-container {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1em;
+            position: relative;
+            background-color: #1e1e1e;
+            overflow-y: auto;
+        }
+
+        #ttrpg-info {
+            position: relative;
+            top: auto;
+            left: auto;
+            width: 100%;
+            max-width: 40vw;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #e0e0e0;
+            border: 1px solid #333;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+        #character-sheet,
+        #Stat-One {
+            position: relative;
+            width: 100%;
+            max-width: 40vw;
+            min-height: 8em;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #e0e0e0;
+            border: 1px solid #333;
+            margin-bottom: 1em;
+        }
+
+        .styled-textarea {
+            width: 100%;
+            padding: 0.5em;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            font-size: 1em;
+            font-family: inherit;
+            resize: none;
+            overflow: hidden;
+            min-height: 2.5em;
+            line-height: 1.4;
+            transition: height 0.2s ease;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        #test-content {
+            flex: 1;
+            padding: 1em;
+            background-color: #2a2a2a;
+            overflow-y: auto;
+        }
+
+        .test-button {
+            background-color: #333;
+            color: #e0e0e0;
+            border: 1px solid #555;
+            padding: 0.5em 1em;
+            margin: 0.5em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .test-button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div id="left-container">
+        <div id="ttrpg-info">
+            <h2>Layout Test - Dynamic Positioning</h2>
+            <p>Testing if Notes textbox adjusts position when Character Info expands</p>
+        </div>
+
+        <div id="character-sheet">
+            <label for="character-name">Character Information:</label>
+            <textarea
+                id="character-name"
+                class="styled-textarea auto-resize"
+                placeholder="Type here to test expansion..."
+                rows="2"
+            ></textarea>
+        </div>
+
+        <div id="Stat-One">
+            <label for="stat-value">Notes:</label>
+            <textarea
+                id="stat-value"
+                class="styled-textarea auto-resize"
+                placeholder="This should stay below Character Information..."
+                rows="2"
+            ></textarea>
+        </div>
+    </div>
+
+    <div id="test-content">
+        <h3>Layout Test Controls</h3>
+        <p>Test the dynamic positioning by expanding the Character Information textbox with large amounts of text.</p>
+        
+        <button class="test-button" onclick="addShortText()">Add Short Text</button>
+        <button class="test-button" onclick="addLongText()">Add Long Text</button>
+        <button class="test-button" onclick="addVeryLongText()">Add Very Long Text</button>
+        <button class="test-button" onclick="clearText()">Clear Text</button>
+        
+        <h4>Expected Behavior:</h4>
+        <ul>
+            <li>✅ Character Information textbox expands vertically as text is added</li>
+            <li>✅ Notes textbox automatically moves down to stay below Character Information</li>
+            <li>✅ No overlapping between the two textboxes</li>
+            <li>✅ Smooth transition when resizing</li>
+        </ul>
+
+        <h4>Position Information:</h4>
+        <div id="position-info">
+            <p>Character Info Bottom: <span id="char-bottom">-</span>px</p>
+            <p>Notes Top: <span id="notes-top">-</span>px</p>
+            <p>Gap: <span id="gap">-</span>px</p>
+        </div>
+    </div>
+
+    <script>
+        // Auto-resize function for textareas
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+            updatePositionInfo();
+        }
+
+        // Set up auto-resize for textareas
+        function setupAutoResize(element) {
+            if (!element) return;
+            
+            element.addEventListener('input', function() {
+                autoResize(this);
+            });
+            
+            element.addEventListener('keydown', function() {
+                setTimeout(() => autoResize(this), 0);
+            });
+            
+            // Initial resize
+            autoResize(element);
+        }
+
+        // Test functions
+        function addShortText() {
+            const charTextarea = document.getElementById('character-name');
+            charTextarea.value = "Duncan Idaho - Swordmaster of House Atreides\nStats: Blade 9, Tactics 8, Leadership 7";
+            autoResize(charTextarea);
+        }
+
+        function addLongText() {
+            const charTextarea = document.getElementById('character-name');
+            charTextarea.value = `Duncan Idaho - Swordmaster of House Atreides
+Background: Born on Ginaz, trained in the finest sword schools
+Age: 35, Height: 6'2", Weight: 190 lbs
+
+Physical Stats:
+- Might: 8 (Exceptional warrior and swordsman)  
+- Agility: 9 (Lightning-fast reflexes in combat)
+- Intellect: 7 (Tactical genius and strategic thinker)
+- Cunning: 6 (Straightforward and honorable approach)
+- Resolve: 9 (Unwavering loyalty to House Atreides)
+
+Skills:
+- Blade Fighting: Master level
+- Tactics: Expert level  
+- Leadership: Competent level
+- Shield Fighting: Master level
+- Desert Survival: Competent level
+
+Equipment:
+- Traditional Ginaz sword (family heirloom)
+- Personal shield generator
+- Stillsuit (desert-adapted)
+- Atreides uniform with house insignia`;
+            autoResize(charTextarea);
+        }
+
+        function addVeryLongText() {
+            const charTextarea = document.getElementById('character-name');
+            charTextarea.value = `Duncan Idaho - Swordmaster of House Atreides
+Background: Born on Ginaz, trained in the finest sword schools of the Imperium. Served House Atreides for over a decade with complete loyalty.
+
+Physical Description:
+Age: 35 years old
+Height: 6'2" (188 cm)
+Weight: 190 lbs (86 kg)
+Build: Athletic and muscular from years of combat training
+Hair: Dark brown, kept short in military style
+Eyes: Piercing gray, alert and watchful
+Scars: Multiple small scars from training and combat
+Bearing: Confident, disciplined military posture
+
+Combat Statistics:
+- Might: 8 (Exceptional warrior and swordsman, can defeat most opponents)
+- Agility: 9 (Lightning-fast reflexes, can dodge projectiles and strikes)  
+- Intellect: 7 (Tactical genius, excellent strategic thinker)
+- Cunning: 6 (Prefers straightforward, honorable approaches)
+- Resolve: 9 (Unwavering loyalty to House Atreides, will die before betraying them)
+
+Master-level Skills:
+- Blade Fighting: Ginaz-trained swordmaster, few equals in the Imperium
+- Shield Fighting: Expert at penetrating personal defense fields
+- Tactics: Brilliant field commander and strategic planner
+- Leadership: Natural leader, inspires loyalty in troops
+- Desert Survival: Rapidly adapting to Arrakis conditions
+
+Competent Skills:
+- Hand-to-hand Combat: Deadly even without weapons
+- Marksmanship: Skilled with projectile and energy weapons  
+- Stealth: Can move quietly when mission requires
+- Diplomacy: Represents House Atreides with honor
+- Engineering: Basic technical knowledge for equipment maintenance
+
+Equipment and Possessions:
+- Traditional Ginaz sword (family heirloom, perfectly balanced)
+- Personal shield generator (military-grade, reliable)
+- Stillsuit (custom-fitted for desert operations)
+- Atreides uniform with house insignia and rank markers
+- Combat armor (lightweight, flexible protection)
+- Communication equipment (encrypted Atreides channels)
+- Emergency medical supplies and stimulants
+- Maps and navigation tools for Arrakis terrain
+
+Personal History and Relationships:
+Born on Ginaz, the legendary sword-training planet. Spent his youth in the most demanding combat schools, learning not just technique but philosophy of warfare. Recruited by Duke Leto's agents after demonstrating exceptional skill and unwavering moral character.
+
+Has served House Atreides faithfully for over twelve years. Fought in multiple conflicts, always emerging victorious. Gained Duke Leto's complete trust through consistent loyalty and tactical brilliance. Considers the Duke more than an employer - a true friend and leader worth following.
+
+Recently tasked with protecting the Atreides family on Arrakis while adapting to desert warfare conditions. Training young Paul Atreides in combat techniques and leadership principles. Investigating potential threats from Harkonnen agents and traitors within the household.
+
+Current Mission Objectives:
+- Ensure the safety of Duke Leto and his family
+- Train Paul Atreides in advanced combat techniques  
+- Establish security protocols for Arrakeen palace
+- Build relationships with Fremen leaders for potential alliance
+- Investigate Harkonnen sabotage and intelligence operations
+- Adapt Atreides military tactics to desert warfare conditions
+
+Personal Motivations:
+Duncan's loyalty to House Atreides runs deeper than mere employment. He genuinely believes in Duke Leto's vision of honorable leadership and just governance. The Duke's willingness to treat servants and soldiers with respect, rather than as disposable assets, has earned Duncan's complete devotion.
+
+He sees great potential in young Paul, not just as a future Duke but as someone who could transform the Imperium for the better. Duncan takes his role as Paul's combat instructor seriously, knowing that the skills he teaches may one day save Paul's life or enable him to save others.
+
+The move to Arrakis represents both opportunity and extreme danger. Duncan knows the Harkonnens will not give up their lucrative spice operations without a fight, and he suspects treachery from within. His vigilance and tactical planning may be all that stands between House Atreides and complete destruction.`;
+            autoResize(charTextarea);
+        }
+
+        function clearText() {
+            const charTextarea = document.getElementById('character-name');
+            const notesTextarea = document.getElementById('stat-value');
+            charTextarea.value = '';
+            notesTextarea.value = '';
+            autoResize(charTextarea);
+            autoResize(notesTextarea);
+        }
+
+        function updatePositionInfo() {
+            const charElement = document.getElementById('character-sheet');
+            const notesElement = document.getElementById('Stat-One');
+            
+            const charRect = charElement.getBoundingClientRect();
+            const notesRect = notesElement.getBoundingClientRect();
+            
+            const charBottom = Math.round(charRect.bottom);
+            const notesTop = Math.round(notesRect.top);
+            const gap = Math.round(notesTop - charBottom);
+            
+            document.getElementById('char-bottom').textContent = charBottom;
+            document.getElementById('notes-top').textContent = notesTop;
+            document.getElementById('gap').textContent = gap;
+            
+            // Color-code the gap
+            const gapElement = document.getElementById('gap');
+            if (gap < 0) {
+                gapElement.style.color = '#ff6b6b'; // Red for overlap
+                gapElement.textContent = gap + ' (OVERLAP!)';
+            } else if (gap < 10) {
+                gapElement.style.color = '#ffa726'; // Orange for too close
+            } else {
+                gapElement.style.color = '#66bb6a'; // Green for good spacing
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', function() {
+            const charTextarea = document.getElementById('character-name');
+            const notesTextarea = document.getElementById('stat-value');
+            
+            setupAutoResize(charTextarea);
+            setupAutoResize(notesTextarea);
+            
+            // Update position info periodically
+            setInterval(updatePositionInfo, 500);
+        });
+    </script>
+</body>
+</html>
