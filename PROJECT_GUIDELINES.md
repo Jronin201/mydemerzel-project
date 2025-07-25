@@ -1,4 +1,5 @@
 # 🎯 Demerzel Guidelines
+
 **Flask TTRPG Chatbot - Windows 11 PC Only**
 
 **Requirements:** Windows 11, Desktop 1920x1080+, Edge/Chrome/Firefox, Keyboard/mouse, PC-first, no mobile, WCAG 2.1 AA
@@ -9,6 +10,7 @@
 **Layout:** 3-col `250px 1fr 40%` (buttons|character|chat), 20 buttons 1.0em, dark theme #121212/#e0e0e0, Segoe UI 1.15em, hover states, 8px radius
 
 **Commands:**
+
 ```bash
 ./start.sh ./deploy.sh ./backup.sh          # Dev, prod, backup
 cp .env.example .env; nano .env              # FLASK_SECRET_KEY, OPENAI_API_KEY
