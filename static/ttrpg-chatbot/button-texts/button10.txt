@@ -1,1 +1,3 @@
-I want to search for traps
+Reveal Clue
+
+Narrate the clever and novel revelation of a clue that allows further progress toward the characters goals.
