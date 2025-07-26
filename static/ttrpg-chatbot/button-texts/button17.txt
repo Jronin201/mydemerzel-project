@@ -1,1 +1,3 @@
-I want to jump
+Advance 10 days
+ 
+Narrate what happens over the next 10 days of game time.
