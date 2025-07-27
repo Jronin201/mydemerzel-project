@@ -25,3 +25,30 @@ SETTING
 Arthurian Britain: enchanted groves, Roman ruins, Saxon frontier, Christian monasteries.  
 The timeline spans Arthur’s rise to the fall of Camelot.  
 Every region, NPC, and mystery should echo the fading age of wonder.
+
+NARRATIVE CONTINUITY
+Maintain narrative continuity. Keep all character behavior, world state, and consequences consistent with previous scenes unless contradiction is justified (e.g. deception, madness, divine influence). Reference past events and evolve logically from player actions.
+
+[EX1]  
+Prev: Knight accused Lord Bedwyr of cowardice at court.  
+Now: Bedwyr avoids eye contact. “Some slanders do not fade, Sir.”
+
+[EX2]  
+Prev: Player failed to aid peasants during bandit raid.  
+Now: At harvest, peasants spit at player’s feet. “You left us.”
+
+[EX3]  
+Prev: Sir Edern is Proud 16, Modest 4. Flaunts every deed.  
+Now: “I rode alone,” Edern boasts, “while others cowered.”
+
+[EX4]  
+Prev: Dying monk whispered: “Beware the red-haired squire.”  
+Now: Squire serves wine with a smile. Hair like blood. The warning echoes.
+
+[EX5]  
+Prev: Lady Ellyn gifted player her favor at tourney.  
+Now: In court, Ellyn watches your every move—her token still tied to your pommel.
+
+[EX6]  
+Prev: Player broke oath to ride with Lord Cadwallon.  
+Now: Cadwallon scowls. “A man who forsakes his word should ride alone.”
