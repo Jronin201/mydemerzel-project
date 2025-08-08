@@ -674,24 +674,30 @@
 
             // Fetch text dynamically for each button and update label
             fetchButtonText(i).then((buttonText) => {
-              const trimmedText = buttonText.trim();
-              // Use first few words as button label
-              const words = trimmedText.split(" ");
-              const label =
-                words.length > 3
-                  ? words.slice(0, 3).join(" ") + "..."
-                  : trimmedText;
-              button.textContent = label || `#${i + 1}`;
-              button.title = trimmedText;
+              // Split file into lines (handle both \n and \r\n)
+              const lines = buttonText.split(/\r?\n/);
+              const line1 = (lines[0] || "").trim();
+              // Text to send: from line 3 onward (index 2)
+              let payload = lines.slice(2).join("\n").trim();
+
+              // Fallback: if file has fewer than 3 lines or payload is empty, use the whole text
+              if (!payload) {
+                payload = buttonText.trim();
+              }
+
+              // Set label and tooltip
+              button.textContent = line1 || `#${i + 1}`;
+              button.title = line1 ? line1 : `Quick action button ${i + 1}`;
 
               // Insert text on click
               button.addEventListener("click", function () {
                 if (!input) return;
-                if (input.value && !input.value.endsWith(" "))
+                // Add a separating space if needed
+                if (input.value && !/[\s\n]$/.test(input.value))
                   input.value += " ";
-                input.value += trimmedText;
+                input.value += payload;
                 input.focus();
-                // Optionally trigger input event for auto-resize
+                // Trigger input event for auto-resize
                 if (typeof Event === "function")
                   input.dispatchEvent(new Event("input"));
               });
