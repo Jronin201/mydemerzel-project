@@ -21,7 +21,7 @@
         margin: 0;
         padding: 10px;
         display: grid;
-        grid-template-columns: 250px 1fr 40%; /* Optimized for PC: Wider buttons, More chat space */
+        grid-template-columns: 250px 1fr 50%; /* PC: make chat ~50% width (was 40%) */
         gap: 20px;
         height: 100vh;
         box-sizing: border-box;
@@ -38,7 +38,7 @@
         height: calc(100vh - 20px);
       }
 
-      /* Right Panel (Chat Box - 40% of monitor for PC optimization) */
+      /* Right Panel (Chat Box - 50% of monitor for PC optimization) */
       #chat-container {
         grid-column: 3;
         display: flex;
@@ -608,7 +608,7 @@
       </div>
     </div>
 
-    <!-- Right Column: Chat Container (40% of monitor for PC optimization) -->
+    <!-- Right Column: Chat Container (50% of monitor for PC optimization) -->
     <div id="chat-container" role="main">
       <a href="/" id="back-button" aria-label="Return to main menu"
         >← Back to Main Menu</a
