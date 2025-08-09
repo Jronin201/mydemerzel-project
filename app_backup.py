@@ -586,8 +586,11 @@ def summarize_messages(messages):
         elif m["role"] == "assistant":
             summary_prompt.append(ChatCompletionAssistantMessageParam(role="assistant", content=m["content"]))
 
+    # Allow model override via environment variables
+    OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.0")
+    OPENAI_SUMMARY_MODEL = os.environ.get("OPENAI_SUMMARY_MODEL", OPENAI_CHAT_MODEL)
     response = client.chat.completions.create(
-        model="gpt-4o", messages=summary_prompt
+        model=OPENAI_SUMMARY_MODEL, messages=summary_prompt
     )
     content = response.choices[0].message.content
     summary = content.strip() if content is not None else ""
@@ -867,8 +870,9 @@ Example usage:
     full_messages_dicts = [{"role": "system", "content": full_system_prompt}] + filtered
     full_messages = [dict_to_message_param(m) for m in full_messages_dicts]
 
+    OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.0")
     response = client.chat.completions.create(
-        model="gpt-4o", messages=full_messages, max_tokens=4096
+        model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=4096
     )
     content = response.choices[0].message.content
     trimmed = content.strip() if content is not None else ""

@@ -30,6 +30,9 @@ def select_random(element, choice):
 from openai import OpenAI
 import os
 
+# Allow overriding the model used for campaign creation
+OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.0")
+
 client = OpenAI()
 
 def create_campaign(setting=None, factions=None, npc_roles=None, player_goals=None, story_challenge=None):
@@ -67,7 +70,7 @@ Format the campaign as markdown text with headings and lists.
 """
 
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model=OPENAI_CHAT_MODEL,
         messages=[
             {"role": "system", "content": "You are a creative and detailed TTRPG campaign creator."},
             {"role": "user", "content": prompt}

@@ -677,6 +677,15 @@ except Exception as e:
 
 # Initialize messages for backward compatibility with tests
 messages = []
+# --- OpenAI Model Configuration (override via env) ---
+# Primary chat model used for responses
+OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.0")
+# Summary/auxiliary model (defaults to same as chat model if not provided)
+OPENAI_SUMMARY_MODEL = os.environ.get("OPENAI_SUMMARY_MODEL", OPENAI_CHAT_MODEL)
+
+print(f"🧠 Using OpenAI chat model: {OPENAI_CHAT_MODEL}")
+print(f"📝 Using OpenAI summary model: {OPENAI_SUMMARY_MODEL}")
+
 
 from pathlib import Path
 
@@ -741,7 +750,7 @@ def summarize_messages(messages):
             return []
             
         response = client.chat.completions.create(
-            model="gpt-4o", messages=summary_prompt
+            model=OPENAI_SUMMARY_MODEL, messages=summary_prompt
         )
         content = response.choices[0].message.content
         summary = content.strip() if content is not None else ""
@@ -1159,7 +1168,7 @@ UPDATE FORMATS (use exactly these):
         print(f"[DEBUG] System prompt length: {len(full_system_prompt)} characters")
         
         response = client.chat.completions.create(
-            model="gpt-4o", messages=full_messages, max_tokens=4096
+            model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=4096
         )
         print(f"[DEBUG] OpenAI API call successful")
         content = response.choices[0].message.content
