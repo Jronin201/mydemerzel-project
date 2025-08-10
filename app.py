@@ -35,6 +35,11 @@ from flask_login import (
 )
 import datetime
 from openai import OpenAI
+try:
+    # Newer SDK exceptions
+    from openai import APIStatusError, APIConnectionError, RateLimitError, AuthenticationError, BadRequestError, APITimeoutError
+except Exception:  # pragma: no cover
+    APIStatusError = APIConnectionError = RateLimitError = AuthenticationError = BadRequestError = APITimeoutError = Exception
 from token_counter import count_tokens
 from message_history import load_messages_from_file, save_messages_to_file
 from user_chat_history import save_user_messages, load_user_messages, get_user_chat_sessions
@@ -47,6 +52,7 @@ import json
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent / "scripts"))
+import random
 
 try:
     from chatbot_campaign_manager import process_user_request
@@ -686,6 +692,73 @@ OPENAI_SUMMARY_MODEL = os.environ.get("OPENAI_SUMMARY_MODEL", OPENAI_CHAT_MODEL)
 print(f"🧠 Using OpenAI chat model: {OPENAI_CHAT_MODEL}")
 print(f"📝 Using OpenAI summary model: {OPENAI_SUMMARY_MODEL}")
 
+def _env_bool(name: str, default: bool = False) -> bool:
+    val = os.environ.get(name)
+    if val is None:
+        return default
+    return val.strip().lower() in ("1", "true", "yes", "on")
+
+AI_FALLBACKS_ENABLED = _env_bool("AI_FALLBACKS_ENABLED", False)
+print(f"🧩 AI fallbacks enabled: {AI_FALLBACKS_ENABLED}")
+
+# Conservative fallbacks in case configured models are unavailable
+# Order matters: prefer lightweight but capable models first.
+CHAT_MODEL_FALLBACKS = [
+    OPENAI_CHAT_MODEL,
+    "gpt-4o-mini",
+    "gpt-4o",
+]
+
+SUMMARY_MODEL_FALLBACKS = [
+    OPENAI_SUMMARY_MODEL,
+    "gpt-4o-mini",
+]
+
+def _is_model_unavailable_error(exc: Exception) -> bool:
+    s = str(exc).lower()
+    return any(kw in s for kw in [
+        "model",
+        "not found",
+        "does not exist",
+        "unknown",
+        "no such model",
+        "you do not have access",
+        "unsupported",
+    ])
+
+def chat_completion_with_fallback(messages, model_candidates, max_tokens=None):
+    """Try chat completion across candidate models until one succeeds.
+    Returns (content, used_model). Raises last exception if all fail with non-model errors.
+    """
+    if client is None:
+        raise RuntimeError("OpenAI client not initialized")
+    last_exc = None
+    for mdl in model_candidates:
+        if not mdl:
+            continue
+        try:
+            kwargs = {"model": mdl, "messages": messages}
+            if max_tokens is not None:
+                kwargs["max_tokens"] = max_tokens
+            print(f"[DEBUG] Trying OpenAI model: {mdl}")
+            resp = client.chat.completions.create(**kwargs)
+            print(f"[DEBUG] OpenAI call succeeded with model: {mdl}")
+            content = resp.choices[0].message.content
+            return (content.strip() if content is not None else "", mdl)
+        except Exception as e:
+            last_exc = e
+            if _is_model_unavailable_error(e):
+                print(f"[WARN] Model '{mdl}' unavailable, trying next fallback... Error: {e}")
+                continue
+            # Non-model error: re-raise immediately
+            print(f"[ERROR] OpenAI call failed with non-model error on '{mdl}': {type(e).__name__}: {e}")
+            raise
+    # Exhausted all candidates; if last error exists, raise it, else generic error
+    if last_exc:
+        print(f"[ERROR] All model candidates failed. Last error: {type(last_exc).__name__}: {last_exc}")
+        raise last_exc
+    raise RuntimeError("No valid model candidates provided for OpenAI call")
+
 
 from pathlib import Path
 
@@ -696,6 +769,101 @@ def load_system_prompt(page: str) -> str:
     base_prompt = base_prompt_path.read_text(encoding="utf-8").strip() if base_prompt_path.exists() else ""
     
     page_prompt = ""
+    # Minimal page-specific augmentation; keep lightweight
+    page = (page or "").lower()
+    if page == "dune":
+        # If there is a dune campaign file, append trimmed content (optional)
+        dune_path = Path("documents/dune_campaign.txt")
+        if dune_path.exists():
+            try:
+                text = dune_path.read_text(encoding="utf-8")
+                page_prompt = "\n\n[CAMPAIGN NOTES - DUNE]\n" + text[:3000]
+            except Exception:
+                page_prompt = ""
+    # Combine and return
+    return (base_prompt + page_prompt).strip()
+
+def _classify_openai_error(e: Exception) -> Dict[str, Any]:
+    """Return a structured classification for OpenAI errors for logging/health checks."""
+    cls = type(e).__name__
+    info: Dict[str, Any] = {"type": cls, "message": str(e)}
+    # Status code if present (APIStatusError)
+    try:
+        if isinstance(e, APIStatusError):
+            info["status_code"] = getattr(e, "status_code", None)
+            info["body"] = getattr(e, "response", None)
+    except Exception:
+        pass
+    s = str(e).lower()
+    if isinstance(e, AuthenticationError) or "api key" in s:
+        info["category"] = "AUTH"
+    elif isinstance(e, RateLimitError) or "rate" in s:
+        info["category"] = "RATE_LIMIT"
+    elif isinstance(e, APITimeoutError) or "timeout" in s:
+        info["category"] = "TIMEOUT"
+    elif isinstance(e, APIConnectionError) or "connection" in s or "network" in s:
+        info["category"] = "NETWORK"
+    elif _is_model_unavailable_error(e):
+        info["category"] = "MODEL_UNAVAILABLE"
+    elif isinstance(e, BadRequestError) or "invalid" in s or "bad request" in s:
+        info["category"] = "BAD_REQUEST"
+    else:
+        info["category"] = "UNKNOWN"
+    return info
+
+@app.route("/health/ai")
+def health_ai():
+    """Active health probe for OpenAI chat with detailed diagnostics."""
+    model_chain = CHAT_MODEL_FALLBACKS  # Use configured order, but report per-attempt
+    if client is None:
+        return jsonify({
+            "ok": False,
+            "reason": "OPENAI_CLIENT_UNINITIALIZED",
+            "models": model_chain,
+        }), 200
+    attempts = []
+    for mdl in model_chain:
+        if not mdl:
+            continue
+        start = datetime.datetime.now()
+        try:
+            resp = client.chat.completions.create(
+                model=mdl,
+                messages=[{"role": "system", "content": "Ping"}, {"role": "user", "content": "Ping"}],
+                max_tokens=4,
+            )
+            dur_ms = int((datetime.datetime.now() - start).total_seconds() * 1000)
+            attempts.append({"model": mdl, "ok": True, "latency_ms": dur_ms})
+            return jsonify({
+                "ok": True,
+                "used_model": mdl,
+                "latency_ms": dur_ms,
+                "attempts": attempts,
+            }), 200
+        except Exception as e:
+            info = _classify_openai_error(e)
+            dur_ms = int((datetime.datetime.now() - start).total_seconds() * 1000)
+            attempts.append({"model": mdl, "ok": False, "latency_ms": dur_ms, "error": info})
+            # If it's clearly a non-model error, no need to continue probing
+            if info.get("category") in {"AUTH", "NETWORK", "TIMEOUT", "BAD_REQUEST"}:
+                break
+            # For MODEL_UNAVAILABLE keep trying next
+            continue
+    return jsonify({
+        "ok": False,
+        "attempts": attempts,
+    }), 200
+
+@app.route("/health/config")
+def health_config():
+    """Report non-sensitive AI config so we can diagnose issues safely."""
+    return jsonify({
+        "ok": True,
+        "has_openai_key": bool(os.environ.get("OPENAI_API_KEY")),
+        "chat_model": OPENAI_CHAT_MODEL,
+        "summary_model": OPENAI_SUMMARY_MODEL,
+        "fallbacks_enabled": AI_FALLBACKS_ENABLED,
+    })
     if page:
         page_path = Path("static") / page / "system_prompt.txt"
         if page_path.exists():
@@ -749,11 +917,20 @@ def summarize_messages(messages):
             print("OpenAI client not available for summarization, skipping...")
             return []
             
-        response = client.chat.completions.create(
-            model=OPENAI_SUMMARY_MODEL, messages=summary_prompt
-        )
-        content = response.choices[0].message.content
-        summary = content.strip() if content is not None else ""
+        if AI_FALLBACKS_ENABLED:
+            content, used_model = chat_completion_with_fallback(
+                summary_prompt, SUMMARY_MODEL_FALLBACKS
+            )
+            summary = content
+        else:
+            if client is None:
+                print("OpenAI client not available for summarization, skipping...")
+                return []
+            resp = client.chat.completions.create(
+                model=OPENAI_SUMMARY_MODEL, messages=summary_prompt
+            )
+            content = resp.choices[0].message.content
+            summary = content.strip() if content is not None else ""
         return [{"role": "system", "content": f"SUMMARY OF EARLIER CHAT: {summary}"}]
     except Exception as e:
         print(f"Failed to summarize messages: {e}")
@@ -765,6 +942,48 @@ def cosine_similarity(a, b):
     a = np.array(a)
     b = np.array(b)
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+def generate_offline_character(ttrpg: str) -> Dict[str, str]:
+    """Very small offline generator used when AI is unavailable."""
+    ttrpg = (ttrpg or "").lower()
+    if "pendragon" in ttrpg:
+        names = ["Gareth", "Elowen", "Tristan", "Isolde", "Gawain", "Ysolde"]
+        traits = [
+            ("Chivalrous", "Brave, Just, Valorous"),
+            ("Pious", "Modest, Temperate, Forgiving"),
+            ("Worldly", "Proud, Generous, Honest"),
+        ]
+        weapons = ["Sword", "Lance", "Spear", "Mace"]
+        shields = ["Heater", "Kite", "Round"]
+        horses = ["Rouncey", "Destrier", "Courser"]
+        name = random.choice(names)
+        trait, detail = random.choice(traits)
+        weapon = random.choice(weapons)
+        shield = random.choice(shields)
+        horse = random.choice(horses)
+        char_info = (
+            f"Name: Sir {name}\n"
+            f"Culture: Cymric\n"
+            f"Traits: {trait} ({detail})\n"
+            f"Skills: Sword 15, Lance 13, Courtesy 10, Awareness 12\n"
+            f"Glory: 120\n"
+            f"Equipment: {weapon}, {shield} Shield, Chain Hauberk, {horse}\n"
+            f"Passions: Loyalty (Lord) 14, Love (Family) 12\n"
+        )
+        notes = (
+            "A young knight sworn to a minor lord in Salisbury. Dreams of renown at tourneys and the king's favor."
+        )
+        return {"character_name": char_info, "character_stats": notes}
+    else:
+        # Generic fallback
+        backgrounds = ["Scholar", "Scout", "Soldier", "Merchant"]
+        name = random.choice(["Aria", "Tomas", "Lena", "Borin"])
+        bg = random.choice(backgrounds)
+        char_info = (
+            f"Name: {name}\nBackground: {bg}\nSkills: Investigation 3, Survival 2, Persuasion 2\nGear: Pack, Rations, Cloak"
+        )
+        notes = "Optimistic and curious. Seeks adventure and hidden lore."
+        return {"character_name": char_info, "character_stats": notes}
 
 @app.route("/chat", methods=["POST"])
 @cross_origin()  # explicitly allow all origins
@@ -1167,29 +1386,50 @@ UPDATE FORMATS (use exactly these):
         print(f"[DEBUG] Making OpenAI API call with {len(full_messages)} messages...")
         print(f"[DEBUG] System prompt length: {len(full_system_prompt)} characters")
         
-        response = client.chat.completions.create(
-            model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=4096
-        )
-        print(f"[DEBUG] OpenAI API call successful")
-        content = response.choices[0].message.content
-        trimmed = content.strip() if content is not None else ""
+        if AI_FALLBACKS_ENABLED:
+            content, used_model = chat_completion_with_fallback(
+                full_messages, CHAT_MODEL_FALLBACKS, max_tokens=4096
+            )
+            print(f"[DEBUG] OpenAI API call successful (model: {used_model})")
+            trimmed = content
+        else:
+            # Use only the configured primary model; fail fast if it errors
+            if client is None:
+                raise RuntimeError("OpenAI client not initialized")
+            resp = client.chat.completions.create(
+                model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=4096
+            )
+            print(f"[DEBUG] OpenAI API call successful (model: {OPENAI_CHAT_MODEL})")
+            content = resp.choices[0].message.content
+            trimmed = content.strip() if content is not None else ""
     except Exception as e:
-        print(f"OpenAI API call failed: {e}")
-        print(f"[DEBUG] Exception type: {type(e).__name__}")
+        info = _classify_openai_error(e)
+        print(f"OpenAI API call failed: {info}")
         
         # Provide specific error messages based on exception type
         exception_type = type(e).__name__
-        if "timeout" in str(e).lower() or exception_type == "APITimeoutError":
+        if info.get("category") == "TIMEOUT":
             error_message = "⏱️ The AI is taking longer than usual to respond. This sometimes happens with complex requests. Please try again with a shorter message, or wait a moment and retry."
-        elif "rate" in str(e).lower() or "limit" in str(e).lower():
+        elif info.get("category") == "RATE_LIMIT":
             error_message = "🚦 The AI service is currently busy. Please wait a moment and try again."
-        elif "connection" in str(e).lower() or "network" in str(e).lower():
+        elif info.get("category") == "NETWORK":
             error_message = "🌐 There's a temporary connection issue with the AI service. Please check your internet connection and try again."
+        elif info.get("category") == "AUTH":
+            error_message = "🔑 The AI service credentials are not configured correctly on the server. Please check OPENAI_API_KEY."
+        elif info.get("category") == "MODEL_UNAVAILABLE":
+            error_message = "🧠 The configured model is unavailable. An administrator should choose a supported model or enable fallbacks."
         else:
             # Create a helpful fallback response based on the user input
             user_input_lower = user_input.lower()
             if any(word in user_input_lower for word in ['character', 'create', 'build', 'make']):
-                error_message = "I'm currently experiencing technical difficulties with my AI service. However, I can help you get started! Please use the Character Information fields on the left to enter your character details, and I'll be back online shortly."
+                # Offline character generation fallback
+                offline = generate_offline_character(page)
+                save_user_character_info(username, page, offline["character_name"], offline["character_stats"], source="offline")
+                error_message = (
+                    "My AI service is temporarily unavailable, so I created a starter character for you. "
+                    "You can edit it in the Character Information and Notes on the left, and we can begin right away."
+                    "\n\n" + offline["character_name"] + "\n\nNotes: " + offline["character_stats"]
+                )
             elif any(word in user_input_lower for word in ['hello', 'hi', 'start', 'begin']):
                 error_message = f"Welcome to the TTRPG Chatbot! I'm currently experiencing some technical difficulties but should be back online shortly. In the meantime, you can explore the different game systems and prepare your character information."
             else:
