@@ -698,7 +698,7 @@ def _env_bool(name: str, default: bool = False) -> bool:
         return default
     return val.strip().lower() in ("1", "true", "yes", "on")
 
-AI_FALLBACKS_ENABLED = _env_bool("AI_FALLBACKS_ENABLED", False)
+AI_FALLBACKS_ENABLED = _env_bool("AI_FALLBACKS_ENABLED", True)
 print(f"🧩 AI fallbacks enabled: {AI_FALLBACKS_ENABLED}")
 
 # Conservative fallbacks in case configured models are unavailable
