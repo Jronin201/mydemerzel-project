@@ -651,60 +651,102 @@
         const panel = document.getElementById("quick-insert-panel");
         const input = document.getElementById("userInput");
 
-        // Function to fetch text from external files
-        async function fetchButtonText(index) {
+        // Determine current TTRPG (from URL ?ttrpg= param or API) so we can load its own button group
+        async function detectCurrentTTRPG() {
           try {
-            const response = await fetch(`button-texts/button${index + 1}.txt`);
-            if (!response.ok) throw new Error("Failed to load text file");
-            return await response.text();
-          } catch (error) {
-            console.error(`Error loading text for button ${index + 1}:`, error);
-            return `Text for Button ${index + 1}`; // Fallback text
+            const urlParams = new URLSearchParams(window.location.search);
+            const fromParam = urlParams.get("ttrpg");
+            if (fromParam) return fromParam;
+            // Fallback to API
+            const resp = await fetch("/api/current-ttrpg");
+            if (resp.ok) {
+              const data = await resp.json();
+              if (data && data.current_ttrpg) return data.current_ttrpg;
+            }
+          } catch (e) {
+            console.warn("Could not detect current TTRPG, using general fallback", e);
           }
+          return "ttrpg-chatbot"; // fallback identifier
+        }
+
+        // Cache of loaded button texts per path
+        const buttonTextCache = new Map();
+
+        // Attempt to fetch button text from a set of candidate base paths
+        async function fetchButtonText(index, basePaths) {
+          for (const base of basePaths) {
+            const key = base + index;
+            if (buttonTextCache.has(key)) return buttonTextCache.get(key);
+            try {
+              const response = await fetch(`${base}/button${index + 1}.txt`);
+              if (!response.ok) throw new Error("HTTP " + response.status);
+              const txt = await response.text();
+              buttonTextCache.set(key, txt);
+              return txt;
+            } catch (err) {
+              // Try next base path
+              continue;
+            }
+          }
+          return `Button ${index + 1}`; // ultimate fallback
         }
 
         async function renderButtons() {
+          const current = await detectCurrentTTRPG();
+          const bases = [`../${current}/button-texts`, "button-texts"]; // preferred then fallback
           panel.innerHTML = "";
+
+            // Pre-fetch all in parallel but also support immediate click before fetch completes.
+          const fetchPromises = [];
           for (let i = 0; i < BUTTON_COUNT; i++) {
             const button = document.createElement("button");
             button.className = "quick-insert-btn";
             button.textContent = `#${i + 1}`;
             button.title = `Quick action button ${i + 1}`;
             button.tabIndex = 0;
+            let payload = null; // will be filled after fetch
 
-            // Fetch text dynamically for each button and update label
-            fetchButtonText(i).then((buttonText) => {
-              // Split file into lines (handle both \n and \r\n)
-              const lines = buttonText.split(/\r?\n/);
-              const line1 = (lines[0] || "").trim();
-              // Text to send: from line 3 onward (index 2)
-              let payload = lines.slice(2).join("\n").trim();
-
-              // Fallback: if file has fewer than 3 lines or payload is empty, use the whole text
-              if (!payload) {
-                payload = buttonText.trim();
-              }
-
-              // Set label and tooltip
-              button.textContent = line1 || `#${i + 1}`;
-              button.title = line1 ? line1 : `Quick action button ${i + 1}`;
-
-              // Insert text on click
-              button.addEventListener("click", function () {
+            // Temporary click handler (in case user clicks before load finishes)
+            button.addEventListener("click", async function onEarlyClick() {
+              try {
+                if (payload === null) {
+                  const txt = await fetchButtonText(i, bases);
+                  const lines = txt.split(/\r?\n/);
+                  payload = lines.slice(2).join("\n").trim() || txt.trim();
+                  // update label if not yet updated
+                  const line1 = (lines[0] || "").trim();
+                  if (line1 && button.textContent !== line1) {
+                    button.textContent = line1;
+                    button.title = line1;
+                  }
+                }
                 if (!input) return;
-                // Add a separating space if needed
-                if (input.value && !/[\s\n]$/.test(input.value))
-                  input.value += " ";
+                if (input.value && !/[\s\n]$/.test(input.value)) input.value += " ";
                 input.value += payload;
                 input.focus();
-                // Trigger input event for auto-resize
-                if (typeof Event === "function")
-                  input.dispatchEvent(new Event("input"));
-              });
+                if (typeof Event === "function") input.dispatchEvent(new Event("input"));
+              } catch (e) {
+                console.warn("Button text load failed", e);
+              }
             });
 
+            // Background fetch to hydrate label & payload
+            const p = fetchButtonText(i, bases).then((buttonText) => {
+              const lines = buttonText.split(/\r?\n/);
+              const line1 = (lines[0] || "").trim();
+              let pLoad = lines.slice(2).join("\n").trim();
+              if (!pLoad) pLoad = buttonText.trim();
+              payload = pLoad; // store for early click handler
+              if (line1) {
+                button.textContent = line1;
+                button.title = line1;
+              }
+            });
+            fetchPromises.push(p);
             panel.appendChild(button);
           }
+          // Optional: wait for all to settle (fire-and-forget still fine)
+          Promise.allSettled(fetchPromises);
         }
 
         renderButtons();
