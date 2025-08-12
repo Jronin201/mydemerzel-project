@@ -774,24 +774,64 @@ def chat_completion_with_fallback(messages, model_candidates, max_tokens=None):
 
 from pathlib import Path
 
-def load_file_if_exists(path: Path, limit: int | None = None) -> str:
-    if path.exists():
-        try:
-            data = path.read_text(encoding="utf-8")
-            if limit:
-                return data[:limit]
-            return data
-        except Exception:
-            return ""
-    return ""
+# Unified system prompt loader (merged from refactor)
+def load_system_prompt(page: str) -> str:
+    """Compose the full system prompt for a given TTRPG page.
 
+    Order of composition:
+      1. Root system_prompt.txt (universal rules / persona)
+      2. static/<page>/system_prompt.txt (TTRPG-specific extension) if it exists
+      3. Optional campaign / supplemental files (e.g. documents/dune_campaign.txt)
+
+    This unified implementation ensures BOTH the universal prompt and the
+    TTRPG-specific extension are always included for active systems. Tests rely
+    on TTRPG prompts being longer than the global base; this preserves that.
+    """
+    page_key = (page or "").strip().lower()
+
+    def _read(path: Path, limit: int | None = None) -> str:
+        try:
+            if not path.exists():
+                return ""
+            data = path.read_text(encoding="utf-8")
+            return data[:limit] if (limit and len(data) > limit) else data
+        except Exception as e:  # pragma: no cover - defensive
+            print(f"[PROMPT] Failed reading {path}: {e}")
+            return ""
+
+    base_prompt = _read(Path("system_prompt.txt")).strip()
+    ttrpg_prompt = ""
+    if page_key and page_key not in ("general", "index", "home"):
+        static_path = Path("static") / page_key / "system_prompt.txt"
+        if static_path.exists():
+            ttrpg_prompt = _read(static_path).strip()
+        else:
+            legacy_path = Path(f"system_prompt_{page_key}.txt")
+            if legacy_path.exists():
+                ttrpg_prompt = _read(legacy_path).strip()
+
+    extras: list[str] = []
+    if page_key == "dune":
+        for p in [Path("documents/dune_campaign.txt"), Path("dune_campaign.txt")]:
+            extra = _read(p, limit=8000).strip()
+            if extra:
+                extras.append(f"[CAMPAIGN NOTES - DUNE]\n{extra}")
+                break
+
+    blocks = [b for b in [base_prompt, ttrpg_prompt, *extras] if b]
+    combined = "\n\n".join(blocks).strip()
+    try:
+        print(
+            f"[PROMPT] page={page_key or 'general'} base_len={len(base_prompt)} "
+            f"ttrpg_len={len(ttrpg_prompt)} extras={[len(e) for e in extras]} total_len={len(combined)}"
+        )
+    except Exception:
+        pass
+    return combined
+
+# Backward compatibility: compose_base_prompts now proxies to load_system_prompt
 def compose_base_prompts(game: str) -> str:
-    """Compose base + game-specific prompt (no master). Uses only existing system_prompt.txt and system_prompt_<game>."""
-    base = load_file_if_exists(Path("system_prompt.txt")).strip()
-    game_key = (game or "").lower().replace(" ", "-")
-    game_prompt = load_file_if_exists(Path(f"system_prompt_{game_key}.txt")).strip()
-    blocks = [b for b in [base, game_prompt] if b]
-    return "\n\n".join(blocks)
+    return load_system_prompt(game)
 
 MECHANICS_BAN_BLOCK = (
     "[MECHANICS BAN]\n"
