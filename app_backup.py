@@ -869,10 +869,13 @@ Example usage:
 
     full_messages_dicts = [{"role": "system", "content": full_system_prompt}] + filtered
     full_messages = [dict_to_message_param(m) for m in full_messages_dicts]
-
     OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.0")
+    try:
+        OPENAI_MAX_TOKENS = int(os.environ.get("OPENAI_MAX_TOKENS", "20000"))
+    except ValueError:
+        OPENAI_MAX_TOKENS = 20000
     response = client.chat.completions.create(
-        model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=4096
+        model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=OPENAI_MAX_TOKENS
     )
     content = response.choices[0].message.content
     trimmed = content.strip() if content is not None else ""

@@ -693,6 +693,13 @@ OPENAI_SUMMARY_MODEL = os.environ.get("OPENAI_SUMMARY_MODEL", OPENAI_CHAT_MODEL)
 print(f"🧠 Using OpenAI chat model: {OPENAI_CHAT_MODEL}")
 print(f"📝 Using OpenAI summary model: {OPENAI_SUMMARY_MODEL}")
 
+# Max tokens limit for chat completions (configurable via env, default 20000)
+try:
+    OPENAI_MAX_TOKENS = int(os.environ.get("OPENAI_MAX_TOKENS", "20000"))
+except ValueError:
+    OPENAI_MAX_TOKENS = 20000
+print(f"🔢 OpenAI max tokens per response: {OPENAI_MAX_TOKENS}")
+
 def _env_bool(name: str, default: bool = False) -> bool:
     val = os.environ.get(name)
     if val is None:
@@ -1545,7 +1552,7 @@ UPDATE FORMATS (use exactly these):
 
         if AI_FALLBACKS_ENABLED and not force_primary:
             content, model_used = chat_completion_with_fallback(
-                full_messages, CHAT_MODEL_FALLBACKS, max_tokens=4096
+                full_messages, CHAT_MODEL_FALLBACKS, max_tokens=OPENAI_MAX_TOKENS
             )
             print(f"[DEBUG] OpenAI API call successful (model: {model_used})")
             fallback_used = (model_used != OPENAI_CHAT_MODEL)
@@ -1553,7 +1560,7 @@ UPDATE FORMATS (use exactly these):
         else:
             # Force only primary model attempt (either fallbacks disabled or user forced it)
             resp = client.chat.completions.create(
-                model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=4096,
+                model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=OPENAI_MAX_TOKENS,
                 temperature=0.85, top_p=1.0
             )
             print(f"[DEBUG] OpenAI API call successful (model: {OPENAI_CHAT_MODEL}) [force_primary={force_primary}]")
