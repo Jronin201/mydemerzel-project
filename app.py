@@ -749,7 +749,7 @@ def chat_completion_with_fallback(messages, model_candidates, max_tokens=None):
         if not mdl:
             continue
         try:
-            kwargs = {"model": mdl, "messages": messages}
+            kwargs = {"model": mdl, "messages": messages, "temperature": 0.85, "top_p": 1.0}
             if max_tokens is not None:
                 kwargs["max_tokens"] = max_tokens
             print(f"[DEBUG] Trying OpenAI model: {mdl}")
@@ -957,6 +957,8 @@ def health_ai():
                 model=mdl,
                 messages=[{"role": "system", "content": "Ping"}, {"role": "user", "content": "Ping"}],
                 max_tokens=4,
+                temperature=0.85,
+                top_p=1.0,
             )
             dur_ms = int((datetime.datetime.now() - start).total_seconds() * 1000)
             attempts.append({"model": mdl, "ok": True, "latency_ms": dur_ms})
@@ -1531,7 +1533,8 @@ UPDATE FORMATS (use exactly these):
             if client is None:
                 raise RuntimeError("OpenAI client not initialized")
             resp = client.chat.completions.create(
-                model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=4096
+                model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=4096,
+                temperature=0.85, top_p=1.0
             )
             print(f"[DEBUG] OpenAI API call successful (model: {OPENAI_CHAT_MODEL})")
             content = resp.choices[0].message.content
