@@ -1527,7 +1527,14 @@ UPDATE FORMATS (use exactly these):
                 full_messages, CHAT_MODEL_FALLBACKS, max_tokens=4096
             )
             print(f"[DEBUG] OpenAI API call successful (model: {used_model})")
-            trimmed = content
+            # Append explicit fallback notice for user if different model used
+            if used_model != OPENAI_CHAT_MODEL:
+                fallback_notice = (
+                    f"\n\n*Model notice: primary '{OPENAI_CHAT_MODEL}' unavailable; using fallback '{used_model}'.*"
+                )
+            else:
+                fallback_notice = ""
+            trimmed = content + fallback_notice
         else:
             # Use only the configured primary model; fail fast if it errors
             if client is None:
