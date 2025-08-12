@@ -1121,6 +1121,22 @@ def chat():
         return jsonify({"error": "Invalid JSON payload"}), 400
 
     user_input = data.get("message", "").strip()
+    # Natural-language request to retry primary model detection (before any model call)
+    force_primary_requested = bool(data.get("force_primary"))
+    lowered_retry = user_input.lower()
+    RETRY_HINTS = [
+        "retry primary",
+        "try primary",
+        "use gpt 5",
+        "use gpt5",
+        "gpt 5.0",
+        "default model",
+        "try again with gpt",
+        "try again to use gpt",
+        "retry with default",
+    ]
+    if not force_primary_requested and any(h in lowered_retry for h in RETRY_HINTS):
+        force_primary_requested = True
     page = data.get("page") or ""
     character_name = data.get("character_name", "").strip()
     character_stats = data.get("character_stats", "").strip()
@@ -1521,8 +1537,8 @@ UPDATE FORMATS (use exactly these):
         
         print(f"[DEBUG] Making OpenAI API call with {len(full_messages)} messages...")
         print(f"[DEBUG] System prompt length: {len(full_system_prompt)} characters")
-        # Determine if caller wants to force primary model retry
-        force_primary = bool(data.get("force_primary"))
+    # Determine if caller wants to force primary model retry (explicit flag or natural language)
+    force_primary = force_primary_requested
         model_used = None
         fallback_used = False
 
