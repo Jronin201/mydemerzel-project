@@ -48,6 +48,7 @@ from memory_optimized_search import memory_optimized_embedding_search, get_best_
 from memory_optimized_embeddings import get_system_embeddings, get_embedding_status, clear_embedding_cache
 import numpy as np
 from pathlib import Path
+import re
 import json
 import sys
 from pathlib import Path
@@ -701,6 +702,17 @@ def _env_bool(name: str, default: bool = False) -> bool:
 AI_FALLBACKS_ENABLED = _env_bool("AI_FALLBACKS_ENABLED", True)
 print(f"🧩 AI fallbacks enabled: {AI_FALLBACKS_ENABLED}")
 
+# Narrative-only pipeline configuration
+MECHANICS_BAN_ENFORCED = _env_bool("MECHANICS_BAN_ENFORCED", True)
+OUTCOME_PROTOCOL_ENABLED = _env_bool("OUTCOME_PROTOCOL_ENABLED", True)
+RAW_BLOCKLIST = os.environ.get(
+    "MECHANICS_LEXICON_BLOCKLIST",
+    "roll,d20,d6,target number,TN,DC,modifier,add your,compare to skill,critical on"
+)
+MECHANICS_BLOCKLIST = [w.strip().lower() for w in RAW_BLOCKLIST.split(",") if w.strip()]
+print(f"🛡️ Mechanics ban enforced: {MECHANICS_BAN_ENFORCED} (terms={len(MECHANICS_BLOCKLIST)})")
+print(f"🏷️ Outcome protocol enabled: {OUTCOME_PROTOCOL_ENABLED}")
+
 # Conservative fallbacks in case configured models are unavailable
 # Order matters: prefer lightweight but capable models first.
 CHAT_MODEL_FALLBACKS = [
@@ -762,26 +774,96 @@ def chat_completion_with_fallback(messages, model_candidates, max_tokens=None):
 
 from pathlib import Path
 
-def load_system_prompt(page: str) -> str:
-    """Load global prompt first, then append any page-specific prompt.
-    For 'dune' page, also append the dune_campaign.txt content."""
-    base_prompt_path = Path("system_prompt.txt")
-    base_prompt = base_prompt_path.read_text(encoding="utf-8").strip() if base_prompt_path.exists() else ""
-    
-    page_prompt = ""
-    # Minimal page-specific augmentation; keep lightweight
-    page = (page or "").lower()
-    if page == "dune":
-        # If there is a dune campaign file, append trimmed content (optional)
-        dune_path = Path("documents/dune_campaign.txt")
-        if dune_path.exists():
-            try:
-                text = dune_path.read_text(encoding="utf-8")
-                page_prompt = "\n\n[CAMPAIGN NOTES - DUNE]\n" + text[:3000]
-            except Exception:
-                page_prompt = ""
-    # Combine and return
-    return (base_prompt + page_prompt).strip()
+def load_file_if_exists(path: Path, limit: int | None = None) -> str:
+    if path.exists():
+        try:
+            data = path.read_text(encoding="utf-8")
+            if limit:
+                return data[:limit]
+            return data
+        except Exception:
+            return ""
+    return ""
+
+def compose_base_prompts(game: str) -> str:
+    """Compose base + game-specific prompt (no master). Uses only existing system_prompt.txt and system_prompt_<game>."""
+    base = load_file_if_exists(Path("system_prompt.txt")).strip()
+    game_key = (game or "").lower().replace(" ", "-")
+    game_prompt = load_file_if_exists(Path(f"system_prompt_{game_key}.txt")).strip()
+    blocks = [b for b in [base, game_prompt] if b]
+    return "\n\n".join(blocks)
+
+MECHANICS_BAN_BLOCK = (
+    "[MECHANICS BAN]\n"
+    "Do not perform or describe dice rolls, target numbers, odds, modifiers, DCs, TNs, or rule procedures.\n"
+    "Do not compare results to attributes or skills. Do not explain rules.\n"
+    "You only narrate fiction: sensory detail, character intent, NPC reactions, evolving situation.\n"
+    "When an outcome is needed, WAIT for user outcome tags and then continue narration without rules."
+)
+
+OUTCOME_PROTOCOL_GUIDANCE = (
+    "[OUTCOME PROTOCOL]\n"
+    "User may provide inline tags: [SUCCESS], [FAILURE], [CRITICAL_SUCCESS], [CRITICAL_FAILURE], [PARTIAL]\n"
+    "Tags may have indices: [SUCCESS#2] and optional labels like (My parry) [SUCCESS].\n"
+    "Acknowledge each provided outcome with a single concise consequence sentence, then continue vivid narration.\n"
+    "Never invent mechanical detail; never mention dice, DC, TN, modifiers, target numbers, probabilities."
+)
+
+OUTCOME_TAG_PATTERN = re.compile(
+    r"(?:\((?P<label>[^)]+)\)\s*)?\[(?P<tag>(SUCCESS|FAILURE|CRITICAL_SUCCESS|CRITICAL_FAILURE|PARTIAL))(?:#(?P<idx>\d+))?\]",
+    re.IGNORECASE,
+)
+
+def parse_outcome_tags(user_text: str) -> list[dict]:
+    results: dict[str, dict] = {}
+    if not OUTCOME_PROTOCOL_ENABLED:
+        return []
+    for m in OUTCOME_TAG_PATTERN.finditer(user_text or ""):
+        tag = m.group("tag").upper()
+        idx = m.group("idx") or "1"
+        label = (m.group("label") or "").strip()
+        # Overwrite to ensure latest wins per index
+        results[idx] = {"index": idx, "tag": tag, "label": label}
+    # Return sorted by numeric index
+    return [results[k] for k in sorted(results.keys(), key=lambda x: int(x))]
+
+def build_outcome_context_block(outcomes: list[dict]) -> str:
+    if not outcomes:
+        return ""
+    lines = ["[OUTCOME CONTEXT THIS TURN]"]
+    for o in outcomes:
+        lbl = f" {o['label']}" if o.get("label") else ""
+        lines.append(f"Action#{o['index']}{lbl}: {o['tag']}")
+    lines.append(
+        "Incorporate these outcomes diegetically. Start with a concise consequence for each outcome in order, then continue narration."
+    )
+    return "\n".join(lines)
+
+def sanitize_mechanics(output_text: str) -> tuple[str, bool]:
+    if not MECHANICS_BAN_ENFORCED:
+        return output_text, False
+    lowered = output_text.lower()
+    # Quick check first
+    if not any(term in lowered for term in MECHANICS_BLOCKLIST):
+        return output_text, False
+    lines = output_text.splitlines()
+    kept = []
+    triggered = False
+    for line in lines:
+        l = line.lower()
+        if any(term in l for term in MECHANICS_BLOCKLIST):
+            triggered = True
+            continue
+        kept.append(line)
+    sanitized = "\n".join(kept).strip()
+    if not sanitized:
+        sanitized = "The scene continues without explicit mechanical detail."
+    return sanitized, triggered
+
+def build_system_prompt(game: str, outcome_block: str, character_context: str) -> str:
+    base = compose_base_prompts(game)
+    blocks = [b for b in [base, MECHANICS_BAN_BLOCK, OUTCOME_PROTOCOL_GUIDANCE if OUTCOME_PROTOCOL_ENABLED else "", outcome_block, character_context] if b]
+    return "\n\n".join(blocks)
 
 def _classify_openai_error(e: Exception) -> Dict[str, Any]:
     """Return a structured classification for OpenAI errors for logging/health checks."""
@@ -1172,13 +1254,17 @@ def chat():
         return jsonify({"response": help_text})
 
     filtered = [m for m in messages if m["role"] in ["user", "assistant", "system"]]
-    system_prompt = load_system_prompt(page)
+    # Outcome protocol parsing
+    outcome_tags = parse_outcome_tags(user_input)
+    outcome_block = build_outcome_context_block(outcome_tags)
+    system_prompt = ""  # placeholder until character context appended
     full_system_prompt = system_prompt
 
     # Add character information to the system prompt if available
     # CRITICAL: Use the character information we already determined with proper priority
     # (live textbox values take priority over stored values)
     
+    char_context_block = ""
     if char_name or char_stats:
         character_context = "\n\n[CURRENT CHARACTER INFORMATION - USE THIS, NOT CHAT HISTORY]\n"
         character_context += "⚠️ CRITICAL: The following is the CURRENT, LIVE character information from the user's textboxes.\n"
@@ -1227,7 +1313,11 @@ UPDATE FORMATS (use exactly these):
 
 🎯 REMEMBER: These updates are AUTOMATIC and MANDATORY - always check if information should be recorded and use update tags immediately without waiting for user requests."""
         
-        full_system_prompt += character_context
+        char_context_block = character_context
+
+    # Build final system prompt (after we have outcome_block & char context)
+    full_system_prompt = build_system_prompt(page, outcome_block, char_context_block)
+    print(f"[NARRATIVE] Game={page} outcomes={outcome_tags} chars_added={len(char_context_block)}")
 
     full_messages_preview = [{"role": "system", "content": full_system_prompt}] + filtered
     if count_tokens(full_messages_preview) > TOKEN_THRESHOLD:
@@ -1502,6 +1592,11 @@ UPDATE FORMATS (use exactly these):
         update_notice += " and ".join(updates) + "]*"
         response_to_send += update_notice
     
+    # Mechanics validator / sanitizer
+    trimmed, mech_triggered = sanitize_mechanics(trimmed)
+    if mech_triggered:
+        print(f"[NARRATIVE] Mechanics ban sanitizer triggered for user='{username}' game='{page}'")
+
     messages.append({"role": "assistant", "content": trimmed, "timestamp": timestamp})
     save_user_chat(messages, username, page)
 
