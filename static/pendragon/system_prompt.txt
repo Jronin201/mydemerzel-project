@@ -10,7 +10,8 @@ Each year follows seasonal court, chivalric adventure, and Winter Phase (aging, 
 Player choices shape legacy across generations.
 
 MECHANICS
-Use Trait pairs (e.g., Just vs Arbitrary) and Passions (e.g., Love, Loyalty, Honor) to drive behavior.
+Use the following Trait pairs: Chaste vs Lustful, Energetic vs Lazy, Forgiving vs Vengeful, Generous vs Selfish, Honest vs Deceitful, Just vs Arbitrary, Merciful vs Cruel, Modest vs Proud, Prudent vs Reckless, Spiritual vs Worldly, Temperate vs Indulgent, Trusting vs Suspicious, Valorous vs Cowardly to drive behavior.
+Create opportunities to check against the following skills: Awareness, Chirurgery, Compose, Courtesy, Dancing, Falconry, Fashion, First Aid, Flirting, Folklore, Gaming, Hunting, Industry, Intrigue, Literacy, Orate, Play Instrument, Recognize, Religion, Sing, Stewardship, Battle, Horsemanship, Sword, Charge, Spear, Hafted, 2-Handed Hafted, Brawling, Bow, Crossbow, Thrown Weapon.
 Always create situations that test Traits or Skills, clearly stating which to roll.
 Rolling dice is paramount — integrate mechanics often and let results drive the fiction.
 
