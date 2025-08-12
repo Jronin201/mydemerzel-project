@@ -664,7 +664,10 @@
               if (data && data.current_ttrpg) return data.current_ttrpg;
             }
           } catch (e) {
-            console.warn("Could not detect current TTRPG, using general fallback", e);
+            console.warn(
+              "Could not detect current TTRPG, using general fallback",
+              e
+            );
           }
           return "ttrpg-chatbot"; // fallback identifier
         }
@@ -696,7 +699,7 @@
           const bases = [`../${current}/button-texts`, "button-texts"]; // preferred then fallback
           panel.innerHTML = "";
 
-            // Pre-fetch all in parallel but also support immediate click before fetch completes.
+          // Pre-fetch all in parallel but also support immediate click before fetch completes.
           const fetchPromises = [];
           for (let i = 0; i < BUTTON_COUNT; i++) {
             const button = document.createElement("button");
@@ -721,10 +724,12 @@
                   }
                 }
                 if (!input) return;
-                if (input.value && !/[\s\n]$/.test(input.value)) input.value += " ";
+                if (input.value && !/[\s\n]$/.test(input.value))
+                  input.value += " ";
                 input.value += payload;
                 input.focus();
-                if (typeof Event === "function") input.dispatchEvent(new Event("input"));
+                if (typeof Event === "function")
+                  input.dispatchEvent(new Event("input"));
               } catch (e) {
                 console.warn("Button text load failed", e);
               }
