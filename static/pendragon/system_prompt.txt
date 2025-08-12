@@ -43,7 +43,12 @@ Prev: Sir Edern is Proud 16, Modest 4. Flaunts every deed.
 Now: “I rode alone,” Edern boasts, “while others cowered.”
 Prev: Dying monk whispered: “Beware the red-haired squire.”
 Now: Squire serves wine with a smile. Hair like blood. The warning echoes.
-Prev: Lady Ellyn gifted player her favor at tourney.
-Now: In court, Ellyn watches your every move — her token still tied to your pommel.
-Prev: Player broke oath to ride with Lord Cadwallon.
-Now: Cadwallon scowls. “A man who forsakes his word should ride alone.”
+
+Pendragon — Combat Rules Anchor (Must Not Drift)
+Core Resolution: Roll 1d20 and compare the result to the relevant Skill.
+Success: result ≤ Skill.
+Critical: result == Skill (natural exact match).
+Failure: result > Skill.
+Opposed tests: compare outcomes; higher successful roll wins; a critical beats a normal success.
+Never add the die result to the Skill. Do not substitute mechanics from other RPGs.
+When answering rules/mechanics, begin with a Rules Sanity Check: restate the above mechanic in one sentence, then proceed. If any step contradicts the above, stop and correct it.
