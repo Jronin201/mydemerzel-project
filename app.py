@@ -799,7 +799,11 @@ def load_system_prompt(page: str) -> str:
             print(f"[PROMPT] Failed reading {path}: {e}")
             return ""
 
-    base_prompt = _read(Path("system_prompt.txt")).strip()
+    # Base universal prompt: prefer system_prompt.txt; fallback to system_prompt_master.txt if first is absent
+    base_prompt_path = Path("system_prompt.txt")
+    if not base_prompt_path.exists():
+        base_prompt_path = Path("system_prompt_master.txt")
+    base_prompt = _read(base_prompt_path).strip()
     ttrpg_prompt = ""
     if page_key and page_key not in ("general", "index", "home"):
         static_path = Path("static") / page_key / "system_prompt.txt"
