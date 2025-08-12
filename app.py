@@ -713,17 +713,18 @@ MECHANICS_BLOCKLIST = [w.strip().lower() for w in RAW_BLOCKLIST.split(",") if w.
 print(f"🛡️ Mechanics ban enforced: {MECHANICS_BAN_ENFORCED} (terms={len(MECHANICS_BLOCKLIST)})")
 print(f"🏷️ Outcome protocol enabled: {OUTCOME_PROTOCOL_ENABLED}")
 
-# Conservative fallbacks in case configured models are unavailable
-# Order matters: prefer lightweight but capable models first.
+# Conservative fallbacks if the configured primary model is unavailable.
+# Updated: Prefer full 'gpt-4o' as first fallback (remove/minimize 'gpt-4o-mini' usage).
+# Order: primary (OPENAI_CHAT_MODEL) -> gpt-4o -> (optional) gpt-4o-mini (only if explicitly desired later)
 CHAT_MODEL_FALLBACKS = [
     OPENAI_CHAT_MODEL,
-    "gpt-4o-mini",
     "gpt-4o",
+    # "gpt-4o-mini",  # Disabled per requirement to avoid auto fallback to mini variant
 ]
 
 SUMMARY_MODEL_FALLBACKS = [
     OPENAI_SUMMARY_MODEL,
-    "gpt-4o-mini",
+    "gpt-4o",
 ]
 
 def _is_model_unavailable_error(exc: Exception) -> bool:
