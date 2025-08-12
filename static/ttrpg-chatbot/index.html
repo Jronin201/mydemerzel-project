@@ -1414,10 +1414,77 @@
                         label += " (fallback)";
                       }
                       window.modelBadge.textContent = label;
-                      window.modelBadge.title =
-                        data.fallback && data.can_retry_primary
-                          ? "Fallback in use. Retry primary by resending."
-                          : "Active model";
+                      window.modelBadge.title = (data.fallback && data.can_retry_primary)
+                        ? 'Fallback in use. Retry primary by resending.'
+                        : 'Active model';
+                    // Show retry button if fallback occurred
+                    if (data.fallback && data.can_retry_primary) {
+                      if (!window.retryPrimaryBtn) {
+                        var btn = document.createElement('button');
+                        btn.id = 'retry-primary-btn';
+                        btn.textContent = 'Retry Primary Model';
+                        btn.style.position = 'absolute';
+                        btn.style.top = '34px';
+                        btn.style.right = '10px';
+                        btn.style.padding = '4px 8px';
+                        btn.style.fontSize = '11px';
+                        btn.style.background = '#444';
+                        btn.style.color = '#fff';
+                        btn.style.border = '1px solid #666';
+                        btn.style.borderRadius = '4px';
+                        btn.style.cursor = 'pointer';
+                        btn.style.opacity = '0.9';
+                        btn.addEventListener('click', function(){
+                          var lastUser = null;
+                          // Find last user message content from messages container
+                          var nodes = document.querySelectorAll('#messages .message.user');
+                          if (nodes.length) {
+                            lastUser = nodes[nodes.length - 1].querySelector('p').textContent;
+                          }
+                          if (!lastUser) return;
+                          // Send force primary request
+                          var forceData = {
+                            message: lastUser,
+                            page: window.currentTTRPG || 'general',
+                            character_name: characterNameInput ? characterNameInput.value : '',
+                            character_stats: statOneInput ? statOneInput.value : '',
+                            force_primary: true
+                          };
+                          btn.disabled = true;
+                          makeFetchRequest('/chat', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(forceData)
+                          }, function(err, data2){
+                            btn.disabled = false;
+                            if (err) return;
+                            if (data2 && data2.response) {
+                              var responseText2 = data2.response;
+                              var footerMatch2 = /\n\n\*Model:.*\*$/.exec(responseText2);
+                              if (footerMatch2) {
+                                responseText2 = responseText2.replace(footerMatch2[0], '').trim();
+                              }
+                              appendMessage('Demerzel', responseText2, 'assistant');
+                              if (window.modelBadge) {
+                                var lbl2 = data2.model_used || 'unknown-model';
+                                if (data2.fallback) lbl2 += ' (fallback)';
+                                window.modelBadge.textContent = lbl2;
+                                window.modelBadge.title = data2.fallback && data2.can_retry_primary ? 'Fallback in use. Retry primary by resending.' : 'Active model';
+                              }
+                              if (!data2.fallback) {
+                                btn.remove();
+                                window.retryPrimaryBtn = null;
+                              }
+                            }
+                          });
+                        });
+                        document.body.appendChild(btn);
+                        window.retryPrimaryBtn = btn;
+                      } else {
+                        window.retryPrimaryBtn.style.display = 'block';
+                      }
+                    } else if (window.retryPrimaryBtn) {
+                      window.retryPrimaryBtn.style.display = 'none';
                     }
 
                     // Check if AI mentioned updating character info and refresh if needed
