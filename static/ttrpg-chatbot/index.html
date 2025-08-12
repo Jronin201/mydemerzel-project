@@ -1382,7 +1382,38 @@
                       "assistant"
                     );
                   } else if (data && data.response) {
-                    appendMessage("Demerzel", data.response, "assistant");
+                    // Extract and strip model footer if present (server adds *Model: ...*)
+                    var responseText = data.response;
+                    var footerMatch = /\n\n\*Model:.*\*$/.exec(responseText);
+                    if (footerMatch) {
+                      responseText = responseText.replace(footerMatch[0], "").trim();
+                    }
+                    appendMessage("Demerzel", responseText, "assistant");
+                    // Update model badge
+                    if (!window.modelBadge) {
+                      var badge = document.createElement('div');
+                      badge.id = 'model-badge';
+                      badge.style.position = 'absolute';
+                      badge.style.top = '6px';
+                      badge.style.right = '10px';
+                      badge.style.padding = '2px 6px';
+                      badge.style.background = '#222';
+                      badge.style.color = '#ccc';
+                      badge.style.fontSize = '11px';
+                      badge.style.borderRadius = '4px';
+                      badge.style.fontFamily = 'system-ui, sans-serif';
+                      badge.style.opacity = '0.85';
+                      document.body.appendChild(badge);
+                      window.modelBadge = badge;
+                    }
+                    if (window.modelBadge) {
+                      var label = data.model_used || 'unknown-model';
+                      if (data.fallback) {
+                        label += ' (fallback)';
+                      }
+                      window.modelBadge.textContent = label;
+                      window.modelBadge.title = data.fallback && data.can_retry_primary ? 'Fallback in use. Retry primary by resending.' : 'Active model';
+                    }
 
                     // Check if AI mentioned updating character info and refresh if needed
                     if (data.response.includes("*[AI updated:")) {
