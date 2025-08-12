@@ -1537,8 +1537,8 @@ UPDATE FORMATS (use exactly these):
         
         print(f"[DEBUG] Making OpenAI API call with {len(full_messages)} messages...")
         print(f"[DEBUG] System prompt length: {len(full_system_prompt)} characters")
-    # Determine if caller wants to force primary model retry (explicit flag or natural language)
-    force_primary = force_primary_requested
+        # Determine if caller wants to force primary model retry (explicit flag or natural language)
+        force_primary = force_primary_requested
         model_used = None
         fallback_used = False
 
