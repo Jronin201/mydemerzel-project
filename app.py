@@ -1521,31 +1521,39 @@ UPDATE FORMATS (use exactly these):
         
         print(f"[DEBUG] Making OpenAI API call with {len(full_messages)} messages...")
         print(f"[DEBUG] System prompt length: {len(full_system_prompt)} characters")
-        
-        if AI_FALLBACKS_ENABLED:
-            content, used_model = chat_completion_with_fallback(
+        # Determine if caller wants to force primary model retry
+        force_primary = bool(data.get("force_primary"))
+        model_used = None
+        fallback_used = False
+
+        if AI_FALLBACKS_ENABLED and not force_primary:
+            content, model_used = chat_completion_with_fallback(
                 full_messages, CHAT_MODEL_FALLBACKS, max_tokens=4096
             )
-            print(f"[DEBUG] OpenAI API call successful (model: {used_model})")
-            # Append explicit fallback notice for user if different model used
-            if used_model != OPENAI_CHAT_MODEL:
-                fallback_notice = (
-                    f"\n\n*Model notice: primary '{OPENAI_CHAT_MODEL}' unavailable; using fallback '{used_model}'.*"
-                )
-            else:
-                fallback_notice = ""
-            trimmed = content + fallback_notice
+            print(f"[DEBUG] OpenAI API call successful (model: {model_used})")
+            fallback_used = (model_used != OPENAI_CHAT_MODEL)
+            trimmed = content
         else:
-            # Use only the configured primary model; fail fast if it errors
-            if client is None:
-                raise RuntimeError("OpenAI client not initialized")
+            # Force only primary model attempt (either fallbacks disabled or user forced it)
             resp = client.chat.completions.create(
                 model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=4096,
                 temperature=0.85, top_p=1.0
             )
-            print(f"[DEBUG] OpenAI API call successful (model: {OPENAI_CHAT_MODEL})")
+            print(f"[DEBUG] OpenAI API call successful (model: {OPENAI_CHAT_MODEL}) [force_primary={force_primary}]")
             content = resp.choices[0].message.content
             trimmed = content.strip() if content is not None else ""
+            model_used = OPENAI_CHAT_MODEL
+
+        # Append unified model footer for transparency
+        if model_used is None:
+            model_used = OPENAI_CHAT_MODEL
+        if model_used != OPENAI_CHAT_MODEL:
+            model_footer = f"\n\n*Model: {model_used} (fallback from {OPENAI_CHAT_MODEL}; send again with force_primary=true to retry primary).*"
+            can_retry_primary = True
+        else:
+            model_footer = f"\n\n*Model: {model_used}*"
+            can_retry_primary = False
+        trimmed = trimmed + model_footer
     except Exception as e:
         info = _classify_openai_error(e)
         print(f"OpenAI API call failed: {info}")
@@ -1654,7 +1662,13 @@ UPDATE FORMATS (use exactly these):
     messages.append({"role": "assistant", "content": trimmed, "timestamp": timestamp})
     save_user_chat(messages, username, page)
 
-    return jsonify({"response": response_to_send})
+    # Include model metadata in response for UI to leverage
+    extra_meta = {
+        "model_used": locals().get("model_used", OPENAI_CHAT_MODEL),
+        "fallback": locals().get("fallback_used", False),
+        "can_retry_primary": locals().get("can_retry_primary", False)
+    }
+    return jsonify({"response": response_to_send, **extra_meta})
 
 
 # Health check endpoint for personal deployment
