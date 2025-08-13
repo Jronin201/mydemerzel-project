@@ -9,11 +9,20 @@ from openai import OpenAI
 import os
 from memory_optimized_embeddings import get_system_embeddings
 
-# Initialize OpenAI client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Initialize OpenAI client with graceful degradation (tests may not set API key)
+try:
+    _api_key = os.getenv("OPENAI_API_KEY")
+    if not _api_key:
+        raise RuntimeError("Missing OPENAI_API_KEY; embedding features disabled for this run")
+    client = OpenAI(api_key=_api_key)
+except Exception as _e:  # pragma: no cover - defensive path
+    print(f"[EMBEDDINGS] OpenAI client unavailable: {_e}")
+    client = None
 
 def get_embedding(text: str, model: str = "text-embedding-3-small") -> List[float]:
     """Get embedding for a text string."""
+    if client is None:
+        return []
     try:
         response = client.embeddings.create(input=text, model=model)
         return response.data[0].embedding

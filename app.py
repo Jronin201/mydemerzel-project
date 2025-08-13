@@ -754,10 +754,15 @@ def _is_model_unavailable_error(exc: Exception) -> bool:
 def chat_completion_with_fallback(messages, model_candidates, max_tokens=None):
     """Try chat completion across candidate models until one succeeds.
     Returns (content, used_model). Raises last exception if all fail with non-model errors.
-    """
+    NOTE: Generation params (temperature, top_p, penalties) are injected by caller via
+    message-level system instructions OR default values inside this helper. To allow
+    mode-specific tuning, callers can pass a dict in thread-local context (set globally
+    via current_mode_gen_params)."""
     if client is None:
         raise RuntimeError("OpenAI client not initialized")
     last_exc = None
+    # Pull dynamic generation params (set by /chat route) if available
+    gen_params = globals().get("current_mode_gen_params", {}) or {}
     for mdl in model_candidates:
         if not mdl:
             continue
@@ -772,7 +777,14 @@ def chat_completion_with_fallback(messages, model_candidates, max_tokens=None):
                     effective_max = min(effective_max, 20000)
                 else:
                     effective_max = min(effective_max, 8192)
-            kwargs = {"model": mdl, "messages": messages, "temperature": 0.85, "top_p": 1.0}
+            kwargs = {"model": mdl, "messages": messages}
+            # Apply generation params with safe fallbacks
+            kwargs["temperature"] = gen_params.get("temperature", 0.85)
+            kwargs["top_p"] = gen_params.get("top_p", 1.0)
+            if "frequency_penalty" in gen_params:
+                kwargs["frequency_penalty"] = gen_params["frequency_penalty"]
+            if "presence_penalty" in gen_params:
+                kwargs["presence_penalty"] = gen_params["presence_penalty"]
             if effective_max is not None:
                 kwargs["max_tokens"] = effective_max
             print(f"[DEBUG] Trying OpenAI model: {mdl} (max_tokens={kwargs.get('max_tokens')})")
@@ -869,6 +881,120 @@ def load_system_prompt(page: str) -> str:
     except Exception:
         pass
     return combined
+
+# ======================== MODE MANAGEMENT (Narrative vs Mechanics) ========================
+# Easy-to-edit keyword list & parameters. Can be overridden via environment variables.
+RAW_MECHANICS_KEYWORDS = os.environ.get(
+    "MECHANICS_MODE_KEYWORDS",
+    "rules,mechanics,raw,game system,skill check,combat resolution,opposed roll,damage,traits,passions,career system,stat block,dice roll,modifier"
+)
+MECHANICS_MODE_KEYWORDS = [k.strip().lower() for k in RAW_MECHANICS_KEYWORDS.split(",") if k.strip()]
+
+MODE_NARRATIVE = "narrative"
+MODE_MECHANICS = "mechanics"
+MODE_AUTO_REVERT_TURNS = int(os.environ.get("MECHANICS_AUTO_REVERT_TURNS", "3"))
+
+MODE_GENERATION_PARAMS = {
+    MODE_NARRATIVE: {
+        "temperature": 0.9,
+        "top_p": 1.0,
+        "frequency_penalty": 0.2,
+        "presence_penalty": 0.1,
+    },
+    MODE_MECHANICS: {
+        "temperature": 0.2,
+        "top_p": 0.85,
+        "frequency_penalty": 0.0,
+        "presence_penalty": 0.0,
+    },
+}
+
+def _extract_recent_user_text(messages, limit=2):
+    recent = []
+    for m in reversed(messages):
+        if m.get("role") == "user":
+            recent.append(m.get("content", ""))
+            if len(recent) >= limit:
+                break
+    return list(reversed(recent))
+
+def _mechanics_keywords_present(text: str) -> bool:
+    lowered = (text or "").lower()
+    return any(kw in lowered for kw in MECHANICS_MODE_KEYWORDS)
+
+def classify_mode_with_model(user_input: str, recent_context: list[str]) -> str:
+    """Fallback lightweight classifier using the AI itself when keywords absent.
+    Returns 'mechanics' or 'narrative'. Defaults to narrative on failure."""
+    if client is None:
+        return MODE_NARRATIVE
+    try:
+        from openai.types.chat import (
+            ChatCompletionSystemMessageParam as _SysMsg,
+            ChatCompletionUserMessageParam as _UsrMsg,
+        )
+        classification_prompt = [
+            _SysMsg(role="system", content="You are a strict intent classifier for a TTRPG assistant. Respond with exactly one word: 'narrative' or 'mechanics'."),
+            _UsrMsg(role="user", content=f"Classify the player's request. Input: {user_input}\nRecent context: {' | '.join(recent_context)}\nAnswer with only one word: narrative or mechanics."),
+        ]
+        resp = client.chat.completions.create(
+            model="gpt-4o", messages=classification_prompt, temperature=0, max_tokens=4
+        )
+        ans = (resp.choices[0].message.content or "").strip().lower()
+        if "mechanic" in ans:
+            return MODE_MECHANICS
+        return MODE_NARRATIVE
+    except Exception as e:
+        print(f"[MODE] Classification fallback to narrative due to error: {e}")
+        return MODE_NARRATIVE
+
+def determine_chat_mode(user_input: str, messages: list, prev_mode: str | None, prev_inactivity: int) -> tuple[str, int, dict]:
+    """Determine the mode for the current turn.
+    Returns (mode, updated_inactivity_counter, info_dict)
+    info_dict contains: reason, triggered(bool), auto_reverted(bool)
+    prev_inactivity counts consecutive mechanics turns WITHOUT a mechanics trigger.
+    """
+    original_input = user_input
+    lowered = user_input.lower()
+    prev_mode = prev_mode or MODE_NARRATIVE
+    info = {"reason": "default", "triggered": False, "auto_reverted": False}
+
+    # Manual overrides
+    if "--mechanics" in lowered:
+        info.update(reason="manual_mechanics", triggered=True)
+        return MODE_MECHANICS, 0, info
+    if "--narrative" in lowered:
+        info.update(reason="manual_narrative", triggered=True)
+        return MODE_NARRATIVE, 0, info
+
+    # Check keyword triggers (current + last 2 user turns)
+    recent_users = _extract_recent_user_text(messages, limit=2)
+    keyword_trigger = _mechanics_keywords_present(user_input) or any(
+        _mechanics_keywords_present(t) for t in recent_users
+    )
+    if keyword_trigger:
+        info.update(reason="keyword", triggered=True)
+        return MODE_MECHANICS, 0, info
+
+    # No keyword trigger: classification required only if ambiguity persists
+    classified = classify_mode_with_model(user_input, recent_users)
+    if classified == MODE_MECHANICS:
+        info.update(reason="classifier", triggered=True)
+        return MODE_MECHANICS, 0, info
+
+    # Classified narrative
+    if prev_mode == MODE_MECHANICS:
+        # Staying in mechanics without trigger increments inactivity
+        new_inact = prev_inactivity + 1
+        if new_inact >= MODE_AUTO_REVERT_TURNS:
+            info.update(reason="auto_revert", triggered=False, auto_reverted=True)
+            return MODE_NARRATIVE, 0, info
+        else:
+            # Remain mechanics until auto-revert threshold
+            info.update(reason="mechanics_carry", triggered=False)
+            return MODE_MECHANICS, new_inact, info
+    # Remain or become narrative
+    return MODE_NARRATIVE, 0, info
+
 
 # Backward compatibility: compose_base_prompts now proxies to load_system_prompt
 def compose_base_prompts(game: str) -> str:
@@ -1312,6 +1438,16 @@ def chat():
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
 
+    # ---------------- MODE DETERMINATION ----------------
+    prev_mode = session.get("chat_mode", MODE_NARRATIVE)
+    prev_inactivity = session.get("mechanics_inactivity", 0)
+    mode, inactivity_counter, mode_info = determine_chat_mode(user_input, messages, prev_mode, prev_inactivity)
+    session["chat_mode"] = mode
+    session["mechanics_inactivity"] = inactivity_counter
+    globals()["current_mode_gen_params"] = MODE_GENERATION_PARAMS.get(mode, MODE_GENERATION_PARAMS[MODE_NARRATIVE])
+    print(f"[MODE] active={mode} prev={prev_mode} inactivity={inactivity_counter} reason={mode_info}")
+    # ----------------------------------------------------
+
     # Handle character creation flow
     # Character information has already been processed above (both new and existing sessions)
     
@@ -1572,13 +1708,13 @@ UPDATE FORMATS (use exactly these):
     try:
         if client is None:
             raise Exception("OpenAI client not properly initialized")
-        
+
         print(f"[DEBUG] Making OpenAI API call with {len(full_messages)} messages...")
         print(f"[DEBUG] System prompt length: {len(full_system_prompt)} characters")
-        # Determine if caller wants to force primary model retry (explicit flag or natural language)
         force_primary = force_primary_requested
         model_used = None
         fallback_used = False
+        current_mode_gen_params = globals().get("current_mode_gen_params", {}) or {}
 
         if AI_FALLBACKS_ENABLED and (not force_primary) and not user_requests_fallback:
             content, model_used = chat_completion_with_fallback(
@@ -1588,17 +1724,20 @@ UPDATE FORMATS (use exactly these):
             fallback_used = (model_used != OPENAI_CHAT_MODEL)
             trimmed = content
         else:
-            # Force only primary model attempt (either fallbacks disabled or user forced it)
             resp = client.chat.completions.create(
-                model=OPENAI_CHAT_MODEL, messages=full_messages, max_tokens=OPENAI_MAX_TOKENS,
-                temperature=0.85, top_p=1.0
+                model=OPENAI_CHAT_MODEL,
+                messages=full_messages,
+                max_tokens=OPENAI_MAX_TOKENS,
+                temperature=current_mode_gen_params.get("temperature", 0.85),
+                top_p=current_mode_gen_params.get("top_p", 1.0),
+                frequency_penalty=current_mode_gen_params.get("frequency_penalty", 0.0),
+                presence_penalty=current_mode_gen_params.get("presence_penalty", 0.0),
             )
             print(f"[DEBUG] OpenAI API call successful (model: {OPENAI_CHAT_MODEL}) [force_primary={force_primary}]")
             content = resp.choices[0].message.content
             trimmed = content.strip() if content is not None else ""
             model_used = OPENAI_CHAT_MODEL
 
-        # Append unified model footer for transparency
         if model_used is None:
             model_used = OPENAI_CHAT_MODEL
         if model_used != OPENAI_CHAT_MODEL:
@@ -1746,7 +1885,11 @@ UPDATE FORMATS (use exactly these):
         "model_used": locals().get("model_used", OPENAI_CHAT_MODEL),
         "fallback": locals().get("fallback_used", False),  # legacy key
         "fallback_used": locals().get("fallback_used", False),  # explicit key for tests/UI
-        "can_retry_primary": locals().get("can_retry_primary", False)
+        "can_retry_primary": locals().get("can_retry_primary", False),
+        "mode": session.get("chat_mode", MODE_NARRATIVE),
+        "mechanics_inactivity": session.get("mechanics_inactivity", 0),
+        "mode_reason": mode_info.get("reason"),
+        "mode_auto_reverted": mode_info.get("auto_reverted", False),
     }
     return jsonify({"response": response_to_send, **extra_meta})
 

@@ -33,7 +33,14 @@ import os
 # Allow overriding the model used for campaign creation
 OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.0")
 
-client = OpenAI()
+try:  # Graceful init (tests may not supply key)
+    _api_key = os.getenv("OPENAI_API_KEY")
+    if not _api_key:
+        raise RuntimeError("OPENAI_API_KEY missing (campaign manager in offline mode)")
+    client = OpenAI(api_key=_api_key)
+except Exception as _e:  # pragma: no cover - fallback path
+    print(f"[CAMPAIGN] OpenAI client unavailable: {_e}")
+    client = None
 
 def create_campaign(setting=None, factions=None, npc_roles=None, player_goals=None, story_challenge=None):
     """
@@ -69,17 +76,23 @@ Include:
 Format the campaign as markdown text with headings and lists.
 """
 
-    response = client.chat.completions.create(
-        model=OPENAI_CHAT_MODEL,
-        messages=[
-            {"role": "system", "content": "You are a creative and detailed TTRPG campaign creator."},
-            {"role": "user", "content": prompt}
-        ],
-        max_tokens=2048,
-        temperature=0.7
-    )
-
-    campaign_text = response.choices[0].message.content if response.choices else "Unable to generate campaign at this time."
+    if client:
+        try:
+            response = client.chat.completions.create(
+                model=OPENAI_CHAT_MODEL,
+                messages=[
+                    {"role": "system", "content": "You are a creative and detailed TTRPG campaign creator."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=2048,
+                temperature=0.7
+            )
+            campaign_text = response.choices[0].message.content if response.choices else "Unable to generate campaign at this time."
+        except Exception as _e:  # pragma: no cover
+            print(f"[CAMPAIGN] Generation failed: {_e}")
+            campaign_text = "Unable to generate campaign at this time."
+    else:
+        campaign_text = "(Offline mode) Provide manual campaign details here."
 
     scenario = {
         "setting": setting_choice,
