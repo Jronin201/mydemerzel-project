@@ -736,14 +736,19 @@ SUMMARY_MODEL_FALLBACKS = [
 
 def _is_model_unavailable_error(exc: Exception) -> bool:
     s = str(exc).lower()
+    # Exclude context length / token errors from model-unavailable classification
+    if any(term in s for term in ["maximum context length", "max tokens", "maximum length", "context length is"]):
+        return False
     return any(kw in s for kw in [
-        "model",
         "not found",
         "does not exist",
-        "unknown",
+        "unknown model",
         "no such model",
         "you do not have access",
-        "unsupported",
+        "unsupported model",
+        "is unavailable",
+        "currently unavailable",
+        "temporarily unavailable",
     ])
 
 def chat_completion_with_fallback(messages, model_candidates, max_tokens=None):
@@ -757,11 +762,32 @@ def chat_completion_with_fallback(messages, model_candidates, max_tokens=None):
         if not mdl:
             continue
         try:
+            # Clamp tokens per model heuristically to avoid context length errors
+            effective_max = max_tokens
+            if effective_max is not None:
+                # Heuristic caps (conservative defaults)
+                if 'gpt-4o' in mdl:
+                    effective_max = min(effective_max, 8192)
+                elif 'gpt-5' in mdl:
+                    effective_max = min(effective_max, 20000)
+                else:
+                    effective_max = min(effective_max, 8192)
             kwargs = {"model": mdl, "messages": messages, "temperature": 0.85, "top_p": 1.0}
-            if max_tokens is not None:
-                kwargs["max_tokens"] = max_tokens
-            print(f"[DEBUG] Trying OpenAI model: {mdl}")
-            resp = client.chat.completions.create(**kwargs)
+            if effective_max is not None:
+                kwargs["max_tokens"] = effective_max
+            print(f"[DEBUG] Trying OpenAI model: {mdl} (max_tokens={kwargs.get('max_tokens')})")
+            try:
+                resp = client.chat.completions.create(**kwargs)
+            except Exception as first_err:
+                # If token/context length issue, retry once with a safer lower cap
+                serr = str(first_err).lower()
+                if any(term in serr for term in ["maximum context length", "max tokens", "too many tokens", "context length is"]):
+                    reduced = 4096 if (effective_max or 0) > 4096 else 2048
+                    kwargs["max_tokens"] = reduced
+                    print(f"[WARN] Token limit issue for {mdl}; retrying with max_tokens={reduced}")
+                    resp = client.chat.completions.create(**kwargs)
+                else:
+                    raise
             print(f"[DEBUG] OpenAI call succeeded with model: {mdl}")
             content = resp.choices[0].message.content
             return (content.strip() if content is not None else "", mdl)
@@ -770,7 +796,10 @@ def chat_completion_with_fallback(messages, model_candidates, max_tokens=None):
             if _is_model_unavailable_error(e):
                 print(f"[WARN] Model '{mdl}' unavailable, trying next fallback... Error: {e}")
                 continue
-            # Non-model error: re-raise immediately
+            serr = str(e).lower()
+            if any(term in serr for term in ["maximum context length", "max tokens", "too many tokens", "context length is"]):
+                print(f"[ERROR] Token/context error on '{mdl}' after retry; giving up on this model: {e}")
+                continue
             print(f"[ERROR] OpenAI call failed with non-model error on '{mdl}': {type(e).__name__}: {e}")
             raise
     # Exhausted all candidates; if last error exists, raise it, else generic error
@@ -1132,6 +1161,7 @@ def chat():
     # Natural-language request to retry primary model detection (before any model call)
     force_primary_requested = bool(data.get("force_primary"))
     lowered_retry = user_input.lower()
+    user_requests_fallback = any(k in lowered_retry for k in ["use fallback", "fallback", "try fallback", "switch model"])
     RETRY_HINTS = [
         "retry primary",
         "try primary",
@@ -1550,7 +1580,7 @@ UPDATE FORMATS (use exactly these):
         model_used = None
         fallback_used = False
 
-        if AI_FALLBACKS_ENABLED and not force_primary:
+        if AI_FALLBACKS_ENABLED and (not force_primary) and not user_requests_fallback:
             content, model_used = chat_completion_with_fallback(
                 full_messages, CHAT_MODEL_FALLBACKS, max_tokens=OPENAI_MAX_TOKENS
             )
@@ -1581,6 +1611,31 @@ UPDATE FORMATS (use exactly these):
     except Exception as e:
         info = _classify_openai_error(e)
         print(f"OpenAI API call failed: {info}")
+        # If model unavailable and fallbacks are enabled or user explicitly asked for fallback, try fallback path once
+        if info.get("category") == "MODEL_UNAVAILABLE" and AI_FALLBACKS_ENABLED:
+            try:
+                print("[WARN] Primary model unavailable; attempting fallback chain...")
+                content, model_used = chat_completion_with_fallback(
+                    full_messages, CHAT_MODEL_FALLBACKS[1:], max_tokens=OPENAI_MAX_TOKENS
+                )
+                trimmed = content
+                model_footer = f"\n\n*Model: {model_used} (automatic fallback from {OPENAI_CHAT_MODEL}).*"
+                trimmed += model_footer
+                can_retry_primary = True
+                error_message = None
+                fallback_used = True
+                # Build response JSON early and return
+                response_payload = {
+                    "response": trimmed,
+                    "model_used": model_used,
+                    "fallback_used": True,
+                    "can_retry_primary": can_retry_primary,
+                    "character_info_updated": False,
+                    "notes_updated": False,
+                }
+                return jsonify(response_payload), 200
+            except Exception as fe:
+                print(f"[ERROR] Fallback chain also failed: {fe}")
         
         # Provide specific error messages based on exception type
         exception_type = type(e).__name__
@@ -1689,7 +1744,8 @@ UPDATE FORMATS (use exactly these):
     # Include model metadata in response for UI to leverage
     extra_meta = {
         "model_used": locals().get("model_used", OPENAI_CHAT_MODEL),
-        "fallback": locals().get("fallback_used", False),
+        "fallback": locals().get("fallback_used", False),  # legacy key
+        "fallback_used": locals().get("fallback_used", False),  # explicit key for tests/UI
         "can_retry_primary": locals().get("can_retry_primary", False)
     }
     return jsonify({"response": response_to_send, **extra_meta})

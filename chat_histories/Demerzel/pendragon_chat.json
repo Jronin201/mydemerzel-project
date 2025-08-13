@@ -1,0 +1,38 @@
+{
+  "username": "Demerzel",
+  "ttrpg_system": "pendragon",
+  "last_updated": "2025-08-13 13:39:01",
+  "message_count": 6,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Explain combat",
+      "timestamp": "2025-08-13 13:38:16"
+    },
+    {
+      "role": "assistant",
+      "content": "Fallback OK\n\n*Model: gpt-4o (fallback from gpt-5.0; send again with force_primary=true to retry primary).*",
+      "timestamp": "2025-08-13 13:38:16"
+    },
+    {
+      "role": "user",
+      "content": "Explain combat",
+      "timestamp": "2025-08-13 13:38:29"
+    },
+    {
+      "role": "assistant",
+      "content": "Fallback OK\n\n*Model: gpt-4o (fallback from gpt-5.0; send again with force_primary=true to retry primary).*",
+      "timestamp": "2025-08-13 13:38:29"
+    },
+    {
+      "role": "user",
+      "content": "Explain combat",
+      "timestamp": "2025-08-13 13:39:00"
+    },
+    {
+      "role": "assistant",
+      "content": "Fallback OK\n\n*Model: gpt-4o (fallback from gpt-5.0; send again with force_primary=true to retry primary).*",
+      "timestamp": "2025-08-13 13:39:00"
+    }
+  ]
+}
