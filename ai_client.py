@@ -94,6 +94,12 @@ def circuit_state() -> Dict[str, Any]:
         "recent_failures": list(_circuit_failures),
     }
 
+def reset_circuit():  # test helper
+    global _circuit_state, _circuit_open_until, _circuit_failures
+    _circuit_state='closed'
+    _circuit_open_until=0.0
+    _circuit_failures.clear()
+
 def _build_responses_input(messages: List[Dict[str, str]]) -> List[Dict[str, Any]]:
     """Convert legacy messages [{'role':..., 'content':...}] to Responses 'input' parts."""
     converted = []
@@ -219,6 +225,7 @@ def request(messages: List[Dict[str,str]],
                 "usage": usage,
                 "raw": resp,
                 "backoff_ms": backoff_used_ms,
+                "breaker_state": circuit_state().get('state')
             }
         except Exception as e:  # capture error
             last_error = e
@@ -229,17 +236,55 @@ def request(messages: List[Dict[str,str]],
             hard = _is_retryable_hard_error(e)
             status = getattr(e,'status_code',None) or getattr(e,'http_status',None)
             if idx == 0 and mdl == OPENAI_MODEL and hard and AI_BACKOFF_ENABLED and not performed_backoff_retry and status and (status==429 or status>=500) and not is_half_open:
-                # single full-jitter backoff retry on primary
+                # single full-jitter backoff retry on primary inline (do not advance to fallback)
                 attempt = 1
                 sleep_ms = random.uniform(0, min(AI_BACKOFF_CAP_MS, AI_BACKOFF_BASE_MS * (2 ** attempt)))
-                print(f"[AI] backoff wait_ms={int(sleep_ms)} reason=status_{status}")
-                performed_backoff_retry = True
                 backoff_used_ms = int(sleep_ms)
+                print(f"[AI] backoff wait_ms={backoff_used_ms} reason=status_{status}")
+                performed_backoff_retry = True
                 try:
                     time.sleep(sleep_ms/1000.0)
                 except Exception:
                     pass
-                continue  # retry same model
+                # Immediate second attempt (no reasoning retry in this path)
+                try:
+                    resp = _client.responses.create(**kwargs)
+                    output_text = getattr(resp, 'output_text', None)
+                    if not output_text:
+                        raise RuntimeError("missing_output_after_backoff")
+                    usage = {}
+                    if hasattr(resp, 'usage'):
+                        u = resp.usage
+                        usage = {
+                            "input_tokens": getattr(u, 'input_tokens', None),
+                            "output_tokens": getattr(u, 'output_tokens', None),
+                            "total_tokens": getattr(u, 'total_tokens', None),
+                        }
+                    print(
+                        "[AI] success "
+                        f"openai.resp_id={getattr(resp,'id',None)} "
+                        f"openai.model={getattr(resp,'model',mdl)} "
+                        f"openai.usage.input_tokens={usage.get('input_tokens')} "
+                        f"openai.usage.output_tokens={usage.get('output_tokens')} "
+                        f"openai.fallback={idx>0}"
+                    )
+                    _record_primary_success(getattr(resp,'id',None))
+                    return {
+                        "output_text": output_text,
+                        "model": getattr(resp, 'model', mdl),
+                        "used_fallback": False,
+                        "id": getattr(resp,'id',None),
+                        "usage": usage,
+                        "raw": resp,
+                        "backoff_ms": backoff_used_ms,
+                        "breaker_state": circuit_state().get('state')
+                    }
+                except Exception as e2:
+                    # Treat second failure as original, proceed to fallback logic below
+                    last_error = e2
+                    hard = _is_retryable_hard_error(e2)
+                    status = getattr(e2,'status_code',None) or getattr(e2,'http_status',None)
+                    # fall through to fallback handling
             if not hard:
                 break
             else:

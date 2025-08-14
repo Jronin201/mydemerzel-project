@@ -54,3 +54,55 @@ def test_breaker_opens_on_three(monkeypatch):
     st = ai_client.circuit_state()
     assert st['state'] == 'open'
 
+
+def test_half_open_probe_success(monkeypatch):
+    # Open breaker
+    ai_client.reset_circuit()
+    mono, advance = make_monotonic()
+    setup_client(monkeypatch, fail_primary_times=3, mono=mono)
+    monkeypatch.setattr(ai_client, 'AI_BACKOFF_ENABLED', False)
+    for i in range(3):
+        ai_client.request([{'role':'user','content':'hi'}], req_id=f'o{i}')
+    assert ai_client.circuit_state()['state'] == 'open'
+    # advance 120s -> half-open
+    advance(120.0)
+    # Make primary now succeed (disable further failures)
+    setup_client(monkeypatch, fail_primary_times=0, mono=mono)
+    resp = ai_client.request([{'role':'user','content':'probe'}], req_id='probe1')
+    assert resp['breaker_state'] == 'closed'
+    assert ai_client.circuit_state()['state'] == 'closed'
+    # Next request uses primary again (still closed)
+    resp2 = ai_client.request([{'role':'user','content':'next'}], req_id='next1')
+    assert resp2['breaker_state'] == 'closed'
+
+
+def test_half_open_probe_fail(monkeypatch):
+    ai_client.reset_circuit()
+    mono, advance = make_monotonic()
+    setup_client(monkeypatch, fail_primary_times=3, mono=mono)
+    monkeypatch.setattr(ai_client, 'AI_BACKOFF_ENABLED', False)
+    for i in range(3):
+        ai_client.request([{'role':'user','content':'hi'}], req_id=f'f{i}')
+    assert ai_client.circuit_state()['state'] == 'open'
+    advance(120.0)
+    # Probe will fail once (set fail_primary_times=1), causing reopen
+    setup_client(monkeypatch, fail_primary_times=1, mono=mono)
+    ai_client.request([{'role':'user','content':'probe'}], req_id='probe_fail')
+    st = ai_client.circuit_state()
+    assert st['state'] == 'open'
+
+
+def test_window_slides_no_open(monkeypatch):
+    ai_client.reset_circuit()
+    mono, advance = make_monotonic()
+    setup_client(monkeypatch, fail_primary_times=1, mono=mono)
+    monkeypatch.setattr(ai_client, 'AI_BACKOFF_ENABLED', False)
+    # fail, advance past window each time so failures slide out
+    ai_client.request([{'role':'user','content':'a'}], req_id='w1')
+    advance(61.0)
+    ai_client.request([{'role':'user','content':'b'}], req_id='w2')
+    advance(61.0)
+    ai_client.request([{'role':'user','content':'c'}], req_id='w3')
+    st = ai_client.circuit_state()
+    assert st['state'] == 'closed'
+
