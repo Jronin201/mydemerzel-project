@@ -1681,7 +1681,7 @@ UPDATE FORMATS (use exactly these):
                 elif isinstance(item, tuple) and item and item[0] == '_result_':
                     _, had_delta, meta, err = item
                     if err:
-                        if isinstance(err, (BrokenPipeError, ConnectionResetError)):
+                        if isinstance(err, (BrokenPipeError, ConnectionResetError, ai_client.StreamAborted)):
                             print("[STREAM] stream.aborted=true stage=primary")
                             return
                         if ai_client.is_hard_error(err) and AI_FALLBACKS_ENABLED:
@@ -1692,7 +1692,7 @@ UPDATE FORMATS (use exactly these):
                                 elif isinstance(fb_item, tuple) and fb_item[0] == '_result_':
                                     _, fb_had_delta, fb_meta, fb_err = fb_item
                                     if fb_err:
-                                        if isinstance(fb_err, (BrokenPipeError, ConnectionResetError)):
+                                        if isinstance(fb_err, (BrokenPipeError, ConnectionResetError, ai_client.StreamAborted)):
                                             print("[STREAM] stream.aborted=true stage=fallback")
                                             return
                                         yield sse('done', {"error":"fallback_failed","detail":str(fb_err),"fallback":True})
@@ -1700,6 +1700,7 @@ UPDATE FORMATS (use exactly these):
                                         fallback_used = True
                                         final_meta = fb_meta
                                         response_id = final_meta.get('id')
+                                        # will enrich later when logging at end—still send interim done
                                         yield sse('done', {"model": final_meta.get('model'), "resp_id": final_meta.get('id'), "usage": final_meta.get('usage', {}), "fallback": True})
                                     break
                         else:
@@ -1713,7 +1714,7 @@ UPDATE FORMATS (use exactly these):
                                 elif isinstance(r_item, tuple) and r_item[0] == '_result_':
                                     _, r_had_delta, r_meta, r_err = r_item
                                     if r_err:
-                                        if isinstance(r_err, (BrokenPipeError, ConnectionResetError)):
+                                        if isinstance(r_err, (BrokenPipeError, ConnectionResetError, ai_client.StreamAborted)):
                                             print("[STREAM] stream.aborted=true stage=retry")
                                             return
                                         yield sse('done', {"error":"retry_failed","detail":str(r_err),"fallback":False})
@@ -1733,6 +1734,13 @@ UPDATE FORMATS (use exactly these):
                 usage = final_meta.get('usage', {})
                 breaker_state = ai_client.circuit_state().get('state') if hasattr(ai_client, 'circuit_state') else '-'
                 backoff_ms = final_meta.get('backoff_ms') or '-'
+                # Emit enriched done metadata (second done event for enrichment if earlier sent basic one)
+                enriched = {"model": final_meta.get('model'), "resp_id": response_id, "usage": usage, "fallback": fallback_used, "latency_ms": latency_ms, "breaker_state": breaker_state, "backoff_ms": backoff_ms}
+                try:
+                    yield sse('done', enriched)
+                except Exception as enrich_err:
+                    print("[STREAM] stream.aborted=true stage=done_enrich")
+                    return
                 print("[CHAT_STREAM] openai.resp_id={rid} openai.model={model} openai.usage.input_tokens={in_tok} openai.usage.output_tokens={out_tok} openai.fallback={fb} openai.latency_ms={lat} breaker.state={brk} backoff.ms={bo}".format(
                     rid=response_id, model=final_meta.get('model'), in_tok=usage.get('input_tokens'), out_tok=usage.get('output_tokens'), fb=fallback_used, lat=latency_ms, brk=breaker_state, bo=backoff_ms
                 ))

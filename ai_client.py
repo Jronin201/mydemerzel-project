@@ -5,6 +5,10 @@ from collections import deque
 from typing import List, Dict, Any, Tuple, Optional, Iterator, Deque
 from openai import OpenAI
 
+class StreamAborted(Exception):
+    """Sentinel raised when downstream client disconnects / aborts streaming."""
+    pass
+
 # Configuration via env
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5")  # Primary GPT-5 family model
 OPENAI_FALLBACK_MODEL = "gpt-4o"  # Only fallback allowed
@@ -357,10 +361,6 @@ def request_stream(messages: List[Dict[str,str]],
     print("[AI] stream_start openai.model={mdl} openai.effort={effort} openai.max_output_tokens={tok}".format(
         mdl=mdl, effort=reasoning_effort, tok=max_output_tokens
     ))
-    class StreamAborted(Exception):
-        """Internal sentinel indicating downstream client aborted the stream."""
-        pass
-
     try:
         stream = _client.responses.stream(**kwargs)
     except Exception as e:  # network/setup error before iteration
