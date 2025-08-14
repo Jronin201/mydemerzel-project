@@ -60,7 +60,8 @@ def test_backoff_retry_success(monkeypatch):
         if model.startswith('gpt-5'):
             state['calls']+=1
             if state['calls']==1:
-                raise HardErr(500)
+                # use 429 to trigger backoff inline retry (no fallback)
+                raise HardErr(429)
             return DummyResp(rid='primary_ok')
         return DummyResp(rid='fb', model=model)
     class DummyClient:

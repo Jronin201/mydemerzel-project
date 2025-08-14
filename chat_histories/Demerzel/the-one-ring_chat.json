@@ -1,0 +1,18 @@
+{
+  "username": "Demerzel",
+  "ttrpg_system": "the-one-ring",
+  "last_updated": "2025-08-14 21:19:38",
+  "message_count": 2,
+  "messages": [
+    {
+      "role": "user",
+      "content": "I want to create a new hobbit character.",
+      "timestamp": "2025-08-14 21:19:38"
+    },
+    {
+      "role": "assistant",
+      "content": "I'd love to help you create a character! Please tell me what kind of character you'd like to play, or I can guide you through the character creation process step by step. What interests you most about this character?",
+      "timestamp": "2025-08-14 21:19:38"
+    }
+  ]
+}

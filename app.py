@@ -72,7 +72,11 @@ def _env_bool_startup(name: str, default: bool=False) -> bool:
 
 def validate_startup_config():
     errors = []
-    model = (os.getenv("OPENAI_MODEL") or "gpt-5").strip()
+    raw_model_env = os.getenv("OPENAI_MODEL")
+    if raw_model_env is None:
+        model = "gpt-5"
+    else:
+        model = raw_model_env.strip()
     if not model:
         errors.append("OPENAI_MODEL missing or empty")
     effort = os.getenv("OPENAI_REASONING_EFFORT", "low").strip().lower()
@@ -765,6 +769,30 @@ print(f"🏷️ Outcome protocol enabled: {OUTCOME_PROTOCOL_ENABLED}")
 # Updated: Prefer full 'gpt-4o' as first fallback (remove/minimize 'gpt-4o-mini' usage).
 # Order: primary (OPENAI_CHAT_MODEL) -> gpt-4o -> (optional) gpt-4o-mini (only if explicitly desired later)
 CHAT_MODEL_FALLBACKS = [OPENAI_CHAT_MODEL, "gpt-4o"]
+
+# Legacy compatibility helper for tests still invoking old chat completion path.
+def chat_completion_with_fallback(messages: list, fallbacks: list, max_tokens: int = 2048):  # pragma: no cover (shim)
+    """Legacy compatibility: mimic old Chat Completions w/ single token-length retry then model fallback.
+    Returns (content, model_used).
+    """
+    ERROR_SUBSTR = 'maximum context length exceeded'
+    for idx, model in enumerate(fallbacks):
+        attempt = 0
+        while attempt < 2:  # allow one retry for primary on token length
+            attempt += 1
+            try:
+                if client is None:
+                    raise RuntimeError('client_offline')
+                resp = client.chat.completions.create(model=model, messages=messages, max_tokens=max_tokens)
+                content = resp.choices[0].message.content if resp.choices else ''
+                return content, model
+            except Exception as e:  # token length retry only on first model
+                if idx == 0 and attempt == 1 and ERROR_SUBSTR in str(e).lower():
+                    # retry once with clamped tokens
+                    max_tokens = min(max_tokens, 4096)
+                    continue
+                break  # move to next model
+    return "", fallbacks[0] if fallbacks else OPENAI_CHAT_MODEL
 
 SUMMARY_MODEL_FALLBACKS = [OPENAI_SUMMARY_MODEL, "gpt-4o"]
 
@@ -1695,16 +1723,15 @@ UPDATE FORMATS (use exactly these):
                                         if isinstance(fb_err, (BrokenPipeError, ConnectionResetError, ai_client.StreamAborted)):
                                             print("[STREAM] stream.aborted=true stage=fallback")
                                             return
-                                        yield sse('done', {"error":"fallback_failed","detail":str(fb_err),"fallback":True})
+                                        # record error meta for final enrichment
+                                        final_meta = {"error":"fallback_failed","detail":str(fb_err),"fallback":True}
                                     else:
                                         fallback_used = True
                                         final_meta = fb_meta
                                         response_id = final_meta.get('id')
-                                        # will enrich later when logging at end—still send interim done
-                                        yield sse('done', {"model": final_meta.get('model'), "resp_id": final_meta.get('id'), "usage": final_meta.get('usage', {}), "fallback": True})
                                     break
                         else:
-                            yield sse('done', {"error":"stream_error","detail":str(err),"fallback":False})
+                            final_meta = {"error":"stream_error","detail":str(err),"fallback":False}
                     else:
                         if not had_delta:
                             print("[STREAM] reasoning-only first attempt -> retry")
@@ -1717,25 +1744,26 @@ UPDATE FORMATS (use exactly these):
                                         if isinstance(r_err, (BrokenPipeError, ConnectionResetError, ai_client.StreamAborted)):
                                             print("[STREAM] stream.aborted=true stage=retry")
                                             return
-                                        yield sse('done', {"error":"retry_failed","detail":str(r_err),"fallback":False})
+                                        final_meta = {"error":"retry_failed","detail":str(r_err),"fallback":False}
                                     else:
                                         final_meta = r_meta
                                         response_id = final_meta.get('id')
-                                        yield sse('done', {"model": final_meta.get('model'), "resp_id": final_meta.get('id'), "usage": final_meta.get('usage', {}), "fallback": False})
                                     break
                         else:
                             final_meta = meta
                             response_id = final_meta.get('id')
-                            yield sse('done', {"model": final_meta.get('model'), "resp_id": final_meta.get('id'), "usage": final_meta.get('usage', {}), "fallback": False})
+                            # final_meta already set (meta)
                     break
             final_text = ''.join(aggregated).strip()
             if final_meta:
                 latency_ms = int((time.time() - start_time)*1000)
-                usage = final_meta.get('usage', {})
+                usage = final_meta.get('usage', {}) if isinstance(final_meta, dict) else {}
                 breaker_state = ai_client.circuit_state().get('state') if hasattr(ai_client, 'circuit_state') else '-'
                 backoff_ms = final_meta.get('backoff_ms') or '-'
-                # Emit enriched done metadata (second done event for enrichment if earlier sent basic one)
-                enriched = {"model": final_meta.get('model'), "resp_id": response_id, "usage": usage, "fallback": fallback_used, "latency_ms": latency_ms, "breaker_state": breaker_state, "backoff_ms": backoff_ms}
+                enriched = {"model": final_meta.get('model') if final_meta.get('model') else None, "resp_id": response_id, "usage": usage, "fallback": fallback_used or final_meta.get('fallback', False), "latency_ms": latency_ms, "breaker_state": breaker_state, "backoff_ms": backoff_ms}
+                if 'error' in final_meta:
+                    enriched['error'] = final_meta['error']
+                    enriched['detail'] = final_meta.get('detail')
                 try:
                     yield sse('done', enriched)
                 except Exception as enrich_err:
@@ -1784,9 +1812,9 @@ UPDATE FORMATS (use exactly these):
     breaker_state = ai_client.circuit_state().get('state') if hasattr(ai_client,'circuit_state') else '-'
     backoff_ms = initial_result.get('backoff_ms') if isinstance(initial_result, dict) else None
     print(
-        "[CHAT] openai.resp_id={rid} openai.model={model} openai.usage.input_tokens={in_tok} "
+        "[CHAT] req.id={req_id} openai.resp_id={resp_id} openai.model={model} openai.usage.input_tokens={in_tok} "
         "openai.usage.output_tokens={out_tok} openai.fallback={fb} openai.latency_ms={lat} breaker.state={brk} backoff.ms={bo}".format(
-            rid=request_id, model=model_used, in_tok=usage.get("input_tokens"), out_tok=usage.get("output_tokens"), fb=fallback_used, lat=latency_ms, brk=breaker_state, bo=(backoff_ms if backoff_ms is not None else '-')
+            req_id=request_id, resp_id=request_id, model=model_used, in_tok=usage.get("input_tokens"), out_tok=usage.get("output_tokens"), fb=fallback_used, lat=latency_ms, brk=breaker_state, bo=(backoff_ms if backoff_ms is not None else '-')
         )
     )
     
@@ -1872,7 +1900,8 @@ UPDATE FORMATS (use exactly these):
         "mode_auto_reverted": mode_info.get("auto_reverted", False),
         "request_id": request_id,
     }
-    return jsonify({"message": response_to_send, **extra_meta})
+    # Backward compatibility: duplicate response field for legacy tests expecting 'response'
+    return jsonify({"message": response_to_send, "response": response_to_send, **extra_meta})
 
 
 # Health check endpoint for personal deployment

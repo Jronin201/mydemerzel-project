@@ -29,6 +29,9 @@ def test_non_stream_latency_log(monkeypatch, capsys):
     assert lines, 'Expected a [CHAT] log line'
     line = lines[0]
     assert 'openai.latency_ms=' in line, 'Latency not logged'
+    assert 'breaker.state=' in line
+    assert 'backoff.ms=' in line
+    assert 'req.id=' in line
     # ensure latency is integer
     m = re.search(r'openai.latency_ms=(\d+)', line)
     assert m, 'Latency pattern missing'

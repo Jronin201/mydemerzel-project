@@ -59,6 +59,12 @@ def test_stream_happy(monkeypatch):
         done_payload = json.loads([d for e,d in events if e=='done'][0])
         assert done_payload['model'] == 'gpt-5'
         assert done_payload['fallback'] is False
+        # enriched fields
+        assert 'resp_id' in done_payload
+        assert 'usage' in done_payload and 'input_tokens' in done_payload['usage']
+        assert 'latency_ms' in done_payload and isinstance(done_payload['latency_ms'], int)
+        assert 'breaker_state' in done_payload
+        assert 'backoff_ms' in done_payload
 
 
 def test_stream_reasoning_only_retry(monkeypatch):

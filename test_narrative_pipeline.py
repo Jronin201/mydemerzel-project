@@ -23,20 +23,26 @@ def _fake_create(**kwargs):
         return _FakeResponse("The narrative flows onward, untouched by overt mechanics.")
     return _FakeResponse("Tension builds as intent sharpens in the dust-charged air.")
 
-import openai
-from openai import OpenAI
-
-try:
-    # Monkeypatch global client attributes used in app
-    orig_init = OpenAI.__init__
-    def _init(self, *a, **k):
-        orig_init(self, api_key="test-key")
-        self.chat = SimpleNamespace(completions=SimpleNamespace(create=_fake_create))
-    OpenAI.__init__ = _init
-except Exception:
-    pass
-
 from app import app, MECHANICS_BAN_ENFORCED
+import ai_client
+
+# Monkeypatch ai_client.request for deterministic offline behavior
+def _fake_request(messages, **kwargs):
+    user_msgs = [m for m in messages if m.get('role')=='user']
+    text = user_msgs[-1]['content'] if user_msgs else ''
+    if '[SUCCESS' in text.upper():
+        out = 'Success: the action succeeds decisively; the foe staggers. Momentum shifts as the scene widens.'
+    elif 'd20' in text.lower():
+        out = 'The narrative flows onward, untouched by overt mechanics.'
+    else:
+        out = 'Tension builds as intent sharpens in the dust-charged air.'
+    return {'output_text': out, 'model': 'gpt-5', 'used_fallback': False, 'usage': {'input_tokens':5,'output_tokens':10}, 'id': 'offline_test'}
+
+_orig_request = ai_client.request
+ai_client.request = _fake_request  # type: ignore
+
+def teardown_module(module):  # pragma: no cover
+    ai_client.request = _orig_request  # restore original for other tests
 
 def _post(message, page="pendragon"):
     with app.test_client() as c:

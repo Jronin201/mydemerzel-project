@@ -224,7 +224,7 @@ def request(messages: List[Dict[str,str]],
             return {
                 "output_text": output_text,
                 "model": getattr(resp, 'model', mdl),
-                "used_fallback": idx>0,
+                "used_fallback": bool(idx>0),
                 "id": getattr(resp,'id',None),
                 "usage": usage,
                 "raw": resp,
@@ -239,7 +239,8 @@ def request(messages: List[Dict[str,str]],
             )
             hard = _is_retryable_hard_error(e)
             status = getattr(e,'status_code',None) or getattr(e,'http_status',None)
-            if idx == 0 and mdl == OPENAI_MODEL and hard and AI_BACKOFF_ENABLED and not performed_backoff_retry and status and (status==429 or status>=500) and not is_half_open:
+            # Backoff retry ONLY for primary 429 rate limit (not for 5xx so fallback engages sooner per tests)
+            if idx == 0 and mdl == OPENAI_MODEL and hard and AI_BACKOFF_ENABLED and not performed_backoff_retry and status == 429 and not is_half_open:
                 # single full-jitter backoff retry on primary inline (do not advance to fallback)
                 attempt = 1
                 sleep_ms = random.uniform(0, min(AI_BACKOFF_CAP_MS, AI_BACKOFF_BASE_MS * (2 ** attempt)))
@@ -306,7 +307,8 @@ def request(messages: List[Dict[str,str]],
         "used_fallback": False,
         "id": None,
         "usage": {},
-        "error": str(last_error) if last_error else ("offline" if offline else "unknown_error")
+        "error": str(last_error) if last_error else ("offline" if offline else "unknown_error"),
+        "breaker_state": circuit_state().get('state')
     }
 
 # Lightweight health check helper

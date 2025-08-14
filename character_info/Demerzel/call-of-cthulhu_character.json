@@ -1,7 +1,7 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "call-of-cthulhu",
-  "last_updated": "2025-07-20 12:07:00",
+  "last_updated": "2025-08-14 21:19:36",
   "last_source": "user",
   "character_info": {
     "name": "Detective",
@@ -118,6 +118,14 @@
         "stats": "Investigator"
       },
       "timestamp": "2025-07-20 12:04:58",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Detective",
+        "stats": "Investigator"
+      },
+      "timestamp": "2025-07-20 12:07:00",
       "source": "user"
     }
   ]

@@ -1,61 +1,13 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "the-one-ring",
-  "last_updated": "2025-07-20 12:07:00",
-  "last_source": "user",
+  "last_updated": "2025-08-14 21:26:46",
+  "last_source": "user_live",
   "character_info": {
-    "name": "Frodo Baggins",
-    "stats": "Hobbit with the Ring"
+    "name": "Gandric the Brave - Level 3 Ranger, HP: 25/25",
+    "stats": "Currently investigating strange happenings near Bree. Spoke with Boromir about potential spy network."
   },
   "history": [
-    {
-      "character_info": {
-        "name": "Frodo Baggins",
-        "stats": "A brave hobbit from the Shire, bearer of the One Ring. Small in stature but large in heart and determination."
-      },
-      "timestamp": "2025-07-15 08:18:35",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Bilbo Baggins - Hobbit Scholar, Hope: 15, Shadow: 2",
-        "stats": "From the Shire. Seeks adventure but values comfort. Has burglar skills."
-      },
-      "timestamp": "2025-07-16 00:57:17",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Aragorn - Ranger Level 2, Hope: 15, Shadow: 2, Skills: Advanced Swordplay",
-        "stats": "Strider. Seeks to protect the innocent. Skilled tracker."
-      },
-      "timestamp": "2025-07-16 01:00:39",
-      "source": "ai"
-    },
-    {
-      "character_info": {
-        "name": "Aragorn - Ranger Level 2, Hope: 15, Shadow: 2, Wounded",
-        "stats": "Discovered that Boromir is secretly a spy for Saruman. This information is shocking and could alter the trust within the fellowship."
-      },
-      "timestamp": "2025-07-16 01:00:43",
-      "source": "ai"
-    },
-    {
-      "character_info": {
-        "name": "Frodo",
-        "stats": "Hobbit"
-      },
-      "timestamp": "2025-07-20 11:29:56",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Frodo Baggins",
-        "stats": "Hobbit with the Ring"
-      },
-      "timestamp": "2025-07-20 11:29:56",
-      "source": "user"
-    },
     {
       "character_info": {
         "name": "Frodo Baggins",
@@ -399,6 +351,62 @@
       },
       "timestamp": "2025-07-20 12:07:00",
       "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Frodo Baggins",
+        "stats": "Hobbit with the Ring"
+      },
+      "timestamp": "2025-07-20 12:07:00",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Frodo",
+        "stats": "Hobbit"
+      },
+      "timestamp": "2025-08-14 21:19:36",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Frodo Baggins",
+        "stats": "Hobbit with the Ring"
+      },
+      "timestamp": "2025-08-14 21:19:36",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Aragorn - Ranger Level 1, Hope: 15, Shadow: 2",
+        "stats": "Strider. Seeks to protect the innocent. Skilled tracker."
+      },
+      "timestamp": "2025-08-14 21:19:37",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Aragorn - Ranger Level 2, Hope: 15, Shadow: 2",
+        "stats": "Strider. Seeks to protect the innocent. Advanced Swordplay skill."
+      },
+      "timestamp": "2025-08-14 21:19:37",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Aragorn - Ranger Level 2, Hope: 15, Shadow: 2, Wounded",
+        "stats": "Strider. Seeks to protect the innocent. Advanced Swordplay skill."
+      },
+      "timestamp": "2025-08-14 21:19:37",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Bilbo Baggins - Hobbit Scholar, Hope: 15, Shadow: 2",
+        "stats": "From the Shire. Seeks adventure but values comfort. Has burglar skills."
+      },
+      "timestamp": "2025-08-14 21:19:38",
+      "source": "user_live"
     }
   ]
 }

@@ -1,11 +1,11 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "mouse-guard",
-  "last_updated": "2025-07-20 12:07:21",
-  "last_source": "user",
+  "last_updated": "2025-08-14 21:26:40",
+  "last_source": "user_live",
   "character_info": {
-    "name": "STORED Character - Oak",
-    "stats": "STORED Stats - Will 4, Health 5"
+    "name": "Bramble - Tenderpaw",
+    "stats": "New recruit to the Mouse Guard, eager to prove herself on patrol duties."
   },
   "history": [
     {
@@ -222,6 +222,14 @@
         "stats": "Test Stats - Fighter 3, Scout 2"
       },
       "timestamp": "2025-07-20 12:07:12",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-07-20 12:07:21",
       "source": "user"
     }
   ]
