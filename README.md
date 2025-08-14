@@ -30,6 +30,55 @@ Fallback:
 
 - Automatic fallback only to `gpt-4o` on hard errors (auth/permission/not found/rate limit/server errors).
 
+### Streaming (SSE)
+
+Optional Server-Sent Events streaming for `/chat` when you set:
+
+```
+OPENAI_STREAM_RESPONSES=true
+```
+
+Client must send `Accept: text/event-stream`.
+
+Events emitted:
+
+- `token` – incremental text delta
+- `ping` – heartbeat every ~15s (configurable via `STREAM_HEARTBEAT_INTERVAL` Flask config; first ping is immediate)
+- `done` – final metadata JSON: `{"model":"...","resp_id":"resp_...","usage":{"input_tokens":n,"output_tokens":m},"fallback":false}`
+
+Retry & fallback semantics (streaming and non-streaming):
+
+1. First attempt uses configured `OPENAI_MODEL`.
+2. If it produces only reasoning (no `token` events) before completion, one automatic retry with low reasoning effort and larger `max_output_tokens` (no fallback here).
+3. On hard errors (401/403/404/409/429/5xx or model_not_found), a single fallback attempt with `gpt-4o` if `AI_FALLBACKS_ENABLED=true`.
+4. `fallback` flag in `done` event (and JSON mode) indicates whether fallback model was used.
+
+Non-streaming JSON response schema (when streaming disabled or no SSE Accept header):
+
+```
+{
+   "message": "<assistant text + footer>",
+   "model": "gpt-5",
+   "usage": {"input_tokens": 123, "output_tokens": 456},
+   "fallback": false,
+   "request_id": "resp_..."
+}
+```
+
+Environment variables summary:
+
+- `OPENAI_MODEL` (primary model, default gpt-5)
+- `OPENAI_FALLBACK_MODEL` (optional explicit fallback, default gpt-4o)
+- `OPENAI_REASONING_EFFORT` (low|medium|high; default low)
+- `OPENAI_MAX_OUTPUT_TOKENS` (minimum enforced 64)
+- `OPENAI_TOOL_CHOICE` (default none)
+- `OPENAI_STREAM_RESPONSES` (enable SSE streaming when true + Accept header)
+- `AI_FALLBACKS_ENABLED` (toggle hard-error fallback logic)
+
+Observability:
+
+Structured log lines for `/chat` (JSON mode: `[CHAT] ...`, streaming: `[CHAT_STREAM] ...`) include: model, resp_id, usage input/output tokens, fallback flag, latency_ms (streaming), and attempt outcomes.
+
 - **Multiple Game Systems**: Supports Dune, The One Ring, Call of Cthulhu, Mouse Guard, Pendragon, and more
 - **PC-Optimized Interface**: Three-column layout designed for desktop monitors
 - **Cross-Browser Compatibility**: Works on modern desktop browsers

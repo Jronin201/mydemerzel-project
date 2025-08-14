@@ -43,6 +43,10 @@ def _is_retryable_hard_error(exc: Exception) -> bool:
         return True
     return any(tok in s for tok in ["model_not_found", "does not exist", "unknown model"])
 
+def is_hard_error(exc: Exception) -> bool:
+    """Public helper so app route can classify fallback-worthy streaming errors."""
+    return _is_retryable_hard_error(exc)
+
 def request(messages: List[Dict[str,str]],
             reasoning_effort: Optional[str]=None,
             max_output_tokens: Optional[int]=None,
@@ -162,3 +166,84 @@ def health_check() -> Tuple[bool, Dict[str, Any]]:
     res = request(probe_messages, reasoning_effort="low", max_output_tokens=64, force_model=OPENAI_MODEL)
     healthy = res.get("output_text", "").strip().lower() == "ok"
     return healthy, res
+
+
+def request_stream(messages: List[Dict[str,str]],
+                   force_model: Optional[str]=None,
+                   reasoning_effort: Optional[str]=None,
+                   max_output_tokens: Optional[int]=None,
+                   tool_choice: Optional[str]=None):
+    """Stream text deltas using Responses API.
+    Yields tuples:
+      ("delta", text_fragment) for each output_text delta
+      ("done", {meta}) once completed with keys model, id, usage, used_fallback(False initial)
+    NOTE: Fallback / retry semantics handled by caller (/chat route) which may invoke this twice.
+    """
+    reasoning_effort = reasoning_effort or OPENAI_REASONING_EFFORT
+    max_output_tokens = max(max_output_tokens or OPENAI_MAX_OUTPUT_TOKENS, MIN_OUTPUT_TOKENS)
+    tool_choice = tool_choice or OPENAI_TOOL_CHOICE
+    mdl = force_model or OPENAI_MODEL
+    offline = _client is None
+    if offline:
+        raise RuntimeError("client_offline")
+    inp = _build_responses_input(messages)
+    kwargs = {
+        "model": mdl,
+        "input": inp,
+        "max_output_tokens": max_output_tokens,
+        "reasoning": {"effort": reasoning_effort},
+        "tool_choice": tool_choice,
+        "stream": True,
+        "text_format": {"type": "text"},  # enforce plain text channel
+    }
+    globals()["_last_ai_kwargs"] = kwargs
+    print("[AI] stream_start openai.model={mdl} openai.effort={effort} openai.max_output_tokens={tok}".format(
+        mdl=mdl, effort=reasoning_effort, tok=max_output_tokens
+    ))
+    try:
+        stream = _client.responses.stream(**kwargs)
+    except Exception as e:  # network/setup error before iteration
+        print(f"[AI] stream_error openai.model={mdl} error={e}")
+        raise
+    final_meta: Dict[str, Any] = {}
+    try:
+        for event in stream:
+            etype = getattr(event, 'type', None) or getattr(event, 'event', None)
+            # Text delta
+            if etype and 'response.output_text.delta' in etype:
+                # event might expose delta or text attribute
+                delta = getattr(event, 'delta', None) or getattr(event, 'text', None)
+                if delta:
+                    yield ("delta", delta)
+            elif etype and 'response.completed' in etype:
+                model = getattr(event, 'model', mdl)
+                usage_obj = getattr(event, 'usage', None)
+                usage = {}
+                if usage_obj is not None:
+                    usage = {
+                        "input_tokens": getattr(usage_obj, 'input_tokens', None),
+                        "output_tokens": getattr(usage_obj, 'output_tokens', None),
+                        "total_tokens": getattr(usage_obj, 'total_tokens', None),
+                    }
+                final_meta = {
+                    "model": model,
+                    "id": getattr(event, 'id', None),
+                    "usage": usage,
+                    "used_fallback": False,
+                }
+            elif etype and 'response.error' in etype:
+                # propagate as exception
+                err = getattr(event, 'error', None)
+                raise RuntimeError(f"stream_error: {err}")
+            else:
+                # Ignore reasoning or other event types silently
+                continue
+    finally:
+        # attempt to close underlying stream (SDK dependent)
+        try:
+            if hasattr(stream, 'close'):
+                stream.close()
+        except Exception:
+            pass
+    # Yield final meta as done
+    yield ("done", final_meta)
