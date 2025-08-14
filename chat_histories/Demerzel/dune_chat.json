@@ -1,23 +1,18 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "dune",
-  "last_updated": "2025-08-12 14:34:32",
-  "message_count": 3,
+  "last_updated": "2025-08-14 20:05:54",
+  "message_count": 2,
   "messages": [
     {
-      "role": "assistant",
-      "content": "Welcome! Would you like to begin a campaign in the dangerous desert world of Arrakis and the political intrigue of the Imperium? I can help you create a character and set up your adventure in the world of Dune: Adventures in the Imperium.",
-      "timestamp": "2025-08-12 14:34:32"
-    },
-    {
       "role": "user",
-      "content": "Hello again",
-      "timestamp": "2025-08-12 14:34:32"
+      "content": "I explore the desert",
+      "timestamp": "2025-08-14 20:05:54"
     },
     {
       "role": "assistant",
-      "content": "Welcome to the dangerous world of Dune! Would you like to begin a campaign in the dangerous desert world of Arrakis and the political intrigue of the Imperium? I can help you create a character and set up your adventure in Dune: Adventures in the Imperium.",
-      "timestamp": "2025-08-12 14:34:32"
+      "content": "AI response\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 20:05:54"
     }
   ]
 }

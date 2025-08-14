@@ -10,6 +10,7 @@ OPENAI_REASONING_EFFORT = os.getenv("OPENAI_REASONING_EFFORT", "low")  # low|med
 OPENAI_MAX_OUTPUT_TOKENS = int(os.getenv("OPENAI_MAX_OUTPUT_TOKENS", "512"))
 OPENAI_TOOL_CHOICE = os.getenv("OPENAI_TOOL_CHOICE", "none")  # none unless tools configured
 MIN_OUTPUT_TOKENS = 64
+OPENAI_STREAM_RESPONSES = os.getenv("OPENAI_STREAM_RESPONSES", "false").lower() in ("1","true","yes","on")
 
 try:
     _api_key = os.getenv("OPENAI_API_KEY")
