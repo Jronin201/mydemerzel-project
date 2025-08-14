@@ -64,6 +64,7 @@ def _should_probe() -> bool:
 def _record_primary_failure(req_id: Optional[str]):
     global _circuit_state, _circuit_open_until
     now = _now()
+    print(f"[AI-DEBUG] record_primary_failure req_id={req_id}")
     _circuit_failures.append(now)
     _prune_failures(now)
     if len(_circuit_failures) >= 3 and _circuit_state != 'open':
