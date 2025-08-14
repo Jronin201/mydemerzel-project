@@ -1094,50 +1094,6 @@ def _classify_openai_error(e: Exception) -> Dict[str, Any]:
         info["category"] = "UNKNOWN"
     return info
 
-@app.route("/health/ai")
-def health_ai():
-    """Active health probe for OpenAI chat with detailed diagnostics."""
-    model_chain = CHAT_MODEL_FALLBACKS  # Use configured order, but report per-attempt
-    if client is None:
-        return jsonify({
-            "ok": False,
-            "reason": "OPENAI_CLIENT_UNINITIALIZED",
-            "models": model_chain,
-        }), 200
-    attempts = []
-    for mdl in model_chain:
-        if not mdl:
-            continue
-        start = datetime.datetime.now()
-        try:
-            resp = client.chat.completions.create(
-                model=mdl,
-                messages=[{"role": "system", "content": "Ping"}, {"role": "user", "content": "Ping"}],
-                max_tokens=4,
-                temperature=0.85,
-                top_p=1.0,
-            )
-            dur_ms = int((datetime.datetime.now() - start).total_seconds() * 1000)
-            attempts.append({"model": mdl, "ok": True, "latency_ms": dur_ms})
-            return jsonify({
-                "ok": True,
-                "used_model": mdl,
-                "latency_ms": dur_ms,
-                "attempts": attempts,
-            }), 200
-        except Exception as e:
-            info = _classify_openai_error(e)
-            dur_ms = int((datetime.datetime.now() - start).total_seconds() * 1000)
-            attempts.append({"model": mdl, "ok": False, "latency_ms": dur_ms, "error": info})
-            # If it's clearly a non-model error, no need to continue probing
-            if info.get("category") in {"AUTH", "NETWORK", "TIMEOUT", "BAD_REQUEST"}:
-                break
-            # For MODEL_UNAVAILABLE keep trying next
-            continue
-    return jsonify({
-        "ok": False,
-        "attempts": attempts,
-    }), 200
 
 @app.route("/health/config")
 def health_config():
