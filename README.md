@@ -11,6 +11,25 @@ This repository contains a Flask application with AI-assisted TTRPG (tabletop ro
 
 ## Features
 
+### GPT-5 Integration & Health
+
+The application now uses the OpenAI Responses API with GPT-5 by default.
+
+Env vars:
+
+- `OPENAI_MODEL` (default: `gpt-5`)
+- `OPENAI_REASONING_EFFORT` (`low|medium|high`, default `low`)
+- `OPENAI_MAX_OUTPUT_TOKENS` (default `512`)
+- `OPENAI_TOOL_CHOICE` (default `none`)
+
+Health check:
+
+- `GET /health/ai` performs a minimal GPT-5 probe and returns 200 only if a valid `output_text` == `ok` is received.
+
+Fallback:
+
+- Automatic fallback only to `gpt-4o` on hard errors (auth/permission/not found/rate limit/server errors).
+
 - **Multiple Game Systems**: Supports Dune, The One Ring, Call of Cthulhu, Mouse Guard, Pendragon, and more
 - **PC-Optimized Interface**: Three-column layout designed for desktop monitors
 - **Cross-Browser Compatibility**: Works on modern desktop browsers

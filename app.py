@@ -48,6 +48,7 @@ from memory_optimized_search import memory_optimized_embedding_search, get_best_
 from memory_optimized_embeddings import get_system_embeddings, get_embedding_status, clear_embedding_cache
 import numpy as np
 from pathlib import Path
+import ai_client
 import re
 import json
 import sys
@@ -686,7 +687,7 @@ except Exception as e:
 messages = []
 # --- OpenAI Model Configuration (override via env) ---
 # Primary chat model used for responses
-OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.0")
+OPENAI_CHAT_MODEL = os.environ.get("OPENAI_MODEL", os.environ.get("OPENAI_CHAT_MODEL", "gpt-5"))
 # Summary/auxiliary model (defaults to same as chat model if not provided)
 OPENAI_SUMMARY_MODEL = os.environ.get("OPENAI_SUMMARY_MODEL", OPENAI_CHAT_MODEL)
 
@@ -723,16 +724,9 @@ print(f"🏷️ Outcome protocol enabled: {OUTCOME_PROTOCOL_ENABLED}")
 # Conservative fallbacks if the configured primary model is unavailable.
 # Updated: Prefer full 'gpt-4o' as first fallback (remove/minimize 'gpt-4o-mini' usage).
 # Order: primary (OPENAI_CHAT_MODEL) -> gpt-4o -> (optional) gpt-4o-mini (only if explicitly desired later)
-CHAT_MODEL_FALLBACKS = [
-    OPENAI_CHAT_MODEL,
-    "gpt-4o",
-    # "gpt-4o-mini",  # Disabled per requirement to avoid auto fallback to mini variant
-]
+CHAT_MODEL_FALLBACKS = [OPENAI_CHAT_MODEL, "gpt-4o"]
 
-SUMMARY_MODEL_FALLBACKS = [
-    OPENAI_SUMMARY_MODEL,
-    "gpt-4o",
-]
+SUMMARY_MODEL_FALLBACKS = [OPENAI_SUMMARY_MODEL, "gpt-4o"]
 
 def _is_model_unavailable_error(exc: Exception) -> bool:
     s = str(exc).lower()
@@ -1902,6 +1896,22 @@ def health_check():
         "timestamp": datetime.datetime.now().isoformat(),
         "user_authenticated": current_user.is_authenticated if hasattr(current_user, 'is_authenticated') else False
     })
+
+@app.route("/health/ai")
+def health_check_ai():
+    ok, data = ai_client.health_check()
+    status = 200 if ok else 503
+    # Surface key observability fields
+    payload = {
+        "ok": ok,
+        "model": data.get("model"),
+        "used_fallback": data.get("used_fallback"),
+        "usage": data.get("usage"),
+        "id": data.get("id"),
+        "error": data.get("error"),
+        "raw_present": bool(data.get("raw")),
+    }
+    return jsonify(payload), status
 
 # Register dynamic routes for all TTRPGs
 register_dynamic_routes()
