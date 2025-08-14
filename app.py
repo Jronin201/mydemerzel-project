@@ -1152,6 +1152,7 @@ def generate_offline_character(ttrpg: str) -> Dict[str, str]:
 @app.route("/chat", methods=["POST"])
 @cross_origin()  # explicitly allow all origins
 def chat():
+    req_start_time = time.time()
     data = request.get_json(silent=True)
     if data is None:
         return jsonify({"error": "Invalid JSON payload"}), 400
@@ -1612,7 +1613,7 @@ UPDATE FORMATS (use exactly these):
                         last_beat = now
                     if kind == 'delta':
                         had_delta = True
-                        aggregated.append(payload)
+                        aggregated.append(str(payload))
                         yield sse('token', payload)
                     elif kind == 'done':
                         meta = payload or {}
@@ -1713,12 +1714,14 @@ UPDATE FORMATS (use exactly these):
     trimmed = (trimmed or "").strip() + model_footer
     can_retry_primary = False
     # Structured log
-    print(
-        "[CHAT] openai.resp_id={rid} openai.model={model} openai.usage.input_tokens={in_tok} "
-        "openai.usage.output_tokens={out_tok} openai.fallback={fb}".format(
-            rid=request_id, model=model_used, in_tok=usage.get("input_tokens"), out_tok=usage.get("output_tokens"), fb=fallback_used
+    latency_ms = int((time.time() - req_start_time)*1000)
+    if os.getenv("OBS_VERBOSE","false").lower() in ("1","true","yes","on"):
+        print(
+            "[CHAT] openai.resp_id={rid} openai.model={model} openai.usage.input_tokens={in_tok} "
+            "openai.usage.output_tokens={out_tok} openai.fallback={fb} openai.latency_ms={lat}".format(
+                rid=request_id, model=model_used, in_tok=usage.get("input_tokens"), out_tok=usage.get("output_tokens"), fb=fallback_used, lat=latency_ms
+            )
         )
-    )
     
     # Process AI response for character information updates
     updated_char_info = False

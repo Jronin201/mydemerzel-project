@@ -1,8 +1,8 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "general",
-  "last_updated": "2025-08-14 20:25:50",
-  "message_count": 18,
+  "last_updated": "2025-08-14 20:33:14",
+  "message_count": 40,
   "messages": [
     {
       "role": "user",
@@ -93,6 +93,116 @@
       "role": "assistant",
       "content": "A\n\n*Model: gpt-5*",
       "timestamp": "2025-08-14 20:25:50"
+    },
+    {
+      "role": "user",
+      "content": "Hi",
+      "timestamp": "2025-08-14 20:30:38"
+    },
+    {
+      "role": "assistant",
+      "content": "Hello\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 20:30:38"
+    },
+    {
+      "role": "user",
+      "content": "Hi",
+      "timestamp": "2025-08-14 20:30:52"
+    },
+    {
+      "role": "assistant",
+      "content": "Hello\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 20:30:52"
+    },
+    {
+      "role": "user",
+      "content": "Test",
+      "timestamp": "2025-08-14 20:30:52"
+    },
+    {
+      "role": "assistant",
+      "content": "Hello, world!\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 20:30:52"
+    },
+    {
+      "role": "user",
+      "content": "Test",
+      "timestamp": "2025-08-14 20:30:52"
+    },
+    {
+      "role": "assistant",
+      "content": "Final\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 20:30:52"
+    },
+    {
+      "role": "user",
+      "content": "Test",
+      "timestamp": "2025-08-14 20:30:52"
+    },
+    {
+      "role": "assistant",
+      "content": "Hi\n\n*Model: gpt-4o*",
+      "timestamp": "2025-08-14 20:30:52"
+    },
+    {
+      "role": "user",
+      "content": "Ping",
+      "timestamp": "2025-08-14 20:30:52"
+    },
+    {
+      "role": "assistant",
+      "content": "A\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 20:30:52"
+    },
+    {
+      "role": "user",
+      "content": "Hi",
+      "timestamp": "2025-08-14 20:33:14"
+    },
+    {
+      "role": "assistant",
+      "content": "Hello\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 20:33:14"
+    },
+    {
+      "role": "user",
+      "content": "Test",
+      "timestamp": "2025-08-14 20:33:14"
+    },
+    {
+      "role": "assistant",
+      "content": "Hello, world!\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 20:33:14"
+    },
+    {
+      "role": "user",
+      "content": "Test",
+      "timestamp": "2025-08-14 20:33:14"
+    },
+    {
+      "role": "assistant",
+      "content": "Final\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 20:33:14"
+    },
+    {
+      "role": "user",
+      "content": "Test",
+      "timestamp": "2025-08-14 20:33:14"
+    },
+    {
+      "role": "assistant",
+      "content": "Hi\n\n*Model: gpt-4o*",
+      "timestamp": "2025-08-14 20:33:14"
+    },
+    {
+      "role": "user",
+      "content": "Ping",
+      "timestamp": "2025-08-14 20:33:14"
+    },
+    {
+      "role": "assistant",
+      "content": "A\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 20:33:14"
     }
   ]
 }

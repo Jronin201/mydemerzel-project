@@ -1,6 +1,9 @@
 import os
 import json
-from typing import List, Dict, Any, Tuple, Optional
+import time
+import random
+from collections import deque
+from typing import List, Dict, Any, Tuple, Optional, Iterator, Deque
 from openai import OpenAI
 
 # Configuration via env
@@ -11,6 +14,13 @@ OPENAI_MAX_OUTPUT_TOKENS = int(os.getenv("OPENAI_MAX_OUTPUT_TOKENS", "512"))
 OPENAI_TOOL_CHOICE = os.getenv("OPENAI_TOOL_CHOICE", "none")  # none unless tools configured
 MIN_OUTPUT_TOKENS = 64
 OPENAI_STREAM_RESPONSES = os.getenv("OPENAI_STREAM_RESPONSES", "false").lower() in ("1","true","yes","on")
+AI_BACKOFF_ENABLED = os.getenv("AI_BACKOFF_ENABLED", "true").lower() in ("1","true","yes","on")
+
+# Circuit breaker settings
+_circuit_failures: Deque[float] = deque(maxlen=20)  # timestamps of recent primary hard failures
+_circuit_open_until: float = 0.0  # epoch seconds until which primary is skipped
+_CIRCUIT_FAIL_WINDOW = 60.0  # seconds window to count failures
+_CIRCUIT_OPEN_DURATION = 120.0  # time breaker remains open
 
 try:
     _api_key = os.getenv("OPENAI_API_KEY")
@@ -23,6 +33,39 @@ except Exception as _e:  # pragma: no cover
     _client = None
 
 AI_MODEL_FALLBACKS = [OPENAI_MODEL, OPENAI_FALLBACK_MODEL]
+
+def _now() -> float:
+    return time.time()
+
+def _circuit_is_open(now: Optional[float] = None) -> bool:
+    global _circuit_open_until
+    now = now or _now()
+    if _circuit_open_until and now < _circuit_open_until:
+        return True
+    if _circuit_open_until and now >= _circuit_open_until:
+        # auto close
+        print(f"[AI] circuit_close open_until_expired={_circuit_open_until}")
+        _circuit_open_until = 0.0
+    return False
+
+def _record_primary_failure(now: Optional[float] = None):
+    global _circuit_open_until
+    now = now or _now()
+    _circuit_failures.append(now)
+    # prune old
+    while _circuit_failures and (now - _circuit_failures[0]) > _CIRCUIT_FAIL_WINDOW:
+        _circuit_failures.popleft()
+    if len(_circuit_failures) >= 3:
+        if not _circuit_open_until:  # open once
+            _circuit_open_until = now + _CIRCUIT_OPEN_DURATION
+            print(f"[AI] circuit_open failures={len(_circuit_failures)} open_until={_circuit_open_until}")
+
+def circuit_state() -> Dict[str, Any]:
+    return {
+        "open": _circuit_is_open(),
+        "open_until": _circuit_open_until,
+        "recent_failures": list(_circuit_failures),
+    }
 
 def _build_responses_input(messages: List[Dict[str, str]]) -> List[Dict[str, Any]]:
     """Convert legacy messages [{'role':..., 'content':...}] to Responses 'input' parts."""
@@ -61,7 +104,15 @@ def request(messages: List[Dict[str,str]],
     if max_output_tokens < MIN_OUTPUT_TOKENS:
         max_output_tokens = MIN_OUTPUT_TOKENS
     tool_choice = tool_choice or OPENAI_TOOL_CHOICE
-    models_to_try = [force_model] if force_model else AI_MODEL_FALLBACKS
+    # Decide model list considering circuit breaker
+    if force_model:
+        models_to_try = [force_model]
+    else:
+        if _circuit_is_open():
+            print(f"[AI] circuit_skip primary={OPENAI_MODEL} open_until={_circuit_open_until}")
+            models_to_try = [OPENAI_FALLBACK_MODEL]
+        else:
+            models_to_try = AI_MODEL_FALLBACKS
 
     last_error = None
     offline = _client is None
@@ -86,15 +137,23 @@ def request(messages: List[Dict[str,str]],
                 f"openai.max_output_tokens={max_output_tokens} openai.tool_choice={tool_choice} "
                 f"openai.fallback={idx>0}"
             )
-            resp = _client.responses.create(**kwargs)
+            primary_retry = False
+            while True:
+                resp = _client.responses.create(**kwargs)
+                output_text = getattr(resp, 'output_text', None)
+                # Reasoning-only retry (existing behavior) only once on primary
+                if (not output_text) and idx == 0 and not primary_retry:
+                    print("[AI] retry_reasoning_only openai.model={mdl} adjusting_effort=low")
+                    kwargs["reasoning"] = {"effort": "low"}
+                    kwargs["max_output_tokens"] = max(max_output_tokens, 512)
+                    resp = _client.responses.create(**kwargs)
+                    output_text = getattr(resp, 'output_text', None)
+                break
             output_text = getattr(resp, 'output_text', None)
             if (not output_text) and idx == 0:
                 # Retry once with adjusted params (reasoning-only case)
-                print("[AI] retry_reasoning_only openai.model={mdl} adjusting_effort=low")
-                kwargs["reasoning"] = {"effort": "low"}
-                kwargs["max_output_tokens"] = max(max_output_tokens, 512)
-                resp = _client.responses.create(**kwargs)
-                output_text = getattr(resp, 'output_text', None)
+                # (Handled above) - kept for clarity
+                pass
             if not output_text:
                 # Treat as soft failure; do not fallback unless hard error
                 return {
@@ -140,6 +199,8 @@ def request(messages: List[Dict[str,str]],
                 # Non-hard error: do not fallback further
                 break
             else:
+                if idx == 0 and mdl == OPENAI_MODEL:
+                    _record_primary_failure()
                 print(
                     "[AI] fallback_trigger "
                     f"openai.model={mdl} openai.next_model={(models_to_try[idx+1] if idx+1 < len(models_to_try) else None)}"
@@ -172,7 +233,7 @@ def request_stream(messages: List[Dict[str,str]],
                    force_model: Optional[str]=None,
                    reasoning_effort: Optional[str]=None,
                    max_output_tokens: Optional[int]=None,
-                   tool_choice: Optional[str]=None):
+                   tool_choice: Optional[str]=None) -> Iterator[Tuple[str, Any]]:
     """Stream text deltas using Responses API.
     Yields tuples:
       ("delta", text_fragment) for each output_text delta
@@ -182,7 +243,13 @@ def request_stream(messages: List[Dict[str,str]],
     reasoning_effort = reasoning_effort or OPENAI_REASONING_EFFORT
     max_output_tokens = max(max_output_tokens or OPENAI_MAX_OUTPUT_TOKENS, MIN_OUTPUT_TOKENS)
     tool_choice = tool_choice or OPENAI_TOOL_CHOICE
-    mdl = force_model or OPENAI_MODEL
+    if force_model:
+        mdl = force_model
+    else:
+        if _circuit_is_open():
+            mdl = OPENAI_FALLBACK_MODEL
+        else:
+            mdl = OPENAI_MODEL
     offline = _client is None
     if offline:
         raise RuntimeError("client_offline")
@@ -246,4 +313,3 @@ def request_stream(messages: List[Dict[str,str]],
         except Exception:
             pass
     # Yield final meta as done
-    yield ("done", final_meta)
