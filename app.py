@@ -65,6 +65,48 @@ except ImportError:
         return {"response": "Campaign manager not available.", "takeover": False, "session_state": session_state or {}}
 
 app = Flask(__name__, static_folder="static")
+
+# ================== STARTUP CONFIG VALIDATION ==================
+def _env_bool_startup(name: str, default: bool=False) -> bool:
+    return os.getenv(name, str(default)).lower() in ("1","true","yes","on")
+
+def validate_startup_config():
+    errors = []
+    model = (os.getenv("OPENAI_MODEL") or "gpt-5").strip()
+    if not model:
+        errors.append("OPENAI_MODEL missing or empty")
+    effort = os.getenv("OPENAI_REASONING_EFFORT", "low").strip().lower()
+    if effort not in {"low","medium","high"}:
+        errors.append("OPENAI_REASONING_EFFORT must be one of low, medium, high")
+    try:
+        max_tokens = int(os.getenv("OPENAI_MAX_OUTPUT_TOKENS", "512"))
+        if max_tokens < 64:
+            errors.append("OPENAI_MAX_OUTPUT_TOKENS must be >= 64")
+    except ValueError:
+        errors.append("OPENAI_MAX_OUTPUT_TOKENS must be int")
+    tool_choice = os.getenv("OPENAI_TOOL_CHOICE", "none").strip().lower()
+    if tool_choice not in {"none","auto"}:
+        errors.append("OPENAI_TOOL_CHOICE must be one of none, auto")
+    # Backoff ints
+    for var in ("AI_BACKOFF_BASE_MS","AI_BACKOFF_CAP_MS"):
+        val = os.getenv(var, "")
+        if val:
+            try:
+                ival = int(val)
+                if ival <= 0:
+                    errors.append(f"{var} must be positive int")
+            except ValueError:
+                errors.append(f"{var} must be int if set")
+    if errors:
+        for e in errors:
+            print(f"[CONFIG_ERROR] {e}")
+        print("[CONFIG_INVALID] startup configuration invalid; exiting")
+        import sys as _sys
+        _sys.exit(1)
+    else:
+        print(f"[CONFIG] model={model} effort={effort} max_tokens={max_tokens} tool_choice={tool_choice} streaming={_env_bool_startup('OPENAI_STREAM_RESPONSES', False)} backoff_enabled={_env_bool_startup('AI_BACKOFF_ENABLED', True)}")
+
+validate_startup_config()
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Security headers middleware
@@ -1603,18 +1645,28 @@ UPDATE FORMATS (use exactly these):
             meta: Dict[str, Any] = {}
             err: Optional[Exception] = None
             last_beat = time.time()
-            # Always send initial ping
-            yield sse('ping', 'keepalive')
+            try:
+                yield sse('ping', 'keepalive')
+            except Exception:
+                return
             try:
                 for kind, payload in ai_client.request_stream(primary_messages, force_model=force_model, reasoning_effort=reasoning_effort, max_output_tokens=max_output_tokens):
                     now = time.time()
                     if now - last_beat >= HEARTBEAT_INTERVAL:
-                        yield sse('ping', 'keepalive')
+                        try:
+                            yield sse('ping', 'keepalive')
+                        except Exception as ping_err:
+                            err = ping_err
+                            break
                         last_beat = now
                     if kind == 'delta':
                         had_delta = True
                         aggregated.append(str(payload))
-                        yield sse('token', payload)
+                        try:
+                            yield sse('token', payload)
+                        except Exception as token_err:
+                            err = token_err
+                            break
                     elif kind == 'done':
                         meta = payload or {}
             except Exception as e:
@@ -1623,13 +1675,15 @@ UPDATE FORMATS (use exactly these):
 
         def generate():
             nonlocal final_meta, fallback_used, response_id
-            # Primary attempt
             for item in run_attempt():
                 if isinstance(item, str):
                     yield item
                 elif isinstance(item, tuple) and item and item[0] == '_result_':
                     _, had_delta, meta, err = item
                     if err:
+                        if isinstance(err, (BrokenPipeError, ConnectionResetError)):
+                            print("[STREAM] stream.aborted=true stage=primary")
+                            return
                         if ai_client.is_hard_error(err) and AI_FALLBACKS_ENABLED:
                             print(f"[STREAM] primary hard error -> fallback ({err})")
                             for fb_item in run_attempt(force_model='gpt-4o'):
@@ -1638,6 +1692,9 @@ UPDATE FORMATS (use exactly these):
                                 elif isinstance(fb_item, tuple) and fb_item[0] == '_result_':
                                     _, fb_had_delta, fb_meta, fb_err = fb_item
                                     if fb_err:
+                                        if isinstance(fb_err, (BrokenPipeError, ConnectionResetError)):
+                                            print("[STREAM] stream.aborted=true stage=fallback")
+                                            return
                                         yield sse('done', {"error":"fallback_failed","detail":str(fb_err),"fallback":True})
                                     else:
                                         fallback_used = True
@@ -1649,7 +1706,6 @@ UPDATE FORMATS (use exactly these):
                             yield sse('done', {"error":"stream_error","detail":str(err),"fallback":False})
                     else:
                         if not had_delta:
-                            # Reasoning-only retry once
                             print("[STREAM] reasoning-only first attempt -> retry")
                             for r_item in run_attempt(reasoning_effort='low', max_output_tokens=4096):
                                 if isinstance(r_item, str):
@@ -1657,6 +1713,9 @@ UPDATE FORMATS (use exactly these):
                                 elif isinstance(r_item, tuple) and r_item[0] == '_result_':
                                     _, r_had_delta, r_meta, r_err = r_item
                                     if r_err:
+                                        if isinstance(r_err, (BrokenPipeError, ConnectionResetError)):
+                                            print("[STREAM] stream.aborted=true stage=retry")
+                                            return
                                         yield sse('done', {"error":"retry_failed","detail":str(r_err),"fallback":False})
                                     else:
                                         final_meta = r_meta
@@ -1668,17 +1727,16 @@ UPDATE FORMATS (use exactly these):
                             response_id = final_meta.get('id')
                             yield sse('done', {"model": final_meta.get('model'), "resp_id": final_meta.get('id'), "usage": final_meta.get('usage', {}), "fallback": False})
                     break
-
-            # Persist and log after completion
             final_text = ''.join(aggregated).strip()
             if final_meta:
                 latency_ms = int((time.time() - start_time)*1000)
                 usage = final_meta.get('usage', {})
-                print("[CHAT_STREAM] openai.resp_id={rid} openai.model={model} openai.usage.input_tokens={in_tok} openai.usage.output_tokens={out_tok} openai.fallback={fb} openai.latency_ms={lat}".format(
-                    rid=response_id, model=final_meta.get('model'), in_tok=usage.get('input_tokens'), out_tok=usage.get('output_tokens'), fb=fallback_used, lat=latency_ms
+                breaker_state = ai_client.circuit_state().get('state') if hasattr(ai_client, 'circuit_state') else '-'
+                backoff_ms = final_meta.get('backoff_ms') or '-'
+                print("[CHAT_STREAM] openai.resp_id={rid} openai.model={model} openai.usage.input_tokens={in_tok} openai.usage.output_tokens={out_tok} openai.fallback={fb} openai.latency_ms={lat} breaker.state={brk} backoff.ms={bo}".format(
+                    rid=response_id, model=final_meta.get('model'), in_tok=usage.get('input_tokens'), out_tok=usage.get('output_tokens'), fb=fallback_used, lat=latency_ms, brk=breaker_state, bo=backoff_ms
                 ))
             if final_text:
-                # Minimal post-processing: append model footer for stored transcript
                 stored_text = final_text + (f"\n\n*Model: {final_meta.get('model')}*" if final_meta.get('model') else '')
                 messages.append({"role":"assistant","content":stored_text,"timestamp": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')})
                 save_user_chat(messages, username, page)
@@ -1715,13 +1773,14 @@ UPDATE FORMATS (use exactly these):
     can_retry_primary = False
     # Structured log
     latency_ms = int((time.time() - req_start_time)*1000)
-    if os.getenv("OBS_VERBOSE","false").lower() in ("1","true","yes","on"):
-        print(
-            "[CHAT] openai.resp_id={rid} openai.model={model} openai.usage.input_tokens={in_tok} "
-            "openai.usage.output_tokens={out_tok} openai.fallback={fb} openai.latency_ms={lat}".format(
-                rid=request_id, model=model_used, in_tok=usage.get("input_tokens"), out_tok=usage.get("output_tokens"), fb=fallback_used, lat=latency_ms
-            )
+    breaker_state = ai_client.circuit_state().get('state') if hasattr(ai_client,'circuit_state') else '-'
+    backoff_ms = initial_result.get('backoff_ms') if isinstance(initial_result, dict) else None
+    print(
+        "[CHAT] openai.resp_id={rid} openai.model={model} openai.usage.input_tokens={in_tok} "
+        "openai.usage.output_tokens={out_tok} openai.fallback={fb} openai.latency_ms={lat} breaker.state={brk} backoff.ms={bo}".format(
+            rid=request_id, model=model_used, in_tok=usage.get("input_tokens"), out_tok=usage.get("output_tokens"), fb=fallback_used, lat=latency_ms, brk=breaker_state, bo=(backoff_ms if backoff_ms is not None else '-')
         )
+    )
     
     # Process AI response for character information updates
     updated_char_info = False

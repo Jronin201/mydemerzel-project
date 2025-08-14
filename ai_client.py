@@ -357,49 +357,56 @@ def request_stream(messages: List[Dict[str,str]],
     print("[AI] stream_start openai.model={mdl} openai.effort={effort} openai.max_output_tokens={tok}".format(
         mdl=mdl, effort=reasoning_effort, tok=max_output_tokens
     ))
+    class StreamAborted(Exception):
+        """Internal sentinel indicating downstream client aborted the stream."""
+        pass
+
     try:
         stream = _client.responses.stream(**kwargs)
     except Exception as e:  # network/setup error before iteration
         print(f"[AI] stream_error openai.model={mdl} error={e}")
         raise
     final_meta: Dict[str, Any] = {}
+    aborted = False
     try:
         for event in stream:
             etype = getattr(event, 'type', None) or getattr(event, 'event', None)
-            # Text delta
-            if etype and 'response.output_text.delta' in etype:
-                # event might expose delta or text attribute
-                delta = getattr(event, 'delta', None) or getattr(event, 'text', None)
-                if delta:
-                    yield ("delta", delta)
-            elif etype and 'response.completed' in etype:
-                model = getattr(event, 'model', mdl)
-                usage_obj = getattr(event, 'usage', None)
-                usage = {}
-                if usage_obj is not None:
-                    usage = {
-                        "input_tokens": getattr(usage_obj, 'input_tokens', None),
-                        "output_tokens": getattr(usage_obj, 'output_tokens', None),
-                        "total_tokens": getattr(usage_obj, 'total_tokens', None),
+            try:
+                # Text delta
+                if etype and 'response.output_text.delta' in etype:
+                    delta = getattr(event, 'delta', None) or getattr(event, 'text', None)
+                    if delta:
+                        yield ("delta", delta)
+                elif etype and 'response.completed' in etype:
+                    model = getattr(event, 'model', mdl)
+                    usage_obj = getattr(event, 'usage', None)
+                    usage = {}
+                    if usage_obj is not None:
+                        usage = {
+                            "input_tokens": getattr(usage_obj, 'input_tokens', None),
+                            "output_tokens": getattr(usage_obj, 'output_tokens', None),
+                            "total_tokens": getattr(usage_obj, 'total_tokens', None),
+                        }
+                    final_meta = {
+                        "model": model,
+                        "id": getattr(event, 'id', None),
+                        "usage": usage,
+                        "used_fallback": False,
                     }
-                final_meta = {
-                    "model": model,
-                    "id": getattr(event, 'id', None),
-                    "usage": usage,
-                    "used_fallback": False,
-                }
-            elif etype and 'response.error' in etype:
-                # propagate as exception
-                err = getattr(event, 'error', None)
-                raise RuntimeError(f"stream_error: {err}")
-            else:
-                # Ignore reasoning or other event types silently
-                continue
+                elif etype and 'response.error' in etype:
+                    err = getattr(event, 'error', None)
+                    raise RuntimeError(f"stream_error: {err}")
+                else:
+                    continue
+            except (BrokenPipeError, ConnectionResetError, GeneratorExit) as abort_exc:
+                aborted = True
+                print(f"[AI] stream_aborted downstream_error={abort_exc}")
+                raise StreamAborted()
     finally:
-        # attempt to close underlying stream (SDK dependent)
         try:
-            if hasattr(stream, 'close'):
+            if 'stream' in locals() and hasattr(stream, 'close'):
                 stream.close()
         except Exception:
             pass
-    # Yield final meta as done
+    if not aborted and final_meta:
+        yield ("done", final_meta)
