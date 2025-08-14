@@ -133,6 +133,7 @@ def request(messages: List[Dict[str,str]],
         max_output_tokens = MIN_OUTPUT_TOKENS
     tool_choice = tool_choice or OPENAI_TOOL_CHOICE
     # Decide model list considering circuit breaker
+    is_half_open = (_circuit_state == 'half_open')
     if force_model:
         models_to_try = [force_model]
     else:
@@ -171,7 +172,8 @@ def request(messages: List[Dict[str,str]],
             while True:
                 resp = _client.responses.create(**kwargs)
                 output_text = getattr(resp, 'output_text', None)
-                if (not output_text) and idx == 0 and not primary_retry:
+                # Suppress reasoning/backoff retries during half-open probe for single-attempt semantics
+                if (not output_text) and idx == 0 and not primary_retry and not is_half_open:
                     print("[AI] retry_reasoning_only openai.model={mdl} adjusting_effort=low")
                     kwargs["reasoning"] = {"effort": "low"}
                     kwargs["max_output_tokens"] = max(max_output_tokens, 512)
@@ -226,7 +228,7 @@ def request(messages: List[Dict[str,str]],
             )
             hard = _is_retryable_hard_error(e)
             status = getattr(e,'status_code',None) or getattr(e,'http_status',None)
-            if idx == 0 and mdl == OPENAI_MODEL and hard and AI_BACKOFF_ENABLED and not performed_backoff_retry and status and (status==429 or status>=500):
+            if idx == 0 and mdl == OPENAI_MODEL and hard and AI_BACKOFF_ENABLED and not performed_backoff_retry and status and (status==429 or status>=500) and not is_half_open:
                 # single full-jitter backoff retry on primary
                 attempt = 1
                 sleep_ms = random.uniform(0, min(AI_BACKOFF_CAP_MS, AI_BACKOFF_BASE_MS * (2 ** attempt)))
