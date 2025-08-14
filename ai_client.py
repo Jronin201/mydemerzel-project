@@ -72,13 +72,20 @@ def request(messages: List[Dict[str,str]],
                 "reasoning": {"effort": reasoning_effort},
                 "tool_choice": tool_choice,
             }
+            # Expose raw kwargs for test inspection (non-production side effect)
+            globals()["_last_ai_kwargs"] = kwargs
             # DO NOT send temperature for GPT-5 (per requirements)
-            print(f"[AI] request model={mdl} effort={reasoning_effort} max_tokens={max_output_tokens} tool_choice={tool_choice}")
+            print(
+                "[AI] start "
+                f"openai.model={mdl} openai.effort={reasoning_effort} "
+                f"openai.max_output_tokens={max_output_tokens} openai.tool_choice={tool_choice} "
+                f"openai.fallback={idx>0}"
+            )
             resp = _client.responses.create(**kwargs)
             output_text = getattr(resp, 'output_text', None)
             if (not output_text) and idx == 0:
-                # Retry once with adjusted params
-                print("[AI] Empty output_text; retrying with low effort & increased tokens")
+                # Retry once with adjusted params (reasoning-only case)
+                print("[AI] retry_reasoning_only openai.model={mdl} adjusting_effort=low")
                 kwargs["reasoning"] = {"effort": "low"}
                 kwargs["max_output_tokens"] = max(max_output_tokens, 512)
                 resp = _client.responses.create(**kwargs)
@@ -102,7 +109,14 @@ def request(messages: List[Dict[str,str]],
                     "output_tokens": getattr(u, 'output_tokens', None),
                     "total_tokens": getattr(u, 'total_tokens', None),
                 }
-            print(f"[AI] success id={getattr(resp,'id',None)} model={getattr(resp,'model',mdl)} usage={usage}")
+            print(
+                "[AI] success "
+                f"openai.resp_id={getattr(resp,'id',None)} "
+                f"openai.model={getattr(resp,'model',mdl)} "
+                f"openai.usage.input_tokens={usage.get('input_tokens')} "
+                f"openai.usage.output_tokens={usage.get('output_tokens')} "
+                f"openai.fallback={idx>0}"
+            )
             return {
                 "output_text": output_text,
                 "model": getattr(resp, 'model', mdl),
@@ -113,12 +127,18 @@ def request(messages: List[Dict[str,str]],
             }
         except Exception as e:  # capture error
             last_error = e
-            print(f"[AI] error model={mdl}: {e}")
+            print(
+                "[AI] error "
+                f"openai.model={mdl} openai.fallback={idx>0} error={str(e)}"
+            )
             if not _is_retryable_hard_error(e):
                 # Non-hard error: do not fallback further
                 break
             else:
-                print("[AI] hard error qualifies for fallback" )
+                print(
+                    "[AI] fallback_trigger "
+                    f"openai.model={mdl} openai.next_model={(models_to_try[idx+1] if idx+1 < len(models_to_try) else None)}"
+                )
                 continue
     # Offline or failed
     return {

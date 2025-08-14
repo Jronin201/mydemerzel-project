@@ -56,6 +56,50 @@ def test_returns_plain_text(monkeypatch):
     assert res["usage"]["output_tokens"] == 20
     assert dummy.calls[0]["model"] == "gpt-5"
 
+def test_log_observability_and_fallback(monkeypatch, capsys):
+    # Hard failure then success fallback
+    class HardErr(Exception):
+        status_code = 500
+    dummy = DummyClient([HardErr("boom"), DummyResp(output_text="OK", model="gpt-4o-2025-08-07", rid="resp_fallback")])
+    monkeypatch.setattr(ai_client, "_client", dummy)
+    res = ai_client.request([{"role":"user","content":"Ping"}])
+    assert res["used_fallback"] is True
+    captured = capsys.readouterr().out
+    log_text = captured
+    assert "openai.model=gpt-5" in log_text
+    assert "fallback_trigger" in log_text
+    assert "openai.model=gpt-4o" in log_text or "gpt-4o-2025" in log_text
+    assert "openai.resp_id=resp_fallback" in log_text
+    assert "openai.usage.output_tokens" in log_text
+
+def test_config_enforcement(monkeypatch):
+    # Force invalid low max_output_tokens and ensure override to >=64
+    monkeypatch.setenv("OPENAI_MAX_OUTPUT_TOKENS", "10")
+    # Re-import config (simulate reload minimal)
+    import importlib
+    importlib.reload(ai_client)
+    dummy = DummyClient([DummyResp(output_text="Hi")])
+    monkeypatch.setattr(ai_client, "_client", dummy)
+    res = ai_client.request([{"role":"user","content":"Test"}], max_output_tokens=5)
+    assert res["output_text"] == "Hi"
+    outgoing = ai_client._last_ai_kwargs
+    assert outgoing["max_output_tokens"] >= 64
+    # Disallowed fields (temperature) not present
+    assert "temperature" not in outgoing
+    # tool_choice default none
+    assert outgoing["tool_choice"] == "none"
+
+def test_reasoning_only_retry_assertions(monkeypatch):
+    # First missing output; second provides
+    dummy = DummyClient([DummyResp(output_text=None), DummyResp(output_text="Done")])
+    monkeypatch.setattr(ai_client, "_client", dummy)
+    res = ai_client.request([{"role":"user","content":"Explain"}], max_output_tokens=100)
+    assert res["output_text"] == "Done"
+    # Second call has increased tokens & low effort
+    first, second = dummy.calls
+    assert second["reasoning"]["effort"] == "low"
+    assert second["max_output_tokens"] >= first["max_output_tokens"]
+
 def test_retry_on_missing_output_then_success(monkeypatch):
     # First response missing output_text, second has it
     dummy = DummyClient([DummyResp(output_text=None), DummyResp(output_text="Fixed")])
