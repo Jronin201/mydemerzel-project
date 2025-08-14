@@ -1,5 +1,4 @@
 import os
-import json
 import time
 import random
 from collections import deque
@@ -11,16 +10,19 @@ OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5")  # Primary GPT-5 family model
 OPENAI_FALLBACK_MODEL = "gpt-4o"  # Only fallback allowed
 OPENAI_REASONING_EFFORT = os.getenv("OPENAI_REASONING_EFFORT", "low")  # low|medium|high
 OPENAI_MAX_OUTPUT_TOKENS = int(os.getenv("OPENAI_MAX_OUTPUT_TOKENS", "512"))
-OPENAI_TOOL_CHOICE = os.getenv("OPENAI_TOOL_CHOICE", "none")  # none unless tools configured
+OPENAI_TOOL_CHOICE = os.getenv("OPENAI_TOOL_CHOICE", "none")  # none|auto (validated in app config)
 MIN_OUTPUT_TOKENS = 64
 OPENAI_STREAM_RESPONSES = os.getenv("OPENAI_STREAM_RESPONSES", "false").lower() in ("1","true","yes","on")
 AI_BACKOFF_ENABLED = os.getenv("AI_BACKOFF_ENABLED", "true").lower() in ("1","true","yes","on")
+AI_BACKOFF_BASE_MS = int(os.getenv("AI_BACKOFF_BASE_MS", "250"))
+AI_BACKOFF_CAP_MS = int(os.getenv("AI_BACKOFF_CAP_MS", "2000"))
 
-# Circuit breaker settings
-_circuit_failures: Deque[float] = deque(maxlen=20)  # timestamps of recent primary hard failures
-_circuit_open_until: float = 0.0  # epoch seconds until which primary is skipped
-_CIRCUIT_FAIL_WINDOW = 60.0  # seconds window to count failures
-_CIRCUIT_OPEN_DURATION = 120.0  # time breaker remains open
+# Circuit breaker (primary model only)
+_circuit_failures: Deque[float] = deque(maxlen=20)  # monotonic timestamps of recent primary hard failures
+_circuit_open_until: float = 0.0  # monotonic seconds
+_circuit_state: str = 'closed'  # closed|open|half_open
+_CIRCUIT_FAIL_WINDOW = 60.0
+_CIRCUIT_OPEN_DURATION = 120.0
 
 try:
     _api_key = os.getenv("OPENAI_API_KEY")
@@ -35,34 +37,58 @@ except Exception as _e:  # pragma: no cover
 AI_MODEL_FALLBACKS = [OPENAI_MODEL, OPENAI_FALLBACK_MODEL]
 
 def _now() -> float:
-    return time.time()
+    return time.monotonic()
 
-def _circuit_is_open(now: Optional[float] = None) -> bool:
-    global _circuit_open_until
-    now = now or _now()
-    if _circuit_open_until and now < _circuit_open_until:
-        return True
-    if _circuit_open_until and now >= _circuit_open_until:
-        # auto close
-        print(f"[AI] circuit_close open_until_expired={_circuit_open_until}")
-        _circuit_open_until = 0.0
-    return False
+def _log_breaker(state: str, fail_count: int, duration: Optional[float], req_id: Optional[str]):
+    print(
+        f"[AI] breaker.state={state} breaker.fail_count={fail_count} breaker.window_sec={_CIRCUIT_FAIL_WINDOW} "
+        + (f"breaker.duration_sec={int(duration)} " if duration else "")
+        + f"req.id={req_id or '-'}"
+    )
 
-def _record_primary_failure(now: Optional[float] = None):
-    global _circuit_open_until
-    now = now or _now()
-    _circuit_failures.append(now)
-    # prune old
+def _prune_failures(now: float):
     while _circuit_failures and (now - _circuit_failures[0]) > _CIRCUIT_FAIL_WINDOW:
         _circuit_failures.popleft()
-    if len(_circuit_failures) >= 3:
-        if not _circuit_open_until:  # open once
-            _circuit_open_until = now + _CIRCUIT_OPEN_DURATION
-            print(f"[AI] circuit_open failures={len(_circuit_failures)} open_until={_circuit_open_until}")
+
+def _circuit_is_open(now: Optional[float]=None) -> bool:
+    global _circuit_state
+    now = now or _now()
+    if _circuit_state == 'open' and now >= _circuit_open_until:
+        _circuit_state = 'half_open'
+        _log_breaker('half_open', len(_circuit_failures), None, None)
+    return _circuit_state == 'open'
+
+def _should_probe() -> bool:
+    return _circuit_state == 'half_open'
+
+def _record_primary_failure(req_id: Optional[str]):
+    global _circuit_state, _circuit_open_until
+    now = _now()
+    _circuit_failures.append(now)
+    _prune_failures(now)
+    if len(_circuit_failures) >= 3 and _circuit_state != 'open':
+        _circuit_state = 'open'
+        _circuit_open_until = now + _CIRCUIT_OPEN_DURATION
+        _log_breaker('open', len(_circuit_failures), _CIRCUIT_OPEN_DURATION, req_id)
+    elif _circuit_state == 'half_open':
+        # probe failed → reopen
+        _circuit_state = 'open'
+        _circuit_open_until = now + _CIRCUIT_OPEN_DURATION
+        _log_breaker('open', len(_circuit_failures), _CIRCUIT_OPEN_DURATION, req_id)
+
+def _record_primary_success(req_id: Optional[str]):
+    global _circuit_state, _circuit_open_until
+    if _circuit_state in ('open','half_open'):
+        _circuit_state = 'closed'
+        _circuit_open_until = 0.0
+        _circuit_failures.clear()
+        _log_breaker('closed', 0, None, req_id)
+
+ 
 
 def circuit_state() -> Dict[str, Any]:
     return {
-        "open": _circuit_is_open(),
+        "state": _circuit_state,
         "open_until": _circuit_open_until,
         "recent_failures": list(_circuit_failures),
     }
@@ -94,7 +120,8 @@ def request(messages: List[Dict[str,str]],
             reasoning_effort: Optional[str]=None,
             max_output_tokens: Optional[int]=None,
             tool_choice: Optional[str]=None,
-            force_model: Optional[str]=None) -> Dict[str, Any]:
+            force_model: Optional[str]=None,
+            req_id: Optional[str]=None) -> Dict[str, Any]:
     """Perform a GPT-5 Responses API call with structured input and fallback.
     Returns dict with keys: output_text, model, used_fallback(bool), id, usage(dict), raw(response or error).
     Will fallback to gpt-4o only on qualified hard errors.
@@ -138,22 +165,20 @@ def request(messages: List[Dict[str,str]],
                 f"openai.fallback={idx>0}"
             )
             primary_retry = False
+            backoff_used_ms: Optional[int] = None
+            performed_backoff_retry = False
             while True:
                 resp = _client.responses.create(**kwargs)
                 output_text = getattr(resp, 'output_text', None)
-                # Reasoning-only retry (existing behavior) only once on primary
                 if (not output_text) and idx == 0 and not primary_retry:
                     print("[AI] retry_reasoning_only openai.model={mdl} adjusting_effort=low")
                     kwargs["reasoning"] = {"effort": "low"}
                     kwargs["max_output_tokens"] = max(max_output_tokens, 512)
                     resp = _client.responses.create(**kwargs)
                     output_text = getattr(resp, 'output_text', None)
+                    primary_retry = True
                 break
-            output_text = getattr(resp, 'output_text', None)
-            if (not output_text) and idx == 0:
-                # Retry once with adjusted params (reasoning-only case)
-                # (Handled above) - kept for clarity
-                pass
+            # soft missing text case handled below
             if not output_text:
                 # Treat as soft failure; do not fallback unless hard error
                 return {
@@ -181,6 +206,8 @@ def request(messages: List[Dict[str,str]],
                 f"openai.usage.output_tokens={usage.get('output_tokens')} "
                 f"openai.fallback={idx>0}"
             )
+            if idx == 0 and mdl == OPENAI_MODEL:
+                _record_primary_success(getattr(resp,'id',None))
             return {
                 "output_text": output_text,
                 "model": getattr(resp, 'model', mdl),
@@ -188,6 +215,7 @@ def request(messages: List[Dict[str,str]],
                 "id": getattr(resp,'id',None),
                 "usage": usage,
                 "raw": resp,
+                "backoff_ms": backoff_used_ms,
             }
         except Exception as e:  # capture error
             last_error = e
@@ -195,12 +223,25 @@ def request(messages: List[Dict[str,str]],
                 "[AI] error "
                 f"openai.model={mdl} openai.fallback={idx>0} error={str(e)}"
             )
-            if not _is_retryable_hard_error(e):
-                # Non-hard error: do not fallback further
+            hard = _is_retryable_hard_error(e)
+            status = getattr(e,'status_code',None) or getattr(e,'http_status',None)
+            if idx == 0 and mdl == OPENAI_MODEL and hard and AI_BACKOFF_ENABLED and not performed_backoff_retry and status and (status==429 or status>=500):
+                # single full-jitter backoff retry on primary
+                attempt = 1
+                sleep_ms = random.uniform(0, min(AI_BACKOFF_CAP_MS, AI_BACKOFF_BASE_MS * (2 ** attempt)))
+                print(f"[AI] backoff wait_ms={int(sleep_ms)} reason=status_{status}")
+                performed_backoff_retry = True
+                backoff_used_ms = int(sleep_ms)
+                try:
+                    time.sleep(sleep_ms/1000.0)
+                except Exception:
+                    pass
+                continue  # retry same model
+            if not hard:
                 break
             else:
                 if idx == 0 and mdl == OPENAI_MODEL:
-                    _record_primary_failure()
+                    _record_primary_failure(req_id=req_id)
                 print(
                     "[AI] fallback_trigger "
                     f"openai.model={mdl} openai.next_model={(models_to_try[idx+1] if idx+1 < len(models_to_try) else None)}"
@@ -247,6 +288,7 @@ def request_stream(messages: List[Dict[str,str]],
         mdl = force_model
     else:
         if _circuit_is_open():
+            print(f"[AI] circuit_skip_stream primary={OPENAI_MODEL} open_until={_circuit_open_until}")
             mdl = OPENAI_FALLBACK_MODEL
         else:
             mdl = OPENAI_MODEL
