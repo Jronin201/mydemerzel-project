@@ -683,18 +683,6 @@ except Exception as e:
     print(f"❌ Failed to initialize OpenAI client: {e}")
     client = None
 
-# Dummy shim so legacy tests that patch app.client.chat.completions.create still work
-if client is None:  # pragma: no cover - only used when API key absent
-    class _DummyCreate:
-        def create(self, *args, **kwargs):
-            raise RuntimeError("Legacy Chat Completions dummy invoked without patch. Update tests to patch ai_client.request instead.")
-    class _DummyChat:
-        def __init__(self):
-            self.completions = _DummyCreate()
-    class _DummyClient:
-        def __init__(self):
-            self.chat = _DummyChat()
-    client = _DummyClient()
 
 # Initialize messages for backward compatibility with tests
 messages = []
@@ -758,74 +746,7 @@ def _is_model_unavailable_error(exc: Exception) -> bool:
         "temporarily unavailable",
     ])
 
-def chat_completion_with_fallback(messages, model_candidates, max_tokens=None):
-    """Try chat completion across candidate models until one succeeds.
-    Returns (content, used_model). Raises last exception if all fail with non-model errors.
-    NOTE: Generation params (temperature, top_p, penalties) are injected by caller via
-    message-level system instructions OR default values inside this helper. To allow
-    mode-specific tuning, callers can pass a dict in thread-local context (set globally
-    via current_mode_gen_params)."""
-    if client is None:
-        raise RuntimeError("OpenAI client not initialized")
-    last_exc = None
-    # Pull dynamic generation params (set by /chat route) if available
-    gen_params = globals().get("current_mode_gen_params", {}) or {}
-    for mdl in model_candidates:
-        if not mdl:
-            continue
-        try:
-            # Clamp tokens per model heuristically to avoid context length errors
-            effective_max = max_tokens
-            if effective_max is not None:
-                # Heuristic caps (conservative defaults)
-                if 'gpt-4o' in mdl:
-                    effective_max = min(effective_max, 8192)
-                elif 'gpt-5' in mdl:
-                    effective_max = min(effective_max, 20000)
-                else:
-                    effective_max = min(effective_max, 8192)
-            kwargs = {"model": mdl, "messages": messages}
-            # Apply generation params with safe fallbacks
-            kwargs["temperature"] = gen_params.get("temperature", 0.85)
-            kwargs["top_p"] = gen_params.get("top_p", 1.0)
-            if "frequency_penalty" in gen_params:
-                kwargs["frequency_penalty"] = gen_params["frequency_penalty"]
-            if "presence_penalty" in gen_params:
-                kwargs["presence_penalty"] = gen_params["presence_penalty"]
-            if effective_max is not None:
-                kwargs["max_tokens"] = effective_max
-            print(f"[DEBUG] Trying OpenAI model: {mdl} (max_tokens={kwargs.get('max_tokens')})")
-            try:
-                resp = client.chat.completions.create(**kwargs)
-            except Exception as first_err:
-                # If token/context length issue, retry once with a safer lower cap
-                serr = str(first_err).lower()
-                if any(term in serr for term in ["maximum context length", "max tokens", "too many tokens", "context length is"]):
-                    reduced = 4096 if (effective_max or 0) > 4096 else 2048
-                    kwargs["max_tokens"] = reduced
-                    print(f"[WARN] Token limit issue for {mdl}; retrying with max_tokens={reduced}")
-                    resp = client.chat.completions.create(**kwargs)
-                else:
-                    raise
-            print(f"[DEBUG] OpenAI call succeeded with model: {mdl}")
-            content = resp.choices[0].message.content
-            return (content.strip() if content is not None else "", mdl)
-        except Exception as e:
-            last_exc = e
-            if _is_model_unavailable_error(e):
-                print(f"[WARN] Model '{mdl}' unavailable, trying next fallback... Error: {e}")
-                continue
-            serr = str(e).lower()
-            if any(term in serr for term in ["maximum context length", "max tokens", "too many tokens", "context length is"]):
-                print(f"[ERROR] Token/context error on '{mdl}' after retry; giving up on this model: {e}")
-                continue
-            print(f"[ERROR] OpenAI call failed with non-model error on '{mdl}': {type(e).__name__}: {e}")
-            raise
-    # Exhausted all candidates; if last error exists, raise it, else generic error
-    if last_exc:
-        print(f"[ERROR] All model candidates failed. Last error: {type(last_exc).__name__}: {last_exc}")
-        raise last_exc
-    raise RuntimeError("No valid model candidates provided for OpenAI call")
+## Legacy Chat Completions fallback removed; unified on Responses API via ai_client
 
 
 from pathlib import Path
@@ -1171,20 +1092,12 @@ def summarize_messages(messages):
             print("OpenAI client not available for summarization, skipping...")
             return []
             
-        if AI_FALLBACKS_ENABLED:
-            content, used_model = chat_completion_with_fallback(
-                summary_prompt, SUMMARY_MODEL_FALLBACKS
-            )
-            summary = content
-        else:
-            if client is None:
-                print("OpenAI client not available for summarization, skipping...")
-                return []
-            resp = client.chat.completions.create(
-                model=OPENAI_SUMMARY_MODEL, messages=summary_prompt
-            )
-            content = resp.choices[0].message.content
-            summary = content.strip() if content is not None else ""
+        # Use Responses API helper
+        result = ai_client.request([
+            {"role": m.role, "content": m.content} if hasattr(m, 'role') else {"role": m["role"], "content": m["content"]}  # defensive
+            for m in summary_prompt
+        ])
+        summary = (result.get("output_text") or "").strip()
         return [{"role": "system", "content": f"SUMMARY OF EARLIER CHAT: {summary}"}]
     except Exception as e:
         print(f"Failed to summarize messages: {e}")
@@ -1290,6 +1203,9 @@ def chat():
     # Update current TTRPG and character info if provided
     if page:
         update_current_ttrpg(page, character_name, character_stats)
+        # Persist live character info immediately so tests expecting stored values see them
+        if (character_name or character_stats):
+            save_user_character_info(username, page, character_name, character_stats, source="user_live")
     elif not page:
         # Try to determine page from referer
         ref = request.headers.get("Referer", "")
@@ -1358,7 +1274,7 @@ def chat():
             # Add the greeting as the first message
             messages.append({"role": "assistant", "content": greeting, "timestamp": timestamp})
             save_user_chat(messages, username, page)
-            return jsonify({"response": greeting})
+            return jsonify({"message": greeting})
     else:
         # For existing sessions, process character information normally
         persistent_char_info = load_user_character_info(username, page)
@@ -1387,14 +1303,14 @@ def chat():
             messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
             messages.append({"role": "assistant", "content": result["response"], "timestamp": timestamp})
             save_user_chat(messages, username, page)
-            return jsonify({"response": result["response"]})
+            return jsonify({"message": result["response"]})
 
         if result.get("response") and not result.get("takeover"):
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             messages.append({"role": "user", "content": user_input, "timestamp": timestamp})
             messages.append({"role": "assistant", "content": result["response"], "timestamp": timestamp})
             save_user_chat(messages, username, page)
-            return jsonify({"response": result["response"]})
+            return jsonify({"message": result["response"]})
     # -------- END AGENT TAKEOVER SECTION --------
 
 
@@ -1433,7 +1349,7 @@ def chat():
                 
                 messages.append({"role": "assistant", "content": char_creation_response, "timestamp": timestamp})
                 save_user_chat(messages, username, page)
-                return jsonify({"response": char_creation_response})
+                return jsonify({"message": char_creation_response})
         
         # If user mentions character creation without starting campaign
         elif any(keyword in user_input.lower() for keyword in character_keywords):
@@ -1442,15 +1358,13 @@ def chat():
                 
                 messages.append({"role": "assistant", "content": char_creation_response, "timestamp": timestamp})
                 save_user_chat(messages, username, page)
-                return jsonify({"response": char_creation_response})
+                return jsonify({"message": char_creation_response})
 
     if user_input == "?":
         help_text = "**Available Commands:**\n- `?` – Show this help menu"
-        messages.append(
-            {"role": "assistant", "content": help_text, "timestamp": timestamp}
-        )
+        messages.append({"role": "assistant", "content": help_text, "timestamp": timestamp})
         save_user_chat(messages, username, page)
-        return jsonify({"response": help_text})
+        return jsonify({"message": help_text})
 
     filtered = [m for m in messages if m["role"] in ["user", "assistant", "system"]]
     # Outcome protocol parsing
@@ -1668,48 +1582,15 @@ UPDATE FORMATS (use exactly these):
     full_messages_dicts = [{"role": "system", "content": full_system_prompt}] + filtered
     full_messages = [dict_to_message_param(m) for m in full_messages_dicts]
 
-    # =============== RESPONSES API CALL VIA ai_client =================
-    # Backward compatibility: if tests patched legacy client.chat.completions.create then use it
-    legacy_patched = False
-    try:
-        legacy_completions = getattr(getattr(client, 'chat', None), 'completions', None)
-        create_attr = getattr(legacy_completions, 'create', None)
-        if create_attr is not None:
-            import inspect
-            mod = getattr(create_attr, '__module__', '')
-            # If unittest.mock patched, module will be 'unittest.mock'
-            if 'unittest.mock' in mod:
-                legacy_patched = True
-            else:
-                # If it's our dummy method AND tests patched it, it will be a Mock wrapping a function; detect by presence of 'assert_called' attribute
-                if hasattr(create_attr, 'assert_called'):
-                    legacy_patched = True
-    except Exception:
-        pass
-
-    if legacy_patched:
-        # Use original fallback helper with Chat Completions for tests still mocking that path
-        try:
-            content, used_model = chat_completion_with_fallback(full_messages, CHAT_MODEL_FALLBACKS, max_tokens=min(OPENAI_MAX_TOKENS, 4096))
-            initial_result = {
-                "output_text": content,
-                "model": used_model,
-                "used_fallback": used_model != CHAT_MODEL_FALLBACKS[0],
-                "id": None,
-                "usage": {},
-            }
-        except Exception as e:
-            return jsonify({"error": "Legacy chat completion failed", "detail": str(e)}), 422
-    else:
-        primary_messages = full_messages_dicts  # already role/content pairs
-        initial_result = ai_client.request(primary_messages)
-
+    # =============== RESPONSES API CALL VIA ai_client (unified) =================
+    primary_messages = full_messages_dicts  # role/content pairs
+    initial_result = ai_client.request(primary_messages)
     model_used = initial_result.get("model")
     fallback_used = initial_result.get("used_fallback", False)
     trimmed = initial_result.get("output_text", "")
     usage = initial_result.get("usage", {})
     request_id = initial_result.get("id")
-    if not trimmed and not legacy_patched:
+    if not trimmed:
         if initial_result.get("error") == "missing_output_text" and not fallback_used:
             return jsonify({
                 "error": "No textual output produced after retry",
@@ -1815,7 +1696,7 @@ UPDATE FORMATS (use exactly these):
         "mode_auto_reverted": mode_info.get("auto_reverted", False),
         "request_id": request_id,
     }
-    return jsonify({"message": response_to_send, "response": response_to_send, **extra_meta})
+    return jsonify({"message": response_to_send, **extra_meta})
 
 
 # Health check endpoint for personal deployment

@@ -47,12 +47,12 @@ def test_chat_endpoint():
         if response.status_code == 200:
             try:
                 json_response = response.json()
-                if "response" in json_response:
+                if "message" in json_response:
                     print("✅ Chat endpoint working!")
-                    print(f"Response: {json_response['response'][:100]}...")
+                    print(f"Response: {json_response['message'][:100]}...")
                     return True
                 else:
-                    print("❌ Response missing 'response' field")
+                    print("❌ Response missing 'message' field")
                     print(f"Raw response: {response.text}")
                     return False
             except json.JSONDecodeError as e:

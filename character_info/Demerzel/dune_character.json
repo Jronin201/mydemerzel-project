@@ -1,77 +1,13 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "dune",
-  "last_updated": "2025-07-20 12:07:00",
-  "last_source": "user",
+  "last_updated": "2025-08-14 20:13:31",
+  "last_source": "user_live",
   "character_info": {
-    "name": "Paul Atreides",
-    "stats": "Fremen leader"
+    "name": "Duncan Idaho",
+    "stats": "Combat: 20, Politics: 15"
   },
   "history": [
-    {
-      "character_info": {
-        "name": "Paul Atreides",
-        "stats": "Fremen leader"
-      },
-      "timestamp": "2025-07-20 11:49:38",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Paul Atreides",
-        "stats": "Duke's son with prescient abilities. Trained in the ways of the Bene Gesserit and the fighting methods of Duncan Idaho."
-      },
-      "timestamp": "2025-07-20 11:49:39",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Paul Muad'Dib",
-        "stats": "The prophesied Kwisatz Haderach, leader of the Fremen, Emperor of the Known Universe."
-      },
-      "timestamp": "2025-07-20 11:49:39",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Paul Atreides - Fighter Level 1, HP: 20/20, Strength: 14",
-        "stats": "Son of Duke Leto. Training with Duncan Idaho. Investigating spice smuggling."
-      },
-      "timestamp": "2025-07-20 11:49:42",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Paul Atreides - Young Duke, untested in combat",
-        "stats": "Quest: Find the traitor in House Atreides. Status: Just arrived on Arrakis."
-      },
-      "timestamp": "2025-07-20 11:53:45",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Paul Atreides - Young Duke, untested in combat  \nNew Skills: Advanced Sword Techniques: Proficient in advanced swordplay, enhancing combat effectiveness.",
-        "stats": "Quest: Find the traitor in House Atreides. Status: Just arrived on Arrakis."
-      },
-      "timestamp": "2025-07-20 11:53:55",
-      "source": "undo"
-    },
-    {
-      "character_info": {
-        "name": "Paul Atreides",
-        "stats": "Duke's son, prescient abilities"
-      },
-      "timestamp": "2025-07-20 11:54:00",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Paul Atreides",
-        "stats": "Young duke"
-      },
-      "timestamp": "2025-07-20 11:54:00",
-      "source": "user"
-    },
     {
       "character_info": {
         "name": "Paul Muad'Dib",
@@ -407,6 +343,70 @@
       },
       "timestamp": "2025-07-20 12:07:00",
       "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Paul Atreides",
+        "stats": "Fremen leader"
+      },
+      "timestamp": "2025-07-20 12:07:00",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Duncan Idaho",
+        "stats": "Swordsmaster: Expert, Loyalty: House Atreides"
+      },
+      "timestamp": "2025-08-14 20:10:44",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Paul Atreides",
+        "stats": "Prescience: High"
+      },
+      "timestamp": "2025-08-14 20:10:50",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Duncan Idaho",
+        "stats": "Swordsmaster: Expert, Loyalty: House Atreides"
+      },
+      "timestamp": "2025-08-14 20:10:50",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Duncan Idaho",
+        "stats": "Combat: 20, Politics: 15"
+      },
+      "timestamp": "2025-08-14 20:11:19",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Paul Atreides",
+        "stats": "Prescience: High"
+      },
+      "timestamp": "2025-08-14 20:13:31",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Duncan Idaho",
+        "stats": "Swordsmaster: Expert, Loyalty: House Atreides"
+      },
+      "timestamp": "2025-08-14 20:13:31",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Paul Atreides",
+        "stats": "Prescience: High"
+      },
+      "timestamp": "2025-08-14 20:13:31",
+      "source": "user_live"
     }
   ]
 }

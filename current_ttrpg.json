@@ -1,10 +1,10 @@
 {
   "current_ttrpg": "dune",
   "session_start": "2025-07-15T06:34:08.037202",
-  "last_updated": "2025-08-14T20:05:54.925390",
+  "last_updated": "2025-08-14T20:13:31.440362",
   "character_info": {
     "name": "Duncan Idaho",
-    "stats": "Swordsmaster: Expert, Loyalty: House Atreides"
+    "stats": "Combat: 20, Politics: 15"
   },
   "available_systems": [
     "dune",

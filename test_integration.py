@@ -3,15 +3,18 @@
 End-to-end integration test for the complete TTRPG chat history system
 This demonstrates the full workflow from login to chat persistence
 """
-import types
 from unittest.mock import patch
 from app import app
+import ai_client
 
-
-def fake_openai_response(content="Hello from OpenAI"):
-    return types.SimpleNamespace(
-        choices=[types.SimpleNamespace(message=types.SimpleNamespace(content=content))]
-    )
+def fake_ai_result(text="AI: I understand you're playing Dune!", model="gpt-5"):
+    return {
+        "output_text": text,
+        "model": model,
+        "used_fallback": False,
+        "id": "resp_integration",
+        "usage": {"input_tokens": 10, "output_tokens": 12},
+    }
 
 
 def login(client):
@@ -26,10 +29,8 @@ def simulate_full_user_journey():
     """Simulate a complete user journey through the TTRPG system"""
     
     # Mock app.messages for backward compatibility
-    app.messages = []
-    
     with patch("app.summarize_messages", return_value=[{"role": "system", "content": "summary"}]), \
-         patch("app.client.chat.completions.create", return_value=fake_openai_response("AI: I understand you're playing Dune!")):
+         patch("ai_client.request", return_value=fake_ai_result()):
         
         with app.test_client() as client:
             print("1. User logs in...")
@@ -69,7 +70,7 @@ def simulate_full_user_journey():
             })
             assert chat_resp.status_code == 200
             response_data = chat_resp.get_json()
-            assert "response" in response_data
+            assert "message" in response_data
             print("   ✅ First message sent and AI responded")
             
             print("\n7. Verify TTRPG and character info was updated...")

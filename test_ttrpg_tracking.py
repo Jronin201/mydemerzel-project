@@ -5,15 +5,18 @@ Test for TTRPG tracking functionality
 import json
 import os
 import tempfile
-import types
 from unittest.mock import patch
 from app import app
+import ai_client
 
-
-def fake_openai_response(content="Hello from OpenAI"):
-    return types.SimpleNamespace(
-        choices=[types.SimpleNamespace(message=types.SimpleNamespace(content=content))]
-    )
+def fake_ai_result(text="I understand you're playing Dune!", model="gpt-5"):
+    return {
+        "output_text": text,
+        "model": model,
+        "used_fallback": False,
+        "id": "resp_ttrpg",
+        "usage": {"input_tokens": 10, "output_tokens": 12},
+    }
 
 
 def login(client):
@@ -87,14 +90,19 @@ def test_legacy_redirects():
 
 def test_chat_with_ttrpg_context():
     """Test that chat requests include TTRPG and character context"""
-    app.messages = []
     with patch("app.save_messages_to_file"), patch(
         "app.summarize_messages",
         return_value=[{"role": "system", "content": "summary"}],
-    ), patch(
-        "app.client.chat.completions.create",
-        return_value=fake_openai_response("I understand you're playing Dune!"),
-    ) as mock_create:
+    ), patch("ai_client.request") as mock_req:
+        def _side_effect(messages):
+            # Simulate ai_client's internal storage of kwargs for inspection
+            setattr(ai_client, "_last_ai_kwargs", {
+                "input": [
+                    {"role": m["role"], "content": [{"type": "input_text", "text": m["content"]}]} for m in messages
+                ]
+            })
+            return fake_ai_result()
+        mock_req.side_effect = _side_effect
         with app.test_client() as client:
             login(client)
             
@@ -115,12 +123,11 @@ def test_chat_with_ttrpg_context():
             
             assert resp.status_code == 200
             data = resp.get_json()
-            assert "response" in data
-            
-            # Check that the OpenAI call included the TTRPG context
-            args, kwargs = mock_create.call_args
-            messages = kwargs['messages']
-            system_message = messages[0]['content']
+            assert "message" in data
+            # Inspect last AI call constructed parts
+            last = getattr(ai_client, "_last_ai_kwargs", {})
+            parts = last.get("input", [])
+            system_message = parts[0]["content"][0]["text"] if parts else ""
             assert "Dune" in system_message
             assert "Duncan Idaho" in system_message
             assert "Combat: 20, Politics: 15" in system_message

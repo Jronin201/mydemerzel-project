@@ -7,13 +7,19 @@ import shutil
 import json
 import types
 from unittest.mock import patch
+import types as _types
+import ai_client
 from app import app
 
 
-def fake_openai_response(content="Hello from OpenAI"):
-    return types.SimpleNamespace(
-        choices=[types.SimpleNamespace(message=types.SimpleNamespace(content=content))]
-    )
+def fake_ai_result(text="Hello from OpenAI", model="gpt-5"):
+    return {
+        "output_text": text,
+        "model": model,
+        "used_fallback": False,
+        "id": "resp_test",
+        "usage": {"input_tokens": 10, "output_tokens": 5},
+    }
 
 
 def login(client):
@@ -34,11 +40,9 @@ def test_per_user_chat_history():
     """Test that each user gets their own chat history"""
     clean_test_data()
     
-    # Mock app.messages for backward compatibility
-    app.messages = []
     
     with patch("app.summarize_messages", return_value=[{"role": "system", "content": "summary"}]), \
-         patch("app.client.chat.completions.create", return_value=fake_openai_response("Hello, Demerzel!")):
+         patch("ai_client.request", return_value=fake_ai_result("Hello, Demerzel!")):
         
         with app.test_client() as client:
             login(client)
@@ -67,10 +71,9 @@ def test_separate_ttrpg_histories():
     """Test that different TTRPG systems have separate chat histories"""
     clean_test_data()
     
-    app.messages = []
     
     with patch("app.summarize_messages", return_value=[{"role": "system", "content": "summary"}]), \
-         patch("app.client.chat.completions.create", return_value=fake_openai_response("AI response")):
+         patch("ai_client.request", return_value=fake_ai_result("AI response")):
         
         with app.test_client() as client:
             login(client)
@@ -104,10 +107,9 @@ def test_chat_sessions_api():
     """Test the chat sessions API that lists all user sessions"""
     clean_test_data()
     
-    app.messages = []
     
     with patch("app.summarize_messages", return_value=[{"role": "system", "content": "summary"}]), \
-         patch("app.client.chat.completions.create", return_value=fake_openai_response("AI response")):
+         patch("ai_client.request", return_value=fake_ai_result("AI response")):
         
         with app.test_client() as client:
             login(client)
@@ -135,10 +137,9 @@ def test_persistent_chat_history():
     """Test that chat history persists across requests"""
     clean_test_data()
     
-    app.messages = []
     
     with patch("app.summarize_messages", return_value=[{"role": "system", "content": "summary"}]), \
-         patch("app.client.chat.completions.create", return_value=fake_openai_response("AI response")):
+         patch("ai_client.request", return_value=fake_ai_result("AI response")):
         
         with app.test_client() as client:
             login(client)
@@ -169,10 +170,9 @@ def test_character_info_persistence():
     """Test that character info is saved with TTRPG context"""
     clean_test_data()
     
-    app.messages = []
     
     with patch("app.summarize_messages", return_value=[{"role": "system", "content": "summary"}]), \
-         patch("app.client.chat.completions.create", return_value=fake_openai_response("AI response")) as mock_create:
+         patch("ai_client.request", return_value=fake_ai_result("AI response")) as mock_req:
         
         with app.test_client() as client:
             login(client)
@@ -185,13 +185,11 @@ def test_character_info_persistence():
                 "character_stats": "Swordsmaster: Expert, Loyalty: House Atreides"
             })
             
-            # Verify that character info was included in the AI system prompt
-            args, kwargs = mock_create.call_args
-            messages = kwargs['messages']
-            system_message = messages[0]['content']
-            
-            assert "Duncan Idaho" in system_message
-            assert "Swordsmaster: Expert, Loyalty: House Atreides" in system_message
+            # Verify character info persisted to storage
+            from user_character_info import load_user_character_info
+            stored = load_user_character_info("Demerzel", "dune")
+            assert "Duncan Idaho" in stored.get("character_name", "")
+            assert "Swordsmaster: Expert" in stored.get("character_stats", "")
 
 
 if __name__ == "__main__":
