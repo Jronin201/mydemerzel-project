@@ -65,6 +65,7 @@ Env vars:
 - `OPENAI_REASONING_EFFORT` (`low|medium|high`, default `medium`)
 - `OPENAI_MAX_OUTPUT_TOKENS` (default `20000` / no artificial upper clamp; min enforced 64)
 - `OPENAI_TOOL_CHOICE` (default `none`)
+- High-effort per-request override: include `{ "high_effort": true }` in /chat JSON body to force `reasoning.effort=high` (higher latency & cost). See PLAYBOOK for near-cap & truncation monitoring.
 
 Health check:
 
@@ -131,6 +132,10 @@ Structured log lines for `/chat` (JSON mode: `[CHAT] ...`, streaming: `[CHAT_STR
 - **Security**: CSP headers and input validation for secure operation
 - **Windows 11 Optimized**: Designed specifically for Windows 11 PC environments
 - **Quick-Action Buttons**: 20 TTRPG action buttons for rapid gameplay
+
+### Output & Reasoning Defaults
+
+Default max output tokens is 20k with medium reasoning effort. A context window preflight reduces the requested max if combined estimated input + output would exceed the configured window. Near-cap (≥95%) and truncation warnings are surfaced in logs and streaming done metadata (see PLAYBOOK for operational responses).
 
 ## Browser Compatibility
 
