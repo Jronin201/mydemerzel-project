@@ -1656,6 +1656,24 @@ UPDATE FORMATS (use exactly these):
     full_messages_dicts = [{"role": "system", "content": full_system_prompt}] + filtered
     full_messages = [dict_to_message_param(m) for m in full_messages_dicts]
 
+    # -------- PRE-FLIGHT CONTEXT WINDOW CHECK (non-stream + stream) --------
+    requested_max_output = getattr(ai_client, 'OPENAI_MAX_OUTPUT_TOKENS', 20000)
+    # Conservative char->token estimate: ceil(chars/4)
+    total_chars_for_est = sum(len(m.get('content','') or '') for m in full_messages_dicts)
+    est_input_tokens = (total_chars_for_est + 3) // 4
+    context_window = getattr(ai_client, 'MODEL_CONTEXT_WINDOW', 128000)
+    cap_used = requested_max_output
+    preflight_adjusted = False
+    if est_input_tokens + requested_max_output > context_window:
+        allowed = context_window - est_input_tokens
+        if allowed < 64:
+            print(f"[AI] preflight_reject_debug est_input_tokens={est_input_tokens} requested_max_output={requested_max_output} context_window={context_window} allowed={allowed}")
+            return jsonify({"error": "Context too large—shorten or split the request."}), 422
+        cap_used = max(64, allowed)
+        preflight_adjusted = True
+        print(f"[AI] preflight_adjust WARN req.id=- est_input_tokens={est_input_tokens} orig_max_output={requested_max_output} adjusted_max_output={cap_used} context_window={context_window}", flush=True)
+    # -----------------------------------------------------------------------
+
     # ================== STREAMING (SSE) BRANCH ==================
     if _env_bool("OPENAI_STREAM_RESPONSES", False) and 'text/event-stream' in request.headers.get('Accept','').lower():
         HEARTBEAT_INTERVAL = app.config.get("STREAM_HEARTBEAT_INTERVAL", 15.0)
@@ -1712,7 +1730,7 @@ UPDATE FORMATS (use exactly these):
 
         def generate():
             nonlocal final_meta, fallback_used, response_id
-            for item in run_attempt():
+            for item in run_attempt(max_output_tokens=cap_used):
                 if isinstance(item, str):
                     yield item
                 elif isinstance(item, tuple) and item and item[0] == '_result_':
@@ -1723,7 +1741,7 @@ UPDATE FORMATS (use exactly these):
                             return
                         if ai_client.is_hard_error(err) and AI_FALLBACKS_ENABLED:
                             print(f"[STREAM] primary hard error -> fallback ({err})")
-                            for fb_item in run_attempt(force_model='gpt-4o'):
+                            for fb_item in run_attempt(force_model='gpt-4o', max_output_tokens=cap_used):
                                 if isinstance(fb_item, str):
                                     yield fb_item
                                 elif isinstance(fb_item, tuple) and fb_item[0] == '_result_':
@@ -1745,7 +1763,7 @@ UPDATE FORMATS (use exactly these):
                         if not had_delta:
                             print("[STREAM] reasoning-only first attempt -> retry")
                             # Retry uses low effort regardless of high_effort override to reduce cost on reasoning-only path
-                            for r_item in run_attempt(reasoning_effort='low', max_output_tokens=4096):
+                            for r_item in run_attempt(reasoning_effort='low', max_output_tokens=min(4096, cap_used)):
                                 if isinstance(r_item, str):
                                     yield r_item
                                 elif isinstance(r_item, tuple) and r_item[0] == '_result_':
@@ -1775,7 +1793,7 @@ UPDATE FORMATS (use exactly these):
                 usage = final_meta.get('usage', {}) if isinstance(final_meta, dict) else {}
                 breaker_state = ai_client.circuit_state().get('state') if hasattr(ai_client, 'circuit_state') else '-'
                 backoff_ms = final_meta.get('backoff_ms') or '-'
-                enriched = {"model": final_meta.get('model') if final_meta.get('model') else None, "resp_id": response_id, "usage": usage, "fallback": fallback_used or final_meta.get('fallback', False), "latency_ms": latency_ms, "breaker_state": breaker_state, "backoff_ms": backoff_ms}
+                enriched = {"model": final_meta.get('model') if final_meta.get('model') else None, "resp_id": response_id, "usage": usage, "fallback": fallback_used or final_meta.get('fallback', False), "latency_ms": latency_ms, "breaker_state": breaker_state, "backoff_ms": backoff_ms, "cap_used": cap_used, "preflight_adjusted": preflight_adjusted, "est_input_tokens": est_input_tokens, "context_window": context_window}
                 # Propagate near_cap / truncated if available from ai_client or infer
                 # Always include near_cap / truncated flags (default False)
                 near_cap_flag = False
@@ -1824,7 +1842,7 @@ UPDATE FORMATS (use exactly these):
     # Provide kwargs aligned with ai_client.request signature; also mimic internal structure tests expect
     req_kwargs = {
         'reasoning_effort': ai_client.OPENAI_REASONING_EFFORT,
-        'max_output_tokens': ai_client.OPENAI_MAX_OUTPUT_TOKENS,
+        'max_output_tokens': cap_used,
         'high_effort': high_effort,
         # Extra convenience: include a pre-expanded reasoning dict for monkeypatched tests to inspect
         'reasoning': {'effort': ('high' if high_effort else ai_client.OPENAI_REASONING_EFFORT)}
@@ -1964,6 +1982,10 @@ UPDATE FORMATS (use exactly these):
         "mode_reason": mode_info.get("reason"),
         "mode_auto_reverted": mode_info.get("auto_reverted", False),
         "request_id": request_id,
+    "cap_used": cap_used,
+    "preflight_adjusted": preflight_adjusted,
+    "est_input_tokens": est_input_tokens,
+    "context_window": context_window,
     }
     # Backward compatibility: duplicate response field for legacy tests expecting 'response'
     # Provide both 'message' (preferred) and 'response' (legacy) keys
