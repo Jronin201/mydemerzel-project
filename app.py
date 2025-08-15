@@ -1752,6 +1752,20 @@ UPDATE FORMATS (use exactly these):
                 breaker_state = ai_client.circuit_state().get('state') if hasattr(ai_client, 'circuit_state') else '-'
                 backoff_ms = final_meta.get('backoff_ms') or '-'
                 enriched = {"model": final_meta.get('model') if final_meta.get('model') else None, "resp_id": response_id, "usage": usage, "fallback": fallback_used or final_meta.get('fallback', False), "latency_ms": latency_ms, "breaker_state": breaker_state, "backoff_ms": backoff_ms}
+                # Propagate near_cap / truncated if available from ai_client or infer
+                if 'near_cap' in final_meta:
+                    enriched['near_cap'] = bool(final_meta.get('near_cap'))
+                else:
+                    try:
+                        if usage.get('output_tokens') and ai_client.OPENAI_MAX_OUTPUT_TOKENS:
+                            enriched['near_cap'] = (usage['output_tokens']/float(ai_client.OPENAI_MAX_OUTPUT_TOKENS)) >= 0.95
+                    except Exception:
+                        pass
+                if 'truncated' in final_meta:
+                    enriched['truncated'] = bool(final_meta.get('truncated'))
+                else:
+                    if usage.get('output_tokens') == ai_client.OPENAI_MAX_OUTPUT_TOKENS:
+                        enriched['truncated'] = True
                 if 'error' in final_meta:
                     enriched['error'] = final_meta['error']
                     enriched['detail'] = final_meta.get('detail')

@@ -20,6 +20,7 @@ OPENAI_STREAM_RESPONSES = os.getenv("OPENAI_STREAM_RESPONSES", "false").lower() 
 AI_BACKOFF_ENABLED = os.getenv("AI_BACKOFF_ENABLED", "true").lower() in ("1","true","yes","on")
 AI_BACKOFF_BASE_MS = int(os.getenv("AI_BACKOFF_BASE_MS", "250"))
 AI_BACKOFF_CAP_MS = int(os.getenv("AI_BACKOFF_CAP_MS", "2000"))
+MODEL_CONTEXT_WINDOW = int(os.getenv("MODEL_CONTEXT_WINDOW", "128000"))  # conservative GPT-5 context window default
 
 # Circuit breaker (primary model only)
 _circuit_failures: Deque[float] = deque(maxlen=20)  # monotonic timestamps of recent primary hard failures
@@ -164,8 +165,32 @@ def request(messages: List[Dict[str,str]],
     max_output_tokens = max_output_tokens or OPENAI_MAX_OUTPUT_TOKENS
     if max_output_tokens < MIN_OUTPUT_TOKENS:
         max_output_tokens = MIN_OUTPUT_TOKENS
-    # No upper clamp; rely on model/context window. Preflight context window heuristic placeholder.
-    # If combined estimated tokens approach model limits, we could reduce here (not implemented due to model-specific limits unknown at runtime).
+    # Preflight context window estimation & adjustment
+    # Approximate tokens: chars / 3.5 (conservative). Sum across all message contents.
+    total_chars = 0
+    for m in messages:
+        total_chars += len(m.get('content',''))
+    est_input_tokens = int((total_chars / 3.5) + 0.5)
+    adjusted = False
+    if est_input_tokens + max_output_tokens > MODEL_CONTEXT_WINDOW:
+        allowed = MODEL_CONTEXT_WINDOW - est_input_tokens
+        if allowed < MIN_OUTPUT_TOKENS:
+            # reject preflight (return special structure)
+            print(f"[AI] preflight_reject req.id={req_id or '-'} est_input={est_input_tokens} window={MODEL_CONTEXT_WINDOW}")
+            return {
+                "error": "context_too_large",
+                "detail": "context too large; please shorten or split the request",
+                "model": force_model or OPENAI_MODEL,
+                "used_fallback": False,
+                "preflight_rejected": True,
+                "est_input_tokens": est_input_tokens,
+                "context_window": MODEL_CONTEXT_WINDOW,
+            }
+        new_max = max(MIN_OUTPUT_TOKENS, allowed)
+        if new_max < max_output_tokens:
+            print(f"[AI] preflight_adjust req.id={req_id or '-'} est_input={est_input_tokens} orig_output={max_output_tokens} adj_output={new_max} window={MODEL_CONTEXT_WINDOW}")
+            max_output_tokens = new_max
+            adjusted = True
     tool_choice = tool_choice or OPENAI_TOOL_CHOICE
     # Decide model list considering circuit breaker
     is_half_open = (_circuit_state == 'half_open')
@@ -248,7 +273,7 @@ def request(messages: List[Dict[str,str]],
                                       f" cap={OPENAI_MAX_OUTPUT_TOKENS} ratio={ratio:.2f}"
             except Exception:
                 pass
-            trunc_flag = getattr(resp, 'truncated', False) or getattr(resp, 'incomplete', False)
+            trunc_flag = getattr(resp, 'truncated', False) or getattr(resp, 'incomplete', False) or (usage.get('output_tokens') == OPENAI_MAX_OUTPUT_TOKENS)
             if trunc_flag:
                 warn_suffix += " WARN:truncated"
             print(
@@ -261,6 +286,12 @@ def request(messages: List[Dict[str,str]],
             )
             if idx == 0 and mdl == OPENAI_MODEL:
                 _record_primary_success(getattr(resp,'id',None))
+            near_cap = False
+            try:
+                if usage.get('output_tokens') and OPENAI_MAX_OUTPUT_TOKENS:
+                    near_cap = (usage['output_tokens'] / float(OPENAI_MAX_OUTPUT_TOKENS)) >= 0.95
+            except Exception:
+                near_cap = False
             return {
                 "output_text": output_text,
                 "model": response_model,
@@ -269,7 +300,12 @@ def request(messages: List[Dict[str,str]],
                 "usage": usage,
                 "raw": resp,
                 "backoff_ms": backoff_used_ms,
-                "breaker_state": circuit_state().get('state')
+                "breaker_state": circuit_state().get('state'),
+                "near_cap": near_cap,
+                "truncated": trunc_flag,
+                "preflight_adjusted": adjusted,
+                "est_input_tokens": est_input_tokens,
+                "context_window": MODEL_CONTEXT_WINDOW
             }
         except Exception as e:  # capture error
             last_error = e
@@ -316,6 +352,9 @@ def request(messages: List[Dict[str,str]],
                                               f" cap={OPENAI_MAX_OUTPUT_TOKENS} ratio={ratio:.2f}"
                     except Exception:
                         pass
+                    trunc_flag = getattr(resp, 'truncated', False) or getattr(resp, 'incomplete', False) or (usage.get('output_tokens') == OPENAI_MAX_OUTPUT_TOKENS)
+                    if trunc_flag and 'WARN:truncated' not in warn_suffix:
+                        warn_suffix += " WARN:truncated"
                     print(
                         "[AI] success "
                         f"openai.resp_id={getattr(resp,'id',None)} "
@@ -325,6 +364,12 @@ def request(messages: List[Dict[str,str]],
                         f"openai.fallback={is_fb}" + warn_suffix
                     )
                     _record_primary_success(getattr(resp,'id',None))
+                    near_cap = False
+                    try:
+                        if usage.get('output_tokens') and OPENAI_MAX_OUTPUT_TOKENS:
+                            near_cap = (usage['output_tokens'] / float(OPENAI_MAX_OUTPUT_TOKENS)) >= 0.95
+                    except Exception:
+                        near_cap = False
                     return {
                         "output_text": output_text,
                         "model": response_model,
@@ -333,7 +378,12 @@ def request(messages: List[Dict[str,str]],
                         "usage": usage,
                         "raw": resp,
                         "backoff_ms": backoff_used_ms,
-                        "breaker_state": circuit_state().get('state')
+                        "breaker_state": circuit_state().get('state'),
+                        "near_cap": near_cap,
+                        "truncated": trunc_flag,
+                        "preflight_adjusted": adjusted,
+                        "est_input_tokens": est_input_tokens,
+                        "context_window": MODEL_CONTEXT_WINDOW
                     }
                 except Exception as e2:
                     # Treat second failure as original, proceed to fallback logic below
@@ -400,6 +450,22 @@ def request_stream(messages: List[Dict[str,str]],
     offline = _client is None
     if offline:
         raise RuntimeError("client_offline")
+    # Preflight for streaming
+    total_chars = 0
+    for m in messages:
+        total_chars += len(m.get('content',''))
+    est_input_tokens = int((total_chars / 3.5) + 0.5)
+    adjusted = False
+    if est_input_tokens + max_output_tokens > MODEL_CONTEXT_WINDOW:
+        allowed = MODEL_CONTEXT_WINDOW - est_input_tokens
+        if allowed < MIN_OUTPUT_TOKENS:
+            print(f"[AI] preflight_reject_stream est_input={est_input_tokens} window={MODEL_CONTEXT_WINDOW}")
+            raise RuntimeError("context_too_large")
+        new_max = max(MIN_OUTPUT_TOKENS, allowed)
+        if new_max < max_output_tokens:
+            print(f"[AI] preflight_adjust_stream est_input={est_input_tokens} orig_output={max_output_tokens} adj_output={new_max} window={MODEL_CONTEXT_WINDOW}")
+            max_output_tokens = new_max
+            adjusted = True
     inp = _build_responses_input(messages)
     kwargs = {
         "model": mdl,

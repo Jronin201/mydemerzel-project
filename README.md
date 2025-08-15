@@ -66,6 +66,7 @@ Env vars:
 - `OPENAI_MAX_OUTPUT_TOKENS` (default `20000` / no artificial upper clamp; min enforced 64)
 - `OPENAI_TOOL_CHOICE` (default `none`)
 - High-effort per-request override: include `{ "high_effort": true }` in /chat JSON body to force `reasoning.effort=high` (higher latency & cost). See PLAYBOOK for near-cap & truncation monitoring.
+- `MODEL_CONTEXT_WINDOW` (default `128000`) used for preflight estimation; requests are adjusted or rejected if they would overflow.
 
 Health check:
 
@@ -135,7 +136,7 @@ Structured log lines for `/chat` (JSON mode: `[CHAT] ...`, streaming: `[CHAT_STR
 
 ### Output & Reasoning Defaults
 
-Default max output tokens is 20k with medium reasoning effort. A context window preflight reduces the requested max if combined estimated input + output would exceed the configured window. Near-cap (≥95%) and truncation warnings are surfaced in logs and streaming done metadata (see PLAYBOOK for operational responses).
+Default max output tokens is 20k with medium reasoning effort. A context window preflight reduces the requested max if combined estimated input + output would exceed the configured window (`MODEL_CONTEXT_WINDOW`). Near-cap (≥95%) and truncation flags (`near_cap`, `truncated`) appear in the enriched SSE `done` event and non‑stream JSON when relevant (see PLAYBOOK for operational responses).
 
 ## Browser Compatibility
 
