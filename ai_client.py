@@ -105,15 +105,34 @@ def reset_circuit():  # test helper
     _circuit_failures.clear()
 
 def _build_responses_input(messages: List[Dict[str, str]]) -> List[Dict[str, Any]]:
-    """Convert legacy messages [{'role':..., 'content':...}] to Responses 'input' parts."""
-    converted = []
+    """Convert message history to Responses API 'input' schema.
+
+    Mapping rules per API contract:
+      system -> input_text
+      user -> input_text
+      assistant -> output_text (or refusal if ever serialized as a refusal)
+
+    We auto-correct any assistant entries accidentally marked as input_text to avoid 400 errors.
+    """
+    converted: List[Dict[str, Any]] = []
     for m in messages:
         role = m.get('role', 'user')
         text = m.get('content', '')
+        if role == 'assistant':
+            part_type = 'output_text'
+        else:
+            part_type = 'input_text'
         converted.append({
             "role": role,
-            "content": [{"type": "input_text", "text": text}]
+            "content": [{"type": part_type, "text": text}]
         })
+    # Preflight guard: ensure no assistant message remains with input_text
+    for item in converted:
+        if item.get('role') == 'assistant':
+            for c in item.get('content', []):
+                if c.get('type') == 'input_text':  # should never happen; auto-fix
+                    c['type'] = 'output_text'
+    globals()['_last_converted_messages'] = converted  # test visibility
     return converted
 
 def _is_retryable_hard_error(exc: Exception) -> bool:
