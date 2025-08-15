@@ -18,11 +18,11 @@ Non-stream request (JSON):
 
 ```json
 {
-   "message": "<assistant text>",
-   "model": "gpt-5-YYYY-MM-DD",
-   "usage": { "input_tokens": 123, "output_tokens": 456 },
-   "fallback": false,
-   "request_id": "resp_abc123"
+  "message": "<assistant text>",
+  "model": "gpt-5-YYYY-MM-DD",
+  "usage": { "input_tokens": 123, "output_tokens": 456 },
+  "fallback": false,
+  "request_id": "resp_abc123"
 }
 ```
 
@@ -30,13 +30,13 @@ SSE done payload (final event):
 
 ```json
 {
-   "model":"gpt-5-YYYY-MM-DD",
-   "resp_id":"resp_abc123",
-   "usage":{"input_tokens":123,"output_tokens":456},
-   "fallback":false,
-   "latency_ms":842,
-   "breaker_state":"closed",
-   "backoff_ms":0
+  "model": "gpt-5-YYYY-MM-DD",
+  "resp_id": "resp_abc123",
+  "usage": { "input_tokens": 123, "output_tokens": 456 },
+  "fallback": false,
+  "latency_ms": 842,
+  "breaker_state": "closed",
+  "backoff_ms": 0
 }
 ```
 
@@ -101,11 +101,11 @@ Non-streaming JSON response schema (when streaming disabled or no SSE Accept hea
 
 ```json
 {
-   "message": "<assistant text + footer>",
-   "model": "gpt-5",
-   "usage": {"input_tokens": 123, "output_tokens": 456},
-   "fallback": false,
-   "request_id": "resp_..."
+  "message": "<assistant text + footer>",
+  "model": "gpt-5",
+  "usage": { "input_tokens": 123, "output_tokens": 456 },
+  "fallback": false,
+  "request_id": "resp_..."
 }
 ```
 

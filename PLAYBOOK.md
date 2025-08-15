@@ -2,17 +2,17 @@
 
 ## Environment Variables
 
-| Category | Variable | Default | Notes |
-|----------|----------|---------|-------|
-| Core | OPENAI_MODEL | gpt-5 | Primary model (Responses API) |
-| Core | OPENAI_REASONING_EFFORT | low | low, medium, high |
-| Core | OPENAI_MAX_OUTPUT_TOKENS | 512 | Clamped >=64 |
-| Core | OPENAI_TOOL_CHOICE | none | none or auto |
-| Streaming | OPENAI_STREAM_RESPONSES | false | Enable SSE (requires Accept header) |
-| Resilience | AI_BACKOFF_ENABLED | true | One full-jitter retry (429/5xx primary) |
-| Resilience | AI_BACKOFF_BASE_MS | 250 | Base backoff (ms) |
-| Resilience | AI_BACKOFF_CAP_MS | 2000 | Max backoff cap (ms) |
-| Observability | OBS_VERBOSE | false | Extra debug logging |
+| Category      | Variable                 | Default | Notes                                   |
+| ------------- | ------------------------ | ------- | --------------------------------------- |
+| Core          | OPENAI_MODEL             | gpt-5   | Primary model (Responses API)           |
+| Core          | OPENAI_REASONING_EFFORT  | low     | low, medium, high                       |
+| Core          | OPENAI_MAX_OUTPUT_TOKENS | 512     | Clamped >=64                            |
+| Core          | OPENAI_TOOL_CHOICE       | none    | none or auto                            |
+| Streaming     | OPENAI_STREAM_RESPONSES  | false   | Enable SSE (requires Accept header)     |
+| Resilience    | AI_BACKOFF_ENABLED       | true    | One full-jitter retry (429/5xx primary) |
+| Resilience    | AI_BACKOFF_BASE_MS       | 250     | Base backoff (ms)                       |
+| Resilience    | AI_BACKOFF_CAP_MS        | 2000    | Max backoff cap (ms)                    |
+| Observability | OBS_VERBOSE              | false   | Extra debug logging                     |
 
 ## API Behavior (Responses-only)
 
@@ -41,13 +41,17 @@ const es = new EventSource("/chat/stream");
 es.addEventListener("token", (e) => {
   // Append e.data to your UI
 });
-es.addEventListener("ping", () => { /* ignore */ });
+es.addEventListener("ping", () => {
+  /* ignore */
+});
 es.addEventListener("done", (e) => {
   const meta = JSON.parse(e.data);
   es.close();
   // meta = { model, resp_id, usage:{input_tokens,output_tokens}, fallback, latency_ms, breaker_state, backoff_ms }
 });
-es.onerror = () => { es.close(); /* optional reconnect with backoff */ };
+es.onerror = () => {
+  es.close(); /* optional reconnect with backoff */
+};
 ```
 
 ## Resilience Semantics
@@ -62,8 +66,8 @@ Fallback: If retry fails hard, swap to gpt-4o exactly once.
 
 Circuit breaker:
 
-* Open: ≥3 hard failures in 60s → skip primary for 120s.
-* Half-open: after 120s, allow one probe; success → close, failure → reopen 120s.
+- Open: ≥3 hard failures in 60s → skip primary for 120s.
+- Half-open: after 120s, allow one probe; success → close, failure → reopen 120s.
 
 Abort handling (SSE): client disconnect stops upstream immediately; logs stream.aborted=true; no done event emitted.
 
@@ -90,9 +94,9 @@ Breaker drill: trigger 3 hard failures in <60s; confirm breaker.state=open and i
 
 Tuning:
 
-* Larger outputs → increase OPENAI_MAX_OUTPUT_TOKENS (never <64).
-* More/less “thinking” → adjust OPENAI_REASONING_EFFORT.
-* Tools off by default via OPENAI_TOOL_CHOICE=none.
+- Larger outputs → increase OPENAI_MAX_OUTPUT_TOKENS (never <64).
+- More/less “thinking” → adjust OPENAI_REASONING_EFFORT.
+- Tools off by default via OPENAI_TOOL_CHOICE=none.
 
 ## Render Deployment Checklist
 
@@ -110,14 +114,14 @@ OBS_VERBOSE=false
 
 Save env; restart service.
 
-* GET /health/ai → 200.
-* Non-stream /chat → returns text; logs show latency + breaker state.
-* Stream /chat → see token deltas and a single enriched done.
-* Staging: simulate 429/5xx; confirm one backoff retry then fallback, and breaker behavior after 3 failures.
+- GET /health/ai → 200.
+- Non-stream /chat → returns text; logs show latency + breaker state.
+- Stream /chat → see token deltas and a single enriched done.
+- Staging: simulate 429/5xx; confirm one backoff retry then fallback, and breaker behavior after 3 failures.
 
 Migration Notes:
 
-* Removed legacy Chat Completions paths and shims.
-* Unified on Responses API + GPT-5.
-* Single enriched done event; no duplicate finals.
-* Deterministic text via typed input_text + text.format.
+- Removed legacy Chat Completions paths and shims.
+- Unified on Responses API + GPT-5.
+- Single enriched done event; no duplicate finals.
+- Deterministic text via typed input_text + text.format.
