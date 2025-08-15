@@ -1,0 +1,18 @@
+{
+  "username": "Demerzel",
+  "ttrpg_system": "mouse-guard",
+  "last_updated": "2025-08-14 23:58:39",
+  "message_count": 2,
+  "messages": [
+    {
+      "role": "user",
+      "content": "I attack the goblin with my sword! How much damage do I deal?",
+      "timestamp": "2025-08-14 23:58:39"
+    },
+    {
+      "role": "assistant",
+      "content": "Tension builds as intent sharpens in the dust-charged air.\n\n*Model: gpt-5*",
+      "timestamp": "2025-08-14 23:58:39"
+    }
+  ]
+}

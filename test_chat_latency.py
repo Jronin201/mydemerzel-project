@@ -11,17 +11,21 @@ def test_non_stream_latency_log(monkeypatch, capsys):
     # patch ai_client.request to return simple response quickly
     import ai_client
     def fake_request(messages, **kwargs):
-        # mimic ai_client.request return structure
+        # mimic ai_client.request return structure with id/backoff_ms for logging
         return {
             'output_text':'Hello',
             'usage': {'input_tokens':5,'output_tokens':2},
             'model':'gpt-5',
-            'id':'resp_lat'
+            'id':'resp_lat',
+            'backoff_ms': '-',
+            'used_fallback': False
         }
     monkeypatch.setattr(ai_client,'request', fake_request)
     with app.test_client() as c:
         r = c.post('/chat', json={'message':'Hi','page':'general'})
         assert r.status_code == 200
+    # Force flush
+    print('', flush=True)
     # capture logs
     captured = capsys.readouterr().out
     # find CHAT line

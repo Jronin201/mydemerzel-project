@@ -211,20 +211,23 @@ def request(messages: List[Dict[str,str]],
                     "output_tokens": getattr(u, 'output_tokens', None),
                     "total_tokens": getattr(u, 'total_tokens', None),
                 }
+            # Determine fallback usage based on the actual response model (not just the requested one)
+            response_model = getattr(resp, 'model', mdl)
+            is_fb = (response_model != OPENAI_MODEL)
             print(
                 "[AI] success "
                 f"openai.resp_id={getattr(resp,'id',None)} "
-                f"openai.model={getattr(resp,'model',mdl)} "
+                f"openai.model={response_model} "
                 f"openai.usage.input_tokens={usage.get('input_tokens')} "
                 f"openai.usage.output_tokens={usage.get('output_tokens')} "
-                f"openai.fallback={idx>0}"
+                f"openai.fallback={is_fb}"
             )
             if idx == 0 and mdl == OPENAI_MODEL:
                 _record_primary_success(getattr(resp,'id',None))
             return {
                 "output_text": output_text,
-                "model": getattr(resp, 'model', mdl),
-                "used_fallback": bool(idx>0),
+                "model": response_model,
+                "used_fallback": is_fb,
                 "id": getattr(resp,'id',None),
                 "usage": usage,
                 "raw": resp,
@@ -241,11 +244,11 @@ def request(messages: List[Dict[str,str]],
             status = getattr(e,'status_code',None) or getattr(e,'http_status',None)
             # Backoff retry ONLY for primary 429 rate limit (not for 5xx so fallback engages sooner per tests)
             if idx == 0 and mdl == OPENAI_MODEL and hard and AI_BACKOFF_ENABLED and not performed_backoff_retry and status == 429 and not is_half_open:
-                # single full-jitter backoff retry on primary inline (do not advance to fallback)
                 attempt = 1
                 sleep_ms = random.uniform(0, min(AI_BACKOFF_CAP_MS, AI_BACKOFF_BASE_MS * (2 ** attempt)))
                 backoff_used_ms = int(sleep_ms)
-                print(f"[AI] backoff wait_ms={backoff_used_ms} reason=status_{status}")
+                reason = f"status_{status}"
+                print(f"[AI] backoff wait_ms={backoff_used_ms} reason={reason}")
                 performed_backoff_retry = True
                 try:
                     time.sleep(sleep_ms/1000.0)
@@ -265,19 +268,21 @@ def request(messages: List[Dict[str,str]],
                             "output_tokens": getattr(u, 'output_tokens', None),
                             "total_tokens": getattr(u, 'total_tokens', None),
                         }
+                    response_model = getattr(resp, 'model', mdl)
+                    is_fb = (response_model != OPENAI_MODEL)
                     print(
                         "[AI] success "
                         f"openai.resp_id={getattr(resp,'id',None)} "
-                        f"openai.model={getattr(resp,'model',mdl)} "
+                        f"openai.model={response_model} "
                         f"openai.usage.input_tokens={usage.get('input_tokens')} "
                         f"openai.usage.output_tokens={usage.get('output_tokens')} "
-                        f"openai.fallback={idx>0}"
+                        f"openai.fallback={is_fb}"
                     )
                     _record_primary_success(getattr(resp,'id',None))
                     return {
                         "output_text": output_text,
-                        "model": getattr(resp, 'model', mdl),
-                        "used_fallback": False,
+                        "model": response_model,
+                        "used_fallback": is_fb,
                         "id": getattr(resp,'id',None),
                         "usage": usage,
                         "raw": resp,

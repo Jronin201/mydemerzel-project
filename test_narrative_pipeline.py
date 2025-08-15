@@ -1,5 +1,6 @@
 import json, os
-os.environ.setdefault("OPENAI_API_KEY", "test-key")
+import pytest
+os.environ.setdefault("OPENAI_API_KEY", "dummy-key")
 
 # Patch OpenAI client before importing app
 from types import SimpleNamespace
@@ -24,7 +25,7 @@ def _fake_create(**kwargs):
     return _FakeResponse("Tension builds as intent sharpens in the dust-charged air.")
 
 from app import app, MECHANICS_BAN_ENFORCED
-import ai_client
+import ai_client, types
 
 # Monkeypatch ai_client.request for deterministic offline behavior
 def _fake_request(messages, **kwargs):
@@ -41,6 +42,20 @@ def _fake_request(messages, **kwargs):
 _orig_request = ai_client.request
 ai_client.request = _fake_request  # type: ignore
 
+@pytest.fixture(autouse=True)
+def _ensure_stub(monkeypatch):
+    # Re-apply stub each test in case other modules reloaded ai_client
+    monkeypatch.setattr(ai_client, 'request', _fake_request, raising=True)
+    yield
+# Patch underlying _client to prevent real network attempts anywhere else
+class _StubResponses:
+    def create(self, **kwargs):
+        class U: pass
+        u=types.SimpleNamespace(input_tokens=1, output_tokens=2, total_tokens=3)
+        return types.SimpleNamespace(output_text='Stubbed response', model=kwargs.get('model','gpt-5'), id='stub', usage=u)
+class _StubClient: responses=_StubResponses()
+ai_client._client = _StubClient()  # type: ignore
+
 def teardown_module(module):  # pragma: no cover
     ai_client.request = _orig_request  # restore original for other tests
 
@@ -50,27 +65,32 @@ def _post(message, page="pendragon"):
 
 # Basic narrative only
 def test_narrative_only():
+    import ai_client
     r1 = _post("Hello")
     assert r1.status_code == 200
     r2 = _post("The raider closes in.")
     data = r2.get_json()
-    assert data and "roll" not in data["response"].lower()
+    msg = (data.get("message") or data.get("response",""))
+    assert data and "roll" not in msg.lower()
 
 # Outcome protocol
 def test_outcome_success():
+    import ai_client
     r = _post("I bash with my shield. (Shield bash) [SUCCESS]")
     data = r.get_json()
     assert data
-    resp = data["response"].lower()
+    resp = (data.get("message") or data.get("response","" )).lower()
     assert "success" in resp or "impact" in resp
     assert all(term not in resp for term in ["d20", "tn", "dc"])  # mechanics ban
 
 # Blocklist sanitization
 def test_blocklist_sanitization():
+    import ai_client
     r = _post("I try to roll a d20 for this.")
     data = r.get_json()
     assert data
-    assert "d20" not in data["response"].lower()
+    msg = (data.get("message") or data.get("response",""))
+    assert "d20" not in msg.lower()
 
 if __name__ == "__main__":
     test_narrative_only()

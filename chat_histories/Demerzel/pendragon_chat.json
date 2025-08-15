@@ -1,143 +1,43 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "pendragon",
-  "last_updated": "2025-08-14 21:27:13",
-  "message_count": 27,
+  "last_updated": "2025-08-14 23:58:44",
+  "message_count": 7,
   "messages": [
     {
       "role": "assistant",
       "content": "Welcome! Would you like to begin a campaign in Arthurian Britain, the legendary realm of King Arthur, chivalrous knights, and the Round Table? I can help you create a character and set up your adventure in the world of Pendragon 6th Edition.",
-      "timestamp": "2025-08-14 21:19:38"
-    },
-    {
-      "role": "user",
-      "content": "Hello",
-      "timestamp": "2025-08-14 21:25:11"
-    },
-    {
-      "role": "assistant",
-      "content": "Tension builds as intent sharpens in the dust-charged air.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:25:11"
+      "timestamp": "2025-08-14 23:58:43"
     },
     {
       "role": "user",
       "content": "The raider closes in.",
-      "timestamp": "2025-08-14 21:25:12"
+      "timestamp": "2025-08-14 23:58:43"
     },
     {
       "role": "assistant",
       "content": "Tension builds as intent sharpens in the dust-charged air.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:25:12"
+      "timestamp": "2025-08-14 23:58:43"
     },
     {
       "role": "user",
       "content": "I bash with my shield. (Shield bash) [SUCCESS]",
-      "timestamp": "2025-08-14 21:25:12"
-    },
-    {
-      "role": "assistant",
-      "content": "The action succeeds decisively; the foe staggers. Momentum shifts as the scene widens.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:25:12"
-    },
-    {
-      "role": "user",
-      "content": "I try to roll a d20 for this.",
-      "timestamp": "2025-08-14 21:25:12"
-    },
-    {
-      "role": "assistant",
-      "content": "The narrative flows onward, untouched by overt mechanics.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:25:12"
-    },
-    {
-      "role": "user",
-      "content": "I bash with my shield. (Shield bash) [SUCCESS]",
-      "timestamp": "2025-08-14 21:25:24"
+      "timestamp": "2025-08-14 23:58:43"
     },
     {
       "role": "assistant",
       "content": "Success: the action succeeds decisively; the foe staggers. Momentum shifts as the scene widens.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:25:24"
-    },
-    {
-      "role": "user",
-      "content": "Hello",
-      "timestamp": "2025-08-14 21:26:51"
-    },
-    {
-      "role": "assistant",
-      "content": "Tension builds as intent sharpens in the dust-charged air.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:26:51"
-    },
-    {
-      "role": "user",
-      "content": "The raider closes in.",
-      "timestamp": "2025-08-14 21:26:51"
-    },
-    {
-      "role": "assistant",
-      "content": "Tension builds as intent sharpens in the dust-charged air.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:26:51"
-    },
-    {
-      "role": "user",
-      "content": "I bash with my shield. (Shield bash) [SUCCESS]",
-      "timestamp": "2025-08-14 21:26:51"
-    },
-    {
-      "role": "assistant",
-      "content": "Success: the action succeeds decisively; the foe staggers. Momentum shifts as the scene widens.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:26:51"
+      "timestamp": "2025-08-14 23:58:43"
     },
     {
       "role": "user",
       "content": "I try to roll a d20 for this.",
-      "timestamp": "2025-08-14 21:26:51"
+      "timestamp": "2025-08-14 23:58:43"
     },
     {
       "role": "assistant",
       "content": "The narrative flows onward, untouched by overt mechanics.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:26:51"
-    },
-    {
-      "role": "user",
-      "content": "Hello",
-      "timestamp": "2025-08-14 21:27:12"
-    },
-    {
-      "role": "assistant",
-      "content": "Tension builds as intent sharpens in the dust-charged air.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:27:12"
-    },
-    {
-      "role": "user",
-      "content": "The raider closes in.",
-      "timestamp": "2025-08-14 21:27:12"
-    },
-    {
-      "role": "assistant",
-      "content": "Tension builds as intent sharpens in the dust-charged air.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:27:12"
-    },
-    {
-      "role": "user",
-      "content": "I bash with my shield. (Shield bash) [SUCCESS]",
-      "timestamp": "2025-08-14 21:27:12"
-    },
-    {
-      "role": "assistant",
-      "content": "Success: the action succeeds decisively; the foe staggers. Momentum shifts as the scene widens.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:27:12"
-    },
-    {
-      "role": "user",
-      "content": "I try to roll a d20 for this.",
-      "timestamp": "2025-08-14 21:27:13"
-    },
-    {
-      "role": "assistant",
-      "content": "The narrative flows onward, untouched by overt mechanics.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-14 21:27:13"
+      "timestamp": "2025-08-14 23:58:43"
     }
   ]
 }

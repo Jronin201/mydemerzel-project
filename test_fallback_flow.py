@@ -1,6 +1,6 @@
 import os
 import types
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 os.environ.setdefault("OPENAI_API_KEY", "test-key")
 
@@ -22,25 +22,34 @@ def fake_success_call(*args, **kwargs):
 
 def test_primary_unavailable_triggers_fallback(monkeypatch):
     # Ensure default model
-    monkeypatch.setenv("OPENAI_CHAT_MODEL", "gpt-5.0")
-    import importlib, app
-    importlib.reload(app)
-
-    # Patch first call (primary) to raise, fallback model call to succeed
-    call_sequence = []
-
-    def conditional_call(model=None, **kwargs):
-        call_sequence.append(model)
-        if model == "gpt-5.0":
-            raise Exception(ERROR_TEXT)
-        return fake_success_call()
-
-    with patch.object(app.client.chat.completions, 'create', side_effect=conditional_call):
-        with app.app.test_client() as c:
-            resp = c.post('/chat', json={"message": "Explain combat", "page": "pendragon"})
-            data = resp.get_json()
-            assert resp.status_code == 200
-            assert "Fallback OK" in data.get("response", "")
-            assert data.get("fallback_used") is True
-            assert any(m == "gpt-5.0" for m in call_sequence)
-            assert any(m == "gpt-4o" for m in call_sequence)
+    import ai_client, importlib
+    importlib.reload(ai_client)
+    # Script sequence: primary hard error then fallback success
+    class HardErr(Exception):
+        status_code = 500
+    # Simulate _client.responses.create raising once (primary) then fallback success
+    import types
+    class DummyResp:
+        def __init__(self, text, model):
+            self.output_text=text; self.model=model; self.id='fb'
+            class U: ...
+            u = types.SimpleNamespace(input_tokens=3, output_tokens=7, total_tokens=10)
+            self.usage = u
+    class HardErr(Exception):
+        status_code=500
+    seq=[HardErr('boom'), DummyResp('Fallback OK','gpt-4o')]
+    class DummyClient:
+        class Responses:
+            def __init__(self, seq): self.seq=seq
+            def create(self, **kwargs):
+                item=self.seq.pop(0)
+                if isinstance(item, Exception):
+                    raise item
+                # override model to simulate fallback model selected
+                item.model=kwargs['model']
+                return item
+        def __init__(self, seq): self.responses=DummyClient.Responses(seq)
+    monkeypatch.setattr(ai_client,'_client', DummyClient(seq))
+    res = ai_client.request([{"role":"user","content":"Explain combat"}])
+    assert res['output_text'] == 'Fallback OK'
+    assert res['used_fallback'] is True

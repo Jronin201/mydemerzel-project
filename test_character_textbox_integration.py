@@ -5,6 +5,7 @@ This test verifies that the AI can properly read from and write to the character
 """
 
 import requests
+import pytest
 import json
 import time
 import sys
@@ -29,6 +30,13 @@ def test_login():
     else:
         print(f"❌ Login failed: {response.status_code}")
         return None
+
+@pytest.fixture()
+def cookies():
+    # obtain cookies once per test needing authenticated calls
+    resp = requests.post(f"{BASE_URL}/login", data={"username":"Demerzel","password":"Seraphine"}, allow_redirects=False)
+    assert resp.status_code in (200,302)
+    return resp.cookies
 
 def test_character_info_api(cookies):
     """Test the character info API endpoints"""

@@ -1,10 +1,10 @@
 {
-  "current_ttrpg": "pendragon",
+  "current_ttrpg": "general",
   "session_start": "2025-07-15T06:34:08.037202",
-  "last_updated": "2025-08-14T21:27:13.144241",
+  "last_updated": "2025-08-14T23:58:48.144251",
   "character_info": {
-    "name": "Gandric the Brave - Level 3 Ranger, HP: 25/25",
-    "stats": "Currently investigating strange happenings near Bree. Spoke with Boromir about potential spy network."
+    "name": "Duncan Idaho",
+    "stats": "Combat: 20, Politics: 15"
   },
   "available_systems": [
     "dune",
