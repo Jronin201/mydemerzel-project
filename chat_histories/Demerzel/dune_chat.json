@@ -1,128 +1,128 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "dune",
-  "last_updated": "2025-08-15 06:00:17",
+  "last_updated": "2025-08-15 06:20:29",
   "message_count": 24,
   "messages": [
     {
       "role": "user",
       "content": "I explore the desert",
-      "timestamp": "2025-08-15 06:00:10"
+      "timestamp": "2025-08-15 06:20:22"
     },
     {
       "role": "assistant",
       "content": "AI response  *Model: gpt-5*",
-      "timestamp": "2025-08-15 06:00:10"
+      "timestamp": "2025-08-15 06:20:22"
     },
     {
       "role": "user",
       "content": "What political factions should I be aware of?",
-      "timestamp": "2025-08-15 06:00:11"
+      "timestamp": "2025-08-15 06:20:22"
     },
     {
       "role": "assistant",
       "content": "Welcome to the dangerous world of Dune! Would you like to begin a campaign in the dangerous desert world of Arrakis and the political intrigue of the Imperium? I can help you create a character and set up your adventure in Dune: Adventures in the Imperium.",
-      "timestamp": "2025-08-15 06:00:11"
+      "timestamp": "2025-08-15 06:20:22"
     },
     {
       "role": "user",
       "content": "What do you know about my character?",
-      "timestamp": "2025-08-15 06:00:11"
+      "timestamp": "2025-08-15 06:20:22"
     },
     {
       "role": "assistant",
       "content": "Tension builds as intent sharpens in the dust-charged air.  *Model: gpt-5*",
-      "timestamp": "2025-08-15 06:00:11"
+      "timestamp": "2025-08-15 06:20:22"
     },
     {
       "role": "user",
       "content": "Create a new Dune character for me with rich descriptions and formatting",
-      "timestamp": "2025-08-15 06:00:12"
+      "timestamp": "2025-08-15 06:20:23"
     },
     {
       "role": "assistant",
       "content": "Welcome to the dangerous world of Dune! Would you like to begin a campaign in the dangerous desert world of Arrakis and the political intrigue of the Imperium? I can help you create a character and set up your adventure in Dune: Adventures in the Imperium.",
-      "timestamp": "2025-08-15 06:00:12"
+      "timestamp": "2025-08-15 06:20:23"
     },
     {
       "role": "user",
       "content": "Hello",
-      "timestamp": "2025-08-15 06:00:14"
+      "timestamp": "2025-08-15 06:20:25"
     },
     {
       "role": "assistant",
       "content": "Welcome to the dangerous world of Dune! Would you like to begin a campaign in the dangerous desert world of Arrakis and the political intrigue of the Imperium? I can help you create a character and set up your adventure in Dune: Adventures in the Imperium.",
-      "timestamp": "2025-08-15 06:00:14"
+      "timestamp": "2025-08-15 06:20:25"
     },
     {
       "role": "user",
       "content": "Yes, Id like to start a campaign",
-      "timestamp": "2025-08-15 06:00:14"
+      "timestamp": "2025-08-15 06:20:25"
     },
     {
       "role": "assistant",
       "content": "Excellent! Before we begin your adventure in the world of Dune, let's set up your character. You can either:\n\n1. Create a new character (I can guide you through the process)\n2. Enter existing character information in the Character Information field on the left\n\nWould you like me to help you create a new character, or do you have character details ready to enter?",
-      "timestamp": "2025-08-15 06:00:14"
+      "timestamp": "2025-08-15 06:20:25"
     },
     {
       "role": "user",
       "content": "Describe Arrakis environment details.",
-      "timestamp": "2025-08-15 06:00:14"
+      "timestamp": "2025-08-15 06:20:26"
     },
     {
       "role": "assistant",
       "content": "test reply  *Model: gpt-5*",
-      "timestamp": "2025-08-15 06:00:14"
+      "timestamp": "2025-08-15 06:20:26"
     },
     {
       "role": "user",
       "content": "hello",
-      "timestamp": "2025-08-15 06:00:14"
+      "timestamp": "2025-08-15 06:20:26"
     },
     {
       "role": "assistant",
       "content": "Welcome to the dangerous world of Dune! Would you like to begin a campaign in the dangerous desert world of Arrakis and the political intrigue of the Imperium? I can help you create a character and set up your adventure in Dune: Adventures in the Imperium.",
-      "timestamp": "2025-08-15 06:00:14"
+      "timestamp": "2025-08-15 06:20:26"
     },
     {
       "role": "user",
       "content": "Yes, Id like to start a campaign",
-      "timestamp": "2025-08-15 06:00:14"
+      "timestamp": "2025-08-15 06:20:26"
     },
     {
       "role": "assistant",
       "content": "Excellent! Before we begin your adventure in the world of Dune, let's set up your character. You can either:\n\n1. Create a new character (I can guide you through the process)\n2. Enter existing character information in the Character Information field on the left\n\nWould you like me to help you create a new character, or do you have character details ready to enter?",
-      "timestamp": "2025-08-15 06:00:14"
+      "timestamp": "2025-08-15 06:20:26"
     },
     {
       "role": "user",
       "content": "How do I mine spice on Arrakis?",
-      "timestamp": "2025-08-15 06:00:15"
+      "timestamp": "2025-08-15 06:20:27"
     },
     {
       "role": "assistant",
       "content": "Welcome to the dangerous world of Dune! Would you like to begin a campaign in the dangerous desert world of Arrakis and the political intrigue of the Imperium? I can help you create a character and set up your adventure in Dune: Adventures in the Imperium.",
-      "timestamp": "2025-08-15 06:00:15"
+      "timestamp": "2025-08-15 06:20:27"
     },
     {
       "role": "user",
       "content": "Tell me about the current situation.",
-      "timestamp": "2025-08-15 06:00:16"
+      "timestamp": "2025-08-15 06:20:28"
     },
     {
       "role": "assistant",
       "content": "Welcome to the dangerous world of Dune! Would you like to begin a campaign in the dangerous desert world of Arrakis and the political intrigue of the Imperium? I can help you create a character and set up your adventure in Dune: Adventures in the Imperium.",
-      "timestamp": "2025-08-15 06:00:16"
+      "timestamp": "2025-08-15 06:20:28"
     },
     {
       "role": "user",
       "content": "Tell me about the spice",
-      "timestamp": "2025-08-15 06:00:17"
+      "timestamp": "2025-08-15 06:20:29"
     },
     {
       "role": "assistant",
       "content": "I understand you're playing Dune!  *Model: gpt-5*",
-      "timestamp": "2025-08-15 06:00:17"
+      "timestamp": "2025-08-15 06:20:29"
     }
   ]
 }

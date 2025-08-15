@@ -58,6 +58,21 @@ sys.path.append(str(Path(__file__).parent / "scripts"))
 import random
 
 try:
+    pass
+except Exception:
+    pass
+
+# ---- Token Estimation Helper ----
+def estimate_input_tokens(parts: list[dict]) -> int:
+    total_chars = 0
+    for p in parts:
+        try:
+            total_chars += len(p.get('content','') or '')
+        except Exception:
+            continue
+    return (total_chars + 3) // 4
+
+try:
     from chatbot_campaign_manager import process_user_request
 except ImportError:
     def process_user_request(user_request, session_state=None, character_name=None, character_stats=None):
@@ -1659,8 +1674,7 @@ UPDATE FORMATS (use exactly these):
     # -------- PRE-FLIGHT CONTEXT WINDOW CHECK (non-stream + stream) --------
     requested_max_output = getattr(ai_client, 'OPENAI_MAX_OUTPUT_TOKENS', 20000)
     # Conservative char->token estimate: ceil(chars/4)
-    total_chars_for_est = sum(len(m.get('content','') or '') for m in full_messages_dicts)
-    est_input_tokens = (total_chars_for_est + 3) // 4
+    est_input_tokens = estimate_input_tokens(full_messages_dicts)
     context_window = getattr(ai_client, 'MODEL_CONTEXT_WINDOW', 128000)
     cap_used = requested_max_output
     preflight_adjusted = False
