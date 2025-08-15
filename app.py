@@ -1042,7 +1042,15 @@ def sanitize_mechanics(output_text: str) -> tuple[str, bool]:
 
 def build_system_prompt(game: str, outcome_block: str, character_context: str) -> str:
     base = compose_base_prompts(game)
-    blocks = [b for b in [base, MECHANICS_BAN_BLOCK, OUTCOME_PROTOCOL_GUIDANCE if OUTCOME_PROTOCOL_ENABLED else "", outcome_block, character_context] if b]
+    # Brevity profile instruction
+    brevity_instruction = "By default, narrate one coherent beat in two tight paragraphs. If more is genuinely needed, end each beat with the marker [END SCENE] and wait."
+    style_map = {
+        "short": "Write a scene in 2 paragraphs, about 8–12 sentences total.",
+        "extended": "Write a scene in 4–6 paragraphs, more detail, end each beat with [END SCENE] if more is needed.",
+        "montage": "Write a montage: 6–10 very short lines (beats), each a single vivid moment."
+    }
+    style_instruction = style_map.get(globals().get('scene_style', 'short'), style_map['short'])
+    blocks = [b for b in [base, brevity_instruction, style_instruction, MECHANICS_BAN_BLOCK, OUTCOME_PROTOCOL_GUIDANCE if OUTCOME_PROTOCOL_ENABLED else "", outcome_block, character_context] if b]
     return "\n\n".join(blocks)
 
 def _classify_openai_error(e: Exception) -> Dict[str, Any]:
@@ -1745,7 +1753,12 @@ UPDATE FORMATS (use exactly these):
                             response_id = final_meta.get('id')
                             # final_meta already set (meta)
                     break
+            # Early-stop for [END SCENE] marker
             final_text = ''.join(aggregated).strip()
+            end_scene_idx = final_text.find('[END SCENE]')
+            if end_scene_idx != -1:
+                final_text = final_text[:end_scene_idx].rstrip()
+                # Remove trailing newlines and whitespace
             if final_meta:
                 latency_ms = int((time.time() - start_time)*1000)
                 usage = final_meta.get('usage', {}) if isinstance(final_meta, dict) else {}

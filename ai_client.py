@@ -165,6 +165,11 @@ def request(messages: List[Dict[str,str]],
     max_output_tokens = max_output_tokens or OPENAI_MAX_OUTPUT_TOKENS
     if max_output_tokens < MIN_OUTPUT_TOKENS:
         max_output_tokens = MIN_OUTPUT_TOKENS
+    # Scene style config (short, extended, montage)
+    scene_style = None
+    if isinstance(messages, list) and len(messages) > 0 and isinstance(messages[0], dict):
+        scene_style = messages[0].get('scene_style')
+    # Pass scene_style for prompt construction (handled in app.py)
     # Preflight context window estimation & adjustment
     # Approximate tokens: chars / 3.5 (conservative). Sum across all message contents.
     total_chars = 0
