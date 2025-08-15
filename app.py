@@ -1808,25 +1808,38 @@ UPDATE FORMATS (use exactly these):
                 breaker_state = ai_client.circuit_state().get('state') if hasattr(ai_client, 'circuit_state') else '-'
                 backoff_ms = final_meta.get('backoff_ms') or '-'
                 enriched = {"model": final_meta.get('model') if final_meta.get('model') else None, "resp_id": response_id, "usage": usage, "fallback": fallback_used or final_meta.get('fallback', False), "latency_ms": latency_ms, "breaker_state": breaker_state, "backoff_ms": backoff_ms, "cap_used": cap_used, "preflight_adjusted": preflight_adjusted, "est_input_tokens": est_input_tokens, "context_window": context_window}
-                # Propagate near_cap / truncated if available from ai_client or infer
-                # Always include near_cap / truncated flags (default False)
+                # Unified near_cap / truncated computation against cap_used
+                out_tokens = usage.get('output_tokens') or 0
+                effective_cap = cap_used or getattr(ai_client, 'OPENAI_MAX_OUTPUT_TOKENS', None)
+                # Marker guard
+                ended_by_marker = ('[END SCENE]' in ''.join(aggregated))
                 near_cap_flag = False
-                if 'near_cap' in final_meta:
-                    near_cap_flag = bool(final_meta.get('near_cap'))
-                else:
-                    try:
-                        if usage.get('output_tokens') and ai_client.OPENAI_MAX_OUTPUT_TOKENS:
-                            near_cap_flag = (usage['output_tokens']/float(ai_client.OPENAI_MAX_OUTPUT_TOKENS)) >= 0.95
-                    except Exception:
-                        near_cap_flag = False
                 truncated_flag = False
-                if 'truncated' in final_meta:
-                    truncated_flag = bool(final_meta.get('truncated'))
-                else:
-                    if usage.get('output_tokens') == ai_client.OPENAI_MAX_OUTPUT_TOKENS:
+                upstream_status = final_meta.get('status') or getattr(final_meta.get('raw', None), 'status', None)
+                if not ended_by_marker:
+                    if effective_cap and out_tokens:
+                        try:
+                            near_cap_flag = (out_tokens/float(effective_cap)) >= 0.95
+                        except Exception:
+                            near_cap_flag = False
+                    # truncated if upstream incomplete OR output hits cap
+                    if upstream_status and upstream_status != 'completed':
                         truncated_flag = True
-                enriched['near_cap'] = near_cap_flag
-                enriched['truncated'] = truncated_flag
+                    elif effective_cap and out_tokens == effective_cap:
+                        truncated_flag = True
+                    # Single WARN emission: truncated preferred over near_cap
+                    if truncated_flag:
+                        reason = 'hit_cap' if (effective_cap and out_tokens == effective_cap and (not upstream_status or upstream_status == 'completed')) else (upstream_status or 'incomplete')
+                        print(f"[AI] truncated WARN req.id={response_id or '-'} reason={reason} output_tokens={out_tokens} cap_used={effective_cap}")
+                    elif near_cap_flag:
+                        try:
+                            ratio = out_tokens/float(effective_cap) if effective_cap else 0.0
+                        except Exception:
+                            ratio = 0.0
+                        print(f"[AI] near_cap WARN req.id={response_id or '-'} output_tokens={out_tokens} cap_used={effective_cap} ratio={ratio:.2f}")
+                enriched['near_cap'] = near_cap_flag if not ended_by_marker else False
+                enriched['truncated'] = truncated_flag if not ended_by_marker else False
+                enriched['ended_by_marker'] = ended_by_marker
                 if 'error' in final_meta:
                     enriched['error'] = final_meta['error']
                     enriched['detail'] = final_meta.get('detail')
@@ -2014,12 +2027,36 @@ UPDATE FORMATS (use exactly these):
             )
     except Exception:
         pass
-    # Attach near_cap / truncated flags if present from ai_client result
-    if isinstance(initial_result, dict):
-        if 'near_cap' in initial_result:
-            extra_meta['near_cap'] = bool(initial_result.get('near_cap'))
-        if 'truncated' in initial_result:
-            extra_meta['truncated'] = bool(initial_result.get('truncated'))
+    # Unified near_cap / truncated computation (non-stream)
+    ended_by_marker = ('[END SCENE]' in response_to_send)
+    out_tokens = usage.get('output_tokens') or 0
+    effective_cap = cap_used or getattr(ai_client, 'OPENAI_MAX_OUTPUT_TOKENS', None)
+    near_cap_flag = False
+    truncated_flag = False
+    upstream_status = initial_result.get('status') if isinstance(initial_result, dict) else None
+    if not ended_by_marker:
+        if effective_cap and out_tokens:
+            try:
+                near_cap_flag = (out_tokens/float(effective_cap)) >= 0.95
+            except Exception:
+                near_cap_flag = False
+        if upstream_status and upstream_status != 'completed':
+            truncated_flag = True
+        elif effective_cap and out_tokens == effective_cap:
+            truncated_flag = True
+        # Single WARN emission precedence: truncated over near_cap
+        if truncated_flag:
+            reason = 'hit_cap' if (effective_cap and out_tokens == effective_cap and (not upstream_status or upstream_status == 'completed')) else (upstream_status or 'incomplete')
+            print(f"[AI] truncated WARN req.id={request_id or '-'} reason={reason} output_tokens={out_tokens} cap_used={effective_cap}")
+        elif near_cap_flag:
+            try:
+                ratio = out_tokens/float(effective_cap) if effective_cap else 0.0
+            except Exception:
+                ratio = 0.0
+            print(f"[AI] near_cap WARN req.id={request_id or '-'} output_tokens={out_tokens} cap_used={effective_cap} ratio={ratio:.2f}")
+    extra_meta['near_cap'] = near_cap_flag if not ended_by_marker else False
+    extra_meta['truncated'] = truncated_flag if not ended_by_marker else False
+    extra_meta['ended_by_marker'] = ended_by_marker
     return jsonify({"message": response_to_send, "response": response_to_send, **extra_meta})
 
 

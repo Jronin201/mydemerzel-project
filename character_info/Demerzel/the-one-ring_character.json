@@ -1,93 +1,13 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "the-one-ring",
-  "last_updated": "2025-08-15 06:20:27",
+  "last_updated": "2025-08-15 06:24:26",
   "last_source": "user_live",
   "character_info": {
     "name": "Bilbo Baggins - Hobbit Scholar, Hope: 15, Shadow: 2",
     "stats": "From the Shire. Seeks adventure but values comfort. Has burglar skills."
   },
   "history": [
-    {
-      "character_info": {
-        "name": "Bilbo Baggins - Hobbit Scholar, Hope: 15, Shadow: 2",
-        "stats": "From the Shire. Seeks adventure but values comfort. Has burglar skills."
-      },
-      "timestamp": "2025-08-15 05:55:27",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Frodo",
-        "stats": "Hobbit"
-      },
-      "timestamp": "2025-08-15 05:59:37",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Frodo Baggins",
-        "stats": "Hobbit with the Ring"
-      },
-      "timestamp": "2025-08-15 05:59:37",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Frodo Baggins",
-        "stats": "A brave hobbit from the Shire, bearer of the One Ring. Small in stature but large in heart and determination."
-      },
-      "timestamp": "2025-08-15 05:59:37",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Gandric the Brave - Level 3 Ranger, HP: 25/25",
-        "stats": "Currently investigating strange happenings near Bree. Spoke with Boromir about potential spy network."
-      },
-      "timestamp": "2025-08-15 05:59:39",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Gandric the Brave - Level 3 Ranger, HP: 20/25 (wounded leg)",
-        "stats": "Currently investigating strange happenings near Bree. Recently fought orcs and was injured."
-      },
-      "timestamp": "2025-08-15 05:59:39",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Aragorn - Ranger Level 1, Hope: 15, Shadow: 2",
-        "stats": "Strider. Seeks to protect the innocent. Skilled tracker."
-      },
-      "timestamp": "2025-08-15 05:59:39",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Aragorn - Ranger Level 2, Hope: 15, Shadow: 2",
-        "stats": "Strider. Seeks to protect the innocent. Advanced Swordplay skill."
-      },
-      "timestamp": "2025-08-15 05:59:39",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Aragorn - Ranger Level 2, Hope: 15, Shadow: 2, Wounded",
-        "stats": "Strider. Seeks to protect the innocent. Advanced Swordplay skill."
-      },
-      "timestamp": "2025-08-15 05:59:39",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Gandalf the Wise",
-        "stats": "Wizard of great power, keeper of ancient secrets"
-      },
-      "timestamp": "2025-08-15 05:59:41",
-      "source": "user_live"
-    },
     {
       "character_info": {
         "name": "Bilbo Baggins - Hobbit Scholar, Hope: 15, Shadow: 2",
@@ -406,6 +326,86 @@
         "stats": "Wizard of great power, keeper of ancient secrets"
       },
       "timestamp": "2025-08-15 06:20:24",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Bilbo Baggins - Hobbit Scholar, Hope: 15, Shadow: 2",
+        "stats": "From the Shire. Seeks adventure but values comfort. Has burglar skills."
+      },
+      "timestamp": "2025-08-15 06:20:27",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Frodo",
+        "stats": "Hobbit"
+      },
+      "timestamp": "2025-08-15 06:24:19",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Frodo Baggins",
+        "stats": "Hobbit with the Ring"
+      },
+      "timestamp": "2025-08-15 06:24:19",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Frodo Baggins",
+        "stats": "A brave hobbit from the Shire, bearer of the One Ring. Small in stature but large in heart and determination."
+      },
+      "timestamp": "2025-08-15 06:24:19",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Gandric the Brave - Level 3 Ranger, HP: 25/25",
+        "stats": "Currently investigating strange happenings near Bree. Spoke with Boromir about potential spy network."
+      },
+      "timestamp": "2025-08-15 06:24:20",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Gandric the Brave - Level 3 Ranger, HP: 20/25 (wounded leg)",
+        "stats": "Currently investigating strange happenings near Bree. Recently fought orcs and was injured."
+      },
+      "timestamp": "2025-08-15 06:24:20",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Aragorn - Ranger Level 1, Hope: 15, Shadow: 2",
+        "stats": "Strider. Seeks to protect the innocent. Skilled tracker."
+      },
+      "timestamp": "2025-08-15 06:24:20",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Aragorn - Ranger Level 2, Hope: 15, Shadow: 2",
+        "stats": "Strider. Seeks to protect the innocent. Advanced Swordplay skill."
+      },
+      "timestamp": "2025-08-15 06:24:20",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Aragorn - Ranger Level 2, Hope: 15, Shadow: 2, Wounded",
+        "stats": "Strider. Seeks to protect the innocent. Advanced Swordplay skill."
+      },
+      "timestamp": "2025-08-15 06:24:20",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Gandalf the Wise",
+        "stats": "Wizard of great power, keeper of ancient secrets"
+      },
+      "timestamp": "2025-08-15 06:24:23",
       "source": "user_live"
     }
   ]
