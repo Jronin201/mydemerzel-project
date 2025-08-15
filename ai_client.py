@@ -12,8 +12,8 @@ class StreamAborted(Exception):
 # Configuration via env
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5")  # Primary GPT-5 family model
 OPENAI_FALLBACK_MODEL = "gpt-4o"  # Only fallback allowed
-OPENAI_REASONING_EFFORT = os.getenv("OPENAI_REASONING_EFFORT", "low")  # low|medium|high
-OPENAI_MAX_OUTPUT_TOKENS = int(os.getenv("OPENAI_MAX_OUTPUT_TOKENS", "512"))
+OPENAI_REASONING_EFFORT = os.getenv("OPENAI_REASONING_EFFORT", "medium")  # low|medium|high (default upgraded)
+OPENAI_MAX_OUTPUT_TOKENS = int(os.getenv("OPENAI_MAX_OUTPUT_TOKENS", "20000"))
 OPENAI_TOOL_CHOICE = os.getenv("OPENAI_TOOL_CHOICE", "none")  # none|auto (validated in app config)
 MIN_OUTPUT_TOKENS = 64
 OPENAI_STREAM_RESPONSES = os.getenv("OPENAI_STREAM_RESPONSES", "false").lower() in ("1","true","yes","on")
@@ -32,7 +32,8 @@ try:
     _api_key = os.getenv("OPENAI_API_KEY")
     if not _api_key:
         raise RuntimeError("OPENAI_API_KEY missing (AI client offline)")
-    _client = OpenAI(api_key=_api_key, timeout=60.0, max_retries=1)
+    # Increase timeout to accommodate very long generations
+    _client = OpenAI(api_key=_api_key, timeout=180.0, max_retries=1)
     print(f"[AI] OpenAI Responses client initialized (primary={OPENAI_MODEL})")
 except Exception as _e:  # pragma: no cover
     print(f"[AI] Client unavailable: {_e}")
@@ -151,15 +152,20 @@ def request(messages: List[Dict[str,str]],
             max_output_tokens: Optional[int]=None,
             tool_choice: Optional[str]=None,
             force_model: Optional[str]=None,
-            req_id: Optional[str]=None) -> Dict[str, Any]:
+            req_id: Optional[str]=None,
+            high_effort: bool=False) -> Dict[str, Any]:
     """Perform a GPT-5 Responses API call with structured input and fallback.
     Returns dict with keys: output_text, model, used_fallback(bool), id, usage(dict), raw(response or error).
     Will fallback to gpt-4o only on qualified hard errors.
     """
     reasoning_effort = reasoning_effort or OPENAI_REASONING_EFFORT
+    if high_effort:
+        reasoning_effort = 'high'
     max_output_tokens = max_output_tokens or OPENAI_MAX_OUTPUT_TOKENS
     if max_output_tokens < MIN_OUTPUT_TOKENS:
         max_output_tokens = MIN_OUTPUT_TOKENS
+    # No upper clamp; rely on model/context window. Preflight context window heuristic placeholder.
+    # If combined estimated tokens approach model limits, we could reduce here (not implemented due to model-specific limits unknown at runtime).
     tool_choice = tool_choice or OPENAI_TOOL_CHOICE
     # Decide model list considering circuit breaker
     is_half_open = (_circuit_state == 'half_open')
@@ -233,13 +239,25 @@ def request(messages: List[Dict[str,str]],
             # Determine fallback usage based on the actual response model (not just the requested one)
             response_model = getattr(resp, 'model', mdl)
             is_fb = (response_model != OPENAI_MODEL)
+            warn_suffix = ""
+            try:
+                if usage.get('output_tokens') and OPENAI_MAX_OUTPUT_TOKENS:
+                    ratio = usage['output_tokens'] / float(OPENAI_MAX_OUTPUT_TOKENS)
+                    if ratio >= 0.95:
+                        warn_suffix = " WARN:output_near_cap" \
+                                      f" cap={OPENAI_MAX_OUTPUT_TOKENS} ratio={ratio:.2f}"
+            except Exception:
+                pass
+            trunc_flag = getattr(resp, 'truncated', False) or getattr(resp, 'incomplete', False)
+            if trunc_flag:
+                warn_suffix += " WARN:truncated"
             print(
                 "[AI] success "
                 f"openai.resp_id={getattr(resp,'id',None)} "
                 f"openai.model={response_model} "
                 f"openai.usage.input_tokens={usage.get('input_tokens')} "
                 f"openai.usage.output_tokens={usage.get('output_tokens')} "
-                f"openai.fallback={is_fb}"
+                f"openai.fallback={is_fb}" + warn_suffix
             )
             if idx == 0 and mdl == OPENAI_MODEL:
                 _record_primary_success(getattr(resp,'id',None))
@@ -289,13 +307,22 @@ def request(messages: List[Dict[str,str]],
                         }
                     response_model = getattr(resp, 'model', mdl)
                     is_fb = (response_model != OPENAI_MODEL)
+                    warn_suffix = ""
+                    try:
+                        if usage.get('output_tokens') and OPENAI_MAX_OUTPUT_TOKENS:
+                            ratio = usage['output_tokens'] / float(OPENAI_MAX_OUTPUT_TOKENS)
+                            if ratio >= 0.95:
+                                warn_suffix = " WARN:output_near_cap" \
+                                              f" cap={OPENAI_MAX_OUTPUT_TOKENS} ratio={ratio:.2f}"
+                    except Exception:
+                        pass
                     print(
                         "[AI] success "
                         f"openai.resp_id={getattr(resp,'id',None)} "
                         f"openai.model={response_model} "
                         f"openai.usage.input_tokens={usage.get('input_tokens')} "
                         f"openai.usage.output_tokens={usage.get('output_tokens')} "
-                        f"openai.fallback={is_fb}"
+                        f"openai.fallback={is_fb}" + warn_suffix
                     )
                     _record_primary_success(getattr(resp,'id',None))
                     return {

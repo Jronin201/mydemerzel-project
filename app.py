@@ -79,11 +79,11 @@ def validate_startup_config():
         model = raw_model_env.strip()
     if not model:
         errors.append("OPENAI_MODEL missing or empty")
-    effort = os.getenv("OPENAI_REASONING_EFFORT", "low").strip().lower()
+    effort = os.getenv("OPENAI_REASONING_EFFORT", "medium").strip().lower()
     if effort not in {"low","medium","high"}:
         errors.append("OPENAI_REASONING_EFFORT must be one of low, medium, high")
     try:
-        max_tokens = int(os.getenv("OPENAI_MAX_OUTPUT_TOKENS", "512"))
+        max_tokens = int(os.getenv("OPENAI_MAX_OUTPUT_TOKENS", "20000"))
         if max_tokens < 64:
             errors.append("OPENAI_MAX_OUTPUT_TOKENS must be >= 64")
     except ValueError:
@@ -1136,17 +1136,15 @@ def summarize_messages(messages):
         if client is None:
             print("OpenAI client not available for summarization, skipping...")
             return []
-            
         # Use Responses API helper
         result = ai_client.request([
-            {"role": m.role, "content": m.content} if hasattr(m, 'role') else {"role": m["role"], "content": m["content"]}  # defensive
+            {"role": m.role, "content": m.content} if hasattr(m, 'role') else {"role": m["role"], "content": m["content"]}
             for m in summary_prompt
-        ])
+        ], high_effort=False)  # keep summaries inexpensive
         summary = (result.get("output_text") or "").strip()
         return [{"role": "system", "content": f"SUMMARY OF EARLIER CHAT: {summary}"}]
     except Exception as e:
         print(f"Failed to summarize messages: {e}")
-        # Return recent messages without summarization as fallback
         return [m for m in messages if m["role"] in ["user", "assistant"]][-6:]
 
 
@@ -1205,6 +1203,8 @@ def chat():
     if data is None:
         return jsonify({"error": "Invalid JSON payload"}), 400
 
+    high_effort = bool(data.get('high_effort'))  # optional client override for reasoning effort
+
     user_input = data.get("message", "").strip()
     # Natural-language request to retry primary model detection (before any model call)
     force_primary_requested = bool(data.get("force_primary"))
@@ -1233,6 +1233,8 @@ def chat():
     print(f"  page: '{page}'")
     print(f"  character_name: '{character_name}' (type: {type(character_name)})")
     print(f"  character_stats: '{character_stats}' (type: {type(character_stats)})")
+    if high_effort:
+        print("[DEBUG] High reasoning effort override requested")
     
     # Input validation for security and compatibility
     if not user_input:
@@ -1663,7 +1665,10 @@ UPDATE FORMATS (use exactly these):
             except Exception:
                 return
             try:
-                for kind, payload in ai_client.request_stream(primary_messages, force_model=force_model, reasoning_effort=reasoning_effort, max_output_tokens=max_output_tokens):
+                eff = reasoning_effort
+                if eff is None and high_effort:
+                    eff = 'high'
+                for kind, payload in ai_client.request_stream(primary_messages, force_model=force_model, reasoning_effort=eff, max_output_tokens=max_output_tokens):
                     now = time.time()
                     if now - last_beat >= HEARTBEAT_INTERVAL:
                         try:
@@ -1720,6 +1725,7 @@ UPDATE FORMATS (use exactly these):
                     else:
                         if not had_delta:
                             print("[STREAM] reasoning-only first attempt -> retry")
+                            # Retry uses low effort regardless of high_effort override to reduce cost on reasoning-only path
                             for r_item in run_attempt(reasoning_effort='low', max_output_tokens=4096):
                                 if isinstance(r_item, str):
                                     yield r_item
@@ -1770,7 +1776,7 @@ UPDATE FORMATS (use exactly these):
 
     # =============== RESPONSES API CALL VIA ai_client (unified) =================
     primary_messages = full_messages_dicts  # role/content pairs
-    initial_result = ai_client.request(primary_messages)
+    initial_result = ai_client.request(primary_messages, high_effort=high_effort)
     model_used = initial_result.get("model")
     fallback_used = initial_result.get("used_fallback", False)
     trimmed = initial_result.get("output_text", "")

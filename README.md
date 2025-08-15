@@ -62,8 +62,8 @@ The application now uses the OpenAI Responses API with GPT-5 by default.
 Env vars:
 
 - `OPENAI_MODEL` (default: `gpt-5`)
-- `OPENAI_REASONING_EFFORT` (`low|medium|high`, default `low`)
-- `OPENAI_MAX_OUTPUT_TOKENS` (default `512`)
+- `OPENAI_REASONING_EFFORT` (`low|medium|high`, default `medium`)
+- `OPENAI_MAX_OUTPUT_TOKENS` (default `20000` / no artificial upper clamp; min enforced 64)
 - `OPENAI_TOOL_CHOICE` (default `none`)
 
 Health check:
@@ -113,8 +113,8 @@ Environment variables summary:
 
 - `OPENAI_MODEL` (primary model, default gpt-5)
 - `OPENAI_FALLBACK_MODEL` (optional explicit fallback, default gpt-4o)
-- `OPENAI_REASONING_EFFORT` (low|medium|high; default low)
-- `OPENAI_MAX_OUTPUT_TOKENS` (minimum enforced 64)
+- `OPENAI_REASONING_EFFORT` (low|medium|high; default medium)
+- `OPENAI_MAX_OUTPUT_TOKENS` (default 20000; minimum enforced 64; no artificial upper clamp)
 - `OPENAI_TOOL_CHOICE` (default none)
 - `OPENAI_STREAM_RESPONSES` (enable SSE streaming when true + Accept header)
 - `AI_FALLBACKS_ENABLED` (toggle hard-error fallback logic)
