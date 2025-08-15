@@ -2,6 +2,174 @@
 
 This repository contains a Flask application with AI-assisted TTRPG (tabletop roleplaying game) chat interfaces. The project is optimized for **Windows 11 PCs** and provides excellent cross-browser compatibility for desktop environments.
 
+## AI Chat Resilience & Streaming (Production Documentation)
+
+✅ Environment Variables
+**Core model + behavior**
+OPENAI_MODEL=gpt-5
+OPENAI_REASONING_EFFORT=low          # one of: low, medium, high
+OPENAI_MAX_OUTPUT_TOKENS=512         # clamped to >= 64
+OPENAI_TOOL_CHOICE=none              # one of: none, auto
+
+**Streaming (SSE)**
+OPENAI_STREAM_RESPONSES=false        # set true to enable SSE in prod
+
+**Resilience**
+AI_BACKOFF_ENABLED=true              # one full-jitter retry for 429/5xx (primary only)
+AI_BACKOFF_BASE_MS=250
+AI_BACKOFF_CAP_MS=2000
+
+**Observability**
+OBS_VERBOSE=false
+
+💬 API Behavior (Unified on Responses API)
+
+Primary path: Responses API + GPT-5 using typed parts (input_text) and text.format.
+
+Fallback: single fallback to gpt-4o only on hard errors (401/403/404/409/429/5xx, model_not_found).
+
+Retry: for 429 and 5xx on primary only, perform one full-jitter backoff retry before fallback.
+
+Circuit breaker: opens after ≥3 hard primary failures within 60s, stays open 120s; after that, one half-open probe decides close/reopen.
+
+Streaming: SSE emits only token (text deltas), ping (heartbeat ~15s), and one enriched done event.
+
+🧪 Health Check
+`bash -lc 'curl -s http://<HOST>/health/ai | jq'`
+
+
+Returns 200 only if a GPT-5 Responses call yields output_text:"OK" (no fallback needed).
+
+🔌 Streaming Client Example (SSE)
+
+```javascript
+const es = new EventSource("/chat/stream");
+es.addEventListener("token", (e) => {
+   // Append e.data to your UI
+});
+es.addEventListener("ping", () => { /* ignore */ });
+es.addEventListener("done", (e) => {
+   const meta = JSON.parse(e.data);
+   es.close();
+   // meta = { model, resp_id, usage:{input_tokens,output_tokens}, fallback, latency_ms, breaker_state, backoff_ms }
+});
+es.onerror = () => { es.close(); /* optional reconnect with backoff */ };
+```
+
+📦 Request/Response Shapes
+
+Non-streaming /chat (JSON):
+
+```json
+{
+   "message": "<assistant text>",
+   "model": "gpt-5-YYYY-MM-DD",
+   "usage": { "input_tokens": 123, "output_tokens": 456 },
+   "fallback": false,
+   "request_id": "resp_abc123"
+}
+```
+
+Streaming /chat (SSE events):
+
+```text
+event: token → data: <partial text>
+event: ping → keepalive
+event: done →
+{
+   "model":"gpt-5-YYYY-MM-DD",
+   "resp_id":"resp_abc123",
+   "usage":{"input_tokens":123,"output_tokens":456},
+   "fallback":false,
+   "latency_ms":842,
+   "breaker_state":"closed",
+   "backoff_ms":0
+}
+```
+
+🛡️ Resilience Semantics
+
+Retry (primary): On 429/5xx → sleep once using full jitter
+sleep = random(0, min(cap, base * 2^1)), then retry primary.
+
+Fallback: If retry fails hard, swap to gpt-4o exactly once.
+
+Circuit breaker:
+
+Open: ≥3 hard failures in 60s → skip primary for 120s.
+
+Half-open: after 120s, allow one probe; success → close, failure → reopen 120s.
+
+Abort handling (SSE): client disconnect stops upstream immediately; logs stream.aborted=true; no done event emitted.
+
+📊 Logging (Structured)
+
+Every request emits one completion log line with at least:
+
+```text
+req.id=<uuid> openai.model=<id> openai.resp_id=resp_... \
+openai.usage.input_tokens=<n> openai.usage.output_tokens=<m> \
+openai.latency_ms=<ms> openai.fallback=<true|false> \
+breaker.state=<open|half_open|closed> backoff.ms=<ms or 0>
+```
+
+
+Use req.id to correlate with OpenAI Logs.
+
+🧰 Operational Playbook
+
+Enable streaming: set OPENAI_STREAM_RESPONSES=true, redeploy, verify SSE token and single enriched done.
+
+Verify fallback: temporarily force 429/5xx in staging; observe one retry (logged backoff.ms) then fallback.
+
+Breaker drill: trigger 3 hard failures in <60s; confirm breaker.state=open and immediate fallback; after 120s, half-open probe decides.
+
+Tuning:
+
+Larger outputs → increase OPENAI_MAX_OUTPUT_TOKENS (never <64).
+
+More/less “thinking” → adjust OPENAI_REASONING_EFFORT (low|medium|high).
+
+Tools off by default via OPENAI_TOOL_CHOICE=none.
+
+🧭 Migration Notes (what changed)
+
+Removed legacy Chat Completions paths and shims.
+
+Unified on Responses API + GPT-5 (OPENAI_MODEL=gpt-5).
+
+Single enriched done event; no duplicate finals.
+
+Deterministic text via typed input_text + text.format.
+
+🚀 Render Deployment Checklist
+Confirm ENV
+
+```bash
+OPENAI_MODEL=gpt-5
+OPENAI_REASONING_EFFORT=low
+OPENAI_MAX_OUTPUT_TOKENS=512
+OPENAI_TOOL_CHOICE=none
+OPENAI_STREAM_RESPONSES=true   # if you want streaming live
+AI_BACKOFF_ENABLED=true
+AI_BACKOFF_BASE_MS=250
+AI_BACKOFF_CAP_MS=2000
+OBS_VERBOSE=false
+```
+
+
+Save env; restart service.
+
+GET /health/ai → 200.
+
+Non-stream /chat → returns text; logs show latency + breaker state.
+
+Stream /chat → see token deltas and a single enriched done.
+
+Staging: simulate 429/5xx; confirm one backoff retry then fallback, and breaker behavior after 3 failures.
+
+Document this now, commit the README updates, and cut a release. My stance: the code is production-ready; finalize the docs exactly as above and ship.
+
 ## System Requirements
 
 - **Operating System**: Windows 11 (Optimized)
@@ -34,7 +202,7 @@ Fallback:
 
 Optional Server-Sent Events streaming for `/chat` when you set:
 
-```
+```bash
 OPENAI_STREAM_RESPONSES=true
 ```
 
@@ -55,7 +223,7 @@ Retry & fallback semantics (streaming and non-streaming):
 
 Non-streaming JSON response schema (when streaming disabled or no SSE Accept header):
 
-```
+```json
 {
    "message": "<assistant text + footer>",
    "model": "gpt-5",
