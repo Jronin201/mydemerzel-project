@@ -1,73 +1,93 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "general",
-  "last_updated": "2025-08-15 04:23:03",
-  "message_count": 13,
+  "last_updated": "2025-08-15 04:27:36",
+  "message_count": 17,
   "messages": [
     {
+      "role": "system",
+      "content": "System prompt active.",
+      "timestamp": "2025-08-15 04:27:28"
+    },
+    {
+      "role": "user",
+      "content": "Hi",
+      "timestamp": "2025-08-15 04:27:28"
+    },
+    {
       "role": "assistant",
-      "content": "Welcome to the TTRPG Chatbot! Please select a game system to begin your adventure.",
-      "timestamp": "2025-08-15 04:22:56"
+      "content": "Hello there!",
+      "timestamp": "2025-08-15 04:27:28"
+    },
+    {
+      "role": "user",
+      "content": "Continue",
+      "timestamp": "2025-08-15 04:27:28"
+    },
+    {
+      "role": "assistant",
+      "content": "OK\n\n*Model: gpt-5-2025-08-15*",
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "user",
       "content": "Test",
-      "timestamp": "2025-08-15 04:22:56"
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "assistant",
       "content": "Hello, world!\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-15 04:22:56"
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "user",
       "content": "Test",
-      "timestamp": "2025-08-15 04:22:56"
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "assistant",
       "content": "Final\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-15 04:22:56"
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "user",
       "content": "Test",
-      "timestamp": "2025-08-15 04:22:56"
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "assistant",
       "content": "Hi\n\n*Model: gpt-4o*",
-      "timestamp": "2025-08-15 04:22:56"
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "user",
       "content": "Ping",
-      "timestamp": "2025-08-15 04:22:56"
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "assistant",
       "content": "A\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-15 04:22:56"
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "user",
       "content": "Hello, this is a test message. Please respond briefly.",
-      "timestamp": "2025-08-15 04:22:56"
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "assistant",
       "content": "Tension builds as intent sharpens in the dust-charged air.\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-15 04:22:56"
+      "timestamp": "2025-08-15 04:27:28"
     },
     {
       "role": "user",
       "content": "Hello",
-      "timestamp": "2025-08-15 04:23:03"
+      "timestamp": "2025-08-15 04:27:36"
     },
     {
       "role": "assistant",
       "content": "Hi\n\n*Model: gpt-5*",
-      "timestamp": "2025-08-15 04:23:03"
+      "timestamp": "2025-08-15 04:27:36"
     }
   ]
 }
