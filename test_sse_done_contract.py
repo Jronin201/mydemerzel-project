@@ -37,6 +37,6 @@ def test_sse_done_contract(monkeypatch):
     done_payloads = [json.loads(d) for e,d in events if e=='done']
     assert len(done_payloads)==1
     p = done_payloads[0]
-    for key in ['model','resp_id','usage','fallback','latency_ms','breaker_state','backoff_ms']:
+    for key in ['model','resp_id','usage','fallback','latency_ms','breaker_state','backoff_ms','near_cap','truncated']:
         assert key in p, f"Missing field {key} in SSE done payload"
     assert 'input_tokens' in p['usage'] and 'output_tokens' in p['usage']

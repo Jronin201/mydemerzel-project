@@ -1,157 +1,13 @@
 {
   "username": "Demerzel",
   "ttrpg_system": "mouse-guard",
-  "last_updated": "2025-08-15 04:27:34",
+  "last_updated": "2025-08-15 06:00:15",
   "last_source": "user_live",
   "character_info": {
     "name": "Bramble - Tenderpaw",
     "stats": "New recruit to the Mouse Guard, eager to prove herself on patrol duties."
   },
   "history": [
-    {
-      "character_info": {
-        "name": "LIVE Character - Willow",
-        "stats": "LIVE Stats - Nature 3, Fighter 2"
-      },
-      "timestamp": "2025-08-14 23:52:17",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Sir Brave - Level 3 Fighter",
-        "stats": "HP: 25/25, Strength: 16, Dexterity: 14"
-      },
-      "timestamp": "2025-08-14 23:52:18",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Bramble - Tenderpaw",
-        "stats": "New recruit to the Mouse Guard, eager to prove herself on patrol duties."
-      },
-      "timestamp": "2025-08-14 23:52:22",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Test Character - Bramble",
-        "stats": "Test Stats - Fighter 3, Scout 2"
-      },
-      "timestamp": "2025-08-14 23:53:50",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Live Textbox Character - Thistle",
-        "stats": "Live Textbox Stats - Pathfinder 4, Scout 3"
-      },
-      "timestamp": "2025-08-14 23:53:50",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "STORED Character - Oak",
-        "stats": "STORED Stats - Will 4, Health 5"
-      },
-      "timestamp": "2025-08-14 23:53:51",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "LIVE Character - Willow",
-        "stats": "LIVE Stats - Nature 3, Fighter 2"
-      },
-      "timestamp": "2025-08-14 23:53:51",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Sir Brave - Level 3 Fighter",
-        "stats": "HP: 25/25, Strength: 16, Dexterity: 14"
-      },
-      "timestamp": "2025-08-14 23:53:51",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Bramble - Tenderpaw",
-        "stats": "New recruit to the Mouse Guard, eager to prove herself on patrol duties."
-      },
-      "timestamp": "2025-08-14 23:53:57",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Test Character - Bramble",
-        "stats": "Test Stats - Fighter 3, Scout 2"
-      },
-      "timestamp": "2025-08-14 23:54:53",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Live Textbox Character - Thistle",
-        "stats": "Live Textbox Stats - Pathfinder 4, Scout 3"
-      },
-      "timestamp": "2025-08-14 23:54:53",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "STORED Character - Oak",
-        "stats": "STORED Stats - Will 4, Health 5"
-      },
-      "timestamp": "2025-08-14 23:54:54",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "LIVE Character - Willow",
-        "stats": "LIVE Stats - Nature 3, Fighter 2"
-      },
-      "timestamp": "2025-08-14 23:54:54",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Sir Brave - Level 3 Fighter",
-        "stats": "HP: 25/25, Strength: 16, Dexterity: 14"
-      },
-      "timestamp": "2025-08-14 23:54:55",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Bramble - Tenderpaw",
-        "stats": "New recruit to the Mouse Guard, eager to prove herself on patrol duties."
-      },
-      "timestamp": "2025-08-14 23:54:59",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "Test Character - Bramble",
-        "stats": "Test Stats - Fighter 3, Scout 2"
-      },
-      "timestamp": "2025-08-14 23:55:52",
-      "source": "user"
-    },
-    {
-      "character_info": {
-        "name": "Live Textbox Character - Thistle",
-        "stats": "Live Textbox Stats - Pathfinder 4, Scout 3"
-      },
-      "timestamp": "2025-08-14 23:55:52",
-      "source": "user_live"
-    },
-    {
-      "character_info": {
-        "name": "STORED Character - Oak",
-        "stats": "STORED Stats - Will 4, Health 5"
-      },
-      "timestamp": "2025-08-14 23:55:53",
-      "source": "user"
-    },
     {
       "character_info": {
         "name": "LIVE Character - Willow",
@@ -406,6 +262,150 @@
         "stats": "HP: 25/25, Strength: 16, Dexterity: 14"
       },
       "timestamp": "2025-08-15 04:27:29",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Bramble - Tenderpaw",
+        "stats": "New recruit to the Mouse Guard, eager to prove herself on patrol duties."
+      },
+      "timestamp": "2025-08-15 04:27:34",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-08-15 05:55:20",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Live Textbox Character - Thistle",
+        "stats": "Live Textbox Stats - Pathfinder 4, Scout 3"
+      },
+      "timestamp": "2025-08-15 05:55:21",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-08-15 05:55:22",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "LIVE Character - Willow",
+        "stats": "LIVE Stats - Nature 3, Fighter 2"
+      },
+      "timestamp": "2025-08-15 05:55:22",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Sir Brave - Level 3 Fighter",
+        "stats": "HP: 25/25, Strength: 16, Dexterity: 14"
+      },
+      "timestamp": "2025-08-15 05:55:22",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Bramble - Tenderpaw",
+        "stats": "New recruit to the Mouse Guard, eager to prove herself on patrol duties."
+      },
+      "timestamp": "2025-08-15 05:55:26",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-08-15 05:59:37",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Live Textbox Character - Thistle",
+        "stats": "Live Textbox Stats - Pathfinder 4, Scout 3"
+      },
+      "timestamp": "2025-08-15 05:59:38",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-08-15 05:59:39",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "LIVE Character - Willow",
+        "stats": "LIVE Stats - Nature 3, Fighter 2"
+      },
+      "timestamp": "2025-08-15 05:59:39",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Sir Brave - Level 3 Fighter",
+        "stats": "HP: 25/25, Strength: 16, Dexterity: 14"
+      },
+      "timestamp": "2025-08-15 05:59:39",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Bramble - Tenderpaw",
+        "stats": "New recruit to the Mouse Guard, eager to prove herself on patrol duties."
+      },
+      "timestamp": "2025-08-15 05:59:43",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Test Character - Bramble",
+        "stats": "Test Stats - Fighter 3, Scout 2"
+      },
+      "timestamp": "2025-08-15 06:00:09",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "Live Textbox Character - Thistle",
+        "stats": "Live Textbox Stats - Pathfinder 4, Scout 3"
+      },
+      "timestamp": "2025-08-15 06:00:09",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "STORED Character - Oak",
+        "stats": "STORED Stats - Will 4, Health 5"
+      },
+      "timestamp": "2025-08-15 06:00:10",
+      "source": "user"
+    },
+    {
+      "character_info": {
+        "name": "LIVE Character - Willow",
+        "stats": "LIVE Stats - Nature 3, Fighter 2"
+      },
+      "timestamp": "2025-08-15 06:00:10",
+      "source": "user_live"
+    },
+    {
+      "character_info": {
+        "name": "Sir Brave - Level 3 Fighter",
+        "stats": "HP: 25/25, Strength: 16, Dexterity: 14"
+      },
+      "timestamp": "2025-08-15 06:00:11",
       "source": "user_live"
     }
   ]
