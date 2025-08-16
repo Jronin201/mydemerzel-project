@@ -182,7 +182,7 @@ def load_ttrpg_config():
                     "game_master_title": "Loremaster"
                 },
                 "call-of-cthulhu": {
-                    "display_name": "Call of Cthulhu",
+                    "display_name": "Zweihander",
                     "description": "Cosmic horror investigations in the 1920s",
                     "active": True,
                     "has_custom_page": False,
@@ -653,7 +653,7 @@ def chat():
         ttrpg_titles = {
             "dune": "Dune: Adventures in the Imperium",
             "the-one-ring": "The One Ring",
-            "call-of-cthulhu": "Call of Cthulhu"
+            "call-of-cthulhu": "Zweihander"
         }
         
         ttrpg_worlds = {
@@ -711,7 +711,7 @@ def chat():
                 ttrpg_titles = {
                     "dune": "Dune: Adventures in the Imperium",
                     "the-one-ring": "The One Ring", 
-                    "call-of-cthulhu": "Call of Cthulhu"
+                    "call-of-cthulhu": "Zweihander"
                 }
                 
                 char_creation_response = f"Excellent! Before we begin your adventure in {ttrpg_titles.get(page, 'this world')}, let's set up your character. You can either:\n\n1. Create a new character (I can guide you through the process)\n2. Enter existing character information in the Character Information field on the left\n\nWould you like me to help you create a new character, or do you have character details ready to enter?"

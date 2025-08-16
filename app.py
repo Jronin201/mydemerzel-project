@@ -316,7 +316,7 @@ def load_ttrpg_config():
                     "game_master_title": "Loremaster"
                 },
                 "call-of-cthulhu": {
-                    "display_name": "Call of Cthulhu",
+                    "display_name": "Zweihander",
                     "description": "Cosmic horror investigations in the 1920s",
                     "active": True,
                     "has_custom_page": False,
@@ -1328,7 +1328,7 @@ def chat():
             ttrpg_titles = {
                 "dune": "Dune: Adventures in the Imperium",
                 "the-one-ring": "The One Ring",
-                "call-of-cthulhu": "Call of Cthulhu",
+                "call-of-cthulhu": "Zweihander",
                 "mouse-guard": "Mouse Guard",
                 "pendragon": "Pendragon 6th Edition"
             }
@@ -1420,7 +1420,7 @@ def chat():
                 ttrpg_titles = {
                     "dune": "Dune: Adventures in the Imperium",
                     "the-one-ring": "The One Ring", 
-                    "call-of-cthulhu": "Call of Cthulhu",
+                    "call-of-cthulhu": "Zweihander",
                     "mouse-guard": "Mouse Guard",
                     "pendragon": "Pendragon 6th Edition"
                 }

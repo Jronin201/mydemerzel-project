@@ -21,7 +21,7 @@ def test_fresh_user_experience():
     ttrpgs = {
         "dune": "Dune: Adventures in the Imperium",
         "the-one-ring": "The One Ring",
-        "call-of-cthulhu": "Call of Cthulhu"
+    "call-of-cthulhu": "Zweihander"
     }
     
     for ttrpg, title in ttrpgs.items():

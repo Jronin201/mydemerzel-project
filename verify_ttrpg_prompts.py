@@ -21,7 +21,7 @@ def verify_ttrpg_system():
         ("Global", "system_prompt.txt"),
         ("Dune", "static/dune/system_prompt.txt"),
         ("The One Ring", "static/the-one-ring/system_prompt.txt"),
-        ("Call of Cthulhu", "static/call-of-cthulhu/system_prompt.txt")
+    ("Zweihander", "static/call-of-cthulhu/system_prompt.txt")
     ]
     
     for name, path in files_to_check:

@@ -32,7 +32,7 @@ def test_comprehensive_ttrpg_system():
         },
         "call-of-cthulhu": {
             "keywords": ["Lovecraft", "cosmic horror", "Keeper", "sanity", "1920s"],
-            "title": "Call of Cthulhu"
+            "title": "Zweihander"
         }
     }
     

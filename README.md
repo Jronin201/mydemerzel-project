@@ -125,7 +125,7 @@ Observability:
 
 Structured log lines for `/chat` (JSON mode: `[CHAT] ...`, streaming: `[CHAT_STREAM] ...`) include: model, resp_id, usage input/output tokens, fallback flag, latency_ms (streaming), and attempt outcomes.
 
-- **Multiple Game Systems**: Supports Dune, The One Ring, Call of Cthulhu, Mouse Guard, Pendragon, and more
+- **Multiple Game Systems**: Supports Dune, The One Ring, Zweihander, Mouse Guard, Pendragon, and more
 - **PC-Optimized Interface**: Three-column layout designed for desktop monitors
 - **Cross-Browser Compatibility**: Works on modern desktop browsers
 - **Accessibility**: Full WCAG 2.1 AA compliance with screen reader support
