@@ -707,26 +707,38 @@
             button.textContent = `#${i + 1}`;
             button.title = `Quick action button ${i + 1}`;
             button.tabIndex = 0;
-            let payload = null; // will be filled after fetch
+            // Store parsed candidate lines (from line 3 onward, non-empty) once loaded.
+            let candidateLines = null; // array of strings
+            let labelSet = false; // whether we've updated the button label
 
             // Temporary click handler (in case user clicks before load finishes)
             button.addEventListener("click", async function onEarlyClick() {
               try {
-                if (payload === null) {
+                if (candidateLines === null) {
                   const txt = await fetchButtonText(i, bases);
                   const lines = txt.split(/\r?\n/);
-                  payload = lines.slice(2).join("\n").trim() || txt.trim();
-                  // update label if not yet updated
                   const line1 = (lines[0] || "").trim();
-                  if (line1 && button.textContent !== line1) {
+                  if (line1 && !labelSet) {
                     button.textContent = line1;
                     button.title = line1;
+                    labelSet = true;
+                  }
+                  // Collect non-empty trimmed lines from line index 2 onward (line 3 in file)
+                  candidateLines = lines
+                    .slice(2)
+                    .map(l => l.trim())
+                    .filter(l => l.length > 0);
+                  if (candidateLines.length === 0) {
+                    // Fallback: use entire trimmed text (excluding first line if present)
+                    const fallback = lines.slice(2).join(" ").trim() || txt.trim();
+                    candidateLines = [fallback];
                   }
                 }
                 if (!input) return;
-                if (input.value && !/[\s\n]$/.test(input.value))
-                  input.value += " ";
-                input.value += payload;
+                // Pick a random candidate line each click
+                const pick = candidateLines[Math.floor(Math.random() * candidateLines.length)];
+                if (input.value && !/[\s\n]$/.test(input.value)) input.value += " ";
+                input.value += pick;
                 input.focus();
                 if (typeof Event === "function")
                   input.dispatchEvent(new Event("input"));
@@ -737,14 +749,21 @@
 
             // Background fetch to hydrate label & payload
             const p = fetchButtonText(i, bases).then((buttonText) => {
+              if (candidateLines !== null) return; // already loaded via early click
               const lines = buttonText.split(/\r?\n/);
               const line1 = (lines[0] || "").trim();
-              let pLoad = lines.slice(2).join("\n").trim();
-              if (!pLoad) pLoad = buttonText.trim();
-              payload = pLoad; // store for early click handler
-              if (line1) {
+              if (line1 && !labelSet) {
                 button.textContent = line1;
                 button.title = line1;
+                labelSet = true;
+              }
+              candidateLines = lines
+                .slice(2)
+                .map(l => l.trim())
+                .filter(l => l.length > 0);
+              if (candidateLines.length === 0) {
+                const fallback = lines.slice(2).join(" ").trim() || buttonText.trim();
+                candidateLines = [fallback];
               }
             });
             fetchPromises.push(p);
