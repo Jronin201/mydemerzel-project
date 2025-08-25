@@ -1,3 +1,42 @@
-Advance 1hr
- 
-Narrate what happens over the next hour of game time.
+Attitude
+
+Friendly
+Hospitable
+Wary
+Cautious
+Hostile
+Mistaken Enemy
+Psychopathic
+Hiding Something
+Taking Advantage
+Subservient
+Arrogant
+Indifferent
+Desperate
+Manipulative
+Respectful
+Fearful
+Zealous
+Confused
+Envious
+Fatalistic
+Suspiciously obsequious
+Mocking / derisive
+Paranoid and jumpy
+Exploitative but charming
+Sanctimonious / holier-than-thou
+Grieving and withdrawn
+Scheming behind a polite mask
+Overly familiar / invasive
+Cowardly appeasement
+Predatory amusement
+Righteous indignation
+Begging / pleading
+Disdainful contempt
+Passive-aggressive compliance
+Eager to please for advantage
+Recklessly trusting
+Smoldering resentment
+World-weary cynicism
+Intimidated awe
+Barely concealed hatred
