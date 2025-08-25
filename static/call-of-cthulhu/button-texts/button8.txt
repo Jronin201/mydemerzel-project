@@ -1,3 +1,42 @@
-Opportunity
- 
-Narrate a rewarding opportunity for my character.
+Emotion
+
+Angry
+Sad
+Insane (deranged, raving)
+Jealous
+Lovestruck
+Rushed / anxious
+Confused
+Fearful
+Smug
+Exhausted
+Bitter
+Hopeful
+Wrathful (bloodthirsty)
+Sullen / withdrawn
+Ecstatic / manic
+Distrustful
+Melancholic
+Dutiful / resigned
+Guilt-ridden
+Blank / affectless
+Paranoid
+Vindictive
+Resentful
+Superstitious dread
+Haunted (troubled by visions, guilt, or ghosts)
+Triumphant (fleeting, prideful victory)
+Scheming (calculating, manipulative)
+Hopeless / despairing
+Reverent (awe toward faith, relics, or omen)
+Avaricious (consumed by greed)
+Inconsolable grief
+Mocking / derisive
+Fanatical zeal
+Ashamed
+Suspiciously eager
+Schadenfreude (taking joy in others’ suffering)
+Nostalgic / yearning for the past
+Predatory (hunting or toying with prey)
+Resigned to death
+Exhilarated by danger
