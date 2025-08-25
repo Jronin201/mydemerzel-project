@@ -1,3 +1,145 @@
-Save Progress
+Encounter
 
-Update the Notes section with a complete and comprehensive summary of the current game state, including character actions, NPC interactions, and any significant events that have occurred. This will help maintain continuity for future sessions and provide a reference for players.
+A preacher, a diabolist, and a courtier walk into the forest. The preacher says something to the diabolist in a language he cannot understand, and the courtier agrees. The courtier draws a knife and puts it to the preacher's throat. The diabolist asks the survivors to translate. What language is it in, and what was said?
+
+A slender tower of wood and stone dominates the nearest precipice, nearly indiscernible from the tall pine trees surrounding it save its ragged banner. Once occupied by loyal soldiers, it now hosts refugees on the run. They will likely defend their position to the death, but could they be reasoned with instead?
+
+In the middle of a meadow, several tired people in ragged clothes dance around a wooden idol of the Crouching One. Sitting upon a log is a very aged man with a beard down to his boots. He plays a weather-worn violin. The dancers continue their dance of doom silently despite being emaciated and hungry. Will the survivors stop this, and how?
+
+Graveyards lie nestled along a well-worn footpath. Several mourners, armed with shovels, dig up a grave as a preacher watches nearby. Fresh flowers are laid before the tombstone, indicating that the deceased must have passed recently. Upon closer inspection, they appear to be grave robbers. Are they?
+
+A pair of rough-looking bailiffs drag a poacher out of the woods. The "poached" animal was the same animal one of the survivors had taken a shot at before–their arrow juts out of the deer's body. However, the poacher needs to find the bow that shot it.
+
+A set of stone crypts has been opened, disturbed by tomb robbers. However, the corpses of the would-be looters lay in a pool of their own blood, warm to the touch. A yawning darkness stands before them within the threshold. What's inside?
+
+The roads ahead are overgrown as if a jungle suddenly sprouted. The vines are vestigial, easily torn aside, and give beneath the weight of two strong hands. But passing into the path's heart, you find a strange pod beating to the same rhythm as a survivor's heart. Lashing out at it only wounds the survivor in question, and the vines attempt to entangle all those who pass within. How will you escape?
+
+A band of poachers exits the woods. These huntsmen have all manner of game upon them: deer, rabbit, and even fox. They'll agree to share their kill with the survivors, providing they won't rat them out at the nearest watch station.
+
+Deep mud, a swamp, or quicksand bogs down travel. It mires those within it and makes travel by conveyance nearly impossible, as survivors must dig themselves and their pack animals out. There may even be a risk for sickness from the biting mosquitoes or diseases often rife in these areas.
+
+Half-submerged in mud stands a knight with a sword in hand. To his opposite, a pair of women are armed with burlap sacks full of rocks. Watching over them is a strange druid. What justice is this, and will the survivors attempt to interrupt?
+
+A cache of silver pieces, half-buried but exposed to the survivors, is contained in a box marked with the sigil of a local lord or count. Do they turn it in or keep it for themselves?
+
+Crows fill the sky, circling the remnants of a bonfire. An odiferous, wretched stench wafts through the air. In the center of the ashes is a thick pike, and a smoldering corpse is spit upon it. Whether this is the mark of diablerie is unknown, but the place is unsettling.
+
+An ancient albino boar lies beneath a rock for shade. Twelve arrows jut out from its body as it is Grievously Wounded. However, it speaks the common tongue. What does it say, and will the survivors attempt to put it out of its misery?
+
+Just off the path, a low moaning can be heard. Unmistakably, the wounded groaning may attract anyone with a good heart or charitable spirit. Unfortunately, the wind is rushing from a deep, hollow hole in the ground. Perched upon its crests are strange shapes; are they shadows, imp-like monkeys, or something far worse?
+
+The survivors have the extreme misfortune of bumping into a band of bored, drunk, and belligerent sellswords led by a grizzled older woman. Are they looking for a fight or a new master to serve?
+
+For a few hours, small tornados of wind pick up dust. However, they go from annoying to harmful. The survivors must seek shelter, but unbeknownst to them, an anchorite dwells within the nearest cave and demands that they pay him for the trouble.
+
+A loud bang can be heard nearby. Just behind a large hill are twelve stones positioned in a perfect circle. They are covered in scorch marks and softly smolder. The stench of rotten eggs and sulfur wafts all around.
+
+Lain within a glade are the bones of the dead. Spread out in a circle, radiating from the center with eight leg bones, it spells trouble. Eight censers still burn incense from them, which could only mean the demonologist who erected this gruesome dodecagram must be nearby ...
+
+A woman in ragged clothing waves her hands atop a nearby plateau, yelling for the survivors to approach. At the foot of the mesa lie several broken barrels, which smoke and burn. They can see several ropes dangling by her feet. What does this woman want, and what's up with the barrels?
+
+An arrow shivers, striking a nearby tree. Someone hollers, "Incoming!" but just a bit too late. Atop a tree stand is a person covered in furs. But upon closer inspection, it appears to be a beast with humanoid hands. It aims once again with a bow towards the same tree as before ...
+
+A pack of large rodents has been following the survivors for several hours. Picking up the crumbs of their food, they even attempt to nest in the camp. Whistling, however, draws their attention. Is this for good or ill?
+
+Many armed soldiers are on horseback, racing across the countryside. Coming anywhere near their reach will enrage them, whereas walking in their wake will expose them to cause a massive cloud of dust, choking the survivors.
+
+For several hours, a murder of crows has nested in the trees near one of the survivors. What ill omen does this foretell? Dispelling such oddities requires climbing the tree and speaking to the lead albino raven.
+
+Lightning may lance out, a terrible lashing rain may pour down, or a freak winter storm may break overhead unseasonably. Oppressive and torrential, this bad weather persists for several hours. Survivors must find shelter immediately. If the survivors take cover in a cave, perhaps they stir a sleeping bear or other terrible monstrosity? You decide.
+
+Terrible, lashing weather overtakes the survivors, who are forced to find shelter. While waiting for the storm to pass, one survivor tells the story of the howlbear, a terrible beast whose presence snuffs out light and who can summon terrible storms. Just then, the survivors' campfire flickers out and dies.
+
+A pilgrim of the Winter King is found starving and begging for food, though he bears a tattoo on his chest that reads, “The strong shall overcome.” Do they feed him or let his faith be his nourishment?
+
+During a terrible storm, the survivors find refuge in a tiny burg beneath a large mountain. Ruled over by a charismatic but desperate lord, the lord's child seems to hold some unknown dark power that leaves the populace terrified. No matter where the survivors go, the child always seems to follow them–and his father becomes more deranged by the minute. Could the child be the absolute ruler, or is something stranger happening?
+
+The survivors encounter a disheveled group of northern refugees fleeing their overtaken lands. They beg the survivors to lead them to shelter. While they converse, the characteristic bellow of warhorns echoes from the mountains behind them.
+
+Cresting a large hill, the survivors come across a valley where a band of firbolg and orx seem to be lining up for a skirmish, surrounded by crowds of onlookers. However, neither side bears armaments (save for abusively large spaulders) while a goblin stands between them holding an inflated pig's bladder. What is about to occur?
+
+A shot rings out above the survivors. Looking up the hill, they see a heavily bearded man leveling an arquebus at them. What is stranger is that the man has a large brown bear with him–one that seems to be wearing a collar. Suddenly, the man looks panicked and waves at the group to follow him. What could be frightening this wild man who threatened them moments before?
+
+Journeying through a high-sided valley, the survivors encounter a group of travelers. The travelers say they have been hemmed in this valley for months and need an escort home. Their look is mixed with hunger and desperation. They are nearly out of supplies, but they have many more caravans than needed to support such a small group.
+
+Standing in the middle of a vast plain, surrounded by no other life, is a large, free-standing stone of eldritch craftsmanship. It is inscribed with strange symbols and littered with offerings of offal, trinkets, and coins. It exudes a malevolence, one that begs to be touched.
+
+Coming across a clearing, the scout of the survivors sees hundreds of dismembered corpses spread out to form an irreverent tribute to demons unknown. Upon returning with the survivors, the corpses have disappeared. Was this a hallucination or something more sinister?
+
+A scream fills the sky as the survivors look up, spotting a ball of green flame plunging from the heavens to the earth below. The object lands with explosive force in a nearby cluster of pines as critters flee from the impact. A few moments later, the pines reflect the color of a sickly green glow. Is this some strange new weapon or something from beyond the stars?
+
+The survivors encounter a clan of dwarves who say they are out to reclaim a lost clan home. They plead for aid, promising untold riches but warning of likely death. Do they take up the ragtag group's offer?
+
+After setting up camp for the night, the survivors hear the familiar howl of wolves in the distance. Over the next hour, the howls get closer and closer until they suddenly stop. Could they have abandoned their hunt, or are they just about to start?
+
+Across the way, several well-dressed merchants with spears in hand are swimming across toward an island with violence in their eyes. One among them is shaven from head to toe, as several human heads are firm around the end of his trident. Will the survivors attempt to help?
+
+The riverboat bumps into what first appears to be a dead log; however, upon closer inspection, it is revealed that it is a water-bloated corpse. The waterway ahead is littered with the dead, but they show little to no sign of injury. Many are dressed in the same roughspun gray cloth, the garb of the Leviathan's adherents.
+
+Suddenly, something significant and green can be seen swimming in the water. One of its wet, undulating tentacles lashes the masthead, pulling itself out of the water. Will the survivors take the time to plug the boat or attempt to ward off whatever is about to crawl up on deck?
+
+The survivors come across a strange site: several remnants of ships strapped together and tethered to the shore. This platform gleams with colorful tents and haunting music, with a large sign that reads “The Fantastic Gregor's Floating Carnival.” As the survivors venture past the barkers and the food stalls, they notice all the workers have a devilish mien, and the "Tent of Freaks" is a little too bizarre.
+
+They were caught between a swiftly flowing part of the river and an overgrown, languid branch that could make their descent safer. If they go through the roughs, it could be dangerous. However, the other fork could take them down an uncharted part of the river.
+
+Swimming below the deck are hundreds upon hundreds of piranha fish. However, only when they look closer do the survivors realize that a bloated body is underneath. Drawing the corpse to the deck shows the corpse is somehow still alive. Is it a long-lost friend of the survivors? Or it could be one of the undead. You decide.
+
+A fellow named Eddie is attempting to get his skiff out of an eddy on the river but has yet to be successful. His paddle is halfway down the river, while his boat is spinning out of control, around and around. In the middle of the eddy a strange, undulating thing of the deeps can be seen, threatening to lash his boat. Will the survivors throw their lot in with Eddie or leave him to his doom?
+
+A traveling bard troupe, all holding different instruments, is standing on the deck of their ramshackle boat, which has been stuck in the mud. They ask to board the survivor's ship as they are headed in the same direction. Do the survivors let them on the ship or leave them stranded?
+
+Typically, a gate stands near the river to collect toll from passing vessels. However, it has been reduced to rubble. In its place is a sign, written crudely upon a wood plank, stating, ”RIVIR CLOTHED. PAY TOWL TROL 2 GIT INN”. Calling himself "Frank," he motions for the survivors to moor their ship at a nearby sandbar. Do they comply?
+
+The survivors encounter a strange barge. All the members of the barge look battle-worn, and many sport intimidating back tattoos of terrible dragons. Do these traders have honest intentions, or are they looking for something else?
+
+A band of river wardens aboard a swiftly moving skiff demands they drop anchor. Are they indeed bailiffs of the river or merely charlatans playing their part? Either way, their crossbows are aimed at the survivors, which could spell their doom.
+
+From a hidden cove, a band of peg-legged veterans aboard a swift moving river ship approaches. Their skiff is festooned with paper lanterns as minstrels occupy the ship's wheel. They beg the survivors to join them to celebrate the holiday of those who lost their leg, arm, or nose in the war. Is this a ruse to lure the naive, or is it an honest proposal?
+
+A wheelhouse carrying markings of local nobility is found turned over in the mud, the horses’ throats cut, and the wheels dismantled. The coachman and the passengers are nowhere to be seen. From the thrown-open door are multiple pairs of footprints leading deep into the moor; right behind are a pair of larger, more monstrous prints.
+
+Strange blue flowers grow in the middle of a shallow pond. This fauna is highly reputed to be a healing agent or aphrodisiac. Or was it poison? Unbeknownst to them, they also mark where a bog wight would have been buried.
+
+As morning comes, a low groan emits from the waters, burbling as the creature moves through it. Later, as the survivors settle at camp, the groaning can be heard again, but it's coming from the darkness. Walking into camp is a half-naked man with a severed boar's head in hand. He affixes it atop the crown of his head. What happens next?
+
+The survivors encounter a raging storm, seeking a local manor for shelter. Upon gaining entrance, they find the owner is an obsessed and crazed lord, believing the ghost of his lover eternally haunts him. At the stroke of midnight, the survivors hear a spectral moaning coming from the moor.
+
+As the survivors journey on, they come across a tar pit that is host to the remains of many corpses. In the middle of the pit, a fantastically crafted sword juts from the ichor; the survivors feel an almost siren call to reach for the blade.
+
+A dilapidated hut is found deep in the moor. Its residents are an old woman and her feline companion. The woman claims to be a white witch and medicine woman, offering the survivors a strange toadstool as a token of friendship. If imbibed, the toadstool will cause paralysis and wild hallucinations.
+
+A child is found huddling under an outcropping, dirty but unharmed. The child does not speak but seems grateful for the survivors' assistance. However, the shallow cave the child dwells in is full of humanoid bones, some rather fresh.
+
+A herd of wild kine moves desperately, attempting to escape a small but vicious poodle. It yaps incessantly, but its owner isn't anywhere nearby. Upon closer inspection, one of its eyes smolders red. What is this demon dog?
+
+A wayside inn off the beaten path welcomes the survivors. Although small, its proprietor, his wife, and four adult children are pleasant and welcoming. The stew is sumptuous and hearty. However, a congealed mass floats within it. Is it merely a bit of thick gristle or a mashed eyeball?
+
+For several hours, the land has turned into a swampy mess. Mud sucks at the survivors’ boots, and a thick mist seems to rise ever worse as the day draws on. When night falls, twinkling motes of light draw the survivors deeper into the marsh, but to what end?
+
+Bloated flies buzz incessantly around the survivors’ foodstuffs. Large toads usually keep these insects in check, and it is only a matter of time until they show up ...
+
+One survivor spots a proud stag through a copse of trees: the rare and extremely lucky white hart. The creature scampers off as a band of goblins stampedes after it, hungry for meat.
+
+Several tribesmen stumble upon the survivors as they head back to their tribe. If treated courteously, they will invite the party back to their village to celebrate the Festival of the Moon. Mouths water at the scent of roast meat, but as they approach the fire, their stomachs turn at the sight of what’s cooking.
+
+The sounds of dogs barking and sled blades on frozen ground give way to a wild-eyed man who pulls up his team before the survivors. “I think I’ve lost them,” he pants. “But you’ll want to clear out quick. They might still be on my trail.” With a crack of his whip and a “Hyah!” his dog sled lurches into the forest.
+
+Caught in a snowstorm, the survivors find a pre-existing shelter formed from large rocks. It has been occupied recently: empty waterskins, half-eaten rations, and a damaged devil’s weed pipe lie scattered about. Bloodstains on the walls imply that this was more than just youths letting off steam. Is that blood fresh?
+
+Just off the beaten path, the sound of running water leads to a glacial runoff. Anyone who drinks the water moves one step up the Peril Condition Track, as this is the purest water they have ever tasted.
+
+The ground shakes as the party reaches the crest of a rise. A massive herd of elk stampedes toward them. What could be causing the stampede, and how can the party avoid being overrun?
+
+A murder of crows takes flight as the party stumbles upon the scene of a recent bloody battle. Amid the butchery, two sets of tracks lead further into the frozen north: unshod dainty footprints followed by heavily booted feet.
+
+Impeded by a recent snowfall, the survivors are approached by a tiny blonde woman accompanied by a massive white bear. If properly convinced, she could help out.
+
+Deep within the boreal forest lies a vale where snowflakes sparkle and hover in the air, as if suspended by magic. Closer inspection reveals frosty strands of webbing crisscrossing the glade. Are ice spiders real?
+
+Making their way across the tundra, the party hears a loud CRACK. Peering down, they realize that they have left the tundra and are crossing an unmarked frozen lake. The air is surprisingly warm today.
+
+Following an audible whimper, the party finds a dying wolf caught in an iron trap. A litter of newborn pups suckle the last of the warmth from their mother. Who laid this trap, and how long until they return?
+
+A treacherous rope bridge is the only way across a broad chasm for many miles. As the party crosses, they are met in the middle by a lone swordsman who refuses to backtrack, as he is in a terrible hurry. Do they concede and wait to cross, or try to convince the swordsman of their own need to cross?
+
+The survivors come upon a shrine to the Winter King. Upon inspection, it has been desecrated recently. As the party examines the damage, a group of worshipers arrives, angrily demanding answers as they brandish weapons.
