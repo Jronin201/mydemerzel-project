@@ -1,101 +1,102 @@
-Combat No
+Attack Move
 
-You overextend and must recover
-You stumble forward slightly
-You stumble sideways awkwardly
-You lose your footing on loose ground
-You slip but catch yourself
-You collide with obstacle (table, wall, rubble)
-You collide with ally
-You swing wide, weapon off balance
-You thrust too far and must reset
-Your strike glances off shield
-Your strike glances off armor
-Your strike glances off weapon
-Your attack parried easily
-Your attack deflected forcefully
-Your attack intercepted mid-swing
-Your weapon trapped briefly
-Your weapon caught on shield rim
-Your weapon caught in clothing
-Your weapon stuck in strap or buckle
-Your weapon wrenched aside
-Your shield arm knocked aside
-Your guard left open
-Your stance too wide
-Your stance too narrow
-You trip over debris
-You slip in mud, blood, or water
-Your heel slides backward
-Your ankle twists but holds
-You bash your weapon hand
-You bash your shield hand
-Your grip slips slightly
-Your grip loosens noticeably
-Your weapon nearly dropped
-Your weapon fumbles in hand
-Your shield angle wrong
-Your shield lifted too high
-Your shield dropped too low
-You flinch unnecessarily
-You duck at the wrong time
-You blink against sweat or blood
-Your vision momentarily obscured
-Your ears ringing from blow
-Your breath knocked short
-You gasp and lose momentum
-You grunt with strain
-You cry out involuntarily
-Your arm strained painfully
-Your shoulder jarred badly
-Your chest jolted back
-Your weapon arm numb briefly
-Your shield arm numb briefly
-You lose balance backward
-You lose balance sideways
-You are forced into retreat half-step
-You are forced into retreat full-step
-You are forced into crouch
-You are forced against wall or object
-You are forced against ally
-You are pressed toward hazard
-You are pressed toward open ground
-Your stance broken
-Your guard broken
-Your footing disrupted
-Your momentum lost
-You hesitate a moment
-You pause to reset
-You recover slowly
-Your attack slowed
-Your attack mistimed
-Your swing telegraphed
-Your thrust obvious
-Enemy feints you into error
-Enemy circles behind you
-Enemy pushes advantage
-Enemy presses attack
-Enemy drives you back
-Enemy forces you down slope
-Enemy forces you into corner
-Enemy pushes you toward edge
-Enemy knocks you against table
-Enemy knocks you into rubble
-Enemy knocks you into hazard
-Enemy forces you to shield only
-Enemy forces you to defend hastily
-Enemy forces you to lose formation
-Enemy forces you out of cover
-Enemy makes you vulnerable
-Enemy rattles your confidence
-Enemy shakes your morale
-Enemy snarls in triumph
-Enemy laughs mockingly
-Enemy taunts cruelly
-Enemy shouts to allies
-Enemy emboldens allies
-Enemy regains confidence
-Enemy steadies defense
-Enemy grows bolder
-Enemy rallies nearby fighters
-Enemy readies for counterblow
+Basic strike
+Wide swing
+Heavy blow
+Overhead smash
+Downward chop
+Upward slash
+Quick jab
+Fast thrust
+Lunging thrust
+Feint attack
+Mock strike
+Low feint
+Double feint
+Wild charge
+Bull rush
+Shield bash
+Pommel strike
+Elbow smash
+Knee strike
+Kick to shin
+Kick to knee
+Kick to groin
+Leg sweep
+Foot stomp
+Shoulder slam
+Headbutt
+Backhand strike
+Spinning slash
+Reverse grip slash
+Cleave through
+Two-handed chop
+One-handed slash
+Hooking strike
+Diagonal cut
+Cross-body slash
+Parry-riposte
+Counter-strike
+Defensive jab
+Defensive strike
+Retreating thrust
+Lunge and withdraw
+Cautious slash
+Careful prod
+Probe attack
+Testing strike
+Harassing jab
+Distracting swipe
+Attack to face
+Attack to head
+Attack to eyes
+Attack to jaw
+Attack to throat
+Attack to chest
+Attack to ribs
+Attack to stomach
+Attack to side
+Attack to back
+Attack to arm
+Attack to weapon arm
+Attack to shield arm
+Attack to leg
+Attack to knee
+Attack to foot
+Attack to groin
+Attack to shoulder
+Attack to hip
+Attack to hand
+Attack to fingers
+Attack to weapon grip
+Attack to shield grip
+Attack to helm
+Attack to armor joint
+Attack to exposed spot
+Attack against armor gap
+Attack through guard
+Attack around guard
+Attack under guard
+Reckless charge
+Wild flurry
+Whirling strike
+Overhand stab
+Underhand stab
+Piercing thrust
+Drilling thrust
+Driving push
+Sweeping slash
+Crouching strike
+Rising strike
+Vaulting strike
+Leaping attack
+Thrown weapon
+Improvised weapon strike
+Kick of dirt or sand
+Grab and strike
+Grapple and throw
+Push and trip
+Disarm attempt
+Weapon lock attempt
+Bind and twist
+Close-in shove

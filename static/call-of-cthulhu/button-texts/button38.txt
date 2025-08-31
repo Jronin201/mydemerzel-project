@@ -1,102 +1,125 @@
-Combat NO
+Defense Move
 
-You stumble and fall prone
-You slip and crash hard
-You trip over debris and collapse
-You collide headlong into obstacle
-You crash into ally, disrupting them
-You sprawl across the ground
-You tumble down slope or stair
-You are knocked sprawling by riposte
-You are hurled backward violently
-You spin around uncontrolled
-You stagger into hazard (fire, pit, spikes)
-You slam into wall or pillar
-You land in mud or water
-You fall flat on weapon or shield
-Your shield flies from your grip
-Your weapon flies from your grip
-Your weapon hurled far away
-Your weapon shattered on impact
-Your weapon bent or warped
-Your bowstring snaps
-Your quiver spills arrows
-Your pack bursts open
-Your belt cut free
-Your cloak tangles your legs
-Your helm knocked off
-Your visor jammed shut
-Your armor strap breaks loose
-Your armor plate torn off
-Your gauntlet ripped away
-Your boot torn loose
-Your footing lost entirely
-You crash onto your knees
-You collapse backward
-You collapse forward
-You are pinned beneath foe
-You are pinned against wall
-You are trapped under debris
-You are tangled in reins or straps
-You are tangled in cloak
-You are tangled in environment (roots, rubble, furniture)
-Enemy wrenches your weapon away
-Enemy smashes your shield from hand
-Enemy smashes your weapon arm
-Enemy smashes your shield arm
-Enemy slams you against obstacle
-Enemy slams you onto ground
-Enemy drives you onto back foot
-Enemy forces you through doorway
-Enemy forces you onto table or altar
-Enemy forces you into hazard
-Enemy forces you into ally
-Enemy knocks you down slope
-Enemy throws you bodily
-Enemy grapples and restrains you
-Enemy lifts and hurls you
-Enemy pins you under weight
-Enemy pins you under shield
-Enemy pins you in chokehold
-Enemy presses you flat
-Enemy straddles you menacingly
-Enemy rains down follow-up blows
-Enemy executes brutal counterattack
-Enemy shatters your defense
-Enemy breaks your guard utterly
-Enemy feints you into total failure
-Enemy outmaneuvers you completely
-Enemy circles behind you
-Enemy attacks your exposed back
-Enemy disarms you dramatically
-Enemy smashes your weapon aside
-Enemy parries and strikes instantly
-Enemy counters with shield bash
-Enemy counters with pommel strike
-Enemy counters with kick
-Enemy counters with grapple
-Enemy counters with throw
-Enemy rallies allies with your failure
-Enemy taunts, humiliating you
-Enemy shouts victory cry
-Enemy laughs mockingly
-Enemy jeers mercilessly
-Enemy chants in triumph
-Enemy calls others to witness your failure
-Enemy demoralizes your allies
-Enemy emboldens nearby fighters
-Enemy presses advantage mercilessly
-Enemy isolates you from allies
-Enemy blocks your retreat path
-Enemy corners you fully
-Enemy cuts you off from cover
-Enemy drives you toward cliff or pit
-Enemy smashes you through furniture
-Enemy smashes you through barricade
-Enemy topples you into hazard
-Enemy topples you into ally
-Enemy weapon lodged into your gear
-Enemy weapon lodged into your shield
-Enemy weapon lodged into your armament
-Enemy drives you face-first into dirt
-Enemy forces you to crawl away
+Block high with shield
+Block low with shield
+Block center with shield
+Block high with weapon
+Block low with weapon
+Block cross-body with weapon
+Block using both hands
+Block using improvised object
+Block with forearm
+Block with gauntlet
+Block with bracer
+Block with vambrace
+Block with greave
+Block with shoulder
+Block with helm
+Block with torso armor
+Block with cloak wrapped around arm
+Block with pack or satchel
+Block with scabbard
+Block with crossguard catch
+Block with shield boss
+Block with shield edge
+Block with shield rim
+Block by pressing shield forward
+Block by bracing shield against ground
+Block by bracing shield against wall
+Block by locking shield with ally
+Block by turning shield sideways
+Block by raising shield overhead
+Block by lowering shield to legs
+Block by overlapping shield with ally
+Parry high cut with sword
+Parry low cut with sword
+Parry thrust with sword
+Parry thrust with dagger
+Parry with main gauche
+Parry with spear haft
+Parry with staff
+Parry with axe handle
+Parry with hammer shaft
+Parry with polearm shaft
+Parry upward deflection
+Parry downward deflection
+Parry outward sweep
+Parry inward sweep
+Parry with half-sword grip
+Parry with flat of blade
+Parry by binding weapon
+Parry by sliding weapon aside
+Parry with beat (forceful smack)
+Parry with circular motion
+Parry with twist of wrist
+Parry close to crossguard
+Parry close to blade tip
+Parry while stepping in
+Parry while stepping back
+Parry while circling left
+Parry while circling right
+Parry with simultaneous riposte
+Parry two-handed weapon with leverage
+Parry missile with blade edge (cinematic!)
+Parry thrown weapon with shield
+Dodge sidestep left
+Dodge sidestep right
+Dodge leap back
+Dodge small step back
+Dodge forward slip inside guard
+Dodge forward drop under strike
+Dodge by crouching
+Dodge by ducking low
+Dodge by springing high
+Dodge by rolling aside
+Dodge by spinning aside
+Dodge by twisting torso
+Dodge by pivoting on heel
+Dodge by vaulting over obstacle
+Dodge into cover
+Dodge into ally’s guard
+Dodge into crowd
+Dodge into smoke or dust
+Dodge to ground intentionally
+Dodge into tumble
+Dodge to kneeling stance
+Dodge to prone stance
+Dodge into grappling distance
+Dodge while discarding gear
+Dodge with cloak swirl
+Dodge with cape catch
+Dodge with cloak tossed in face
+Dodge by feigning stumble
+Dodge by collapsing sideways
+Dodge through narrow space
+Dodge under opponent’s arm
+Dodge past opponent entirely
+Dodge into clinch
+Mixed / other defensive flavors:
+Catch blow on armor ridge
+Catch blow on shield boss
+Catch strike on shield strap
+Catch strike on shield binding
+Catch strike on crossguard hook
+Catch strike on spear haft
+Catch strike on polearm hook
+Catch arrow on shield rim
+Catch arrow in shield face
+Catch thrown weapon in cloak
+Trap weapon under shield rim
+Trap weapon against wall
+Trap weapon against ground
+Smother strike with cloak
+Smother strike with shield blanket
+Smother strike with grapple
+Jam close to attacker’s body
+Jam attacker’s wrist
+Jam attacker’s weapon arm
+Intercept with off-hand weapon
+Intercept with improvised object
+Intercept with pole or staff
+Intercept with broken weapon
+Intercept with ally’s shield overlap
+Intercept with ally’s weapon
+Intercept with terrain (pillar, doorframe)
+Intercept by seizing attacker’s limb

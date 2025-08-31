@@ -1,100 +1,97 @@
-Combat YES
+Combat Exceptional
 
-Enemy falls prone
-Enemy stunned
-Enemy drops weapon
-Enemy drops shield
-Enemy disarmed completely
-Enemy loses balance
-Enemy trips backward
-Enemy crashes into ally
-Enemy crashes into wall or object
-Enemy pinned against surface
-Enemy forced back
-Enemy cornered
-Enemy entangled in cloak or gear
-Enemy tangled in reins or straps
-Weapon knocked far away
-Shield arm numbed
-Weapon hand numbed
-Weapon arm disabled
-Leg disabled momentarily
-Weapon embedded in armor
-Arrow lodged awkwardly
-Bolt pierces through shield
-Armor dented beyond use
-Shield splintered
-Helmet cracked
-Bowstring snapped
-Quiver spilled
-Weapon stuck in shield
-Weapon stuck in ground
-Weapon caught in clothing
-Weapon caught in straps
-Enemy staggered badly
-Enemy winded, gasping
-Enemy blinded briefly
-Enemy deafened briefly
-Enemy concussed briefly
-Enemy vomiting
-Enemy’s stance broken
-Enemy’s guard lowered
-Enemy utterly exposed
-Enemy pinned to ground
-Enemy trapped under heavy object
-Enemy knocked from mount
-Enemy mount panics or flees
-Enemy tangled in environment (roots, rubble, furniture)
-Enemy collides with hazard (fire, spikes, pit)
-Enemy shield arm disabled
-Enemy weapon arm disabled
-Enemy helm knocked off
-Enemy staggers into ally’s strike
-Enemy staggers into hazard
-Enemy thrown weapon strikes ally
-Enemy collides with obstacle
-Enemy’s morale shaken
-Enemy’s morale broken
-Enemy panicked
-Enemy enraged
-Enemy demoralized
-Enemy begs for mercy
-Enemy flees in fear
-Enemy disoriented
-Enemy forced to drop item
-Enemy forced to drop shield
-Enemy forced to release grapple
-Enemy grappled or restrained
-Enemy pushed to knees
-Enemy knocked into sitting position
-Enemy spins around uncontrolled
-Enemy falls backwards
-Enemy thrown to side
-Enemy slammed into ground
-Enemy loses footing on terrain
-Enemy slides across ground
-Enemy topples something
-Enemy breaks cover
-Enemy forced out of formation
-Enemy knocks ally off balance
-Enemy blocks ally’s movement
-Enemy staggers into ally’s attack
-Enemy weapon bent or cracked
-Enemy weapon damaged beyond use
-Enemy shield strap broken
-Enemy shield dropped accidentally
-Enemy armor strap loosened
-Enemy armor plate knocked off
-Enemy helmet visor jammed shut
-Enemy helmet visor knocked open
-Enemy clothing torn away
-Enemy belt or sash cut free
-Enemy quiver or pouch spilled
-Enemy pack or satchel spilled
-Enemy banner or symbol dropped
-Enemy footing lost on stairs
-Enemy footing lost on slope
-Enemy footing lost on mud or ice
-Enemy collapses on knees
-Enemy collapses forward
-Enemy stunned in place, immobile
+Falls prone
+Slips and crashes down
+Trips awkwardly and collapses
+Crashes into obstacle
+Crashes into ally
+Sprawls across the ground
+Tumbles down slope or stairs
+Hurled backward violently
+Spins around uncontrolled
+Staggers into hazard (fire, pit, spikes)
+Slammed into wall or pillar
+Knocked into mud or water
+Falls onto own gear
+Shield/weapon torn from grip
+Shield/weapon flung far away
+Shield/weapon broken or ruined
+Weapon bent, warped, or jammed
+Pack or belt bursts open
+Cloak or clothing entangles legs
+Headgear knocked off or broken
+Armor strap or piece breaks loose
+Glove or boot pulled free
+Loses footing completely
+Crashes onto knees
+Collapses backward
+Collapses forward
+Pinned to ground
+Pinned against surface
+Trapped under debris or rubble
+Tangled in reins, straps, or gear
+Tangled in environment (roots, rubble, furniture)
+Weapon wrenched aside violently
+Shield/weapon smashed aside
+Struck so hard arms go numb
+Struck so hard legs give way
+Slammed to ground with force
+Driven onto back foot
+Forced through doorway or gap
+Forced onto table, altar, or object
+Forced into nearby hazard
+Knocked into ally
+Knocked down slope
+Thrown bodily through air
+Grappled and restrained
+Lifted and hurled down
+Pressed flat to ground
+Straddled and overpowered
+Subjected to follow-up strikes
+Defense shattered entirely
+Guard broken utterly
+Outmaneuvered completely
+Flanked or circled behind
+Exposed to back attack
+Weapon stripped away dramatically
+Weapon knocked spinning aside
+Countered instantly and forcefully
+Countered with strike to body
+Countered with strike to head
+Countered with shove or kick
+Countered with grapple or throw
+Confidence shattered
+Allies demoralized by spectacle
+Opponents emboldened by spectacle
+Humiliated publicly
+Mocked mercilessly
+Shouted down with victory cries
+Failure witnessed by many
+Morale collapses completely
+Isolated from allies
+Retreat path blocked off
+Cornered fully
+Cut off from cover
+Driven toward cliff, edge, or pit
+Smashed through furniture or barrier
+Toppled into hazard or fire
+Toppled into ally or bystander
+Weapon lodged in armor, shield/weapon, or gear
+Weapon lodged in ground or wall
+Forced face-first into dirt or floor
+Forced to crawl away
+Crushed under heavy weight
+Thrown projectile strikes unintended target
+Forced to release hold or grapple
+Forced to abandon stance entirely
+Forced to yield ground completely
+Knocked unconscious
+Rendered helpless
+Rendered stunned
+Dazed and unable to act
+Blinded temporarily
+Deafened temporarily
+Disoriented beyond recovery
+Permanently maimed or disfigured
+Permanently crippled
+Instantly killed (narrative judgment)
