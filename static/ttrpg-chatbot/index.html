@@ -726,18 +726,23 @@
                   // Collect non-empty trimmed lines from line index 2 onward (line 3 in file)
                   candidateLines = lines
                     .slice(2)
-                    .map(l => l.trim())
-                    .filter(l => l.length > 0);
+                    .map((l) => l.trim())
+                    .filter((l) => l.length > 0);
                   if (candidateLines.length === 0) {
                     // Fallback: use entire trimmed text (excluding first line if present)
-                    const fallback = lines.slice(2).join(" ").trim() || txt.trim();
+                    const fallback =
+                      lines.slice(2).join(" ").trim() || txt.trim();
                     candidateLines = [fallback];
                   }
                 }
                 if (!input) return;
                 // Pick a random candidate line each click
-                const pick = candidateLines[Math.floor(Math.random() * candidateLines.length)];
-                if (input.value && !/[\s\n]$/.test(input.value)) input.value += " ";
+                const pick =
+                  candidateLines[
+                    Math.floor(Math.random() * candidateLines.length)
+                  ];
+                if (input.value && !/[\s\n]$/.test(input.value))
+                  input.value += " ";
                 input.value += pick;
                 input.focus();
                 if (typeof Event === "function")
@@ -759,10 +764,11 @@
               }
               candidateLines = lines
                 .slice(2)
-                .map(l => l.trim())
-                .filter(l => l.length > 0);
+                .map((l) => l.trim())
+                .filter((l) => l.length > 0);
               if (candidateLines.length === 0) {
-                const fallback = lines.slice(2).join(" ").trim() || buttonText.trim();
+                const fallback =
+                  lines.slice(2).join(" ").trim() || buttonText.trim();
                 candidateLines = [fallback];
               }
             });
