@@ -1,0 +1,3 @@
+Digital Trace Leak
+
+An anonymized data dump risks indirect Masquerade erosion.

@@ -1,0 +1,3 @@
+Signal Latency Spike
+
+Increased delay complicates timing-dependent actions.

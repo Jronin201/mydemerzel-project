@@ -1,0 +1,3 @@
+Constraint Update
+
+A new rule emerges, altering solution search parameters.

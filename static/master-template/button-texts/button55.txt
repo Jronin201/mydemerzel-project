@@ -1,0 +1,3 @@
+Throughput Renegotiation
+
+Resource allocation must pivot after upstream quota change.

@@ -1,0 +1,3 @@
+Unexpected Null Return
+
+A core interface yields empty output needing defensive handling.

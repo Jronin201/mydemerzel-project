@@ -1,0 +1,3 @@
+Seed Ledger Slip
+
+Inventory miscount could mask pilfering or simple error.
