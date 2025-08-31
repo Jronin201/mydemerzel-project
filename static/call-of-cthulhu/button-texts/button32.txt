@@ -1,0 +1,3 @@
+Tainted Source
+
+Reveal that an assumed trustworthy source is compromised, biased, or occult-influenced.

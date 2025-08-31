@@ -1,0 +1,3 @@
+Blood Debt Reminder
+
+An NPC subtly or overtly reminds the coterie of a binding obligation.

@@ -1,0 +1,3 @@
+After-Action Trace
+
+Summarize a subtle consequence from a prior success that alters current context.

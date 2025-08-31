@@ -1,0 +1,3 @@
+Allied Request
+
+An ally requests aid; fulfilling it yields future leverage or information.

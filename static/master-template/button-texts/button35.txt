@@ -1,0 +1,3 @@
+Hidden Cost
+
+Reveal an emerging cost (time, morale, resource) attached to current strategy.

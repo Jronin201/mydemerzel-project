@@ -1,0 +1,3 @@
+Soft Complication
+
+Add a reversible complication increasing tension without halting progress.

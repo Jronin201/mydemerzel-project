@@ -1,0 +1,3 @@
+Territorial Dispute
+
+Show a brewing conflict between local creatures requiring mediation or avoidance.

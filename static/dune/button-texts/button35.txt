@@ -1,0 +1,3 @@
+Mentat Projection
+
+Provide a probabilistic forecast of outcomes for the party’s current strategic choice.

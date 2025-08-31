@@ -1,0 +1,3 @@
+Scout Report
+
+Deliver concise intel from a scouting effort clarifying threat vectors or safe paths.

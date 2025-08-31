@@ -1,0 +1,3 @@
+Sabotage Trace
+
+Reveal forensic signs that an opponent has compromised assets or logistics.

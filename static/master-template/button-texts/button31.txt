@@ -1,0 +1,3 @@
+Branching Choice
+
+Introduce a decision node with clearly divergent narrative consequences.
