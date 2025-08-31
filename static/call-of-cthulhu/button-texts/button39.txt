@@ -1,3 +1,102 @@
-Psychological Spillover
+Attack Move
 
-Demonstrate how stress or exposure begins to affect interpersonal dynamics.
+Basic strike
+Wide swing
+Heavy blow
+Overhead smash
+Downward chop
+Upward slash
+Quick jab
+Fast thrust
+Lunging thrust
+Feint attack
+Mock strike
+Low feint
+Double feint
+Wild charge
+Bull rush
+Shield bash
+Pommel strike
+Elbow smash
+Knee strike
+Kick to shin
+Kick to knee
+Kick to groin
+Leg sweep
+Foot stomp
+Shoulder slam
+Headbutt
+Backhand strike
+Spinning slash
+Reverse grip slash
+Cleave through
+Two-handed chop
+One-handed slash
+Hooking strike
+Diagonal cut
+Cross-body slash
+Parry-riposte
+Counter-strike
+Defensive jab
+Defensive strike
+Retreating thrust
+Lunge and withdraw
+Cautious slash
+Careful prod
+Probe attack
+Testing strike
+Harassing jab
+Distracting swipe
+Attack to face
+Attack to head
+Attack to eyes
+Attack to jaw
+Attack to throat
+Attack to chest
+Attack to ribs
+Attack to stomach
+Attack to side
+Attack to back
+Attack to arm
+Attack to weapon arm
+Attack to shield arm
+Attack to leg
+Attack to knee
+Attack to foot
+Attack to groin
+Attack to shoulder
+Attack to hip
+Attack to hand
+Attack to fingers
+Attack to weapon grip
+Attack to shield grip
+Attack to helm
+Attack to armor joint
+Attack to exposed spot
+Attack against armor gap
+Attack through guard
+Attack around guard
+Attack under guard
+Reckless charge
+Wild flurry
+Whirling strike
+Overhand stab
+Underhand stab
+Piercing thrust
+Drilling thrust
+Driving push
+Sweeping slash
+Crouching strike
+Rising strike
+Vaulting strike
+Leaping attack
+Thrown weapon
+Improvised weapon strike
+Kick of dirt or sand
+Grab and strike
+Grapple and throw
+Push and trip
+Disarm attempt
+Weapon lock attempt
+Bind and twist
+Close-in shove

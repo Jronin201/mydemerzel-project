@@ -1,3 +1,125 @@
-Threshold Event
+Defense Move
 
-Mark a point of irreversible escalation—knowledge gained, sanity strained, danger locked.
+Block high with shield
+Block low with shield
+Block center with shield
+Block high with weapon
+Block low with weapon
+Block cross-body with weapon
+Block using both hands
+Block using improvised object
+Block with forearm
+Block with gauntlet
+Block with bracer
+Block with vambrace
+Block with greave
+Block with shoulder
+Block with helm
+Block with torso armor
+Block with cloak wrapped around arm
+Block with pack or satchel
+Block with scabbard
+Block with crossguard catch
+Block with shield boss
+Block with shield edge
+Block with shield rim
+Block by pressing shield forward
+Block by bracing shield against ground
+Block by bracing shield against wall
+Block by locking shield with ally
+Block by turning shield sideways
+Block by raising shield overhead
+Block by lowering shield to legs
+Block by overlapping shield with ally
+Parry high cut with sword
+Parry low cut with sword
+Parry thrust with sword
+Parry thrust with dagger
+Parry with main gauche
+Parry with spear haft
+Parry with staff
+Parry with axe handle
+Parry with hammer shaft
+Parry with polearm shaft
+Parry upward deflection
+Parry downward deflection
+Parry outward sweep
+Parry inward sweep
+Parry with half-sword grip
+Parry with flat of blade
+Parry by binding weapon
+Parry by sliding weapon aside
+Parry with beat (forceful smack)
+Parry with circular motion
+Parry with twist of wrist
+Parry close to crossguard
+Parry close to blade tip
+Parry while stepping in
+Parry while stepping back
+Parry while circling left
+Parry while circling right
+Parry with simultaneous riposte
+Parry two-handed weapon with leverage
+Parry missile with blade edge (cinematic!)
+Parry thrown weapon with shield
+Dodge sidestep left
+Dodge sidestep right
+Dodge leap back
+Dodge small step back
+Dodge forward slip inside guard
+Dodge forward drop under strike
+Dodge by crouching
+Dodge by ducking low
+Dodge by springing high
+Dodge by rolling aside
+Dodge by spinning aside
+Dodge by twisting torso
+Dodge by pivoting on heel
+Dodge by vaulting over obstacle
+Dodge into cover
+Dodge into ally’s guard
+Dodge into crowd
+Dodge into smoke or dust
+Dodge to ground intentionally
+Dodge into tumble
+Dodge to kneeling stance
+Dodge to prone stance
+Dodge into grappling distance
+Dodge while discarding gear
+Dodge with cloak swirl
+Dodge with cape catch
+Dodge with cloak tossed in face
+Dodge by feigning stumble
+Dodge by collapsing sideways
+Dodge through narrow space
+Dodge under opponent’s arm
+Dodge past opponent entirely
+Dodge into clinch
+Mixed / other defensive flavors:
+Catch blow on armor ridge
+Catch blow on shield boss
+Catch strike on shield strap
+Catch strike on shield binding
+Catch strike on crossguard hook
+Catch strike on spear haft
+Catch strike on polearm hook
+Catch arrow on shield rim
+Catch arrow in shield face
+Catch thrown weapon in cloak
+Trap weapon under shield rim
+Trap weapon against wall
+Trap weapon against ground
+Smother strike with cloak
+Smother strike with shield blanket
+Smother strike with grapple
+Jam close to attacker’s body
+Jam attacker’s wrist
+Jam attacker’s weapon arm
+Intercept with off-hand weapon
+Intercept with improvised object
+Intercept with pole or staff
+Intercept with broken weapon
+Intercept with ally’s shield overlap
+Intercept with ally’s weapon
+Intercept with terrain (pillar, doorframe)
+Intercept by seizing attacker’s limb
