@@ -1,0 +1,3 @@
+Cyclic Tinnitus Pattern
+
+Ear ringing encodes a repeating three-tone numerical sequence.

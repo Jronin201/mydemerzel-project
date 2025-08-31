@@ -1,0 +1,3 @@
+Entropy Spike
+
+Random failure probability exceeds modeled baseline briefly.

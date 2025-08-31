@@ -1,0 +1,3 @@
+Privilege Escalation Check
+
+Audit reveals a stale token retaining elevated scope.

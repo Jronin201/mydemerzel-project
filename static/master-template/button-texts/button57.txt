@@ -1,0 +1,3 @@
+Redundancy Degradation
+
+A backup pathway shows subtle failure precursors.

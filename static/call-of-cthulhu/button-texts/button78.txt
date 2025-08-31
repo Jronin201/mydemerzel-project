@@ -1,0 +1,3 @@
+Melting Shadow Edge
+
+Perimeter of a shadow blurs as if phase-changing.

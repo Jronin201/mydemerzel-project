@@ -1,0 +1,3 @@
+Partial Rollback
+
+A subsystem reverts version unexpectedly—compat checks needed.

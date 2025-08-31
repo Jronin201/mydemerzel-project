@@ -1,0 +1,3 @@
+Temporal Drip Lag
+
+Water droplets pause mid-fall for a perceptible half-second.

@@ -1,0 +1,3 @@
+Compass Precession
+
+Needle slowly circles despite stable magnetic surroundings.

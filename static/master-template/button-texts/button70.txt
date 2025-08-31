@@ -1,0 +1,3 @@
+Rollback Readiness Drill
+
+Simulated failure reveals unpracticed recovery step.

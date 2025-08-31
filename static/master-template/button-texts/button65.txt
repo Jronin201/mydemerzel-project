@@ -1,0 +1,3 @@
+Threshold Warning
+
+Approaching soft limit prompts proactive scaling decision.

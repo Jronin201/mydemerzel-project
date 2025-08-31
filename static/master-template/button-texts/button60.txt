@@ -1,0 +1,3 @@
+Interface Deprecation Notice
+
+Upcoming change window demands refactor scheduling.

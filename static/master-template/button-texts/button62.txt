@@ -1,0 +1,3 @@
+Spec Ambiguity
+
+Conflicting interpretations stall forward implementation.

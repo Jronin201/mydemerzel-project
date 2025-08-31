@@ -1,0 +1,3 @@
+Nonlocal Whisper
+
+A voice transcript appears on paper before being audibly heard.

@@ -1,0 +1,3 @@
+Observability Gap
+
+Missing trace span obscures root-cause pinpointing.

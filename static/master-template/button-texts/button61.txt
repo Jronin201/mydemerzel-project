@@ -1,0 +1,3 @@
+Cache Invalidation Event
+
+Stale data flush triggers recalculation latency spike.
