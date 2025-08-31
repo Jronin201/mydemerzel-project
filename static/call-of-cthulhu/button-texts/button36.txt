@@ -1,3 +1,100 @@
-Oblique Warning
+Combat Yes
 
-Deliver a cryptic warning through dream fragment, marginalia, or anonymous note.
+Enemy staggers back a step
+Enemy stumbles sideways
+Enemy’s guard loosened
+Enemy’s footing unstable
+Enemy weapon arm jolted
+Enemy shield arm jolted
+Enemy loses grip slightly
+Enemy shifts stance defensively
+Enemy flinches in pain
+Enemy reels briefly
+Enemy pauses to catch breath
+Enemy’s aim disrupted
+Enemy’s swing interrupted
+Enemy’s thrust redirected
+Enemy’s balance checked
+Enemy steps back to recover
+Enemy falters mid-strike
+Enemy forced to circle away
+Enemy drops to one knee briefly
+Enemy crouches to protect self
+Enemy pivots clumsily
+Enemy weapon wavers
+Enemy shield slips
+Enemy’s weapon point lowered
+Enemy’s weapon raised ineffectively
+Enemy driven off line
+Enemy’s stance widened
+Enemy guard left open momentarily
+Enemy knocked half a step off
+Enemy forced against terrain
+Enemy brushed against wall or obstacle
+Enemy forced against ally
+Enemy jostles ally
+Enemy’s shield edge cracked
+Enemy’s weapon nicked
+Enemy’s armor scraped
+Enemy helmet dented
+Enemy gauntlet struck
+Enemy glove torn
+Enemy clothing torn
+Enemy belt cut
+Enemy pouch loosened
+Enemy satchel slipped
+Enemy hat or helm jarred
+Enemy cloak torn
+Enemy jewelry knocked loose
+Enemy token or talisman knocked loose
+Enemy grimaces in pain
+Enemy grunts loudly
+Enemy cries out in anger
+Enemy cries out in fear
+Enemy snarls in defiance
+Enemy spits blood or saliva
+Enemy breath knocked out
+Enemy shoulder forced down
+Enemy chest forced back
+Enemy weapon knocked slightly askew
+Enemy shield pushed wide
+Enemy parry compromised
+Enemy stance slowed
+Enemy reaction delayed
+Enemy eyes blink shut briefly
+Enemy head rocked back
+Enemy ears ringing
+Enemy vision blurred briefly
+Enemy gasps in surprise
+Enemy fumbles step
+Enemy weight shifted wrong
+Enemy turns to side unwillingly
+Enemy pivots back in pain
+Enemy forced closer to hazard
+Enemy forced closer to ally
+Enemy loses cover momentarily
+Enemy pushed toward open ground
+Enemy pressed against table or object
+Enemy foot caught awkwardly
+Enemy heel slips
+Enemy ankle twisted briefly
+Enemy boot scraped
+Enemy trips slightly but recovers
+Enemy crouches involuntarily
+Enemy ducks head
+Enemy raises weapon defensively only
+Enemy forced into hasty block
+Enemy retreats half-step
+Enemy retreats full step
+Enemy forced to circle opponent
+Enemy shuffles sideways
+Enemy loses weapon alignment
+Enemy weapon swings wide
+Enemy shield raised too high
+Enemy shield dropped too low
+Enemy defense briefly lapsed
+Enemy breath ragged
+Enemy mutters or curses
+Enemy morale shaken slightly
+Enemy less confident
+Enemy visibly tiring
