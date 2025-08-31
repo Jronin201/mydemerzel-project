@@ -1,0 +1,3 @@
+Quest Thread
+
+Introduce a new quest hook tied to prophecy, relic, or court intrigue.

@@ -1,0 +1,3 @@
+Foraging Result
+
+Narrate the outcome of a quick forage attempt—include scarcity, abundance, or hidden risk.

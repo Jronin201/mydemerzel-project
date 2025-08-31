@@ -1,0 +1,3 @@
+Soft Timer
+
+Introduce a soft deadline whose pressure mounts narratively if ignored.

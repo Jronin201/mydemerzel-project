@@ -1,0 +1,3 @@
+Template Hook
+
+Insert a modular adventure or encounter hook with clear stakes and a path to escalate.

@@ -1,0 +1,3 @@
+Dynamic Location
+
+Alter a location detail (crowd, lighting, layout, access) that shifts tactical context.

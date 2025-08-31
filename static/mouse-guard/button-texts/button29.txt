@@ -1,0 +1,3 @@
+Seasonal Shift
+
+Show an advancing seasonal condition that escalates urgency or risk.
