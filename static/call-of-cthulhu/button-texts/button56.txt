@@ -1,0 +1,3 @@
+Mirror Delay
+
+Reflections lag a fraction longer than natural motion.

@@ -1,0 +1,3 @@
+Synchronous Heartbeats
+
+Multiple wrist pulses align unnaturally for a full minute.

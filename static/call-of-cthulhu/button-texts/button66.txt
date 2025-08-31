@@ -1,0 +1,3 @@
+Auditory Palindrome
+
+Recorded whisper plays identically forward and backward.

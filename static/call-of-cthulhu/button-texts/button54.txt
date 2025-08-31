@@ -1,0 +1,3 @@
+Static Murmur
+
+Radios hiss coherent fragments when tuned off‑band.

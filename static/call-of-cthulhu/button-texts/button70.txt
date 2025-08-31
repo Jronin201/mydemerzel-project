@@ -1,0 +1,3 @@
+Clock Desynchrony
+
+All mechanical clocks in vicinity diverge by unique offsets at once.

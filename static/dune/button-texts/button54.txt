@@ -1,0 +1,3 @@
+Moisture Differential
+
+Unexpected humidity spike suggests a stilltent or leak nearby.

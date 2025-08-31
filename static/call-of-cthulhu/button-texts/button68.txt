@@ -1,0 +1,3 @@
+Sonorous Silence
+
+Ambient room tone drops below measurable threshold briefly.

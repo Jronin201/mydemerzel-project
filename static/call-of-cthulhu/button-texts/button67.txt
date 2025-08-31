@@ -1,0 +1,3 @@
+Inverted Shadow Length
+
+Shadows lengthen toward rather than away from light source.
