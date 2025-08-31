@@ -1,0 +1,3 @@
+Spice Contamination
+
+Reveal that a resource or cache is tainted, volatile, or strategically compromised.

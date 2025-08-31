@@ -1,0 +1,3 @@
+Structural Weakness
+
+Identified fragility offers exploit—or requires urgent mitigation.
