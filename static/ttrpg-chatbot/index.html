@@ -476,14 +476,14 @@
         justify-content: center;
       }
 
-  #undo-button:hover:not(:disabled),
-  #clear-button:hover:not(:disabled) {
+      #undo-button:hover:not(:disabled),
+      #clear-button:hover:not(:disabled) {
         background-color: #444;
         border-color: #777;
       }
 
-  #undo-button:disabled,
-  #clear-button:disabled {
+      #undo-button:disabled,
+      #clear-button:disabled {
         background-color: #222;
         border-color: #333;
         color: #666;
@@ -491,8 +491,8 @@
         opacity: 0.6;
       }
 
-  #undo-button:focus,
-  #clear-button:focus {
+      #undo-button:focus,
+      #clear-button:focus {
         outline: 2px solid #81d4fa;
         border-color: #81d4fa;
       }
@@ -1086,10 +1086,10 @@
         // Chat functionality
         var messages = document.getElementById("messages");
         var input = document.getElementById("userInput");
-  var undoButton = document.getElementById("undo-button");
-  var clearButton = document.getElementById("clear-button");
+        var undoButton = document.getElementById("undo-button");
+        var clearButton = document.getElementById("clear-button");
 
-  if (!messages || !input || !undoButton || !clearButton) {
+        if (!messages || !input || !undoButton || !clearButton) {
           console.error("Required chat elements not found");
           return;
         }
@@ -1214,7 +1214,11 @@
         addEvent(undoButton, "click", undoChatStep);
         addEvent(clearButton, "click", function () {
           if (clearButton.disabled) return;
-          if (!confirm("Clear all chat messages for this session? This cannot be undone.")) {
+          if (
+            !confirm(
+              "Clear all chat messages for this session? This cannot be undone."
+            )
+          ) {
             return;
           }
           var original = clearButton.textContent;

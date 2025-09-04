@@ -233,7 +233,19 @@
     </style>
   </head>
   <body>
-    <!-- Deprecated: This file is no longer in use. Functionality is centralized in /ttrpg-chatbot. -->
+    <!-- Deprecated: This file is no longer in use. Auto-redirect to unified Witcher page -->
+    <script>
+      (function () {
+        try {
+          var target = "/static/ttrpg-chatbot/index.html?ttrpg=the-one-ring";
+          if (window.location.href.indexOf("ttrpg-chatbot") === -1) {
+            window.location.replace(target);
+          }
+        } catch (e) {
+          /* fail silently */
+        }
+      })();
+    </script>
 
     <!-- Left-side container for the character sheet -->
     <div id="left-container">
@@ -276,7 +288,7 @@
 
     <!-- Right-side container for the chatbot -->
     <div id="chat-container" role="main">
-      <h1>Demerzel</h1>
+      <h1>Demerzel – The Witcher</h1>
       <div
         id="messages"
         role="log"
