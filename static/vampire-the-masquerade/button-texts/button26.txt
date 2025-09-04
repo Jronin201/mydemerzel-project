@@ -1,3 +1,106 @@
-Haven Intrusion
+When
 
-Present evidence that the haven is surveilled, compromised, or indirectly threatened.
+At dawn
+At dusk
+At midnight
+At cockcrow
+During curfew
+During festival
+During famine
+During plague
+On execution day
+On the eve of battle
+On the Sabbath
+On market day
+At harvest time
+At winter solstice
+At midsummer
+At spring thaw
+During Lent
+During carnival
+On a holy day
+On a heretic’s burning
+On the new moon
+On the full moon
+In a storm
+In snowfall
+In heavy rain
+In a drought
+On a saint’s feast
+On a false prophet’s sermon
+At tax collection
+At tithe time
+During conscription
+During mustering
+At wedding feast
+At funeral rites
+At bell toll
+At sundown
+At first frost
+At thaw
+At high tide
+At low tide
+At war’s outbreak
+After war’s end
+At treaty signing
+At coronation
+At abdication
+At rebellion’s start
+At rebellion’s fall
+At witch trial
+At inquisitor’s visit
+At guild meeting
+At debtor’s reckoning
+On ship’s departure
+On ship’s return
+At tolling of plague bell
+At cockfight
+At bearbait
+At tavern brawl
+On saint’s vigil
+At joust
+At duel
+At mustering of levy
+At conscription lottery
+During famine riot
+During bread line
+During guild strike
+At fire outbreak
+At miller’s toll
+At midsummer bonfire
+At autumn fair
+At winter festival
+At masquerade
+At clandestine meeting
+At clandestine mass
+At heretic sermon
+At hanging
+At beheading
+At pyre lighting
+At riot
+At coronach
+At knighting
+At coin debasement
+At tax auction
+At debtor auction
+At lottery
+At rainstorm
+At hailstorm
+At eclipse
+At comet’s passing
+At portent
+At prophecy
+At betrayal
+At execution’s end
+At corpse cart’s passing
+At cockcrow’s second call
+At watch change
+At curfew bell
+At midnight mass
+At witching hour
+At feast’s end
+At famine’s peak
+At dawn raid
+At night raid
+At false dawn
+At endless dusk

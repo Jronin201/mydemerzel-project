@@ -1,3 +1,103 @@
-Mask Strain
+Clue Source
 
-Show pressure on mortal identity (job, relationship, obligation) due to nocturnal agendas.
+Found object
+Dropped item
+Hidden stash
+Buried cache
+Loose floorboard
+Secret compartment
+Abandoned satchel
+Pocket contents
+Tavern gossip
+Market rumor
+Church whisper
+Street hawker’s cry
+Witness testimony
+Child’s story
+Servant’s tale
+Confession in drink
+Confession in prayer
+Confession under duress
+Boast in tavern
+Boast in bed
+Threat shouted
+Threat whispered
+Overheard quarrel
+Overheard bargain
+Letter discovered
+Letter delivered
+Letter intercepted
+Ledger entry
+Official writ
+Court record
+Tax roll
+Tavern ledger
+Merchant’s bill
+Medical note
+Apothecary’s list
+Prescription
+Wanted poster
+Missing-person notice
+Guild notice
+Pamphlet
+Graffiti on wall
+Mark on door
+Chalk sigil
+Carved symbol
+Runes in dirt
+Blood trail
+Blood splatter
+Fingerprints
+Boot prints
+Wheel ruts
+Animal tracks
+Bird feathers
+Rat bones
+Broken weapon
+Discarded clothing
+Burnt remains
+Ashes of fire
+Candle stub
+Lantern soot
+Torn page
+Scrawled map
+Drawing or sketch
+Painting detail
+Statue detail
+Song lyric
+Children’s rhyme
+Prophecy
+Dream or vision
+Divination
+Omen in sky
+Omen in entrails
+Astrological chart
+Alchemist’s notes
+Soothsayer’s words
+Priest’s sermon
+Heretic’s rant
+Confessional booth
+Gaoler’s log
+Executioner’s record
+Gravedigger’s mutter
+Corpse evidence
+Autopsy mark
+Surgeon’s report
+Torturer’s notes
+Enemy camp rumor
+Soldier’s account
+Deserter’s tale
+Spy’s whisper
+Intercepted code
+Cipher
+Decoded message
+Foreign letter
+Bribe list
+Blackmail note
+Ransom note
+Threatening message
+Anonymous warning
+Accidental discovery
+Clue revealed by weather
+Clue revealed by violence
+Clue revealed by time

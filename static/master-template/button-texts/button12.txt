@@ -1,3 +1,202 @@
-Advance 6hrs
- 
-Narrate what happens over the next 6 hours of game time.
+Personality/Quirk
+
+Afraid of Shadows
+Bad-blooded
+Bad Stomach
+Blighted Sight
+Blunted Intellect
+Brain Trauma
+Brittle Bones
+Burn Scars
+Cabin Fever
+Choleric Temperament
+Chronic Vomit
+Combat Anxiety
+Dark Passenger
+Distant Heart
+Echoing Tinnitus
+End of Line
+Erratic Pulse
+Eternal Insomnia
+Facial Scar
+Fading Voice
+Failing Heart
+False Nose
+Far-sighted
+Fear of Mirrors
+Flashbacks
+Flock of Death
+Frail-blooded
+Frostbite Scars
+Gambler's Lament
+Gnarled Hand
+Hard of Hearing
+Haunted by Your Past
+Haunted Gaze
+Haunted Memories
+Head Trauma
+Heatstroke Trauma
+Hobbled Leg
+Hole in Skull
+Hollow Trances
+Horrific Scarring
+Ice in My Veins
+Iron Hand
+Iron-hearted
+Jittery Nerves
+King's Disease
+Lead-footed
+Leg Harness
+Lethargic Mind
+Lily-livered
+Lingering Disease
+Lost Senses
+Mark of Shame
+Melancholic Temperament
+Metal Jaw
+Metal Plate
+Milky Eye
+Missing Eye
+Muted Pain
+Ne'er-Do-Well
+Near-sighted
+Nerve Damage
+Night Blindness
+Night Fright
+Nightfather's Due
+Nightmare Disorder
+Old War Wound
+Ominous Whispers
+Ongoing Distress
+Painful Memories
+Panic-stricken
+Persecution Complex
+Phantom Limb
+Phlegmatic Temperament
+Plagued by Nightmares
+Poor Constitution
+Pyrophobia
+Raspy Breath
+Ruptured Eardrum
+Sanguine Temperament
+Severed Fingers
+Shattered Rib
+Shattered Vertebrae
+Skull Plate
+Sluggish Pace
+Split Face
+Sticky Fingers
+Sunlight Aversion
+Swill Belly
+Tormented Sleep
+Trembling Hands
+Troubled Soul
+Tunnel Vision
+Twisted Spine
+Unsettling Aura
+Unsteady Gait
+Weak Grip
+Weak Lungs
+Weight of the World
+Withering Mind
+Xenophobic Tension
+Bitter Isolation
+Blinding Zealotry
+Boundless Wrath
+Burden of Command
+Callous Disregard
+Catastrophic Failure
+Completely Obedient
+Corrosive Jealousy
+Crippling Guilt
+Curse of Birth
+Debilitating Fear
+Deep Loneliness
+Destructive Obsession
+Doomed Love
+Emotionally Detached
+Eternal Mourning
+Forbidden Knowledge
+Forlorn Hope
+Fragile Honor
+Grimly Determined
+Haunting Regret
+Highly Doubtful
+Impetuous Wrath
+Inescapable Despair
+Inexorable Decline
+Infernal Pactmaker
+Insatiable Greed
+Insidious Deception
+Ironclad Vows
+Malignant Envy
+Merciless Justice
+Morbid Fascination
+Mortal Enmity
+Obsessive Fixation
+Overbearing Hubris
+Perilous Mindset
+Ravenous Hunger
+Relentless Persecution
+Ruthless Ambition
+Sacrificial Lamb
+Shadowed Past
+Spectral Fear
+Stubborn Ways
+Twisted Loyalty
+Unattainable Redemption
+Unbridled Desire
+Unfettered Ambition
+Unspeakable Secrets
+Unyielding Abandon
+Vengeful Spirit
+Adaptable Nature
+Artistic Talent
+Astute Insight
+Benevolent Spirit
+Boundless Creativity
+Boundless Optimism
+Compassionate Soul
+Creative Genius
+Dauntless Bravery
+Deep Empathy
+Deep Compassion
+Eloquent Speaker
+Empathetic Heart
+Enduring Patience
+Fearless Adventurer
+Fierce Protector
+Genuine Kindness
+Healing Touch
+Heroic Sacrifice
+Humility
+Indomitable Spirit
+Infallible Memory
+Infectious Enthusiasm
+Innate Wisdom
+Inspirational Presence
+Intrepid Explorer
+Intuitive Understanding
+Iron Will
+Keen Intellect
+Loyal Friend
+Moral Integrity
+Mystical Connection
+Natural Leader
+Noble Purpose
+Protective Instinct
+Quiet Confidence
+Radiant Hope
+Relentless Perseverance
+Resilient Mind
+Resolute Calm
+Steadfast Loyalty
+Strategic Mind
+Strong Sense of Justice
+Unassailable Honor
+Unbreakable Resolve
+Unflagging Energy
+Unshakeable Faith
+Unwavering Courage
+Unyielding Integrity
+Visionary Idealist

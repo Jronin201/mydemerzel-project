@@ -1,0 +1,3 @@
+Partial Audio Redaction
+
+Tape playback mutes only verbs yet preserves coherence.

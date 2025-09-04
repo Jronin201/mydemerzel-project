@@ -1,3 +1,42 @@
-Reveal Clue
+Capability
 
-Narrate the clever and novel revelation of a clue that allows further progress toward the characters goals.
+Weak
+Fragile
+Sickly
+Capable (average)
+More than Capable
+Strong
+Overpowering
+Built like an Ox
+Old and Infirm
+Young and Vibrant
+Clever but Frail
+Brutish but Slow
+Deft and Quick
+Clumsy but Stubborn
+Battle-hardened
+Recently Wounded
+Magically Talented
+Mundane but Tough
+Overconfident / reckless
+Uncanny (talent beyond normal limits)
+Iron-willed Survivor
+Scarred and Stoic
+Plague-hardened
+Pain-numbed
+Red-misted Berserker
+Stone-calm Under Fire
+Cowardly but Cunning
+Ambush Specialist
+Duelist’s Grace
+Shield-wise
+Pack Fighter
+Night-fighter
+One-eyed Marksman
+Weather-beaten Tracker
+Witch-sighted
+Zealous Fanatic
+Lucky Devil
+Unlucky Wretch
+Iron Stomach
+Grimly Determined

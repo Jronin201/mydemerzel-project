@@ -1,3 +1,104 @@
-Soft Timer
+Quest Object
 
-Introduce a soft deadline whose pressure mounts narratively if ignored.
+A saint’s fingerbone
+A debtor’s ledger
+A heretic’s tongue in a jar
+A witch’s grimoire
+A knight’s bloodied favor
+A forged charter
+A missing will
+A smuggled codex
+A cursed chalice
+A reliquary of false saints
+A sack of guild coin
+A noble’s signet ring
+A relic shroud
+A crown’s warrant
+A priest’s confession
+A condemned man’s last letter
+A bribe chest
+A stolen bride’s dowry
+A bishop’s crozier
+A pagan idol
+A sacred sword (blunted)
+A tax roll
+A cursed idol
+A missing child’s toy
+A vial of poison
+A plague cure (suspect)
+A forbidden map
+A merchant’s debt note
+A coffin nail reliquary
+A relic of martyrdom
+A false prophecy scroll
+A noble’s bastard
+A heretic’s ashes
+A war banner
+A blood contract
+A sorcerer’s charm
+A ship’s manifest
+A black book of debts
+A prisoner’s testimony
+A duelist’s glove
+A lost heirloom
+A cursed mirror
+A holy writ
+A counterfeit relic
+A king’s seal
+A traitor’s dagger
+A guildmaster’s tally sticks
+A witchfinder’s journal
+A sacred lamp
+A relic nail
+A coffin plate
+A saint’s tooth
+A blasphemous hymn book
+A knight’s oathstone
+A poisoned dagger
+A pagan mask
+A relic chain
+A forged indulgence
+A ransom note
+A bloodstained standard
+A relic box
+A sorcerer’s wand (worthless stick)
+A relic sandal
+A guild charter
+A witch’s charm bag
+A king’s crown (cracked)
+A mercenary contract
+A relic chalice
+A sacred lance head
+A bloodstained icon
+A relic sword shard
+A ledger of blackmail
+A heretic’s pamphlet
+A martyr’s skull
+A reliquary box (empty)
+A cursed bell
+A broken rosary
+A priest’s diary
+A debtor’s IOU
+A relic banner
+A widow’s dowry chest
+A usurer’s gold
+A witch’s cauldron
+A relic veil
+A prophet’s finger (pickled)
+A relic cup
+A cursed amulet
+A false saint’s bone
+A relic cross
+A relic nail (duplicated many times)
+A bishop’s mitre
+A relic of the True Blood
+A soldier’s pay chest
+A relic jawbone
+A necromancer’s grimoire
+A relic reliquary (layers of fraud)
+A cursed coin hoard
+A relic garment
+A relic scapular
+A traitor’s letter
+A relic dagger
+A relic reliquary (sealed shut)

@@ -1,0 +1,3 @@
+Glass Flex Chime
+
+Window vibrates melodic intervals when thunder is absent.

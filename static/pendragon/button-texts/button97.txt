@@ -1,0 +1,3 @@
+Lamp Filament Echo
+
+Bulb glows faintly post power-off matching heartbeat tempo.

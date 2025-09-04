@@ -1,3 +1,102 @@
-Advance 30 days
- 
-Narrate what happens over the next 30 days of game time.
+Loot Item
+
+Silver (5 pieces)
+Silver (5 pieces)
+Silver (8 pieces)
+Silver (8 pieces)
+Silver (10 pieces)
+Silver (10 pieces)
+Silver (10 pieces)
+Silver (12 pieces)
+Silver (12 pieces)
+Silver (15 pieces)
+Silver (15 pieces)
+Silver (20 pieces)
+Silver (20 pieces)
+Silver (25 pieces)
+Silver (25 pieces)
+Silver (30 pieces)
+Silver (30 pieces)
+Silver (40 pieces)
+Silver (50 pieces)
+Gold (1 coin)
+Gold (1 coin)
+Gold (1 coin)
+Gold (2 coins)
+Gold (2 coins)
+Gold (3 coins)
+Gold (5 coins)
+Copper (20 pennies)
+Copper (20 pennies)
+Copper (50 pennies)
+Copper (50 pennies)
+Copper (100 pennies)
+Purse: 1 gold, 10 silver
+Purse: 2 gold, 12 silver, 30 copper
+Purse: 15 silver, 40 copper
+Purse: 25 silver
+Purse: foreign coins (worth 12 silver)
+Silver ring (engraved)
+Gold signet ring
+Jeweled brooch
+Cameo pin
+Locket with miniature portrait
+String of freshwater pearls
+Jet bead bracelet
+Amber pendant with trapped insect
+Silver candlesticks (pair)
+Gilded chalice
+Ornate reliquary (empty)
+Silver hairpin set (filigree)
+Gemstone (cut garnet)
+Gemstone (rough emerald)
+Small pouch of gemstone chips
+Coin-weight scales (miniature)
+Ivory comb (carved)
+Decorative dagger with jeweled hilt
+Silver tiara (tarnished)
+Bag of silver scrap
+Sealed letter (wax intact)
+Bundle of love letters
+Blackmail dossier
+Ledger of illicit payments
+Deed to a cottage
+Writ of passage
+Forged travel papers
+Merchant’s ledger
+Pawn tickets
+Map fragment
+Treasure map (dubious)
+Heretical pamphlets
+Holy water vial
+Saint’s bone reliquary (questionable)
+Grimoire with locked clasp
+Spirit board planchette
+Rune stones (carved)
+Devilweed (wrapped)
+Opium pellets (sealed)
+Laudanum vial
+Nightshade tincture
+Arsenic vial
+Antivenom vial
+Witchfinder’s token
+Lockpicks (roll)
+Ring of keys
+Expensive lock with key
+Cheap lock with key
+Pocket magnifier
+Fine ink and quill set
+Wax seals & sealing wax
+Signet stamp (forged crest)
+False-bottom box
+Hidden garrote wire (in belt)
+Small grappling hook (folding)
+Compact telescope lens (loose)
+Saffron vial
+Cinnamon sticks bundle
+Peppercorns pouch
+Rare perfume vial
+Fine wine bottle (sealed)
+Aged whiskey flask
+Silk bolt (wrapped)
+Small bag of salt

@@ -1,3 +1,107 @@
-Critical Failure
- 
-I rolled a Critical Failure, narrate a horrible failure with a tangible and actionable disadvantage or narrative penalty.
+Profession
+
+Actor
+Antiquarian
+Apothecary
+Arbiter
+Diabolist +
+Engineer
+Envoy
+Etherealist +
+Informer
+Investigator
+Messenger
+Pamphleteer
+Scribe
+Theologian +
+Wand Wizard +
+Astrologer +
+Bailiff
+Basebrawler
+Bravo
+Cadet
+Camp Follower
+Chef
+Courtier
+Entertainer
+Explorer
+Fop
+Freebooter
+Minstrel
+Provocateur
+Valet
+Beggar
+Blasphemer
+Con Artist
+Courtesan
+Footpad
+Gong Farmer
+Guttersnipe
+Hedgewise +
+Mortician
+Old Believer +
+Pit Fighter
+Pugilist
+Rake
+Vagabond
+Wrestler
+Animal Tamer
+Artisan
+Barber Surgeon
+Bounty Hunter
+Cheapjack
+Coachee
+Gamekeeper
+Jailer
+Laborer
+Nomad
+Peasant
+Sailor
+Servant
+Stevedore
+Trapper
+Berserker
+Dragoon
+Foot Soldier
+Hedge Knight
+Hireling
+Irregular
+Marine
+Nightwatcher
+Officer
+Outrider
+Reeve
+Rune Warrior +
+Sellsword
+Slayer
+Squire
+Anarchist
+Bonepicker
+Buccaneer
+Burglar
+Charlatan
+Fence
+Fugitive
+Gambler
+Graverobber
+Jester
+Quacksalver
+Racketeer
+Rustler
+Smuggler
+Vigilante
+Adherent +
+Apostle
+Chosen +
+Cultist +
+Doomsayer
+Friar
+Hermit
+Minister
+Monk
+Sin Eater +
+Skald
+Spiritualist +
+Warrior Pilgrim
+Witch +
+Witness +

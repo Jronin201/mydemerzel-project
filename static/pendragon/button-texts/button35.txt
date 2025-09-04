@@ -1,3 +1,97 @@
-Battle Rumor
+Combat Exceptional
 
-Present hearsay about an impending conflict or raid altering strategic decisions.
+Falls prone
+Slips and crashes down
+Trips awkwardly and collapses
+Crashes into obstacle
+Crashes into ally
+Sprawls across the ground
+Tumbles down slope or stairs
+Hurled backward violently
+Spins around uncontrolled
+Staggers into hazard (fire, pit, spikes)
+Slammed into wall or pillar
+Knocked into mud or water
+Falls onto own gear
+Shield/weapon torn from grip
+Shield/weapon flung far away
+Shield/weapon broken or ruined
+Weapon bent, warped, or jammed
+Pack or belt bursts open
+Cloak or clothing entangles legs
+Headgear knocked off or broken
+Armor strap or piece breaks loose
+Glove or boot pulled free
+Loses footing completely
+Crashes onto knees
+Collapses backward
+Collapses forward
+Pinned to ground
+Pinned against surface
+Trapped under debris or rubble
+Tangled in reins, straps, or gear
+Tangled in environment (roots, rubble, furniture)
+Weapon wrenched aside violently
+Shield/weapon smashed aside
+Struck so hard arms go numb
+Struck so hard legs give way
+Slammed to ground with force
+Driven onto back foot
+Forced through doorway or gap
+Forced onto table, altar, or object
+Forced into nearby hazard
+Knocked into ally
+Knocked down slope
+Thrown bodily through air
+Grappled and restrained
+Lifted and hurled down
+Pressed flat to ground
+Straddled and overpowered
+Subjected to follow-up strikes
+Defense shattered entirely
+Guard broken utterly
+Outmaneuvered completely
+Flanked or circled behind
+Exposed to back attack
+Weapon stripped away dramatically
+Weapon knocked spinning aside
+Countered instantly and forcefully
+Countered with strike to body
+Countered with strike to head
+Countered with shove or kick
+Countered with grapple or throw
+Confidence shattered
+Allies demoralized by spectacle
+Opponents emboldened by spectacle
+Humiliated publicly
+Mocked mercilessly
+Shouted down with victory cries
+Failure witnessed by many
+Morale collapses completely
+Isolated from allies
+Retreat path blocked off
+Cornered fully
+Cut off from cover
+Driven toward cliff, edge, or pit
+Smashed through furniture or barrier
+Toppled into hazard or fire
+Toppled into ally or bystander
+Weapon lodged in armor, shield/weapon, or gear
+Weapon lodged in ground or wall
+Forced face-first into dirt or floor
+Forced to crawl away
+Crushed under heavy weight
+Thrown projectile strikes unintended target
+Forced to release hold or grapple
+Forced to abandon stance entirely
+Forced to yield ground completely
+Knocked unconscious
+Rendered helpless
+Rendered stunned
+Dazed and unable to act
+Blinded temporarily
+Deafened temporarily
+Disoriented beyond recovery
+Permanently maimed or disfigured
+Permanently crippled
+Instantly killed (narrative judgment)

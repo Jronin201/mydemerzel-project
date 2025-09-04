@@ -1,3 +1,106 @@
-Desert Mirage
+Clue Object
 
-Present an ambiguous visual distortion—could be natural or tactical deception.
+Wheel tracks
+Boot prints
+Fingerprints
+Bloodstain
+Scribbled note
+Torn letter
+Hand-drawn map
+Ledger book
+Sealed envelope
+Diary
+Candlestick
+Lantern
+Key
+Broken lock
+Unlocked chest
+Hidden drawer
+Loose floorboard
+Open window
+Shattered glass
+Abandoned cloak
+Lost shoe
+Dropped glove
+Coin purse
+Pouch of herbs
+Piece of jewelry
+Signet ring
+Amulet
+Rosary
+Broken weapon
+Arrowhead
+Dagger
+Sword hilt
+Shield boss
+Helmet
+Chain links
+Rope coil
+Cut rope
+Spilled powder
+Medicine vial
+Bottle
+Cup
+Goblet
+Plate shard
+Cooking pot
+Spoon or fork
+Strange book
+Pamphlet
+Wanted poster
+Missing-person notice
+Official writ
+Seal or stamp
+Painting
+Sketch
+Statue fragment
+Religious icon
+Charm bag
+Runestone
+Wax seal
+Candle stub
+Chalk mark
+Graffiti
+Carved initials
+Animal tracks
+Bird feathers
+Rat bones
+Gnawed bone
+Cloth scrap
+Handkerchief
+Scarf
+Hat
+Mask
+Glasses or spectacles
+Walking stick
+Crutch
+Stool
+Bench
+Chair
+Table
+Chest
+Box
+Trunk
+Satchel
+Backpack
+Scroll case
+Parchment roll
+Quill
+Inkpot
+Dice
+Playing cards
+Game piece
+Toy doll
+Wooden horse
+Musical instrument
+Lute string
+Drumstick
+Bell
+Whistle
+Chain of keys
+Bucket
+Water skin
+Mirror shard
+Comb
+Needle
+Spindle

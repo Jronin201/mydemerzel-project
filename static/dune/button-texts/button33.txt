@@ -1,3 +1,103 @@
-Resource Shortfall
+Suggests
 
-Highlight an immediate deficit (water, spice data, transport capacity) demanding adaptation.
+Suggests a person
+Suggests a place
+Suggests a motive
+Suggests a time
+Suggests a method
+Suggests a faction
+Suggests a family tie
+Suggests a betrayal
+Suggests a debt
+Suggests a crime
+Suggests an alibi
+Suggests a ritual
+Suggests a secret
+Suggests a lie
+Suggests the truth
+Suggests a witness
+Suggests a rival
+Suggests a lover
+Suggests a servant
+Suggests a child
+Suggests a leader
+Suggests an outsider
+Suggests a neighbor
+Suggests a stranger
+Suggests a companion
+Suggests collusion
+Suggests conspiracy
+Suggests negligence
+Suggests chance
+Suggests planning
+Suggests disguise
+Suggests coercion
+Suggests bribery
+Suggests envy
+Suggests rage
+Suggests fear
+Suggests lust
+Suggests faith
+Suggests heresy
+Suggests loyalty
+Suggests treachery
+Suggests desperation
+Suggests poverty
+Suggests wealth
+Suggests hunger
+Suggests illness
+Suggests plague
+Suggests war
+Suggests exile
+Suggests return
+Suggests absence
+Suggests presence
+Suggests haste
+Suggests delay
+Suggests carelessness
+Suggests precision
+Suggests drunkenness
+Suggests sobriety
+Suggests learning
+Suggests ignorance
+Suggests superstition
+Suggests corruption
+Suggests authority
+Suggests rebellion
+Suggests mercy
+Suggests cruelty
+Suggests accident
+Suggests design
+Suggests omen
+Suggests curse
+Suggests blessing
+Suggests fate
+Suggests chance meeting
+Suggests forbidden love
+Suggests hidden wealth
+Suggests lost status
+Suggests servitude
+Suggests kinship
+Suggests ambition
+Suggests despair
+Suggests cowardice
+Suggests courage
+Suggests hypocrisy
+Suggests penance
+Suggests indulgence
+Suggests zealotry
+Suggests apathy
+Suggests memory
+Suggests forgetfulness
+Suggests habit
+Suggests novelty
+Suggests restraint
+Suggests excess
+Suggests silence
+Suggests noise
+Suggests concealment
+Suggests display
+Suggests innocence
+Suggests guilt
+Suggests survival
+Suggests doom

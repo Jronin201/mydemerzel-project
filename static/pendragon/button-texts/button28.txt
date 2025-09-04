@@ -1,3 +1,106 @@
-Relic Sign
+Consequence
 
-Reveal evidence of a sacred or wondrous object that could sway future events.
+Blood spilled
+Debt incurred
+Innocent blamed
+Ally lost
+Oath broken
+Disease spread
+Authority angered
+Reputation ruined
+Secret revealed
+Trust betrayed
+Resource wasted
+Property seized
+Family endangered
+Friend arrested
+Weapon broken
+Supplies spoiled
+Enemy alerted
+Panic unleashed
+Injury sustained
+Famine worsened
+Witch suspected
+Suspicion cast
+Mob enraged
+Confession forced
+Property destroyed
+Faith shaken
+Superiors displeased
+Inferiors revolt
+Curse invoked
+Mercy denied
+Vow forsworn
+Coin stolen
+Scapegoat chosen
+Rumor spread
+Law invoked
+Law broken
+Superstition inflamed
+Innocent executed
+Child orphaned
+House burned
+Rations cut
+Land seized
+Favor lost
+Favor gained (with strings)
+Crime punished
+Crime ignored (resentment grows)
+Love betrayed
+Love kindled (ill-timed)
+Heretic exposed
+Heretic hidden
+Plague worsens
+Fever spreads
+Crops blighted
+Animals slaughtered
+Debt collectors sent
+Bailiffs dispatched
+Tax raised
+Soldiers quartered
+Mercenaries hired
+Press-gang conscripts
+Prison sentence
+Exile decreed
+Public shaming
+Lynch mob forms
+Witch trial begins
+Confiscation of goods
+Forced marriage
+Blackmail exposed
+Corruption uncovered
+Corruption rewarded
+Guild angered
+Guild appeased (temporarily)
+Lord offended
+Lord flattered (resentfully)
+Cleric scandalized
+Cleric emboldened
+Artifact lost
+Artifact desecrated
+Spirit angered
+Spirit appeased
+Curse deepens
+Curse lifted (with cost)
+Prophecy fulfilled
+Prophecy misread
+Battle sparked
+Battle ended (bloodily)
+Rebellion kindled
+Rebellion crushed
+Border closed
+Border raided
+Alliance shattered
+Alliance forged (fragile)
+Trial declared
+Trial rigged
+Execution scheduled
+Execution stayed (political)
+Feast ruined
+Feast poisoned
+Festival banned
+Festival inflamed into riot
+Market closed
+Market sacked
+Tavern shuttered
+Tavern burned

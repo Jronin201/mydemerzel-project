@@ -1,0 +1,3 @@
+Asynchronous Blink Sync
+
+Two people’s blinks align in a repeating prime-number cycle.

@@ -1,0 +1,3 @@
+Ink Density Pulse
+
+Printed text bolds then thins rhythmically without touch.

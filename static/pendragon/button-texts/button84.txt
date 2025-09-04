@@ -1,0 +1,102 @@
+Body Location
+
+Head/Face
+Head/Face
+Head/Scalp
+Head/Scalp
+Head/Eye
+Head/Eye
+Head/Ear
+Head/Temple
+Head/Mouth & Jaw
+Head/Neck
+Chest/Upper
+Chest/Upper
+Chest/Lower
+Chest/Lower
+Chest/Center
+Chest/Center
+Chest/Collarbone
+Chest/Collarbone
+Chest/Ribcage
+Chest/Ribcage
+Chest/Ribcage
+Chest/Ribcage
+Chest/Heart Area
+Chest/Lung Area
+Chest/Lung Area
+Chest/Shoulder
+Chest/Shoulder
+Chest/Sternum
+Chest/Sternum
+Chest/Armpit
+Chest/Armpit
+Chest/Spine (Upper Back)
+Chest/Spine (Upper Back)
+Chest/Shoulder Blade
+Chest/Shoulder Blade
+Chest/Side
+Chest/Side
+Chest/Diaphragm
+Chest/Diaphragm
+Chest/Back
+Abdomen/Upper
+Abdomen/Upper
+Abdomen/Lower
+Abdomen/Lower
+Abdomen/Navel
+Abdomen/Navel
+Abdomen/Stomach
+Abdomen/Stomach
+Abdomen/Liver Area
+Abdomen/Kidney
+Abdomen/Kidney
+Abdomen/Intestines
+Abdomen/Intestines
+Abdomen/Hip
+Abdomen/Hip
+Abdomen/Groin
+Abdomen/Groin
+Abdomen/Spine (Lower Back)
+Abdomen/Spine (Lower Back)
+Abdomen/Back
+Arm/Shoulder
+Arm/Shoulder
+Arm/Upper Arm
+Arm/Upper Arm
+Arm/Elbow
+Arm/Elbow
+Arm/Forearm
+Arm/Forearm
+Arm/Wrist
+Arm/Wrist
+Arm/Hand
+Arm/Hand
+Arm/Fingers
+Arm/Fingers
+Arm/Back of Hand
+Arm/Back of Hand
+Arm/Inside of Arm
+Arm/Inside of Arm
+Arm/Armpit
+Arm/Armpit
+Leg/Hip Joint
+Leg/Hip Joint
+Leg/Thigh (Front)
+Leg/Thigh (Front)
+Leg/Thigh (Back)
+Leg/Thigh (Back)
+Leg/Knee
+Leg/Knee
+Leg/Shin
+Leg/Shin
+Leg/Calf
+Leg/Calf
+Leg/Ankle
+Leg/Ankle
+Leg/Foot (Top)
+Leg/Foot (Top)
+Leg/Heel
+Leg/Heel
+Leg/Toes
+Leg/Toes

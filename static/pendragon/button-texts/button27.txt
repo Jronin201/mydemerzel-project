@@ -1,3 +1,103 @@
-Quest Thread
+Mood
 
-Introduce a new quest hook tied to prophecy, relic, or court intrigue.
+Bleak
+Suspicious
+Frenzied
+Melancholic
+Hopeless
+Paranoid
+Reverent
+Somber
+Tense
+Sardonic
+Desperate
+Anxious
+Forlorn
+Ironic
+Bitter
+Resentful
+Weary
+Fanatical
+Morbid
+Superstitious
+Fearful
+Sullen
+Eerie
+Jubilant (false, brittle)
+Grim
+Defiant
+Resigned
+Brooding
+Pious
+Drunken
+Hysterical
+Spiteful
+Defeated
+Vengeful
+Jaded
+Savage
+Grief-stricken
+Suspenseful
+Vindictive
+Panic-struck
+Cold
+Arrogant
+Piteous
+Somnolent
+Apathetic
+Fatalistic
+Grotesque
+Manic
+Mournful
+Nostalgic (aching, painful)
+Distrustful
+Exultant (hollow)
+Repentant
+Furious
+Suspiciously calm
+Reckless
+Cruel
+Indifferent
+Anxious silence
+Wickedly amused
+Joyless
+Haunted
+Mocking
+Reverent awe
+Panic rising
+Pompous
+Morose
+Saccharine (cloying, false cheer)
+Haunting calm
+Obsequious
+Deflated
+Triumphant (fragile, fleeting)
+Irritable
+Paranoid laughter
+Dogged
+Zealous
+Whimsical (off-key, eerie)
+Grimly humorous
+Icy
+Numb
+Exhausted
+Cowardly
+Suspense taut
+Aghast
+Revolted
+Smug
+Martial
+Resentfully obedient
+Reckoning
+Contemptuous
+Pompous dread
+Mock-serious
+Ashamed
+Confessional
+Overjoyed (wild, unstable)
+Resigned mirth
+Wistful
+Enraged
+Distracted
+Delirious
+Reverent hush

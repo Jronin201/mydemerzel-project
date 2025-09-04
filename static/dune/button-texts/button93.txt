@@ -1,0 +1,3 @@
+Peripheral Text Drift
+
+Margin notes slide fractionally then lock when stared at.

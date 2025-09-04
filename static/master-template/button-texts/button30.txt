@@ -1,3 +1,103 @@
-Aftermath Beat
+Faction
 
-Show an immediate consequence of the last major action, setting tone for next decision.
+The Crown’s taxmen
+The Inquisition
+The Witchfinders
+The Beggars’ Guild
+The Thieves’ Guild
+The Mercenary Company
+The Freebooters’ Band
+The Noble House
+The Rival Noble House
+The Merchant Consortium
+The Moneylenders
+The Usurers’ League
+The Debtors’ Union
+The Guild of Chirurgeons
+The Apothecaries’ Guild
+The Rat Catchers’ Brotherhood
+The Ferrymen’s Guild
+The Bakers’ Guild
+The Butchers’ Guild
+The Brewers’ Guild
+The Smiths’ Guild
+The Tanners’ Guild
+The Millers’ Guild
+The Fishmongers
+The Dockworkers
+The Smugglers’ Ring
+The Black Market
+The Grave Robbers’ Ring
+The Resurrectionists
+The Paupers’ Chorus
+The Flagellants
+The Zealots of the Pyre
+The Heretics’ Conventicle
+The Hedge Witches’ Coven
+The Secret Society
+The Assassins’ Brotherhood
+The Spymaster’s Web
+The Bailiffs
+The Magistrates
+The City Watch
+The Sheriff’s Men
+The Baron’s Guard
+The Knightly Order
+The Disgraced Order
+The Free City Council
+The Burgomasters
+The Rural Peasantry
+The Serfs
+The Press Gang
+The Levy Muster
+The Outlaws
+The Highwaymen
+The Brigands
+The Bandits
+The Border Reivers
+The Mercenary Captain
+The Condottieri
+The Camp Followers
+The Torturers’ Guild
+The Gaolers
+The Debtors’ Prison
+The Executioner’s Family
+The Guild of Entertainers
+The Minstrels’ Fellowship
+The Actors’ Troupe
+The Prostitutes’ Syndicate
+The Orphans’ Gang
+The Beggar King’s Court
+The Fortune-Tellers
+The Soothsayers
+The Astrologers
+The Alchemists
+The Warlocks’ Circle
+The Necromancers’ Sect
+The Cult of the Dead Saint
+The Cult of the Forgotten God
+The Cult of the Burning Eye
+The Pilgrims’ Procession
+The Monastery Order
+The Mendicants
+The Anchorites
+The Cathedral Chapter
+The Bishop’s Household
+The Cardinals’ Circle
+The Papal Legates
+The Relic Hunters
+The Tomb Raiders
+The Camp of Refugees
+The Army of the Tyrant
+The Rebel Host
+The Rebel Splinter Faction
+The Disgraced General’s Men
+The Deserters’ Band
+The Veterans’ Company
+The Widow’s League
+The Cuckolds’ Brotherhood
+The League of Debauched Nobles
+The Crown’s Spies
+The Foreign Agents
+The Guild of Poisoners
+The Cult of Silence

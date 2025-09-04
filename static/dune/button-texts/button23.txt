@@ -1,3 +1,101 @@
-Political Shift
+Who
 
-Narrate a subtle but meaningful shift in political power dynamics that alters an NPC or faction's posture toward the party.
+A drunken sellsword
+A starving beggar
+A plague doctor
+A fugitive priest
+A superstitious midwife
+A condemned witch
+A grieving widow
+A deserter knight
+A corrupt taxman
+A cunning smuggler
+A penniless gambler
+A weary pilgrim
+A heretic preacher
+A scarred mercenary
+A blind prophet
+A hanged man’s son
+A disgraced noble
+A wandering tinker
+A one-eyed jailer
+A rat catcher
+A grave robber
+A trembling novice
+A bitter innkeeper
+A desperate debtor
+A crippled veteran
+A cunning courtesan
+A scheming alderman
+A child thief
+A black-robed inquisitor
+A toothless crone
+A runaway bride
+A starving child
+A foreign sellsword
+A ruthless bailiff
+A pox-ridden harlot
+A drunken priest
+A masked executioner
+A hedge wizard
+A stammering herald
+A dying alchemist
+A vengeful cuckold
+A mute servant
+A butcher’s apprentice
+A wounded soldier
+A charlatan healer
+A zealous flagellant
+A weary ferryman
+A toothless fool
+A miller in debt
+A fugitive outlaw
+A scarred duelist
+A cunning cutpurse
+A gravedigger
+A starving farmer
+A scheming bishop
+A corrupt reeve
+A shunned leper
+A hollow-eyed orphan
+A bastard child
+A knight-errant
+A sycophantic courtier
+A wandering minstrel
+A plague cart driver
+A boastful mercenary
+A widowed midwife
+A suspicious merchant
+A hedge knight
+A penitent monk
+A beggar king
+A desperate mother
+A cruel jailer
+A mute beggar
+A scarred inquisitor
+A luckless fisherman
+A mad prophet
+A cunning usurer
+A wandering bravo
+A fallen templar
+A wrathful miller
+A wretched debtor
+A bitter servant
+A runaway serf
+A tattered herald
+A cunning rat king
+A plague orphan
+A drunken bravo
+A wandering hedge-priest
+A cruel gaoler
+A suspicious herald
+A desperate smuggler
+A ruined noble
+A disgraced knight
+A hollow-eyed scribe
+A mad beggar
+A black-cloaked spy
+A conniving steward
+A torch-bearing mob
+A grief-stricken mother
+A revenant soldier

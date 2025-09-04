@@ -1,0 +1,3 @@
+Sequential Door Latch
+
+Locks disengage one after another without physical interaction.

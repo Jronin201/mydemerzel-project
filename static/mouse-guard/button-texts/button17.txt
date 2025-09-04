@@ -1,3 +1,307 @@
-Advance 10 days
- 
-Narrate what happens over the next 10 days of game time.
+Trade Item
+
+Ale
+Ale
+Ale
+Ale
+Ale
+Ale
+Ale
+Ale
+Ale
+Ale
+Ale
+Ale
+Beef
+Beef
+Beef
+Beef
+Butter
+Butter
+Butter
+Butter
+Cheese
+Cheese
+Cheese
+Cheese
+Cheese
+Cheese
+Cheese
+Cheese
+Chocolate
+Cider (cask)
+Cider (cask)
+Cider (cask)
+Cider (cask)
+Cider (gallon)
+Cider (gallon)
+Cider (gallon)
+Cider (gallon)
+Cider (gallon)
+Cider (gallon)
+Cider (gallon)
+Cider (gallon)
+Milk
+Molasses
+Mutton
+Pork
+Pork
+Pork
+Pork
+Potatoes (bushel)
+Potatoes (bushel)
+Potatoes (bushel)
+Potatoes (bushel)
+Potatoes (bushel)
+Potatoes (bushel)
+Potatoes (bushel)
+Potatoes (bushel)
+Potatoes (bushel)
+Potatoes (bushel)
+Rum
+Rum
+Rum
+Rum
+Sugar
+Sugar
+Sugar
+Sugar
+Sugar
+Sugar
+Tea
+Tea
+Tea
+Tea
+Wheat (bushel)
+Wheat (bushel)
+Wheat (bushel)
+Wheat (bushel)
+Wheat (bushel)
+Wheat (bushel)
+Wheat (bushel)
+Wheat (bushel)
+Wheat (bushel)
+Wheat (bushel)
+Wheat (bushel)
+Wheat (bushel)
+Whiskey
+Whiskey
+Whiskey
+Whiskey
+Wine
+Wine
+Wine
+Wine
+Wine
+Wine
+Wine
+Wine
+Salt
+Salt
+Salt
+Salt
+Salt
+Salt
+Salt
+Salt
+Salt
+Salt
+Salt
+Salt
+Salt
+Salt
+Dried fruit
+Dried fruit
+Dried fruit
+Dried fruit
+Tobacco (cut)
+Tobacco (cut)
+Tobacco (cut)
+Tobacco (cut)
+Tobacco (leaf)
+Tobacco (leaf)
+Tobacco (leaf)
+Tobacco (leaf)
+Sheep’s wool
+Sheep’s wool
+Sheep’s wool
+Sheep’s wool
+Sheep’s wool
+Sheep’s wool
+Linen bolts / rough cloth
+Linen bolts / rough cloth
+Linen bolts / rough cloth
+Linen bolts / rough cloth
+Linen bolts / rough cloth
+Linen bolts / rough cloth
+Linen bolts / rough cloth
+Linen bolts / rough cloth
+Candles
+Candles
+Candles
+Candles
+Candles
+Candles
+Charcoal bag
+Charcoal bag
+Charcoal bag
+Charcoal bag
+Flint & steel striker
+Flint & steel striker
+Flint & steel striker
+Flint & steel striker
+Lamp
+Lantern
+Oil
+Oil
+Oil
+Oil
+Oil
+Oil
+Torches
+Box of matches
+Bar iron / nails
+Bar iron / nails
+Bar iron / nails
+Bar iron / nails
+Bar iron / nails
+Bar iron / nails
+Hammer & nails
+Rope
+Rope
+Rope
+Rope
+Rope
+Rope
+Rope
+Rope
+Rope
+Rope
+Clay jugs, crockery, or pots
+Clay jugs, crockery, or pots
+Clay jugs, crockery, or pots
+Clay jugs, crockery, or pots
+Paper (sheet)
+Paper (sheet)
+Paper (sheet)
+Paper (sheet)
+Beads, trinkets, colored glass baubles
+Pins, needles, thread
+Pins, needles, thread
+Pins, needles, thread
+Pins, needles, thread
+Animal trap
+Animal trap
+Animal trap
+Animal trap
+Astrolabe
+Backpack
+Backpack
+Backpack
+Backpack
+Bandolier
+Bedroll
+Bedroll
+Bedroll
+Bedroll
+Cheap lock w/key
+Cheap lock w/key
+Cheap lock w/key
+Cheap lock w/key
+Climbing crampons
+Compass
+Expensive lock w/key
+Fishing hook & pole
+Fishing hook & pole
+Fishing hook & pole
+Fishing hook & pole
+Flask
+Flask
+Flask
+Flask
+Grappling hook
+Horse saddle & tack
+Iron manacles
+Large bag
+Pavilion tent
+Personal tent
+Pitons or spikes
+Pot of glue
+Provisions
+Provisions
+Provisions
+Provisions
+Provisions
+Provisions
+Rucksack
+Shoulder bag
+Signal whistle
+Skis & poles
+Slitted goggles
+Snowshoes
+Survival kit & tinderbox
+Survival kit & tinderbox
+Survival kit & tinderbox
+Survival kit & tinderbox
+Telescope
+Waterskin
+Waterskin
+Waterskin
+Waterskin
+Academic book
+Arcane tome
+Atlas of the known world
+Bailiff’s lockbox
+Cheap map
+City map
+Hand mirror
+Hourglass
+Local map
+Looking glass
+Magnet
+Pilot’s chart
+Pocket watch
+Prayer book
+Printing press
+Religious scripture
+Wanted poster
+Writing kit
+Allspice
+Cinnamon
+Mace (spice)
+Nutmeg
+Pepper
+White ginger
+Alligator hide
+Badger hide
+Bat hide
+Bear hide
+Beaver skin
+Bison hide
+Coyote pelt
+Deer pelt
+Dog pelt
+Feathers
+Fox pelt
+Giant constrictor snakeskin
+Horsehide
+Large cat pelt
+Mammoth hide
+Mink pelt
+Moose hide
+Mountain lion pelt
+Otter skin
+Owl feathers
+Pig skin
+Poisonous snake’s skin
+Raccoon pelt
+Shark hide
+Walrus hide
+Whale skin
+Wolf pelt
+Woodchuck skin
+Prayer beads
+Runestones
+Wax seal
+Tarot cards
+Amulet

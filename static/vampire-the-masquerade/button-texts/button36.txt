@@ -1,3 +1,104 @@
-Coterie Friction
+Combat Unexceptional
 
-Highlight a minor internal conflict escalating if neglected.
+Staggers back a step
+Stumbles sideways
+Guard loosened
+Footing unstable
+Weapon arm jolted
+Shield/weapon jolted
+Grip slips slightly
+Grip loosens noticeably
+Weapon wavers
+Weapon lowered briefly
+Weapon raised ineffectively
+Attack slowed
+Attack mistimed
+Attack telegraphed
+Attack redirected
+Attack deflected wide
+Attack intercepted partially
+Strike glances off
+Strike skids away
+Blow absorbed by armor
+Blow absorbed by shield/weapon
+Momentum checked
+Stance widened awkwardly
+Stance narrowed awkwardly
+Stance broken briefly
+Stance reset hastily
+Weight shifted wrong
+Balance compromised
+Balance regained clumsily
+Foot slides awkwardly
+Heel slips
+Knee buckles briefly
+Ankle twists slightly
+Shoulder jarred
+Elbow jarred
+Chest jolted
+Breath knocked short
+Breathing ragged
+Vision blurred momentarily
+Eyes blinking from sweat/blood
+Ears ringing
+Head rocked back
+Forced to step back
+Forced to step aside
+Forced to crouch
+Forced to duck
+Forced into hasty block
+Forced into hasty parry
+Forced into retreat half-step
+Forced into retreat full-step
+Forced to circle opponent
+Forced closer to hazard
+Forced closer to ally
+Forced toward open ground
+Pressed against obstacle
+Pressed against terrain
+Shield/weapon raised too high
+Shield/weapon dropped too low
+Shield/weapon out of alignment
+Parry compromised
+Parry delayed
+Deflect incomplete
+Guard left open briefly
+Defense lapsed momentarily
+Recovery slow
+Reset clumsy
+Reaction delayed
+Hesitation obvious
+Flinch unnecessary
+Crouches involuntarily
+Ducks head awkwardly
+Turns torso away
+Spins half around
+Weapon swings wide
+Weapon point lowered
+Weapon raised too soon
+Weapon knocked slightly aside
+Weapon jarred loose
+Weapon edge nicked
+Weapon surface scarred
+Armor scraped
+Armor dented
+Armor scorched or marred
+Clothing torn
+Cloak tugged or snagged
+Jewelry or token jostled
+Pouch loosened
+Satchel slipped
+Helm jarred but holds
+Visor rattled but holds
+Pack shifted awkwardly
+Talisman knocked loose
+Utters grunt or cry
+Utters curse or snarl
+Growls in frustration
+Taunts or mocks
+Confidence shaken
+Morale tested
+Spirit wavers
+Moment of doubt
+Moment of hesitation
+Moment of renewed effort

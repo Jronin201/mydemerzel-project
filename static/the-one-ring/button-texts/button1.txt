@@ -1,3 +1,12 @@
-Save Progress
+D10
 
-Update the Notes section with a complete and comprehensive summary of the current game state, including character actions, NPC interactions, and any significant events that have occurred. This will help maintain continuity for future sessions and provide a reference for players.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9

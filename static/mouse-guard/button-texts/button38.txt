@@ -1,3 +1,73 @@
-Community Strain
+Defense Move
 
-Show how a settlement’s morale or resources are stretched, seeking aid or risking unrest.
+Block high
+Block low
+Block centerline
+Block cross-body
+Block using both hands
+Block with forearm/armor piece
+Block with torso/armor deflection
+Block using cloak or wrapped garment
+Block using improvised object (pack, satchel, scabbard, staff, etc.)
+Block by bracing against ground or wall
+Block by stepping into the blow (absorbing force)
+Parry high cut
+Parry low cut
+Parry thrust
+Parry with dagger or short blade
+Parry with staff or long shaft weapon
+Parry with axe/polearm haft
+Parry with flat of blade
+Parry upward deflection
+Parry downward deflection
+Parry outward sweep
+Parry inward sweep
+Parry with circular motion
+Parry with twist of wrist
+Parry close to crossguard
+Parry with beat (forceful knock-aside)
+Parry by binding weapon
+Parry by sliding weapon aside
+Parry while stepping in
+Parry while stepping back
+Parry while circling left
+Parry while circling right
+Parry with half-sword grip
+Parry missile strike (cinematic / advanced)
+Parry thrown weapon with blade or cloak (cinematic)
+Riposte immediately after parry
+Riposte with simultaneous thrust (deflect and stab in one motion)
+Riposte with cut after bind
+Riposte with pommel or crossguard strike
+Dodge sidestep left
+Dodge sidestep right
+Dodge step or leap back
+Dodge forward slip inside guard
+Dodge drop under strike
+Dodge by crouching or ducking
+Dodge by rolling aside
+Dodge by spinning or twisting torso
+Dodge by pivoting on heel
+Dodge by vaulting obstacle
+Dodge into cover or terrain feature
+Dodge into ally’s guard or crowd
+Dodge to ground intentionally (kneel or prone)
+Dodge into tumble or grapple range
+Dodge with cloak/cape flourish (swirl, toss into face)
+Dodge by feigning stumble or collapse
+Dodge under opponent’s arm
+Dodge past opponent entirely (into rear/side)
+Dodge into clinch/grapple
+Catch strike on weapon crossguard or haft
+Catch strike on armor ridge/gauntlet
+Catch weapon on improvised hook or edge
+Trap weapon against wall or ground
+Trap weapon in cloak/garment
+Smother strike with cloak or fabric
+Jam attacker’s wrist
+Jam attacker’s weapon arm
+Jam close to attacker’s body to nullify swing
+Intercept with off-hand weapon
+Intercept with improvised object (stick, pole, furniture)
+Intercept using terrain (pillar, doorframe, low wall)
+Intercept with ally’s weapon overlap
