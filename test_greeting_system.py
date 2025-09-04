@@ -33,7 +33,7 @@ def test_initial_greeting_system():
         # Test each TTRPG for initial greeting
         ttrpgs = {
             "dune": "Dune: Adventures in the Imperium",
-            "the-one-ring": "The One Ring",
+            "the-one-ring": "The Witcher",
         "call-of-cthulhu": "Zweihander"
         }
         

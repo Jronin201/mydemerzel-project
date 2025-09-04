@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test focused on The One Ring to avoid Dune's campaign manager interference
+Test focused on The Witcher to avoid Dune's campaign manager interference
 """
 
 import json
@@ -13,14 +13,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 from app import app
 
 def test_one_ring_character_functionality():
-    """Test character functionality with The One Ring (no campaign manager interference)"""
-    print("🧪 Testing The One Ring Character Information Processing...")
+    """Test character functionality with The Witcher (no campaign manager interference)"""
+    print("🧪 Testing The Witcher Character Information Processing...")
     
     with app.test_client() as client:
         # Login
         client.post('/login', data={'username': 'Demerzel', 'password': 'Seraphine'})
         
-        # Save character information for The One Ring
+    # Save character information for The Witcher
         char_info_data = {
             'ttrpg': 'the-one-ring',
             'character_name': 'Bilbo Baggins - Hobbit Scholar, Hope: 15, Shadow: 2',

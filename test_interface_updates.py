@@ -65,7 +65,7 @@ def test_updated_interface():
         resp = client.post("/api/current-ttrpg", json={
             "ttrpg": "the-one-ring",
             "character_name": "Frodo Baggins\nHobbit from the Shire\nRing-bearer",
-            "character_stats": "Courage: High\nStealth: Expert\nNotes: Carries the One Ring"
+            "character_stats": "Signs: Aard (Skilled)\nAlchemy: Oils & Decoctions Ready\nNotes: Carries twin witcher blades"
         })
         assert resp.status_code == 200
         updated_data = resp.get_json()

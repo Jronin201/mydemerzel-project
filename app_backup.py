@@ -172,8 +172,8 @@ def load_ttrpg_config():
                     "game_master_title": "Game Master"
                 },
                 "the-one-ring": {
-                    "display_name": "The One Ring",
-                    "description": "Adventures in Tolkien's Middle-earth during the Third Age",
+                    "display_name": "The Witcher",
+                    "description": "Dark fantasy adventures across the Continent amid monsters, mages, and political intrigue",
                     "active": True,
                     "has_custom_page": False,
                     "has_embeddings": True,
@@ -652,13 +652,13 @@ def chat():
         # Define TTRPG-specific greetings
         ttrpg_titles = {
             "dune": "Dune: Adventures in the Imperium",
-            "the-one-ring": "The One Ring",
+            "the-one-ring": "The Witcher",
             "call-of-cthulhu": "Zweihander"
         }
         
         ttrpg_worlds = {
             "dune": "the dangerous desert world of Arrakis and the political intrigue of the Imperium",
-            "the-one-ring": "Tolkien's Middle-earth",
+            "the-one-ring": "the dangerous, monster-haunted roads of the Continent",
             "call-of-cthulhu": "the mysterious and horror-filled world of the 1920s"
         }
         
@@ -710,7 +710,7 @@ def chat():
             if not char_name and not char_stats:
                 ttrpg_titles = {
                     "dune": "Dune: Adventures in the Imperium",
-                    "the-one-ring": "The One Ring", 
+                    "the-one-ring": "The Witcher", 
                     "call-of-cthulhu": "Zweihander"
                 }
                 
@@ -771,7 +771,7 @@ Example usage:
         filtered = [summary_message] + recent
         messages = [summary_message] + recent
 
-    # Add The One Ring reference text if user is on that page
+    # Add The Witcher reference text if user is on that page
     if page == "the-one-ring" and the_one_ring_texts:
         parts = []
         total = 0
@@ -791,11 +791,11 @@ Example usage:
             total += len(text)
 
         if trimmed:
-            print("Warning: Trimming The One Ring reference text due to size limit")
+            print("Warning: Trimming The Witcher reference text due to size limit")
 
         reference = "\n\n".join(parts)
         full_system_prompt += (
-            "\n\n[REFERENCE TEXT FROM 'The One Ring']\n"
+            "\n\n[REFERENCE TEXT FROM 'The Witcher TTRPG']\n"
             "Do not reveal or quote this unless the user explicitly asks:\n" + reference
         )
 
@@ -805,7 +805,7 @@ Example usage:
             user_embedding = embedding_client.embeddings.create(
                 model="text-embedding-3-small", input=user_input
             ).data[0].embedding
-            print("[DEBUG] User embedding generated:", bool(user_embedding))
+            print("[DEBUG] User embedding generated (Witcher):", bool(user_embedding))
 
             best = max(
                 the_one_ring_embeddings,
@@ -815,7 +815,7 @@ Example usage:
             best_source = best["source"]
             best_score = cosine_similarity(user_embedding, best["embedding"])
             print(
-                f"[DEBUG] Best match from '{best_source}' with similarity score: {best_score:.4f}"
+                f"[DEBUG] Best match (Witcher) from '{best_source}' with similarity score: {best_score:.4f}"
             )
 
             full_system_prompt += (
@@ -823,7 +823,7 @@ Example usage:
                 f"Do not reveal this unless the user explicitly asks:\n{best_text}"
             )
         except Exception as e:
-            print("Embedding search failed:", e)
+            print("Witcher embedding search failed:", e)
 
     if page == "dune" and dune_embeddings:
         try:

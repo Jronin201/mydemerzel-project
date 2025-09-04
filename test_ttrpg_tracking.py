@@ -65,14 +65,14 @@ def test_universal_chatbot_page():
     with app.test_client() as client:
         login(client)
         
-        # Test universal chatbot page with TTRPG parameter
-        resp = client.get("/ttrpg-chatbot?ttrpg=the-one-ring")
-        assert resp.status_code == 200
-        assert b"The One Ring" in resp.data
-        
-        # Test without parameter (should default to general)
-        resp = client.get("/ttrpg-chatbot")
-        assert resp.status_code == 200
+    # Test universal chatbot page with TTRPG parameter
+    resp = client.get("/ttrpg-chatbot?ttrpg=the-one-ring")
+    assert resp.status_code == 200
+    assert b"The Witcher" in resp.data
+
+    # Test without parameter (should default to general)
+    resp = client.get("/ttrpg-chatbot")
+    assert resp.status_code == 200
 
 
 def test_legacy_redirects():

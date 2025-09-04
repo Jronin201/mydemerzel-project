@@ -28,7 +28,7 @@ def test_comprehensive_ttrpg_system():
         },
         "the-one-ring": {
             "keywords": ["Middle-earth", "Tolkien", "Loremaster", "Fellowship"],
-            "title": "The One Ring"
+            "title": "The Witcher"
         },
         "call-of-cthulhu": {
             "keywords": ["Lovecraft", "cosmic horror", "Keeper", "sanity", "1920s"],

@@ -20,7 +20,7 @@ def test_fresh_user_experience():
     # Test each TTRPG with completely fresh users
     ttrpgs = {
         "dune": "Dune: Adventures in the Imperium",
-        "the-one-ring": "The One Ring",
+    "the-one-ring": "The Witcher",
     "call-of-cthulhu": "Zweihander"
     }
     

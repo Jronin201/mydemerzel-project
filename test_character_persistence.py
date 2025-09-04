@@ -65,7 +65,7 @@ class TestCharacterInfoPersistence(unittest.TestCase):
         dune_stats = "Fremen leader"
         save_user_character_info(self.test_username, "dune", dune_character, dune_stats)
         
-        # Save character info for The One Ring
+    # Save character info for The Witcher
         ring_character = "Frodo Baggins"
         ring_stats = "Hobbit with the Ring"
         save_user_character_info(self.test_username, "the-one-ring", ring_character, ring_stats)

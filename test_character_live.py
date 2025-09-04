@@ -43,7 +43,7 @@ def test_character_info_persistence():
         {
             "ttrpg": "the-one-ring", 
             "character_name": "Frodo Baggins",
-            "character_stats": "A brave hobbit from the Shire, bearer of the One Ring. Small in stature but large in heart and determination."
+            "character_stats": "A seasoned witcher mutagenically enhanced to hunt monsters. Trained with blades, signs, and alchemy. Stoic but driven by a personal code."
         },
         {
             "ttrpg": "call-of-cthulhu",

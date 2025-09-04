@@ -114,7 +114,7 @@ class TestCharacterInfoIntegration(unittest.TestCase):
                         data=json.dumps(dune_data),
                         content_type='application/json')
         
-        # Save character info for The One Ring
+    # Save character info for The Witcher
         ring_data = {
             "ttrpg": "the-one-ring",
             "character_name": "Frodo Baggins", 
@@ -128,7 +128,7 @@ class TestCharacterInfoIntegration(unittest.TestCase):
         response = self.client.get('/api/character-info?ttrpg=dune')
         dune_result = json.loads(response.data)
         
-        # Load The One Ring character info
+    # Load The Witcher character info
         response = self.client.get('/api/character-info?ttrpg=the-one-ring')
         ring_result = json.loads(response.data)
         

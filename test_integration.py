@@ -97,12 +97,12 @@ def simulate_full_user_journey():
             assert any("Fremen culture" in msg["content"] for msg in messages)
             print("   ✅ Chat history contains both messages")
             
-            print("\n10. User switches to The One Ring TTRPG...")
+            print("\n10. User switches to The Witcher TTRPG...")
             tor_resp = client.get("/ttrpg-chatbot?ttrpg=the-one-ring")
             assert tor_resp.status_code == 200
-            print("   ✅ Switched to The One Ring TTRPG")
+            print("   ✅ Switched to The Witcher TTRPG")
             
-            print("\n11. Send message in The One Ring system...")
+            print("\n11. Send message in The Witcher system...")
             tor_chat_resp = client.post("/chat", json={
                 "message": "I want to visit the Shire",
                 "page": "the-one-ring",
@@ -110,7 +110,7 @@ def simulate_full_user_journey():
                 "character_stats": "Burglar: Expert, Luck: Very High"
             })
             assert tor_chat_resp.status_code == 200
-            print("   ✅ Message sent in The One Ring system")
+            print("   ✅ Message sent in The Witcher system")
             
             print("\n12. Verify separate chat histories...")
             # Check Dune history is unchanged
@@ -118,7 +118,7 @@ def simulate_full_user_journey():
             assert dune_history["message_count"] == 4
             assert not any("visit the Shire" in msg["content"] for msg in dune_history["messages"])
             
-            # Check The One Ring history has new message
+            # Check The Witcher history has new message
             tor_history = client.get("/api/chat-history?ttrpg=the-one-ring").get_json()
             assert tor_history["message_count"] == 2  # 1 user + 1 assistant
             assert any("visit the Shire" in msg["content"] for msg in tor_history["messages"])

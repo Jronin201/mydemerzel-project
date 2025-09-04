@@ -28,16 +28,16 @@ def test_optimized_embeddings():
     try:
         from optimized_embedding_search import improved_embedding_search, load_optimized_embeddings
         from openai import OpenAI
-        
+
         client = OpenAI()
-        
+
         # Load optimized embeddings
         dune_embeddings = load_optimized_embeddings("embeddings/dune_optimized.json")
         tor_embeddings = load_optimized_embeddings("embeddings/the-one-ring_optimized.json")
-        
+
         print(f"📚 Loaded embeddings:")
         print(f"   • Dune: {len(dune_embeddings)} optimized chunks")
-        print(f"   • The One Ring: {len(tor_embeddings)} optimized chunks")
+        print(f"   • The Witcher: {len(tor_embeddings)} optimized chunks")
         print()
         
         # Test queries

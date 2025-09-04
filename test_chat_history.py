@@ -84,7 +84,7 @@ def test_separate_ttrpg_histories():
                 "page": "dune"
             })
             
-            # Send message in The One Ring TTRPG
+            # Send message in The Witcher TTRPG
             client.post("/chat", json={
                 "message": "Tell me about the Shire",
                 "page": "the-one-ring"
@@ -96,7 +96,7 @@ def test_separate_ttrpg_histories():
             assert any(msg["content"] == "Tell me about spice" for msg in dune_data["messages"])
             assert not any(msg["content"] == "Tell me about the Shire" for msg in dune_data["messages"])
             
-            # Check The One Ring history
+            # Check The Witcher history
             resp = client.get("/api/chat-history?ttrpg=the-one-ring")
             tor_data = resp.get_json()
             assert any(msg["content"] == "Tell me about the Shire" for msg in tor_data["messages"])

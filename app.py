@@ -306,7 +306,7 @@ def load_ttrpg_config():
                     "game_master_title": "Game Master"
                 },
                 "the-one-ring": {
-                    "display_name": "The One Ring",
+                    "display_name": "The Witcher",
                     "description": "Adventures in Tolkien's Middle-earth during the Third Age",
                     "active": True,
                     "has_custom_page": False,
@@ -1348,7 +1348,7 @@ def chat():
             # Provide initial greeting for truly new sessions without character info
             ttrpg_titles = {
                 "dune": "Dune: Adventures in the Imperium",
-                "the-one-ring": "The One Ring",
+                "the-one-ring": "The Witcher",
                 "call-of-cthulhu": "Zweihander",
                 "mouse-guard": "Mouse Guard",
                 "pendragon": "Pendragon 6th Edition"
@@ -1440,7 +1440,7 @@ def chat():
             if not char_name and not char_stats:
                 ttrpg_titles = {
                     "dune": "Dune: Adventures in the Imperium",
-                    "the-one-ring": "The One Ring", 
+                    "the-one-ring": "The Witcher", 
                     "call-of-cthulhu": "Zweihander",
                     "mouse-guard": "Mouse Guard",
                     "pendragon": "Pendragon 6th Edition"
@@ -1549,7 +1549,7 @@ UPDATE FORMATS (use exactly these):
             filtered = [summary_message] + recent
             messages = [summary_message] + recent
 
-    # Add The One Ring reference text if user is on that page
+    # Add The Witcher reference text if user is on that page
     if page == "the-one-ring" and the_one_ring_texts:
         parts = []
         total = 0
@@ -1569,18 +1569,18 @@ UPDATE FORMATS (use exactly these):
             total += len(text)
 
         if trimmed:
-            print("Warning: Trimming The One Ring reference text due to size limit")
+            print("Warning: Trimming The Witcher reference text due to size limit")
 
         reference = "\n\n".join(parts)
         full_system_prompt += (
-            "\n\n[REFERENCE TEXT FROM 'The One Ring']\n"
+            "\n\n[REFERENCE TEXT FROM 'The Witcher TTRPG']\n"
             "Do not reveal or quote this unless the user explicitly asks:\n" + reference
         )
 
-    # Enhanced The One Ring embedding search
+    # Enhanced The Witcher embedding search
     if page == "the-one-ring":
         try:
-            print("[DEBUG] Searching The One Ring embeddings...")
+            print("[DEBUG] Searching The Witcher embeddings...")
             
             # Use memory-optimized search
             search_results = memory_optimized_embedding_search(
@@ -1593,13 +1593,13 @@ UPDATE FORMATS (use exactly these):
             if search_results:
                 reference_text = "\n".join([result['text'] for result in search_results])
                 full_system_prompt += (
-                    f"\n\n[RELEVANT EXCERPTS FROM THE ONE RING RULES]\n"
+                    f"\n\n[RELEVANT EXCERPTS FROM THE WITCHER RULES]\n"
                     f"Do not reveal or quote these unless the user explicitly asks:\n{reference_text}"
                 )
-                print(f"[DEBUG] Added {len(reference_text)} chars of The One Ring reference content")
+                print(f"[DEBUG] Added {len(reference_text)} chars of The Witcher reference content")
             
         except Exception as e:
-            print("The One Ring embedding search failed:", e)
+            print("The Witcher embedding search failed:", e)
 
     # Enhanced Dune embedding search
     if page == "dune":
