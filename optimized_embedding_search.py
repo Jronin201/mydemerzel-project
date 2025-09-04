@@ -242,7 +242,7 @@ def improved_embedding_search(
         if ttrpg_type == "dune":
             context_keywords = ["spice", "arrakis", "house", "bene gesserit", "fremen"]
         elif ttrpg_type == "the-one-ring":
-            context_keywords = ["hobbit", "middle-earth", "fellowship", "corruption", "journey"]
+            context_keywords = ["witcher", "mutagen", "signs", "contract", "alchemy"]
     
     # Perform enhanced search
     results = context_aware_search(

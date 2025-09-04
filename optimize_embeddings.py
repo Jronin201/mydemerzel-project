@@ -159,9 +159,9 @@ def test_embedding_search():
             "Tell me about House Atreides"
         ],
         "the-one-ring": [
-            "How do I create a hobbit character?",
-            "What are the travel rules in Middle-earth?",
-            "How does corruption work?"
+            "How do I brew and use potions as a witcher?",
+            "How do toxicity and potion duration interact in Witcher alchemy?",
+            "How does a witcher negotiate a monster contract?"
         ]
     }
     

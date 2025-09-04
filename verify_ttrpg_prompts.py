@@ -20,7 +20,7 @@ def verify_ttrpg_system():
     files_to_check = [
         ("Global", "system_prompt.txt"),
         ("Dune", "static/dune/system_prompt.txt"),
-        ("The One Ring", "static/the-one-ring/system_prompt.txt"),
+    ("The Witcher", "static/the-one-ring/system_prompt.txt"),
     ("Zweihander", "static/call-of-cthulhu/system_prompt.txt")
     ]
     
@@ -58,7 +58,7 @@ def verify_ttrpg_system():
     
     content_checks = {
         "dune": ["Game Master", "spice", "Atreides", "political intrigue"],
-        "the-one-ring": ["Loremaster", "Middle-earth", "Tolkien", "Fellowship"],
+    "the-one-ring": ["Witcher", "mutagen", "signs", "monster"],
         "call-of-cthulhu": ["Keeper", "cosmic horror", "Lovecraft", "sanity"]
     }
     

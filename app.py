@@ -277,13 +277,13 @@ for system_name, files in embedding_manager.embedding_files.items():
 # Note: Embeddings are now loaded only when a specific TTRPG system is accessed
 # This prevents memory exhaustion during startup
 
-# Load legacy The One Ring reference texts (now used for Witcher slot until Witcher texts added)
+# Load Witcher reference texts (replacing previous One Ring/Tolkien materials)
 the_one_ring_texts = {}
-tor_dir = os.path.join(app.static_folder or "static", "text", "the-one-ring")
-if os.path.isdir(tor_dir):
-    for fname in os.listdir(tor_dir):
+witcher_dir = os.path.join(app.static_folder or "static", "text", "witcher")
+if os.path.isdir(witcher_dir):
+    for fname in os.listdir(witcher_dir):
         if fname.endswith(".txt"):
-            with open(os.path.join(tor_dir, fname), "r", encoding="utf-8") as f:
+            with open(os.path.join(witcher_dir, fname), "r", encoding="utf-8") as f:
                 the_one_ring_texts[fname] = f.read()
 
 # --- Enhanced TTRPG Configuration Management ---
@@ -307,13 +307,13 @@ def load_ttrpg_config():
                 },
                 "the-one-ring": {
                     "display_name": "The Witcher",
-                    "description": "Adventures in Tolkien's Middle-earth during the Third Age",
+                    "description": "Dark fantasy monster hunting and intrigue across the Continent",
                     "active": True,
                     "has_custom_page": False,
                     "has_embeddings": True,
                     "created_date": "2024-01-01",
                     "version": "1.0",
-                    "game_master_title": "Loremaster"
+                    "game_master_title": "Game Master"
                 },
                 "call-of-cthulhu": {
                     "display_name": "Zweihander",
@@ -1356,7 +1356,7 @@ def chat():
             
             ttrpg_worlds = {
                 "dune": "the dangerous desert world of Arrakis and the political intrigue of the Imperium",
-                "the-one-ring": "Tolkien's Middle-earth",
+                "the-one-ring": "the dangerous, monster‑haunted Continent",
                 "call-of-cthulhu": "the mysterious and horror-filled world of the 1920s",
                 "mouse-guard": "the Mouse Territories, where brave mice defend their communities from the dangers of the natural world",
                 "pendragon": "Arthurian Britain, the legendary realm of King Arthur, chivalrous knights, and the Round Table"

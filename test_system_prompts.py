@@ -35,7 +35,7 @@ def test_system_prompts():
             # Check for TTRPG-specific keywords
             keywords = {
                 "dune": ["Dune", "spice", "Atreides", "Game Master"],
-                "the-one-ring": ["Middle-earth", "Tolkien", "Loremaster"],
+                "the-one-ring": ["Witcher", "mutagen", "signs", "monster"],
                 "call-of-cthulhu": ["Lovecraft", "cosmic horror", "Keeper", "sanity"]
             }
             
