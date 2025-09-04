@@ -905,14 +905,16 @@ MODE_AUTO_REVERT_TURNS = int(os.environ.get("MECHANICS_AUTO_REVERT_TURNS", "3"))
 
 MODE_GENERATION_PARAMS = {
     MODE_NARRATIVE: {
-        "temperature": 0.9,
-        "top_p": 1.0,
+    # Updated per request: unified generation settings
+    "temperature": 0.5,
+    "top_p": 1.0,
         "frequency_penalty": 0.2,
         "presence_penalty": 0.1,
     },
     MODE_MECHANICS: {
-        "temperature": 0.2,
-        "top_p": 0.85,
+    # Mechanics mode now uses same temperature/top_p baseline (was 0.2 / 0.85)
+    "temperature": 0.5,
+    "top_p": 1.0,
         "frequency_penalty": 0.0,
         "presence_penalty": 0.0,
     },
