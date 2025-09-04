@@ -17,16 +17,16 @@
       "setting": "Frank Herbert's Dune universe"
     },
     "the-one-ring": {
-      "display_name": "The One Ring",
-      "description": "Adventures in Tolkien's Middle-earth during the Third Age",
+      "display_name": "The Witcher",
+      "description": "Dark fantasy monster hunting and political intrigue across the Continent",
       "active": true,
       "has_custom_page": false,
       "has_embeddings": true,
       "created_date": "2024-01-01",
       "version": "1.0",
-      "game_master_title": "Loremaster",
-      "themes": ["heroic fantasy", "fellowship", "good vs evil"],
-      "setting": "J.R.R. Tolkien's Middle-earth"
+      "game_master_title": "Game Master",
+      "themes": ["monster hunting", "moral ambiguity", "gritty survival"],
+      "setting": "The Continent (Witcher world of sorcery, monsters, and fractured kingdoms)"
     },
     "call-of-cthulhu": {
       "display_name": "Zweihander",

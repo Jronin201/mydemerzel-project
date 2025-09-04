@@ -277,7 +277,7 @@ for system_name, files in embedding_manager.embedding_files.items():
 # Note: Embeddings are now loaded only when a specific TTRPG system is accessed
 # This prevents memory exhaustion during startup
 
-# Load The One Ring reference texts
+# Load legacy The One Ring reference texts (now used for Witcher slot until Witcher texts added)
 the_one_ring_texts = {}
 tor_dir = os.path.join(app.static_folder or "static", "text", "the-one-ring")
 if os.path.isdir(tor_dir):
