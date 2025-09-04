@@ -577,6 +577,27 @@ def undo_chat_step():
         "remaining_count": len(messages)
     })
 
+@app.route("/api/chat-history/clear", methods=["POST"])
+@login_required
+def clear_chat_history():
+    """Clear all chat history for the specified (or current) TTRPG system, starting a fresh session."""
+    data = request.get_json(silent=True)
+    if data is None:
+        return jsonify({"error": "Invalid JSON payload"}), 400
+
+    username = current_user.id if current_user.is_authenticated else "Demerzel"
+    ttrpg_system = data.get("ttrpg", "general")
+
+    # Overwrite with empty list
+    save_user_chat([], username, ttrpg_system)
+
+    return jsonify({
+        "success": True,
+        "message": "Chat history cleared",
+        "ttrpg_system": ttrpg_system,
+        "remaining_count": 0
+    })
+
 @app.route("/api/chat-sessions", methods=["GET"])
 @login_required  
 def get_chat_sessions():

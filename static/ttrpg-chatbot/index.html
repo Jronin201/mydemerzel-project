@@ -443,7 +443,7 @@
         flex: 1;
       }
 
-      /* Undo button styles */
+      /* Undo & Clear buttons styles */
       #undo-button {
         background-color: #333;
         color: #e0e0e0;
@@ -460,12 +460,30 @@
         justify-content: center;
       }
 
-      #undo-button:hover:not(:disabled) {
+      #clear-button {
+        background-color: #333;
+        color: #e0e0e0;
+        border: 1px solid #555;
+        border-radius: 5px;
+        padding: 0.7em 1em;
+        font-size: 1.05em;
+        cursor: pointer;
+        transition: background-color 0.2s, opacity 0.2s, border-color 0.2s;
+        min-width: 70px;
+        height: 3.2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+  #undo-button:hover:not(:disabled),
+  #clear-button:hover:not(:disabled) {
         background-color: #444;
         border-color: #777;
       }
 
-      #undo-button:disabled {
+  #undo-button:disabled,
+  #clear-button:disabled {
         background-color: #222;
         border-color: #333;
         color: #666;
@@ -473,7 +491,8 @@
         opacity: 0.6;
       }
 
-      #undo-button:focus {
+  #undo-button:focus,
+  #clear-button:focus {
         outline: 2px solid #81d4fa;
         border-color: #81d4fa;
       }
@@ -640,6 +659,14 @@
           title="Undo the last AI response and your message, allowing you to edit and resend"
         >
           ↶ Undo
+        </button>
+        <button
+          id="clear-button"
+          type="button"
+          aria-label="Clear chat session"
+          title="Clear all chat messages for this TTRPG and start fresh"
+        >
+          ✖ Clear
         </button>
       </div>
     </div>
@@ -1059,9 +1086,10 @@
         // Chat functionality
         var messages = document.getElementById("messages");
         var input = document.getElementById("userInput");
-        var undoButton = document.getElementById("undo-button");
+  var undoButton = document.getElementById("undo-button");
+  var clearButton = document.getElementById("clear-button");
 
-        if (!messages || !input || !undoButton) {
+  if (!messages || !input || !undoButton || !clearButton) {
           console.error("Required chat elements not found");
           return;
         }
@@ -1076,6 +1104,10 @@
           undoButton.title = hasMessages
             ? "Undo the last AI response and your message, allowing you to edit and resend"
             : "No messages to undo";
+          clearButton.disabled = messageElements.length === 0;
+          clearButton.title = messageElements.length
+            ? "Clear all chat messages for this TTRPG"
+            : "No messages to clear";
         }
 
         // Function to handle chat undo
@@ -1178,8 +1210,41 @@
           );
         }
 
-        // Add click event to undo button
+        // Add click event handlers
         addEvent(undoButton, "click", undoChatStep);
+        addEvent(clearButton, "click", function () {
+          if (clearButton.disabled) return;
+          if (!confirm("Clear all chat messages for this session? This cannot be undone.")) {
+            return;
+          }
+          var original = clearButton.textContent;
+          clearButton.textContent = "...";
+          clearButton.disabled = true;
+          makeFetchRequest(
+            "/api/chat-history/clear",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ ttrpg: window.currentTTRPG || "general" }),
+            },
+            function (error, data) {
+              clearButton.textContent = original;
+              if (error || !data || !data.success) {
+                console.error("Clear chat error:", error || data);
+                alert("Failed to clear chat history.");
+              } else {
+                // Remove all message elements
+                while (messages.firstChild) {
+                  messages.removeChild(messages.firstChild);
+                }
+                input.value = "";
+                autoResize(input);
+                input.focus();
+              }
+              updateUndoButtonState();
+            }
+          );
+        });
 
         function appendMessage(sender, text, className) {
           var msg;
