@@ -23,8 +23,8 @@ def test_one_ring_character_functionality():
     # Save character information for The Witcher
         char_info_data = {
             'ttrpg': 'the-one-ring',
-            'character_name': 'Bilbo Baggins - Hobbit Scholar, Hope: 15, Shadow: 2',
-            'character_stats': 'From the Shire. Seeks adventure but values comfort. Has burglar skills.'
+            'character_name': 'Geralt of Rivia – Witcher, Vitality: 42, Toxicity: 0',
+            'character_stats': 'Mutagenically enhanced monster slayer. Carries steel & silver blades, Signs training, alchemy toolkit.'
         }
         
         char_response = client.post('/api/character-info', 
@@ -37,8 +37,8 @@ def test_one_ring_character_functionality():
         chat_data = {
             'message': 'I want to explore the Old Forest.',
             'page': 'the-one-ring',
-            'character_name': 'Bilbo Baggins - Hobbit Scholar, Hope: 15, Shadow: 2',
-            'character_stats': 'From the Shire. Seeks adventure but values comfort. Has burglar skills.'
+            'character_name': 'Geralt of Rivia – Witcher, Vitality: 42, Toxicity: 0',
+            'character_stats': 'Mutagenically enhanced monster slayer. Carries steel & silver blades, Signs training, alchemy toolkit.'
         }
         
         chat_response = client.post('/chat',
@@ -67,8 +67,8 @@ def test_one_ring_character_functionality():
         combat_data = {
             'message': 'A pack of wolves attacks me! I try to use my burglar skills to sneak past them.',
             'page': 'the-one-ring',
-            'character_name': 'Bilbo Baggins - Hobbit Scholar, Hope: 15, Shadow: 2',
-            'character_stats': 'From the Shire. Seeks adventure but values comfort. Has burglar skills.'
+            'character_name': 'Geralt of Rivia – Witcher, Vitality: 42, Toxicity: 0',
+            'character_stats': 'Mutagenically enhanced monster slayer. Carries steel & silver blades, Signs training, alchemy toolkit.'
         }
         
         combat_response = client.post('/chat',
