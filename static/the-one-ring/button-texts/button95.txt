@@ -1,12 +1,12 @@
-Defender Critical Fail
+D Fail
 
-Misses parry completely — full blow lands.
-Stumbles on retreat, loses footing.
-Weapon knocked from hand by crushing impact.
-Steps the wrong way, walks into strike.
-Guard collapses under pressure, chest wide open.
-Shield/weapon arm numbed, unable to respond.
-Overextends on parry attempt, exposed.
-Dodges into another hazard (wall, terrain, ally).
-Critical timing error — both hands tangled, defenseless.
-Knocked to ground, utterly exposed.
+Parry too late — blow lands partially.
+Guard broken, impact bruises through.
+Sidestep mistimed, grazed hit lands.
+Defense absorbs some force but weapon slips through.
+Arm jarred painfully by half-block.
+Dodged but still clipped by weapon tip.
+Retreat too slow — attacker pushes in.
+Crossed weapons slide, strike still connects.
+Low defense misses high attack.
+Footwork falters, position worsens after block.
