@@ -1,12 +1,102 @@
 A Crit Miss
 
-Weapon overextends — attacker stumbles forward, exposed.
-Attack misses wildly, leaving flank wide open.
-Slippery footing — attacker nearly falls.
-Weapon strikes ground, jarring arms painfully.
-Attacker spins too far — back turned to opponent.
-Weapon lodges in shield, armor, or terrain.
-Blow rebounds off guard — attacker’s hands stung numb.
-Desperate swing loses balance — attacker must recover footing.
-Attacker tangles in own weapon or cloak.
-Catastrophic failure: weapon dropped, grip lost.
+The blade slams into stone, edge chipping, leaving the attacker off balance.
+The strike sails wide, momentum carrying them into a stumble past their foe.
+A downward chop crashes into the ground, jarring wrists and nearly wrenching the weapon free.
+The weapon lodges in wood, stuck fast as the foe closes in.
+Steel catches awkwardly, twisting from the attacker’s grip and clattering to the ground.
+A wild swing spins them half around, exposing their back to counterattack.
+The thrust drives too far, pulling them chest-to-chest with the enemy.
+The weapon’s haft splinters under the strain, leaving only jagged wood in hand.
+The blow misses and catches a comrade instead, staggering them with shock.
+A step lands wrong, ankle twisting, leaving balance broken.
+The swing carries them into a slip, crashing to one knee in the dirt.
+The strike rebounds off armor, shock running up arms until fingers go numb.
+The thrust glances, skittering off into empty space, dragging the wielder forward into danger.
+The blade spins from slick fingers, weapon lost to the ground.
+Momentum carries the swing too far, leaving chest wide open.
+The strike smashes into a wall, edge shattering in sparks.
+Steel digs into the earth, blade wedged and refusing to pull free.
+The blow misses wildly, the attacker’s helm colliding with the defender’s shoulder instead.
+The thrust strikes too close, weapon slipping past without control.
+The swing jars the wrist, weapon nearly flying free as pain shoots up the arm.
+The blow catches on the attacker’s own cloak, nearly tearing it from their shoulders.
+The strike rebounds awkwardly, smashing the attacker’s own knee with the haft.
+A thrust pierces the dirt floor and sticks deep, leaving them yanking at the weapon.
+The swing glances from a shield rim and ricochets back into their own arm.
+The weapon strikes the wall beside them, showering sparks and leaving the edge dull.
+They overreach with the strike, collapsing forward onto one hand.
+The blade twists in the grip, wrenching the attacker’s wrist painfully.
+Momentum whirls them off balance, spinning half a circle before they recover.
+A hammer blow smashes into stone, haft splitting and weakening.
+The thrust sails high, nearly driving into a comrade standing behind.
+Their step slides on loose gravel, leaving them scrambling for footing.
+The swing catches the ceiling or overhang, sending shards of stone raining down.
+The strike carves through a torch, spraying sparks wildly into the air.
+A misjudged slash nearly cuts into their own leg.
+Steel lodges in a foe’s armor plate, stuck without drawing blood.
+The thrust slips from the line, jabbing into empty space with both arms extended.
+The swing collides with their own shield, jarring the blow short.
+They stumble as a boot slips in mud, weapon flailing uselessly.
+The strike clips a wall, sending shock rattling through arms and shoulders.
+The weapon slips half out of hand, barely caught before it falls.
+The blow strikes too hard, blade vibrating until teeth chatter and hands go numb.
+A swing slams into the ground, jarring shoulders and leaving the weapon quivering in place.
+The thrust drives into a tree trunk, wedging the point tight in the wood.
+Steel catches in chainmail links without piercing, trapping the weapon awkwardly.
+The strike glances sideways, the attacker’s shoulder popping painfully from overextension.
+Momentum carries them sprawling forward, barely catching themselves with one hand.
+The weapon twists in hand, hilt smashing into their own chest.
+A heavy swing pulls them so far off line they nearly fall onto their foe.
+The blade edge chips against stone, sending fragments clattering across the ground.
+A misjudged thrust drives into the dirt floor, blade sinking deep and bending.
+The swing misses wide, weapon smashing against a nearby post or pillar.
+Steel glances from a helm with such force that the attacker nearly drops their weapon.
+The blow rebounds off a shield rim, the impact splitting open the attacker’s own lip.
+A misstep carries them into a stumble, nearly falling into their opponent.
+Their strike carves through empty air, cloak tangling around legs as they trip.
+A thrust skids past the foe’s ribs, balance lost as they fall to one knee.
+The swing slams into stone steps, sparking as the weapon sticks briefly.
+Steel jams awkwardly in a doorframe, refusing to pull free.
+The blow rattles through the wrist, leaving the hand weak and trembling.
+Momentum carries the attacker straight into their foe’s guard, chest exposed.
+The swing catches a belt or strap, nearly tearing their own gear loose.
+Steel strikes the edge of stone, shattering a chunk from the blade.
+A thrust slips past the target and drags the attacker stumbling shoulder-first into a wall.
+The weapon jams awkwardly against a shield edge and wrenches free from their hands.
+The blow clips their own knee on the follow-through, sending pain up the leg.
+Momentum hurls them off their feet, sprawling face-first into the dirt.
+The weapon haft splinters under strain, half of it clattering away uselessly.
+A swing tangles in a dangling rope or banner, leaving the weapon caught.
+The thrust misses entirely, blade skimming so far wide it spins them half around.
+Steel bites deep into the ground and sticks fast, refusing to budge.
+A slash turns wild, cutting into their own boot and nearly toppling them.
+The blow slams into a wall, sending shock through arms until they drop the weapon outright.
+They overreach, stumbling chest-to-chest with their opponent and off balance.
+The strike catches only air, weapon tumbling from their grip mid-swing.
+Steel clips their own shield edge, bouncing back into their faceplate.
+The blow crashes into a pillar, edge shattering in sparks.
+The strike misses so widely that the foe has time to counter immediately.
+Their boot slides on loose stones, spilling them hard onto one knee.
+A thrust jabs into wood and snaps the tip clean off.
+The swing tears the weapon from their hands, it clattering yards away.
+Steel glances from stone and flies loose, leaving them holding only the hilt.
+The strike smashes into their own companion’s shield, rattling both.
+Momentum drags them so close that the hilt strikes their own chin.
+The weapon haft smashes against their thigh, leaving them limping.
+A downward cut lodges in the dirt floor, sticking fast.
+Steel glances across armor, rebounds, and slices into their own arm.
+A wide swing spins them halfway around, leaving their back exposed.
+The thrust slips off line and drives into the ground, bending the blade.
+The blow misses entirely, weapon slipping from hand in the follow-through.
+Steel crashes into a shield and jars so hard that grip is lost.
+The swing hooks into a loose strap, nearly pulling the weapon away.
+A strike misses so badly they collide shoulder-first with their foe.
+Steel shatters against stone, half the blade clattering to the ground.
+The weapon haft splinters, leaving them holding only a jagged stub.
+They stumble after a missed blow, crashing down onto both knees.
+A thrust overextends so far that they nearly tumble forward into the dirt.
+The swing smashes a wooden post, the weapon vibrating in their grip.
+A blow clangs into their own greave, leaving the leg throbbing.
+Steel slips through slick fingers, weapon falling and skittering across the ground.
+The strike misses entirely, leaving them breathless and wide open for reprisal.
