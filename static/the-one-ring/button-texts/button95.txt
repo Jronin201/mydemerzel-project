@@ -1,12 +1,111 @@
 D Fail
 
-Parry too late — blow lands partially.
-Guard broken, impact bruises through.
-Sidestep mistimed, grazed hit lands.
-Defense absorbs some force but weapon slips through.
-Arm jarred painfully by half-block.
-Dodged but still clipped by weapon tip.
-Retreat too slow — attacker pushes in.
-Crossed weapons slide, strike still connects.
-Low defense misses high attack.
-Footwork falters, position worsens after block.
+The parry comes a heartbeat too late, steel biting into the shoulder with a spray of sparks.
+The sidestep falters, leaving the blade to rake across the ribs.
+The block absorbs part of the blow, but the weapon slips past to cut the arm.
+The dodge is mistimed, the thrust piercing into the hip.
+The guard catches the swing but buckles, the mace crashing into the chest.
+The shield raises too slow, the edge slamming into the thigh.
+The parry glances the strike but not enough, the point driving shallow into flesh.
+The dodge clears most of the swing, but the blade still clips the shoulder.
+The block deflects the blow partially, leaving the head ringing from the glancing impact.
+The retreat is too slow, the weapon lashing across the belly.
+The guard intercepts weakly, the force driving steel into the arm behind it.
+The sidestep misjudges distance, leaving the leg sliced open.
+The parry only slows the thrust, the point still sliding into the side.
+The dodge bends too late, the strike cutting a shallow line across the back.
+The block breaks under force, the weapon hammering into ribs.
+The shield absorbs most of the cut, but the blade punches through to skin.
+The parry clashes but slips, the strike carving into the forearm.
+The sidestep stumbles, leaving the calf cut open.
+The guard meets the blow but shatters aside, weapon biting into collarbone.
+The dodge falters at the last moment, the mace head crashing into the stomach.
+The parry is too weak, the thrust punching straight into the chest.
+The block halts the swing, but the weight crashes through into the shoulder.
+The sidestep is mistimed, leaving the hip gashed by steel.
+The retreat is too shallow, the blade cutting across the shin.
+The guard deflects high, but the follow-through smashes into the ribs.
+The parry clips the weapon but fails to hold, the strike gouging the thigh.
+The dodge clears the blade barely, but the pommel cracks into the temple.
+The block halts most of the blow, but the edge cuts along the arm.
+The retreat catches a heel on stone, leaving the chest open to the hit.
+The sidestep comes too late, the strike landing across the back.
+The parry misjudges the angle, the cut driving across the hand.
+The guard intercepts low, but the point rises into the belly.
+The dodge misses timing, the mace hammering into the ribs.
+The shield deflects but slips, leaving the leg smashed beneath.
+The parry grinds steel, but the follow-through drives into the collarbone.
+The sidestep clears the thrust, but the blade drags along the thigh.
+The guard shatters under the force, weapon tearing into the chest.
+The dodge twists aside but not enough, the cut slashing the shoulder blade.
+The block halts the swing high, but the low arc clips the shin.
+The parry drives the weapon wide but loses control, the backslash striking the arm.
+The retreat falters, the attacker stepping in to land a cut across the stomach.
+The dodge slips, boot catching, and the blade finds the side.
+The guard is late, the thrust piercing through leather and into ribs.
+The parry bites steel, but the power smashes through to strike the helm.
+The sidestep is too narrow, leaving the arm grazed by the strike.
+The shield takes the blow, but the impact leaves the wrist sprained.
+The dodge bends low, but the point drops with it, driving into the back.
+The guard halts the first strike, but the follow-through cuts into the thigh.
+The block absorbs the blow, but the vibration rattles weapon from hand.
+The parry slips aside, but the tip still drags through the calf.
+The sidestep opens distance, but the pommel cracks into the jaw.
+The guard meets the attack, but the weapon collapses into splinters, strike landing true.
+The dodge clears the cut but not the backhand, which slices the arm.
+The parry deflects high, but the thrust lands low into the hip.
+The shield shudders under the hit, splitting, and the mace drives through.
+The retreat is too slow, leaving the shoulder cut deep.
+The guard halts steel, but the dagger in the off-hand stabs the belly.
+The dodge carries them clear, but the weapon butt smashes into the ribs.
+The parry slides wrong, the strike hammering into the wrist.
+The block checks the blade, but the tip still tears along the cheek.
+The sidestep clears the first cut, but the second rakes the thigh.
+The shield lifts too late, the slash cutting deep into the leg.
+The guard turns the edge, but the mace head still slams into the chest.
+The dodge misses entirely, the thrust landing full into the side.
+The parry locks blades, but the strength overpowers, driving steel into the shoulder.
+The retreat falters, weapon still slicing across the stomach.
+The guard intercepts low, but the high cut strikes the temple.
+The dodge slips off balance, leaving ribs exposed to the strike.
+The parry clangs hard but breaks, leaving the blow to smash through.
+The shield halts the swing, but the force drives into the shoulder anyway.
+The sidestep misjudges, the cut biting deep into the calf.
+The parry swings wide, the thrust landing clean into the hip.
+The dodge rolls clear of one strike but straight into another.
+The block halts steel, but the vibration drives the guard arm numb.
+The guard shifts too slowly, letting the edge rake across the chest.
+The parry skims the blade but not enough, the cut tears the forearm.
+The sidestep clears the mace but not the knee strike that follows.
+The dodge slides under the cut, but the follow-up pommel smashes the skull.
+The retreat slips on uneven ground, leaving the back gashed.
+The block steadies but shatters under pressure, ribs taking the blow.
+The guard halts the first thrust, but the second slides into the side.
+The parry jars steel aside but leaves the leg exposed to a low cut.
+The dodge bends, but the blade drops with it, grazing the neck.
+The shield deflects poorly, leaving the shoulder smashed.
+The parry scrapes sparks but fails, steel cutting into the wrist.
+The sidestep clears but catches terrain, leaving the thigh opened.
+The retreat is too slow, the strike carving into the stomach.
+The guard absorbs one strike but misses the next, chest cut.
+The parry slips away entirely, leaving ribs opened by the slash.
+The dodge falters late, the mace crunching into the back.
+The shield takes the strike but crumbles, leaving the head smashed.
+The parry catches the edge but not the weight, the blow crashing into the collarbone.
+The sidestep twists wrong, ankle turning, the cut landing full into the leg.
+The guard deflects high but not low, blade carving the belly.
+The dodge clears wide but not enough, the spear point piercing the hip.
+The parry snaps sparks but loses grip, blade driven into the arm.
+The shield deflects one strike but fails against the second.
+The retreat is clumsy, steel carving across the back.
+The block is angled wrong, leaving the edge to bite into the chest.
+The parry screeches against steel but is forced aside, shoulder cut.
+The sidestep clears high but leaves the shin gashed by a low sweep.
+The dodge stumbles late, the thrust piercing deep into the thigh.
+The guard shatters under force, blade slamming through into ribs.
+The retreat misjudges distance, the mace smashing into the stomach.
+The parry loses leverage, the strike hacking into the arm.
+The dodge clears barely, the backhand cutting into the cheek.
+The shield shakes under the strike, splintering into uselessness.
+The block steadies for a moment but collapses, leaving the chest struck.
+The parry slides wide, the thrust landing squarely into the torso.
