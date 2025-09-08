@@ -1,3 +1,12 @@
-Sequential Door Latch
+Attacker Critical Miss
 
-Locks disengage one after another without physical interaction.
+Weapon overextends — attacker stumbles forward, exposed.
+Attack misses wildly, leaving flank wide open.
+Slippery footing — attacker nearly falls.
+Weapon strikes ground, jarring arms painfully.
+Attacker spins too far — back turned to opponent.
+Weapon lodges in shield, armor, or terrain.
+Blow rebounds off guard — attacker’s hands stung numb.
+Desperate swing loses balance — attacker must recover footing.
+Attacker tangles in own weapon or cloak.
+Catastrophic failure: weapon dropped, grip lost.
