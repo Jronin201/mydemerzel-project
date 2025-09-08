@@ -1,12 +1,109 @@
-A Hit
+Hit
 
-Solid strike lands, forcing grunt of pain.
-Opponent’s defense slowed but not broken.
-Glancing but bloody cut.
-Forceful impact jars the foe’s stance.
-Blow lands but is partly absorbed by armor.
-Attacker pushes foe back a pace.
-Defensive weapon battered aside, leaving small opening.
-Quick follow-through cuts flesh, but not deep.
-Opponent reels but keeps footing.
-Weapon sinks into opponent’s guard, bruising through block.
+The blow glances across the ribs, leaving a shallow cut that stains armor with blood.
+Steel bites into the shoulder, drawing a sharp cry as the arm weakens but holds.
+The strike lands against the thigh, forcing a stumble as pain shoots up the leg.
+A downward chop smashes into the helm, leaving them dazed and blinking.
+The thrust pierces the side, shallow but bleeding freely.
+A slash across the forearm forces the hand open, grip faltering on the weapon.
+The mace crashes into the chest, knocking the wind from their lungs.
+Steel cuts along the calf, a thin red line slowing their movement.
+The point stabs into the hip, glancing off bone but leaving muscle torn.
+A crushing strike hammers the shield arm, numbing it at the elbow.
+The blow to the jaw spins their head sideways, teeth rattling loose.
+A slash across the belly tears cloth and skin, blood welling as they stagger back.
+The strike lands hard on the knee, buckling the joint for a heartbeat.
+Steel rakes across the back, cutting deep enough to draw a hiss of pain.
+The thrust lands in the upper arm, muscle pierced but still usable.
+A mace blow smashes against the ribs, cracking armor plates and bruising flesh.
+The point catches the chest, slicing across before tearing free.
+A sword edge cuts into the wrist, forcing a brief drop before grip is regained.
+The blow drives into the stomach, doubling them over, breath ragged.
+A slash opens the cheek, blood pouring down into one eye.
+Steel slices across the shin, leaving a bloody stripe that slows the step.
+The strike lands on the collarbone, jolting the shoulder back with force.
+A thrust glances off the ribs, grazing flesh beneath armor.
+The blow to the back leaves muscles seized in pain but not broken.
+A sword cut tears into the thigh, leaving a trail of blood down the leg.
+The mace glances off the helm, rattling their vision with sparks.
+A strike across the forearm leaves the limb trembling and weak.
+Steel tears a shallow line across the chest, marking armor with red.
+The blow smashes into the elbow, leaving the arm momentarily numb.
+A thrust into the side drives shallow, pain making them wince hard.
+The strike cuts into the calf, hobbling their step.
+A crushing blow slams the shoulder, forcing them to stagger sideways.
+The edge bites into the jawline, leaving blood dripping down the chin.
+A shallow cut opens on the upper chest, seeping blood through armor.
+The mace crashes into the thigh, bruising deep and heavy.
+A slash across the hand forces fingers to spasm around the hilt.
+The blow lands on the ribs, leaving breath ragged and shallow.
+A thrust grazes the arm, tearing fabric and leaving blood along the sleeve.
+The strike lands on the knee, forcing them briefly to one side.
+Steel cuts along the back of the neck, shallow but startling.
+A blow across the shoulder blades drives them forward in a stumble.
+The edge rakes across the forearm, leaving skin and blood along steel.
+The strike lands low on the shin, numbing the leg as they wince.
+A slash across the belly doesn’t pierce deeply but draws a painful cry.
+The thrust to the shoulder drives shallow, leaving the arm weak.
+The mace smashes into the side, armor groaning under the impact.
+Steel scrapes along the helm, ringing loudly and stunning for a breath.
+The point pierces the thigh muscle, slowing their step.
+A strike lands on the forearm, bruising through the flesh beneath armor.
+The blow to the chest forces them back, gasping for air.
+A shallow cut splits the scalp, blood trickling down into one eye.
+Steel digs into the ribs, cutting just deep enough to bleed.
+The strike lands across the shoulder joint, leaving movement stiff.
+A thrust pierces the calf muscle, dragging a cry of pain.
+The mace blow smashes into the hip, sending them staggering.
+A sword cut across the wrist nearly tears the weapon free.
+The strike lands on the shin, bruising hard through bone and flesh.
+Steel slashes across the jaw, painting cheek and chin red.
+A thrust to the side pierces shallowly, leaving them off-balance.
+The blow to the shoulder hurls them sideways, stumbling.
+A shallow cut slices across the ribs, burning with pain.
+The strike lands hard on the upper arm, leaving it heavy and sluggish.
+The mace smashes into the stomach, doubling them over with a grunt.
+Steel rakes down the forearm, cutting cloth and drawing blood.
+A blow to the knee forces them to kneel briefly before rising again.
+The thrust pierces shallow into the hip, leaving the leg shaky.
+A slash across the chest tears armor straps loose.
+The strike smashes against the helm, denting it with a sharp crack.
+A sword edge cuts into the thigh muscle, bleeding heavily.
+The blow drives into the ribs, forcing breath out in a grunt.
+A shallow stab pierces the belly, bleeding but not mortal.
+The strike lands hard on the shoulder, leaving the arm dangling.
+Steel scrapes the temple, a shallow cut streaming blood into the eye.
+The mace smashes across the ribs, leaving a heavy bruise.
+A slash across the shin slices deep into muscle.
+The thrust grazes the chest, tearing cloth and leaving a bloody line.
+The blow to the forearm leaves the hand trembling weakly.
+A cut along the jaw leaves blood soaking the collar.
+The strike lands on the ribs, bruising deep beneath the skin.
+A thrust pierces the arm, forcing them to pull back in pain.
+The slash across the back tears through cloak and skin alike.
+A mace blow smashes the thigh, sending them stumbling to the side.
+Steel cuts across the cheekbone, leaving a scarlet streak.
+The strike drives shallow into the belly, forcing them to stagger.
+A slash opens the side of the neck, bleeding but not mortal.
+The blow smashes into the shoulder joint, forcing them back.
+Steel rakes across the shin, leaving them limping.
+The thrust pierces the shoulder blade, driving them forward.
+The strike lands low on the ribs, leaving them gasping.
+A slash cuts across the upper arm, drawing blood freely.
+The blow hammers the stomach, knocking the wind out.
+Steel slices across the thigh, deep enough to slow them.
+The strike to the jaw spins their head sideways with bloodied teeth.
+A cut opens the scalp, blood matting hair over the eye.
+The thrust pierces shallow at the chest, leaving them stumbling back.
+A mace crashes into the forearm, forcing fingers loose from the grip.
+The strike lands across the ribs, bruising and cutting through armor.
+Steel cuts the shin, hobbling their stance.
+The blow lands across the temple, leaving vision blurred.
+A thrust drives into the hip, forcing them back with a cry.
+A slash across the chest tears skin and armor straps both.
+The strike hammers the side, forcing them off balance.
+A shallow cut across the wrist leaves blood dripping from the hand.
+Steel slashes across the ribs, bleeding but not mortal.
+The blow smashes into the collarbone, rattling the arm weakly.
+A thrust lands in the thigh, dragging them to one knee.
+The strike cuts the cheek open, leaving a scarlet line down the jaw.
