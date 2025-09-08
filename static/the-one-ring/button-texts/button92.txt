@@ -1,12 +1,12 @@
-Defender Critical Success
+A Crit Miss
 
-Parry so clean it throws attacker off balance.
-Riposte lands instantly — defender turns defense into attack.
-Perfect sidestep, attacker stumbles past.
-Bind and twist — opponent’s weapon caught, nearly disarmed.
-Shield/weapon catch shoves attacker’s strike wide open.
-Defender closes distance, pressing attacker back.
-Counter-cut lands in the same beat as parry.
-Weapon angled perfectly: attacker’s blow jars their own arms.
-Elegant evasion — defender moves untouched, poised for counter.
-Attacker overcommits, defender dictates next exchange.
+Weapon overextends — attacker stumbles forward, exposed.
+Attack misses wildly, leaving flank wide open.
+Slippery footing — attacker nearly falls.
+Weapon strikes ground, jarring arms painfully.
+Attacker spins too far — back turned to opponent.
+Weapon lodges in shield, armor, or terrain.
+Blow rebounds off guard — attacker’s hands stung numb.
+Desperate swing loses balance — attacker must recover footing.
+Attacker tangles in own weapon or cloak.
+Catastrophic failure: weapon dropped, grip lost.
