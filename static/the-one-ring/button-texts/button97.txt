@@ -1,3 +1,104 @@
-Lamp Filament Echo
+Creature Attack
 
-Bulb glows faintly post power-off matching heartbeat tempo.
+Claw swipe high across face
+Claw swipe high across face
+Claw swipe high across face
+Claw swipe downward at shoulder
+Claw swipe downward at shoulder
+Claw swipe across torso
+Claw swipe across torso
+Claw swipe across torso
+Claw rake from both forelimbs
+Claw rake from both forelimbs
+Double-handed mauling slash
+Wide claw sweep meant to knock down
+Raking strike aimed at throat
+Raking strike aimed at arm
+Raking strike aimed at leg
+Rake with hooked talons
+Rake with hooked talons
+Backhanded claw strike
+Backhanded claw strike
+Backhanded claw strike
+Bite snap at throat
+Bite snap at throat
+Bite snap at throat
+Bite snap at arm
+Bite snap at arm
+Bite snap at leg
+Bite snap at leg
+Bite lunge with full body behind it
+Bite lunge with full body behind it
+Bite lunge with full body behind it
+Gnashing bite from side angle
+Gnashing bite from side angle
+Overbite crunch downward
+Underbite snap upward
+Head shake bite (attempt to tear flesh)
+Head shake bite (attempt to tear flesh)
+Savage chomp and hold
+Savage chomp and hold
+Quick nip meant to distract
+Quick nip meant to distract
+Quick nip meant to distract
+Charge forward with head down
+Charge forward with head down
+Charge forward with tusks or horns
+Charge forward with tusks or horns
+Head butt into chest or face
+Head butt into chest or face
+Horn thrust upward
+Horn thrust upward
+Horn thrust sideways
+Horn thrust sideways
+Pounce from distance, full body slam
+Pounce from distance, full body slam
+Leap attack with claws extended
+Leap attack with claws extended
+Spring forward onto foe, mauling
+Spring forward onto foe, mauling
+Rear up and smash down with forelimbs
+Rear up and smash down with forelimbs
+Overhead smash with paw
+Overhead smash with paw
+Raking kick with hind leg
+Raking kick with hind leg
+Raking kick with hind leg
+Stamping kick with foreleg
+Stamping kick with foreleg
+Stamping kick with hind leg
+Stamping kick with hind leg
+Trample underfoot
+Trample underfoot
+Tail swipe across legs
+Tail swipe across legs
+Tail swipe across torso
+Tail swipe across torso
+Tail smash with heavy impact
+Tail smash with heavy impact
+Tail whip upward into head
+Tail whip upward into head
+Body slam with shoulder
+Body slam with shoulder
+Body slam with flank
+Body slam with flank
+Grab and shake with jaws
+Grab and shake with jaws
+Maul and pin to ground
+Maul and pin to ground
+Grapple with forelimbs, crushing embrace
+Grapple with forelimbs, crushing embrace
+Bear hug squeeze with claws
+Bear hug squeeze with claws
+Claw hook to pull foe closer
+Claw hook to pull foe closer
+Bite and drag attempt
+Bite and drag attempt
+Drag down by leg
+Drag down by leg
+Overbearing rush, tackling opponent
+Overbearing rush, tackling opponent
+Bite then rake with hind legs
+Bite then rake with hind legs
+Savage frenzy of claw and bite
+Savage frenzy of claw and bite
