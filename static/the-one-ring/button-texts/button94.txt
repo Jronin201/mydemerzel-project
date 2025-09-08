@@ -1,12 +1,12 @@
-Defender Fail
+D Success
 
-Parry too late — blow lands partially.
-Guard broken, impact bruises through.
-Sidestep mistimed, grazed hit lands.
-Defense absorbs some force but weapon slips through.
-Arm jarred painfully by half-block.
-Dodged but still clipped by weapon tip.
-Retreat too slow — attacker pushes in.
-Crossed weapons slide, strike still connects.
-Low defense misses high attack.
-Footwork falters, position worsens after block.
+Solid parry absorbs impact, no harm done.
+Attack deflected safely aside.
+Step back creates clean space, blow falls short.
+Sidestep just clears the strike.
+Guard holds firm, attacker’s weapon bounces off.
+Blow caught on strong part of weapon shaft.
+Fluid evasion, minimal effort wasted.
+Bind occurs, neither side gaining advantage.
+Clash ends in locked weapons, neutralized.
+Defender ducks under attack, reset to guard.
