@@ -1,3 +1,137 @@
-Partial Audio Redaction
+Defense
 
-Tape playback mutes only verbs yet preserves coherence.
+Block/Parry high (head level)
+Block/Parry high
+Block/Parry high
+Block/Parry diagonal downward (deflecting overhead cut)
+Block/Parry diagonal downward
+Block/Parry horizontal (torso height)
+Block/Parry horizontal
+Block/Parry low (legs)
+Block/Parry low
+Block/Parry thrust (direct interception)
+Block/Parry thrust
+Block/Parry thrust
+Deflect with Weapon Shaft (spears, maces, etc.)
+Deflect with Weapon Shaft
+Deflect with Weapon Shaft
+Parry then Riposte (immediate counter)
+Parry then Riposte
+Parry then Riposte
+Beat-Parry (slapping attack aside)
+Beat-Parry
+Cross-Parry (weapon held across body)
+Cross-Parry
+Inside-line Parry (to dominant hand side)
+Outside-line Parry (to off-hand side)
+High Bind (catching and controlling opponent’s weapon)
+High Bind
+Low Bind (trapping weapon near legs)
+Low Bind
+Step Back Quickly (retreat to avoid strike)
+Step Back Quickly
+Step Back Quickly
+Sidestep to Strong Side (away from weapon arm)
+Sidestep to Strong Side
+Sidestep to Strong Side
+Sidestep to Weak Side (toward weapon arm)
+Sidestep to Weak Side
+Sidestep to Weak Side
+Diagonal Step Offline (creating angle)
+Diagonal Step Offline
+Advance Inside Opponent’s Guard (closing distance)
+Advance Inside Opponent’s Guard
+Duck Under Swing
+Duck Under Swing
+Weave Back (upper body lean)
+Weave Back
+Weave Back
+Lean Aside (slip)
+Lean Aside
+Lean Aside
+Retreating Diagonal Step (both back and sideways)
+Retreating Diagonal Step
+Block/Parry then Counter-Cut
+Block/Parry then Counter-Cut
+Block/Parry then Counter-Thrust
+Block/Parry then Counter-Thrust
+Parry then Bind Weapon
+Parry then Bind Weapon
+Parry then Grapple (arm/weapon grab)
+Parry then Grapple
+Stop-Thrust (meeting attack with thrust)
+Stop-Thrust
+Stop-Thrust
+Yielding Parry (giving ground while deflecting)
+Yielding Parry
+Yielding Parry
+Half-Sword Block (gripping weapon mid-shaft for control)
+Half-Sword Block
+Half-Sword Block
+Weapon Catch & Twist (attempt disarm)
+Weapon Catch & Twist
+Weapon Catch & Twist
+Counter-Beat (deflect then strike weapon aside)
+Counter-Beat
+Body Check (shoulder or torso)
+Body Check
+Kick to Leg (disrupting attack angle)
+Kick to Leg
+Kick to Leg
+Foot Sweep (off-balancing opponent)
+Foot Sweep
+Foot Sweep
+Close-In Smother (pressing weapon against attacker’s arm)
+Close-In Smother
+Close-In Smother
+Binding Press (pinning opponent’s weapon down)
+Binding Press
+Weapon Rotation Deflection (circular parry)
+Weapon Rotation Deflection
+Weapon Rotation Deflection
+Spinning Deflection (rare, circular motion)
+Spinning Deflection
+Spinning Deflection + Riposte
+Spinning Deflection + Riposte
+Vaulting Step (dramatic evasive leap)
+Vaulting Step
+Vaulting Step
+Duck-and-Rush (slip under, drive forward)
+Duck-and-Rush
+Duck-and-Rush
+Close Clinch (grapple to nullify weapon)
+Close Clinch
+Close Clinch
+Disengage Retreat (breaking distance cleanly)
+Disengage Retreat
+Disengage Retreat
+Brace hard, planting feet against the shock.
+Drop weight low, grounding against the force.
+Throw up weapon or arm to intercept the blow.
+Whip cloak, pack, or improvised cover into the path.
+Dive aside in a desperate roll.
+Leap backward, narrowly avoiding the surge.
+Step into the attack, closing distance before it blooms.
+Circle wide, slipping outside the arc.
+Vault clear over debris or hazard zone.
+Duck low as energy or steel cuts the air above.
+Twist body sideways, letting the attack shear past.
+Knock aside the assault with the flat of weapon or haft.
+Disperse the force by redirecting it outward.
+Rush through before the effect fully manifests.
+Hesitate at the last instant, letting the strike overshoot.
+Anchor weapon in ground or brace against wall to resist impact.
+Shove enemy weapon or hand away mid-motion.
+Smother the attack at its source with sudden pressure.
+Disrupt the pattern with a sharp strike or clash.
+Recover balance quickly after a stagger.
+Endure with raw grit, weathering the impact.
+Lock gaze and focus will, refusing to yield.
+Shake head violently, breaking off haze or distraction.
+Shout or roar, pushing back against oppressive influence.
+Spin aside, using momentum to slip free.
+Retreat diagonally, slipping both back and to the side.
+Throw sand, dirt, or debris into the path of the strike.
+Collapse backward intentionally, lessening the hit.
+Catch balance on one knee, ready to spring back up.
+Lash out mid-defense, countering as you evade.
