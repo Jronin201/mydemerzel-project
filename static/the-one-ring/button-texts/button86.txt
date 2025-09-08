@@ -1,3 +1,121 @@
-Ink Density Pulse
+Spear/Piercing
 
-Printed text bolds then thins rhythmically without touch.
+Straight Thrust (midline)
+Straight Thrust (midline)
+Straight Thrust (midline)
+Straight Thrust (midline)
+Advancing Thrust (step-lunge)
+Advancing Thrust (step-lunge)
+Advancing Thrust (step-lunge)
+Vertical Downward Thrust (driving over shield)
+Vertical Downward Thrust (driving over shield)
+Vertical Rising Thrust (up under chin, armpit, or groin)
+Diagonal Thrust (high, right to left)
+Diagonal Thrust (high, left to right)
+Diagonal Thrust (low, right to left)
+Diagonal Thrust (low, left to right)
+Short Jab (quick stabbing motion)
+Short Jab
+Short Jab
+Retiring Thrust (delivered while stepping back)
+Retiring Thrust
+Side Thrust (angled outward around guard)
+Side Thrust (angled outward around guard)
+Two-Handed Drive Thrust (bodyweight behind)
+Two-Handed Drive Thrust
+Half-Spear Thrust (gripping shaft midway for control)
+Half-Spear Thrust
+Feint High, Thrust Low
+Feint High, Thrust Low
+Feint Low, Thrust High
+Feint Low, Thrust High
+Overhand Thrust (javelin-style plunge)
+Overhand Thrust
+Butt-End Jab (reverse strike)
+Butt-End Jab
+Butt-End Jab
+Butt-End Smash (hooking with rear end)
+Butt-End Smash
+Shaft Push (driving with full length, not just point)
+Shaft Push
+Sliding Thrust (hands sliding along shaft for reach)
+Sliding Thrust
+Hook with Spearhead (pulling shield or limb)
+Hook with Spearhead
+Hook with Spearhead
+Binding Push (pinning opponent’s weapon with shaft)
+Binding Push
+Binding Push
+Low Leg Thrust (knees, shins, feet)
+Low Leg Thrust
+Low Leg Thrust
+High Face Thrust (visor, eye slot, face)
+High Face Thrust
+High Face Thrust
+Thrust to Torso (straight center mass)
+Thrust to Torso
+Thrust to Torso
+Thrust to Torso
+Thrust to Torso
+Thrust to Torso
+Sweeping Shaft Strike (broadside sweep at legs)
+Sweeping Shaft Strike
+Sweeping Shaft Strike
+Sweeping Shaft Strike
+Sweeping Shaft Strike
+Sweeping Shaft Strike
+Thrust into Shoulder/Arm (disabling limb)
+Thrust into Shoulder/Arm
+Thrust into Shoulder/Arm
+Pommel Bash (close range with butt end)
+Pommel Bash
+Pommel Bash
+Thrust while Circling (sidestep then jab)
+Thrust while Circling
+Thrust while Circling
+Overhand Two-Hand Drive (plunging downward)
+Overhand Two-Hand Drive
+Overhand Two-Hand Drive
+Feint-Thrust-Withdraw (testing reaction)
+Feint-Thrust-Withdraw
+Feint-Thrust-Withdraw
+Feint-Thrust-Withdraw
+Low Rising Scoop (upward into abdomen)
+Low Rising Scoop
+Low Rising Scoop
+Half-Spear Butt Jab (close, staff-like use)
+Half-Spear Butt Jab
+Half-Spear Butt Jab
+Thrust Through Shield Gap (armpit, eye slit)
+Thrust Through Shield Gap
+Thrust Through Shield Gap
+Reverse Grip Thrust (short, dagger-like)
+Reverse Grip Thrust
+Reverse Grip Thrust
+Throw Spear (committing weapon as missile)
+Throw Spear
+Spinning Shaft Sweep (broad crowd-control arc)
+Spinning Shaft Sweep
+Flourish Feint (circular spin to distract)
+Flourish Feint
+Double-Strike Combo (butt jab + thrust)
+Double-Strike Combo
+Rain of Jabs (rapid short thrusts)
+Rain of Jabs
+Sudden Stillness then Lightning Thrust
+Sudden Stillness then Lightning Thrust
+Cast Aard (telekinetic blast)
+Cast Aard (knockdown wave)
+Cast Aard (focused shove against single foe)
+Cast Igni (short flame burst)
+Cast Igni (cone of fire)
+Cast Igni (precise jet of flame)
+Cast Yrden (quick glyph trap)
+Cast Yrden (field of slowing runes)
+Cast Yrden (binding snare underfoot)
+Cast Quen (protective shield manifests)
+Cast Quen (absorbs incoming blow)
+Cast Quen (reflective backlash barrier)
+Cast Axii (mind influence attempt)
+Cast Axii (foe hesitates, confused)
+Cast Axii (domination attempt, compel action)
