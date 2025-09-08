@@ -1,3 +1,117 @@
-Chill Vector Rotation
+Sword/Cutting
 
-Localized cold spot slowly orbits a seated observer.
+Diagonal Downward Cut (right to left)
+Diagonal Downward Cut (right to left)
+Diagonal Downward Cut (left to right)
+Diagonal Downward Cut (left to right)
+Vertical Overhead Chop
+Vertical Overhead Chop
+Horizontal Cut (torso height)
+Horizontal Cut (torso height)
+Straight Thrust
+Straight Thrust
+Diagonal Downward Cut (R→L)
+Diagonal Downward Cut (L→R)
+Diagonal Rising Cut (R→L, hip to shoulder)
+Diagonal Rising Cut (L→R, hip to shoulder)
+Vertical Overhead Chop
+Vertical Rising Cut (groin to chin)
+Horizontal Cut (low, to legs)
+Horizontal Cut (neck level)
+Straight Thrust
+Advancing Thrust (step-lunge)
+Backhand Slash (return stroke)
+Backhand Slash
+False Edge Cut (reverse motion)
+Rising Thrust (under chin or armpit)
+Off-angle Thrust (sliding past guard)
+Draw Cut (sliding slice)
+Push Cut (edge driven forward)
+Slice and Step (attack while circling)
+Hamstring Cut (rear of legs)
+Shoulder Cleave (into shield arm)
+Forearm Slash (disabling grip)
+Wrist Slash
+Low Horizontal Cut (knees or shins)
+Pommel Strike (to helm or face)
+Crossguard Jab (short-range smash)
+Flat Smack (broadside impact)
+Short-Edge Strike (close in)
+Half-sword Thrust
+Short-range Pommel-overhand Thrust
+Bind & Rip (weapon catch + slash)
+Diagonal Downward Cut (R→L)
+Diagonal Downward Cut (L→R)
+Vertical Overhead Chop
+Vertical Overhead Chop
+Horizontal Cut (torso height)
+Horizontal Cut (low)
+Straight Thrust
+Straight Thrust
+Rising Thrust
+Overhand Plunge Thrust
+Hamstring Cut
+Achilles Cut (ankle slice)
+Inside-Thigh Slash (arterial)
+Limb-target Cut (shield arm)
+Pommel Strike
+Crossguard Hook
+Blade Lever (pressing into joint/helm)
+Beat Cut (weapon slap)
+Hanging Cut (angled block + slice)
+Hooking Cut (catching limb or blade)
+Grapple + Slice (close-in violence)
+Shoulder Bash + Cut combo
+Rising Draw Cut (arcing upward)
+False Edge Cut
+Horizontal Backhand Cut
+Retiring Thrust (while stepping back)
+Slice to Weapon Arm
+Flat Smack
+Short Thrust (from guard)
+Pressing Cut (edge driven into neck or arm)
+Pommel Strike
+Crossguard Jab
+Short-Edge Strike
+Half-sword Thrust
+Bind & Rip
+Blade Lever
+Hooking Cut
+Grapple + Slice
+Beat Cut
+Hanging Cut
+Wrist Slash
+Forearm Slash
+Shoulder Cleave
+Hamstring Cut
+Achilles Cut
+Inside-Thigh Slash
+Rising Thrust
+Overwrap Slash (around shield)
+Feint-to-Thrust
+Feint-to-Cut
+Mordhau (“Murder Stroke,” gripping blade, smashing with crossguard)
+Whirl Slash (spinning arc, intimidating)
+Flourish Feint (blade flourish, then strike)
+Threatening Press (driving opponent backward)
+Rain of Blows (rapid alternating cuts)
+Sudden Stillness, then Lightning Thrust
+Butt-Spike Jab (if weapon haft allows)
+Reverse Grip Thrust (knife-style stab)
+Pommel Hook / Drag
+Overhand Dagger-like Plunge
+Cast Aard (telekinetic blast)
+Cast Aard (knockdown wave)
+Cast Aard (focused shove against single foe)
+Cast Igni (short flame burst)
+Cast Igni (cone of fire)
+Cast Igni (precise jet of flame)
+Cast Yrden (quick glyph trap)
+Cast Yrden (field of slowing runes)
+Cast Yrden (binding snare underfoot)
+Cast Quen (protective shield manifests)
+Cast Quen (absorbs incoming blow)
+Cast Quen (reflective backlash barrier)
+Cast Axii (mind influence attempt)
+Cast Axii (foe hesitates, confused)
+Cast Axii (domination attempt, compel action)
