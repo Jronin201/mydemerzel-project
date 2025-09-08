@@ -1,12 +1,105 @@
-A Miss
-
-Attack narrowly slips past — defender feels air move.
-Clean parry, ringing clash of steel or wood.
-Sidestep carries defender just out of reach.
-Attack intercepted mid-swing, momentum lost.
-Weapon caught on opponent’s guard and shoved aside.
-Attacker’s strike slides harmlessly across armor.
-Defender angles body, attack whiffs wide.
-Defender redirects the blow into empty space.
-Attacker’s strike hesitates, no opening found.
-Clash ends in bind — both weapons locked together.
+The blade whistles past as they twist aside, striking nothing but air.
+The thrust glances off armor, leaving only a scratch on the surface.
+A downward chop crashes into the ground, sparks rising from stone.
+The swing cuts wide as they duck low, cloak snapping overhead.
+Steel scrapes the shield’s rim, skittering off with no purchase.
+A spear point darts forward but is slapped aside at the last instant.
+The slash cuts through cloth only, leaving fabric in tatters but no flesh harmed.
+A hammer blow smashes into the earth, spraying dirt and dust.
+The strike bounces harmlessly off the edge of a raised guard.
+A quick jab misses entirely, withdrawn before it can land.
+The blade skims across the helm, leaving only a ringing scratch.
+The thrust slides wide as the opponent pivots on one foot.
+A sweeping slash sails high, the target already crouched below it.
+The mace clangs off armor, bruising but not breaking through.
+A cut arcs past the chest, missing as they sidestep sharply.
+The point of the weapon digs into wood or wall instead of flesh.
+A wild swing nearly topples the attacker as it sails too far.
+The strike whistles overhead as the opponent leans back just in time.
+A downward blow smashes sparks from stone, the foe already out of reach.
+The slash slices empty air as the target leaps back beyond range.
+Steel catches on cloak or clothing, tearing fabric but nothing more.
+The thrust stabs into empty space as the opponent rolls aside.
+A heavy swing collides with a comrade by mistake but glances off armor.
+The strike hits only the edge of a shield, deflecting harmlessly.
+A blade slams into a tree or post, lodging briefly before pulling free.
+The attack scrapes across greaves, leaving a clang but no injury.
+A sweeping blow is stopped short by tangled footing, the target safe.
+The thrust skitters off the angle of armor plates without harm.
+A strike cuts through dangling straps and nothing else.
+The swing loses reach as the opponent retreats just out of range.
+Steel smashes into the ground with a jarring shock through the hilt.
+A slash passes harmlessly above as the target ducks under.
+The thrust drives into a shield boss, bouncing back.
+A wide cut catches only the air of an empty step.
+The mace crashes into a wall or post instead of flesh.
+The swing collides with the defender’s weapon, forced off its line.
+A jab halts mid-air as the target shifts aside too quickly.
+Steel rings against armor but finds no gap.
+A blade tears through hanging cloth, scattering tatters.
+The strike lands on the flat of a weapon in perfect block.
+A wild hack turns into a stumble as footing slips.
+The thrust bites into a pack or satchel but misses the body.
+A wide arc cuts only empty space as the target sidesteps.
+Steel slams sparks from stone, leaving the attacker exposed.
+The blow collides with a raised knee or elbow, stopping short.
+A mace rebounds off a helm with little effect.
+The thrust pierces leather straps but no flesh.
+The strike lands against a bracer, jolting but harmless.
+A slash carves across a dangling belt, cutting it free.
+The blow is dodged with a twist that leaves the attacker overextended.
+The cut arcs through torchlight and nothing else.
+A thrust stabs into the dirt floor, blade catching in soil.
+The swing glances from the flat of a shield and bounces away.
+Steel rings from armor without a scratch beneath.
+The strike falls just shy as the opponent steps back a pace.
+A hammer blow smashes stone, dust clouding the air.
+The thrust drives into a cloak, pinning fabric but not flesh.
+A slash cuts across empty air as the target crouches low.
+Steel scrapes along the haft of a weapon, deflected harmlessly.
+The blow collides with wooden planks, splintering them.
+A strike glances wide as the defender pivots on their heel.
+The thrust slides against chainmail, rattling but not piercing.
+A heavy swing slows as it strikes a shield rim, harmless.
+The cut slices a strand of hair but no skin.
+The mace bounces from armored greaves, reverberating with no harm.
+A thrust hits only the edge of a pauldron and slides away.
+The swing slashes across a scabbard, sparks rising but no blood.
+Steel digs into the dirt road, jarring the attacker’s grip.
+The strike lands where the foe stood a heartbeat before.
+A slash cuts air as the defender turns their torso just aside.
+The thrust bounces against the hard ridge of armor plating.
+A cut across the shield rim leaves a shallow notch only.
+Steel clashes against steel, harmlessly locked for an instant.
+The strike loses momentum, grazing without purchase.
+A hammer blow collides with a post or column, spraying splinters.
+A thrust barely scratches the outer skin, shallow and harmless.
+The swing cuts through smoke or dust, striking nothing.
+Steel strikes a wall or barricade, ringing out loudly.
+The blow smashes sparks as it collides with weapon haft.
+A thrust glides past ribs without drawing blood.
+A cut clips a gauntlet, leaving only sparks.
+The strike passes over as the defender drops low on one knee.
+The swing smashes into stone, blade edge chipping.
+A thrust hits the ground, leaving the attacker off balance.
+The slash cuts a hanging rope or banner instead of flesh.
+Steel collides with a shield boss, ringing without damage.
+The strike misses entirely as the target sidesteps with ease.
+A mace blow smashes floorboards, cracking wood.
+The thrust grazes armor straps, failing to pierce.
+A cut strikes across the top of a helm, ringing hollow.
+The blow glances from the defender’s shoulder plates.
+Steel digs into the dirt wall, blade momentarily stuck.
+A thrust misses by inches as the foe pivots away.
+The swing glances off a cuirass, sliding down its surface.
+The cut falls short, missing by a finger’s width.
+A hammering strike embeds into timber, wedged deep.
+The thrust glances against a gauntlet, bruising but harmless.
+The swing strikes low, cutting only dust and dirt.
+Steel clangs against a shield rim, sending sparks.
+A strike slices a dangling pouch loose, spilling its contents.
+The thrust digs shallowly into armor and slides away.
+The blow collides with stone steps, blade ringing.
+The swing smashes a weapon rack or post nearby.
+A cut tears through cloth straps without touching flesh.
+The strike whistles through air as the foe slips aside.
