@@ -1,4 +1,4 @@
-Attacker Critical Hit
+A Crit Hit
 
 Strike lands with devastating force, staggering the foe.
 Blow bypasses defense entirely, hitting a vital spot.
