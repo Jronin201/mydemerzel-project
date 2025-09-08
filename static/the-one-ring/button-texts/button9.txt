@@ -1,12 +1,12 @@
-Attacker Hit
+A Crit Hit
 
-Solid strike lands, forcing grunt of pain.
-Opponent’s defense slowed but not broken.
-Glancing but bloody cut.
-Forceful impact jars the foe’s stance.
-Blow lands but is partly absorbed by armor.
-Attacker pushes foe back a pace.
-Defensive weapon battered aside, leaving small opening.
-Quick follow-through cuts flesh, but not deep.
-Opponent reels but keeps footing.
-Weapon sinks into opponent’s guard, bruising through block.
+Strike lands with devastating force, staggering the foe.
+Blow bypasses defense entirely, hitting a vital spot.
+Expert precision: weapon finds a gap in armor.
+Opponent’s guard shattered — weapon arm numbed or weakened.
+Attacker drives opponent back several steps.
+Weapon impact disarms or nearly wrenches foe’s weapon away.
+Perfect timing: riposte lands before opponent can recover.
+Stunning strike: opponent dazed, vision reeling.
+Deep wound inflicted — attacker’s weapon lodges with brutal effect.
+Crushing blow drops opponent to knees.
