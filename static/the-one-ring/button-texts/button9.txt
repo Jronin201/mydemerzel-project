@@ -1,12 +1,42 @@
-A Crit Hit
+Appearance
 
-Strike lands with devastating force, staggering the foe.
-Blow bypasses defense entirely, hitting a vital spot.
-Expert precision: weapon finds a gap in armor.
-Opponent’s guard shattered — weapon arm numbed or weakened.
-Attacker drives opponent back several steps.
-Weapon impact disarms or nearly wrenches foe’s weapon away.
-Perfect timing: riposte lands before opponent can recover.
-Stunning strike: opponent dazed, vision reeling.
-Deep wound inflicted — attacker’s weapon lodges with brutal effect.
-Crushing blow drops opponent to knees.
+Ragged
+Clean
+Fit / vigorous
+Chivalrous (dashing, knightly)
+Suspicious / furtive
+Scarred
+Diseased / pox-marked
+Exotic dress
+Muddy / blood-stained
+Heavily armored
+Barefoot / destitute
+Perfumed & gaudy
+Military uniform
+Noble finery
+Drunk / staggering
+Tattooed or branded
+Ascetic / monk-like
+Childlike in mien
+Grizzled veteran look
+Masked / veiled
+Hooded and cloaked
+Bandaged from wounds or disease
+Matted hair and unkempt beard
+Gaunt and hollow-cheeked
+Burn-scarred or fire-marked
+Missing limb with crude prosthetic
+Bloodshot eyes and trembling hands
+Mire-stained boots and travel-worn cloak
+Jewelry-clad but tarnished and dented
+Corpse-pale with dark circles beneath eyes
+Covered in soot or ash
+Rotten teeth and foul breath
+Hands ink-stained or chalk-dusted
+Oily hair and greasy skin
+Gaudy but threadbare costume (actor, jester, mountebank)
+Reeking of sweat, drink, or worse
+Shaved scalp and ritual scars
+Caked in dried blood (their own or another’s)
+Eyes wild, darting constantly
+Carrying the stink of rot, mildew, or grave-earth
