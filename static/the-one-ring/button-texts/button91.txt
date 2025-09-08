@@ -1,12 +1,12 @@
-Attacker Critical Miss
+A Miss
 
-Weapon overextends — attacker stumbles forward, exposed.
-Attack misses wildly, leaving flank wide open.
-Slippery footing — attacker nearly falls.
-Weapon strikes ground, jarring arms painfully.
-Attacker spins too far — back turned to opponent.
-Weapon lodges in shield, armor, or terrain.
-Blow rebounds off guard — attacker’s hands stung numb.
-Desperate swing loses balance — attacker must recover footing.
-Attacker tangles in own weapon or cloak.
-Catastrophic failure: weapon dropped, grip lost.
+Attack narrowly slips past — defender feels air move.
+Clean parry, ringing clash of steel or wood.
+Sidestep carries defender just out of reach.
+Attack intercepted mid-swing, momentum lost.
+Weapon caught on opponent’s guard and shoved aside.
+Attacker’s strike slides harmlessly across armor.
+Defender angles body, attack whiffs wide.
+Defender redirects the blow into empty space.
+Attacker’s strike hesitates, no opening found.
+Clash ends in bind — both weapons locked together.
