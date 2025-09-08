@@ -1,12 +1,108 @@
 D Crit Fail
 
-Misses parry completely — full blow lands.
-Stumbles on retreat, loses footing.
-Weapon knocked from hand by crushing impact.
-Steps the wrong way, walks into strike.
-Guard collapses under pressure, chest wide open.
-Shield/weapon arm numbed, unable to respond.
-Overextends on parry attempt, exposed.
-Dodges into another hazard (wall, terrain, ally).
-Critical timing error — both hands tangled, defenseless.
-Knocked to ground, utterly exposed.
+The parry snaps the blade edge-to-edge, the weapon shattering in hand as the strike carves through.
+The block collapses instantly, the weapon torn from grip and the blow smashing into the chest.
+A sidestep slips on loose ground, sending them sprawling as the strike slams home.
+The dodge falters, boot catching in mud, leaving the head split by steel.
+The guard misjudges, the attacker’s weapon tearing straight through and cutting deep into the thigh.
+The parry is mistimed, blade slipping under guard to pierce the belly deeply.
+The guard locks wrong, the weapon jolted back into the defender’s face, nose breaking in a gush of blood.
+A retreat stumbles over uneven ground, leaving them wide open to a crushing strike.
+The dodge rolls short, the mace head hammering the back and leaving them stunned on the ground.
+The parry glances but fails, the strike smashing through and tearing the weapon from their grip.
+The block absorbs too much force, wrist cracking as the weapon falls limp from hand.
+The sidestep collides with terrain, trapping them as the strike lands full.
+The defense slips wide, blade biting deep into the thigh, blood pouring freely.
+The guard twists awkwardly, weapon flying loose and clattering away as the strike lands.
+The dodge bends low, but the blade drops with it, carving across the neck.
+The retreat falters completely, back slamming against a wall as the strike pierces the chest.
+The parry screeches sparks, but the defender’s weapon breaks outright, the follow-through splitting shoulder.
+The block jars violently, leaving the arm dislocated as steel cuts into ribs.
+The sidestep goes too far, footing lost, and they fall hard just as the strike lands.
+The dodge mistimes, leaving the jaw smashed by the pommel with a crunch of bone.
+The parry catches steel but loses the grip, weapon clattering away as the blow lands.
+The retreat backpedals into loose rubble, ankle twisting as the strike finds ribs.
+The block halts too late, steel slamming into collarbone with a crack.
+The dodge begins but stumbles, blade ripping a gash across the calf.
+The parry meets steel at the wrong angle, snapping the blade near the hilt.
+The sidestep misjudges distance, hip catching the blow that drives them sideways in agony.
+The guard holds for a heartbeat before collapsing, ribs breaking under impact.
+The dodge fails completely, leaving the face split open by a savage slash.
+The retreat falters as the ground gives way, body tumbling under a deep cut.
+The parry jars steel violently, hilt smashing teeth loose before the strike tears past.
+The block leaves arms numb, weapon flying free as the follow-through smashes into chest.
+The dodge goes wide, stumbling into open ground, back gashed.
+The parry scrapes, but the enemy’s weapon punches straight through into the shoulder.
+The sidestep carries them too close, the follow-through slamming the head sideways.
+The defense collapses as footing slips, the strike cleaving deep into the side.
+The parry strains against the blow until the blade snaps clean in half.
+The dodge stumbles, head ringing as steel cracks against the temple.
+The retreat carries them into a wall, the strike pinning them as blood sprays.
+The block checks steel, but bones snap beneath, hand useless.
+The sidestep slows half a step too long, the blade shearing into the leg.
+The parry drags sparks but loses purchase, weapon sliding away as the strike lands.
+The dodge turns late, the weapon’s edge tearing into the ribs.
+The guard tries to smother the blow but is smashed back, knee giving way under impact.
+The parry twists wrong, the weapon flipping from hand as the cut strikes home.
+The dodge slips into mud, body crashing down as the point drives into the side.
+The block holds a moment, then collapses, the attacker’s weight crushing shoulder and chest.
+The retreat loses balance, back pedaling into a stumble as steel rakes across.
+The sidestep spins into a tangle, leg hooked by terrain as the strike falls true.
+The parry jars until grip gives way, sword flying, ribs caving under the blow.
+The dodge clears the first cut but not the backhand, which splits the face.
+The retreat stumbles into a ditch, body flailing as the strike pierces deep.
+The parry misses entirely, leaving the belly opened in a gush of blood.
+The dodge bends low but not enough, blade carving across the spine.
+The block halts half the force, but arm bones crack as the blow follows through.
+The parry screeches sparks until the edge chips apart, weapon ruined in hand.
+The dodge slips too far, ankle wrenching, body crumpling as the blade lands.
+The retreat collides with loose debris, weapon arm pinned as the strike cuts deep.
+The parry misjudges height, edge slamming into the helm with bone-crunching force.
+The block absorbs steel but twists, shoulder dislocated as pain rips through.
+The dodge slips past one strike, but the follow-through cleaves across the hip.
+The retreat falters, foot snagged, chest split by a savage cut.
+The parry holds for an instant before snapping the blade clean in two.
+The dodge comes late, weapon head smashing jaw and dropping them to the ground.
+The sidestep trips them straight into the next swing, ribs breaking.
+The parry screeches, sparks flying, until the hilt bursts apart in their hands.
+The dodge clears but footing slips, body collapsing as steel pierces through.
+The guard loses grip outright, weapon spinning away as the chest is struck.
+The block collapses, wrist snapping with the force, leaving arm useless.
+The parry strains until steel snaps, the enemy’s weapon tearing through shoulder.
+The dodge moves too soon, exposing the leg to a brutal slash.
+The retreat tangles in roots, spilling backward into a cleaving strike.
+The parry hits too light, the thrust drilling straight into belly.
+The sidestep is late, blade tearing across the throat.
+The dodge whirls wide, stumbling into open ground, back torn apart.
+The block jars the arm numb, weapon flying free before the strike hammers ribs.
+The retreat falters, head snapping back under the pommel.
+The parry glances, leaving the arm slashed from wrist to elbow.
+The dodge collapses to one knee, blade cleaving the shoulder.
+The guard holds but bones snap, weapon clattering free.
+The parry shatters on impact, leaving nothing between the strike and chest.
+The dodge clears the first blow, but the second caves ribs in with sickening force.
+The retreat staggers, the attacker closing with a thrust into thigh.
+The parry locks too tight, sword wrenched away, cut splitting collarbone.
+The dodge rolls late, body collapsing as steel tears across the stomach.
+The sidestep fails, point spearing straight into groin.
+The parry misses entirely, ribs shattered under the blow.
+The dodge slips too far, ankle snapping with a crunch as blood spills.
+The block halts halfway, steel breaking through to shatter jaw.
+The parry screeches sparks but loses, chest pierced clean through.
+The dodge goes wild, spinning into a stumble as the blade hacks spine.
+The retreat falters completely, strike splitting helm and skull beneath.
+The parry chips weapon edge to ruin, blade useless as blood pours from a cut.
+The dodge twists off balance, ribs split open as they fall.
+The guard collapses with the impact, bones splintering under the force.
+The parry slips high, strike burying into the gut.
+The dodge leaps late, weapon smashing across the back of the head.
+The retreat turns too slow, throat opened wide in a fountain of blood.
+The parry loses grip, weapon spinning loose, chest cleaved.
+The dodge fails outright, head struck with stunning force, body limp.
+The block folds instantly, arm shattered as the body crumples beneath steel.
+The parry turns sparks but not enough, shoulder carved deep.
+The dodge slips in blood, blade smashing across the temple.
+The retreat loses footing, body toppled as a thrust drives through ribs.
+The parry screeches, sword breaking, cut tearing into neck.
+The dodge falters mid-roll, lungs punctured by the strike.
+The guard collapses, body slammed flat, bleeding from the mouth.
