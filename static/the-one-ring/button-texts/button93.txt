@@ -1,12 +1,102 @@
 D Crit Success
 
-Parry so clean it throws attacker off balance.
-Riposte lands instantly — defender turns defense into attack.
-Perfect sidestep, attacker stumbles past.
-Bind and twist — opponent’s weapon caught, nearly disarmed.
-Shield/weapon catch shoves attacker’s strike wide open.
-Defender closes distance, pressing attacker back.
-Counter-cut lands in the same beat as parry.
-Weapon angled perfectly: attacker’s blow jars their own arms.
-Elegant evasion — defender moves untouched, poised for counter.
-Attacker overcommits, defender dictates next exchange.
+The parry not only turns the blade aside but guides it wide, leaving the attacker’s chest open for a counter.
+The sidestep flows perfectly into a shove, sending the attacker stumbling past.
+The guard catches the strike, twisting their weapon free and sending it clattering to the ground.
+The duck comes so low and smooth that the attacker’s follow-through carries them off balance.
+The block absorbs the blow, then rolls it away, dragging the foe forward and exposing their flank.
+The riposte flashes immediately after the parry, forcing the attacker onto the defensive.
+The dodge carries them inside the swing, elbow smashing the attacker in the ribs.
+The guard stops the strike cold, leverage snapping the attacker’s wrist painfully.
+The sidestep is timed so well that the attacker’s momentum spins them nearly around.
+The parry meets steel at just the right angle, sending sparks as the attacker’s weapon jolts from their hands.
+The defense turns into a disarm, blade twisting free and tossed aside.
+The duck flows upward into a rising strike that forces the attacker back.
+The block not only halts the blow but drives it into the ground, leaving the weapon momentarily stuck.
+The retreat steps perfectly into a trip, spilling the attacker flat on their face.
+The guard intercepts, then whirls the attacker’s weapon back toward them, nearly cutting their own arm.
+The dodge turns into a sweep of the leg, knocking the attacker off balance.
+The parry deflects so strongly that the attacker staggers backward, arms thrown wide.
+The block ricochets their weapon into a wall or post, jarring it hard.
+The defense flows seamlessly into a counter-thrust, forcing the attacker back.
+The side-step carries the defender into perfect position behind their foe.
+The blade is caught perfectly on the crossguard, twisted, and wrenched from the attacker’s grip.
+The sidestep flows into a strike with the pommel, cracking across the attacker’s jaw.
+The parry sends the weapon so far wide that the attacker spins, back exposed.
+The dodge flows into a shoulder check, slamming the attacker onto their heels.
+The guard intercepts high, then rolls down to slam the attacker’s weapon into the dirt.
+The sidestep brings them directly inside the attacker’s reach, blade at the ready.
+The block snaps the weapon aside so violently that the attacker stumbles forward, nearly falling.
+The duck flows into a rising slash that forces the attacker to retreat in panic.
+The parry drives the attacker’s weapon into a wall, jarring it hard from their grip.
+The dodge is so clean the attacker trips over their own footing and crashes down.
+The block shatters the attacker’s weapon, splinters scattering across the ground.
+The parry diverts the attack straight into the attacker’s companion.
+The sidestep flows into a leg hook, toppling the attacker to the ground.
+The defense whirls into a precise riposte, blade tip under the foe’s chin.
+The guard catches and pins the attacker’s weapon against their own armor.
+The dodge twists perfectly, cloak snapping to blind the attacker’s sight.
+The block slams the attacker’s weapon into their shin, making them howl in pain.
+The parry flows into a controlled bind, dragging the attacker’s blade uselessly aside.
+The sidestep positions them uphill, forcing the attacker to fight from below.
+The guard smothers the strike, then shoves the attacker’s weapon arm high, leaving them wide open.
+The parry slides their blade aside and redirects it into the ground, leaving them bent over and exposed.
+The dodge flows into a swift kick to the attacker’s knee, buckling their stance.
+The guard intercepts, then twists, locking the attacker’s weapon in place.
+The sidestep draws the attacker into overreach, momentum carrying them sprawling.
+The block angles their weapon away, snapping it against stone with a loud crack.
+The retreat shifts into a trip that leaves the attacker flat on their back.
+The parry disengages, blade sliding along theirs until it flicks free from their grip.
+The dodge leaves them perfectly placed behind the attacker’s guard.
+The block holds just long enough to twist and drive the attacker’s weapon arm aside.
+The sidestep flows into a pommel smash to the attacker’s temple.
+The parry redirects the attack so forcefully it collides with another foe.
+The duck slips under the swing, leaving the attacker bent too far forward.
+The guard binds their weapon, leaving them straining uselessly as the counterstrike begins.
+The sidestep guides them straight into terrain — wall, tree, or stone — slamming hard.
+The parry turns the attacker’s weapon into an awkward arc, striking their own leg.
+The dodge twists into a leg sweep that leaves the attacker crashing down.
+The block absorbs the strike and rebounds with force, jarring their hands numb.
+The sidestep flows into a slash at the attacker’s weapon arm, forcing it wide.
+The parry spins the attacker’s blade so fast it rips from their hands.
+The retreat is so perfectly timed that the attacker’s lunge drops them to their knees.
+The parry not only stops the strike but wrenches the weapon sideways, leaving the attacker’s flank wide open.
+The dodge flows into a pivot, positioning the defender perfectly at the attacker’s back.
+The guard halts the blow, then slides down to strike the attacker’s wrist, sending the weapon tumbling.
+The sidestep angles the attacker directly into the path of an ally’s strike.
+The block absorbs the swing, then shoves it high, exposing the attacker’s chest.
+The retreat steps back into perfect footing, while the attacker stumbles forward in disarray.
+The parry knocks the blade aside so violently that the attacker reels, clutching their hand.
+The duck under a wide cut rises into an uppercut pommel strike that staggers the foe.
+The guard pins the weapon in a bind, twisting until the attacker releases it.
+The sidestep carries the defender uphill, forcing the attacker to fight on poor footing.
+The block absorbs the impact and ricochets the attacker’s weapon back into their face.
+The dodge carries the defender so smoothly that the attacker falls flat into empty space.
+The parry sends the attacker’s weapon crashing into stone, edge bending or snapping.
+The sidestep flows into a strike with the shield rim or elbow, smashing the foe back.
+The guard redirects the weapon so precisely it slices into the attacker’s own leg.
+The retreat flows into a whip of the cloak, blinding the attacker in cloth.
+The parry spins the blade completely around, leaving the attacker wide open.
+The block holds steady, twisting into a disarm as the weapon clatters away.
+The dodge rolls the defender under the swing and into perfect striking range.
+The sidestep carries the attacker into a stumble, their momentum leaving them sprawled.
+The parry is so precise it knocks the attacker’s weapon spinning into the dirt.
+The dodge flows seamlessly into a counterthrust, forcing the attacker to reel back.
+The guard halts the blow, then twists into a lock that immobilizes the attacker’s weapon arm.
+The sidestep leaves the attacker off balance, stumbling hard onto one knee.
+The block deflects perfectly, rebounding force into the attacker’s shoulder.
+The retreat positions the defender at higher ground, reversing the advantage.
+The parry redirects the strike straight into the attacker’s ally nearby.
+The dodge slips so close that the defender lands a cut across the attacker’s ribs in passing.
+The guard binds the weapon, twisting until it snaps under strain.
+The sidestep flows into a low kick that topples the attacker backward.
+The block intercepts and ricochets the weapon into the attacker’s faceplate.
+The parry disengages so perfectly it leaves the attacker’s weapon arm dangling open.
+The dodge flows into a spin, blade tip at the attacker’s throat before they can recover.
+The guard redirects the blow into a wall, shattering stone and jarring the attacker.
+The sidestep leaves the attacker crashing headlong into their own momentum.
+The parry drags the attacker’s blade into the ground, hilt jarring from their grip.
+The block drives the attacker’s weapon high, leaving their midsection exposed.
+The retreat carries the defender back just as the attacker’s footing slips, sending them sprawling.
+The parry meets at the perfect angle, slicing straps and leaving the foe’s armor loose.
+The dodge is so clean the attacker’s weapon buries itself in the ground, leaving them helpless.
