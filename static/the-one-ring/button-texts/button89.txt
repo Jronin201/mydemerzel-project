@@ -1,12 +1,100 @@
-A Crit Hit
-
-Strike lands with devastating force, staggering the foe.
-Blow bypasses defense entirely, hitting a vital spot.
-Expert precision: weapon finds a gap in armor.
-Opponent’s guard shattered — weapon arm numbed or weakened.
-Attacker drives opponent back several steps.
-Weapon impact disarms or nearly wrenches foe’s weapon away.
-Perfect timing: riposte lands before opponent can recover.
-Stunning strike: opponent dazed, vision reeling.
-Deep wound inflicted — attacker’s weapon lodges with brutal effect.
-Crushing blow drops opponent to knees.
+The strike crashes through guard and staggers them backward, knees buckling as balance gives way.
+Steel bites deep, forcing a cry as blood gushes from the wound, their grip faltering.
+The blow smashes against the helm, dazing them, eyes blinking as if the world has gone dim.
+A crushing impact to the ribs leaves them doubled over, clutching their side in pain.
+The attack drives them to the ground, sprawling with weapon slipping from hand.
+Steel meets weapon in a brutal clash, snapping the shaft and leaving them defenseless.
+The point drives into flesh, a piercing scream tearing free as they collapse to one knee.
+The force of the hit sends them stumbling back, crashing into whatever lies behind.
+The strike to the skull leaves them stunned, ears ringing, weapon arm hanging uselessly.
+A deep cut opens across the thigh, blood pouring as movement becomes labored.
+The blow hammers into the stomach, air forced out in a choking gasp as they stagger.
+The strike lands with such power that their weapon is torn from their grasp and sent clattering away.
+The point rips through armor plates, twisting them aside and tearing skin beneath.
+The blow crashes into the jaw, snapping the head sideways and leaving them reeling.
+A crushing strike smashes against the hand, bones cracking, weapon falling at their feet.
+The attack tears through muscle, leaving the limb weak and trembling, nearly useless.
+The blow hurls them flat on their back, gasping as they scramble for air.
+Steel cleaves into the shoulder, leaving the arm limp and dripping with blood.
+The impact knocks them sprawling sideways, dust and dirt spraying up around the fall.
+The strike slams into the chest with such force that they collapse unconscious, body limp.
+The attack splits skin across the brow, blood streaming into their eyes and blinding vision.
+Steel drives deep into the thigh, the leg buckling under its own weight.
+A brutal smash to the ribs cracks bone, breath rattling with every motion.
+The weapon tears into their hand, severing grip and sending weapon clattering.
+A crushing strike to the stomach folds them in half, vomiting blood onto the ground.
+The blow hurls them against a wall or tree, bones jolting with the impact.
+A savage cut to the neck sprays blood as they clutch desperately at the wound.
+The strike smashes into the collarbone, snapping it with an audible crack.
+The point rips through the chest, piercing lung, blood bubbling with every gasp.
+A crushing hit to the knee twists it sideways, ligaments tearing with a scream.
+The attack flings them spinning to the ground, weapon flying from their grasp.
+Steel tears into the side of the head, ears ringing, vision flashing white.
+The blow knocks them to the dirt, where they scrabble weakly to rise.
+A deep stab sinks through the side, ribs cracking as it tears free.
+The strike smashes teeth from their mouth, spitting blood and enamel.
+A crushing blow to the back drives them face-first into the ground.
+Steel splits the arm from wrist to elbow, blood spraying freely.
+The point bursts through armor at the belly, intestines spilling out in gore.
+A brutal strike to the temple drops them instantly, body collapsing limp.
+The attack smashes the pelvis, their scream cut short as they crumple.
+The weapon tears into the shoulder joint, arm uselessly dangling.
+A downward strike splits the helm and cuts scalp, blood streaming down.
+The point pierces the groin, agony doubling them over.
+A crushing blow caves the chest, ribs snapping audibly.
+Steel rakes the face, leaving one eye blinded by blood.
+The strike drives through the foot, pinning them to the ground.
+A blow to the spine knocks them flat, legs refusing to move.
+The point sinks through the hand, impaling flesh against hilt or shield.
+A savage cut opens the side of the neck, blood pumping with each beat.
+The strike smashes the nose, cartilage collapsing in a gush of red.
+A hammering blow crushes the jaw, teeth splintering, words choking.
+The attack drives them to their knees, unable to rise again.
+A deep stab pierces the chest, heart fluttering in panic.
+Steel rips through the calf, tendons severed, movement gone.
+The blow tears through armor plates, scattering fragments across the ground.
+A strike to the ear bursts the drum, balance lost as they sway.
+The point drives into the hip, bone cracking under the thrust.
+The attack smashes the weapon from their hand and splits the wrist.
+Steel cleaves through the shoulder, nearly severing arm from body.
+The strike caves in the side of the skull, vision and hearing fading at once.
+The weapon rakes down the back, leaving bloody gouges across spine and ribs.
+A savage thrust pierces the belly, their scream echoing as blood pours out.
+Steel smashes into the ankle, the joint twisting horribly as they fall.
+The strike tears flesh from thigh to knee, a crimson spray marking the ground.
+A crushing blow to the chest hurls them back, armor buckling inward.
+The point drives into the throat, choking them with every attempt to breathe.
+A hammering strike to the shoulder smashes bone, arm falling limp.
+Steel carves across the temple, blood matting hair as eyes glaze.
+The attack pierces the side of the chest, lung collapsing with a gasp.
+A brutal blow knocks them sprawling onto their back, weapon clattering aside.
+The strike smashes into the lower back, breath forced out in a broken cry.
+Steel splits through cheek and jaw, leaving their face a mask of blood.
+The attack cleaves deep into the ribs, body twisting in agony.
+A crushing hit to the stomach drives bile and blood from their mouth.
+The point drives through the side of the neck, blood jetting across the ground.
+Steel carves into the upper arm, weapon slipping free from their fingers.
+The strike caves the knee inward, bone and flesh collapsing at once.
+A hammering smash to the head drops them unconscious in an instant.
+The weapon tears through the collarbone, dropping the arm uselessly.
+The blow drives them into the dirt, where they writhe helplessly in pain.
+A stab drives through the ribs, heart shuddering under the force.
+Steel rakes across the eye, vision gone in a spray of blood.
+A crushing strike to the skull leaves them limp, body crumpled on the ground.
+The blow cleaves through the shoulder into chest, blood soaking armor.
+The point tears deep into the groin, screams torn from their throat.
+Steel smashes into the back of the head, sending them sprawling face-first.
+The strike carves across the chest, ribs splitting under the pressure.
+A deep thrust pierces the side, blood soaking their clothes in seconds.
+The blow smashes their hand to pulp, fingers no longer able to close.
+Steel cleaves the jaw aside, teeth and bone scattering in fragments.
+A hammering blow to the chest bursts ribs, breath lost in a final gasp.
+The point rips through the belly, spilling entrails onto the dirt.
+Steel cuts across the neck, severing muscle and artery alike.
+The strike smashes into the back, spine snapping with the impact.
+A crushing blow to the skull bursts the helm, blood running freely.
+The weapon tears through the ribs, piercing both lungs.
+The point drives into the chest, heart punctured as body collapses.
+Steel smashes the collarbone and shoulder, dropping them to the ground.
+A savage strike cleaves into the thigh, bone snapping as they fall.
+The final blow caves the skull completely, leaving them lifeless in silence.
