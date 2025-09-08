@@ -1,3 +1,120 @@
-Residual Taste Phantom
+Mace/Blunt
 
-Metallic tang manifests briefly with no ingestion source.
+Overhead Smash
+Overhead Smash
+Overhead Smash
+Overhead Smash
+Overhead Smash
+Overhead Smash
+Side Swing (right to left)
+Side Swing (right to left)
+Side Swing (right to left)
+Side Swing (left to right)
+Side Swing (left to right)
+Side Swing (left to right)
+Diagonal Smash (right shoulder to left hip)
+Diagonal Smash (left shoulder to right hip)
+Diagonal Smash (right hip to left shoulder)
+Diagonal Smash (left hip to right shoulder)
+Driving Downward Blow (hammering with full body weight)
+Driving Downward Blow
+Driving Downward Blow
+Short Jab with Mace Head (close range)
+Short Jab with Mace Head
+Short Jab with Mace Head
+Short Jab with Mace Head
+Upward Smash (scooping into jaw or chin)
+Upward Smash
+Horizontal Bash to Ribs
+Horizontal Bash to Ribs
+Horizontal Bash to Ribs
+Thrust with Mace Head (ramming like a spear)
+Thrust with Mace Head
+Thrust with Mace Head
+Butt-End Jab (using the handle)
+Butt-End Jab
+Butt-End Jab
+Hook with Flange or Spike (catching limb or shield)
+Hook with Flange or Spike
+Hook with Flange or Spike
+Overhand Two-Hand Smash
+Overhand Two-Hand Smash
+Overhand Two-Hand Smash
+Spinning Side Swing
+Spinning Side Swing
+Backhand Return Swing
+Backhand Return Swing
+Backhand Return Swing
+Driving Smash into Shield
+Driving Smash into Shield
+Driving Smash into Shield
+Overhead Crush to Helm
+Overhead Crush to Helm
+Overhead Crush to Helm
+Smash to Weapon Arm
+Smash to Weapon Arm
+Smash to Weapon Arm
+Smash to Leg / Knee
+Smash to Leg / Knee
+Smash to Leg / Knee
+Smash to Shoulder (shield side)
+Smash to Shoulder (shield side)
+Smash to Shoulder (shield side)
+Bash and Push (body shove with strike)
+Bash and Push
+Bash and Push
+Shield Hook with Mace Head (dragging)
+Shield Hook with Mace Head
+Pommel Strike (close-in hilt smash)
+Pommel Strike
+Pommel Strike
+Flat Push with Shaft (shoving opponent back)
+Flat Push with Shaft
+Flat Push with Shaft
+Rising Backhand Smash (from below)
+Rising Backhand Smash
+Rising Backhand Smash
+Short Overwrap Smash (around shield edge)
+Short Overwrap Smash
+Driving Smash into Grounded Opponent
+Driving Smash into Grounded Opponent
+Sudden Double-Handed Clubbing Blow
+Sudden Double-Handed Clubbing Blow
+Overhand Flange Spike Crush
+Overhand Flange Spike Crush
+Diagonal Smash to Thighs
+Diagonal Smash to Thighs
+Diagonal Smash to Thighs
+Roundhouse Swing (wild, powerful)
+Roundhouse Swing
+Roundhouse Swing
+Spin-and-Smash (circular flourish, high risk)
+Spin-and-Smash
+Flourish Feint Swing
+Flourish Feint Swing
+Rain of Blows (rapid repeated smashes)
+Rain of Blows
+Sudden Stillness, then Explosive Smash
+Sudden Stillness, then Explosive Smash
+Crushing Smash to Chest
+Crushing Smash to Chest
+Crushing Smash to Chest
+Backhand Butt-End Strike
+Backhand Butt-End Strike
+Overhand Smash with Full Step Lunge
+Overhand Smash with Full Step Lunge
+Cast Aard (telekinetic blast)
+Cast Aard (knockdown wave)
+Cast Aard (focused shove against single foe)
+Cast Igni (short flame burst)
+Cast Igni (cone of fire)
+Cast Igni (precise jet of flame)
+Cast Yrden (quick glyph trap)
+Cast Yrden (field of slowing runes)
+Cast Yrden (binding snare underfoot)
+Cast Quen (protective shield manifests)
+Cast Quen (absorbs incoming blow)
+Cast Quen (reflective backlash barrier)
+Cast Axii (mind influence attempt)
+Cast Axii (foe hesitates, confused)
+Cast Axii (domination attempt, compel action)
