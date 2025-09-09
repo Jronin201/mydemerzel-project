@@ -1,3 +1,102 @@
-Metronome Phase Drift
+Hit Area
 
-Two synchronized devices slowly fall into dissonant cycles.
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Chest/R Arm/L Arm/Abdomen
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Abdomen/Chest/R Leg/L Leg
+Head/Chest
+Head/Chest
+Head/Chest
+Head/Chest
+Head/Chest
+Head/Chest
+Head/Chest
+Head/Chest
+Head/Chest
+Head/Chest
+Right Arm/Chest
+Right Arm/Chest
+Right Arm/Chest
+Right Arm/Chest
+Right Arm/Chest
+Right Arm/Chest
+Right Arm/Chest
+Right Arm/Chest
+Right Arm/Chest
+Right Arm/Chest
+Left Arm/Chest
+Left Arm/Chest
+Left Arm/Chest
+Left Arm/Chest
+Left Arm/Chest
+Left Arm/Chest
+Left Arm/Chest
+Left Arm/Chest
+Left Arm/Chest
+Left Arm/Chest
+Right Leg/Abdomen
+Right Leg/Abdomen
+Right Leg/Abdomen
+Right Leg/Abdomen
+Right Leg/Abdomen
+Right Leg/Abdomen
+Right Leg/Abdomen
+Right Leg/Abdomen
+Left Leg/Abdomen
+Left Leg/Abdomen
+Left Leg/Abdomen
+Left Leg/Abdomen
+Left Leg/Abdomen
+Left Leg/Abdomen
+Left Leg/Abdomen
