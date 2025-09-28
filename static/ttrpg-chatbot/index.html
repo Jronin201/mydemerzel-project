@@ -945,7 +945,8 @@
                 // Load previous messages
                 data.messages.forEach(function (message) {
                   if (message.role === "user" || message.role === "assistant") {
-                    var className = message.role === "user" ? "user" : "assistant";
+                    var className =
+                      message.role === "user" ? "user" : "assistant";
                     var sender = message.role === "user" ? "You" : "AI";
                     var content = message.content || "";
                     // Strip any legacy "*Model: ...*" footer from older saved assistant messages
