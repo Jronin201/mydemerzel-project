@@ -8,7 +8,7 @@ Style and narrator
 
 Grammar, tense, and sentence shape
 - Past-tense declaratives only.
-- Prefer medium-length sentences (~12–20 words), with at most one shorter punch sentence.
+- Prefer a single, medium-length sentence (~12–20 words).
 - Use filters judiciously (“stared,” “listened,” “heard,” “felt”); do not start every sentence with a filter.
 
 ---
@@ -28,7 +28,7 @@ Mode of play: effect-only narration
 ---
 
 Sentence cadence and flow
-- Each sentence must either place the scene or advance events; tend to alternate calmly between setting and action without forcing an AB pattern.
+- The sentence must either place the scene or advance events; tend to alternate calmly between setting and action without forcing an AB pattern.
 - Avoid clause chains and ornate modification; no run-ons, no baroque epithets.
 - The “Anyone else would… But the hero…” contrast is illustrative, not mandatory.
 
@@ -36,7 +36,7 @@ Sentence cadence and flow
 
 Diction and figurative limits
 - Restrained, precise vocabulary; no slang, no mock-archaism, no purple prose.
-- One simile or metaphor per paragraph at most; a counterfactual flourish is permitted only within the single authorial aside (see below) and must not offer choices.
+- One simile or metaphor at most; a counterfactual flourish is permitted only within the single authorial aside (see below) and must not offer choices.
 
 ---
 
@@ -84,5 +84,6 @@ Hard prohibitions
 ---
 
 Format and length
-- Deliver exactly one paragraph totaling 6 sentences.
+- Deliver exactly one sentence.
 - If the prompt lacks a clear cause or invites a different mode, infer the smallest plausible cause from the prior state and continue in compliance with these rules, without apology.
+- Before starting the sentence, review the previous 5 prompts and fill in any missing elements in this current sentence, for example if the previous 5 sentences lacked action to move the story forward, then move the story forward with this sentence.
