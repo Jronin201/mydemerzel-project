@@ -945,10 +945,17 @@
                 // Load previous messages
                 data.messages.forEach(function (message) {
                   if (message.role === "user" || message.role === "assistant") {
-                    var className =
-                      message.role === "user" ? "user" : "assistant";
+                    var className = message.role === "user" ? "user" : "assistant";
                     var sender = message.role === "user" ? "You" : "AI";
-                    appendMessage(sender, message.content, className);
+                    var content = message.content || "";
+                    // Strip any legacy "*Model: ...*" footer from older saved assistant messages
+                    if (message.role === "assistant") {
+                      var m = /\n\n\*Model:.*\*$/.exec(content);
+                      if (m) {
+                        content = content.replace(m[0], "").trim();
+                      }
+                    }
+                    appendMessage(sender, content, className);
                   }
                 });
 
@@ -1523,43 +1530,9 @@
                       "assistant"
                     );
                   } else if (data && data.response) {
-                    // Extract and strip model footer if present (server adds *Model: ...*)
+                    // No model/version footer and no model badge display
                     var responseText = data.response;
-                    var footerMatch = /\n\n\*Model:.*\*$/.exec(responseText);
-                    if (footerMatch) {
-                      responseText = responseText
-                        .replace(footerMatch[0], "")
-                        .trim();
-                    }
                     appendMessage("Demerzel", responseText, "assistant");
-                    // Update model badge
-                    if (!window.modelBadge) {
-                      var badge = document.createElement("div");
-                      badge.id = "model-badge";
-                      badge.style.position = "absolute";
-                      badge.style.top = "6px";
-                      badge.style.right = "10px";
-                      badge.style.padding = "2px 6px";
-                      badge.style.background = "#222";
-                      badge.style.color = "#ccc";
-                      badge.style.fontSize = "11px";
-                      badge.style.borderRadius = "4px";
-                      badge.style.fontFamily = "system-ui, sans-serif";
-                      badge.style.opacity = "0.85";
-                      document.body.appendChild(badge);
-                      window.modelBadge = badge;
-                    }
-                    if (window.modelBadge) {
-                      var label = data.model_used || "unknown-model";
-                      if (data.fallback) {
-                        label += " (fallback)";
-                      }
-                      window.modelBadge.textContent = label;
-                      window.modelBadge.title =
-                        data.fallback && data.can_retry_primary
-                          ? "Fallback in use. Retry primary by resending."
-                          : "Active model";
-                    } // <-- Close modelBadge update block (was previously swallowing following logic)
                     // Show retry button if fallback occurred
                     if (data.fallback && data.can_retry_primary) {
                       if (!window.retryPrimaryBtn) {
@@ -1615,29 +1588,12 @@
                               if (err) return;
                               if (data2 && data2.response) {
                                 var responseText2 = data2.response;
-                                var footerMatch2 = /\n\n\*Model:.*\*$/.exec(
-                                  responseText2
-                                );
-                                if (footerMatch2) {
-                                  responseText2 = responseText2
-                                    .replace(footerMatch2[0], "")
-                                    .trim();
-                                }
                                 appendMessage(
                                   "Demerzel",
                                   responseText2,
                                   "assistant"
                                 );
-                                if (window.modelBadge) {
-                                  var lbl2 =
-                                    data2.model_used || "unknown-model";
-                                  if (data2.fallback) lbl2 += " (fallback)";
-                                  window.modelBadge.textContent = lbl2;
-                                  window.modelBadge.title =
-                                    data2.fallback && data2.can_retry_primary
-                                      ? "Fallback in use. Retry primary by resending."
-                                      : "Active model";
-                                }
+                                // No model badge display
                                 if (!data2.fallback) {
                                   btn.remove();
                                   window.retryPrimaryBtn = null;

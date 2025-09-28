@@ -1875,7 +1875,8 @@ UPDATE FORMATS (use exactly these):
                     rid=response_id, model=final_meta.get('model'), in_tok=usage.get('input_tokens'), out_tok=usage.get('output_tokens'), fb=fallback_used, lat=latency_ms, brk=breaker_state, bo=backoff_ms
                 ))
             if final_text:
-                stored_text = final_text + (f"\n\n*Model: {final_meta.get('model')}*" if final_meta.get('model') else '')
+                # Do not append model/version footer to user-visible content
+                stored_text = final_text
                 messages.append({"role":"assistant","content":stored_text,"timestamp": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')})
                 save_user_chat(messages, username, page)
 
@@ -1931,12 +1932,7 @@ UPDATE FORMATS (use exactly these):
     if trimmed:
         trimmed = trimmed.replace('[END SCENE]', '')
     trimmed = (trimmed or '').strip()
-    if model_used:
-        # For short style keep footer on same line to avoid adding extra paragraph counted by tests
-        if globals().get('scene_style','short') == 'short':
-            trimmed = trimmed + (f"  *Model: {model_used}*")
-        else:
-            trimmed = trimmed + (f"\n\n*Model: {model_used}*")
+    # Do not append model/version footer to user-visible content
     can_retry_primary = False
     # Structured log
     latency_ms = int((time.time() - req_start_time)*1000)
