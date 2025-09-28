@@ -13,3 +13,5 @@ If my character only thinks or tries to remember something, or asks for help rem
 The prompt will be 3 sentences long and you will create the image that the character "sees" in their mind, describing it in physical terms.
 
 Always ensure that the descriptions and prompts flow and meander in unique and interesting directions but fit logically and smoothly from the previous information.
+
+Keep the sentences focused on only a few descriptive terms. Never use too many adjectives or descriptive words, focus on a few key descriptive words and allow the sentences to flow naturally, accentuating those key descriptions.
