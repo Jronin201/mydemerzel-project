@@ -15,5 +15,7 @@
   },
   "github.copilotChat.showEditorTools": true,
   "github.copilotChat.showChatTab": true,
-  "github.copilotChat.experimental.quickActions": true
+  "github.copilotChat.experimental.quickActions": true,
+  "python-envs.defaultEnvManager": "ms-python.python:system",
+  "python-envs.pythonProjects": []
 }
