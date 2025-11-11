@@ -1,12 +1,12 @@
 [
-		{
-			"id": 1,
-			"title": "Shorten landing page buttons",
-			"status": "completed"
-		},
-		{
-			"id": 2,
-			"title": "Ensure labels <=22 chars",
-			"status": "completed"
-		}
+  {
+    "id": 1,
+    "title": "Shorten landing page buttons",
+    "status": "completed"
+  },
+  {
+    "id": 2,
+    "title": "Ensure labels <=22 chars",
+    "status": "completed"
+  }
 ]
