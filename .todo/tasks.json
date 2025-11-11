@@ -1,12 +1,17 @@
 [
   {
     "id": 1,
-    "title": "Retheme cyberpunk system",
-    "status": "completed"
+    "title": "Rename Zweihander directory",
+    "status": "in-progress"
   },
   {
     "id": 2,
-    "title": "Add cyberpunk buttons & labels",
-    "status": "completed"
+    "title": "Rename Witcher directory",
+    "status": "not-started"
+  },
+  {
+    "id": 3,
+    "title": "Rename Neon Grid directory",
+    "status": "not-started"
   }
 ]
