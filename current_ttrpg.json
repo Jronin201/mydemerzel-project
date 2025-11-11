@@ -6,10 +6,5 @@
     "name": "Duncan Idaho",
     "stats": "Combat: 20, Politics: 15"
   },
-  "available_systems": [
-    "dune",
-  "the-one-ring",
-  "zweihander",
-    "master-template"
-  ]
+  "available_systems": ["dune", "the-one-ring", "zweihander", "master-template"]
 }
