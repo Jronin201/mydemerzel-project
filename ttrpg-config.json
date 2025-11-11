@@ -28,7 +28,7 @@
       "themes": ["monster hunting", "moral ambiguity", "gritty survival"],
       "setting": "The Continent (Witcher world of sorcery, monsters, and fractured kingdoms)"
     },
-    "call-of-cthulhu": {
+  "zweihander": {
       "display_name": "Zweihander",
       "description": "Cosmic horror investigations in the 1920s",
       "active": true,

@@ -34,7 +34,7 @@ class TestCharacterInfoIntegration(unittest.TestCase):
     def tearDown(self):
         """Clean up test data"""
         # Clean up any test files
-        test_systems = ["dune", "the-one-ring", "call-of-cthulhu", "general"]
+        test_systems = ["dune", "the-one-ring", "zweihander", "general"]
         for system in test_systems:
             delete_user_character_info(self.test_username, system)
         
@@ -160,7 +160,7 @@ class TestCharacterInfoIntegration(unittest.TestCase):
         ttprgs = [
             {"ttrpg": "dune", "character_name": "Paul", "character_stats": "Duke"},
             {"ttrpg": "the-one-ring", "character_name": "Frodo", "character_stats": "Hobbit"},
-            {"ttrpg": "call-of-cthulhu", "character_name": "Detective", "character_stats": "Investigator"}
+            {"ttrpg": "zweihander", "character_name": "Detective", "character_stats": "Investigator"}
         ]
         
         for ttrpg_data in ttprgs:
@@ -182,7 +182,7 @@ class TestCharacterInfoIntegration(unittest.TestCase):
         active_systems = [session['ttrpg_system'] for session in active_sessions]
         self.assertIn('dune', active_systems)
         self.assertIn('the-one-ring', active_systems)
-        self.assertIn('call-of-cthulhu', active_systems)
+        self.assertIn('zweihander', active_systems)
     
     def test_character_info_update(self):
         """Test updating existing character information"""

@@ -315,7 +315,7 @@ def load_ttrpg_config():
                     "version": "1.0",
                     "game_master_title": "Game Master"
                 },
-                "call-of-cthulhu": {
+                "zweihander": {
                     "display_name": "Zweihander",
                     "description": "Cosmic horror investigations in the 1920s",
                     "active": True,
@@ -464,10 +464,15 @@ def the_one_ring():
 def dune():
     return redirect(url_for('ttrpg_chatbot') + '?ttrpg=dune')
 
+@app.route("/zweihander")
+@login_required
+def zweihander():
+    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=zweihander')
+
 @app.route("/call-of-cthulhu")
 @login_required
 def call_of_cthulhu():
-    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=call-of-cthulhu')
+    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=zweihander')
 
 @app.route("/mouse-guard")
 @login_required
@@ -1308,7 +1313,7 @@ def chat():
     elif not page:
         # Try to determine page from referer
         ref = request.headers.get("Referer", "")
-        for candidate in ["the-one-ring", "dune", "call-of-cthulhu", "mouse-guard", "pendragon", "master-template", "ttrpg-chatbot"]:
+        for candidate in ["the-one-ring", "dune", "zweihander", "mouse-guard", "pendragon", "master-template", "ttrpg-chatbot"]:
             if candidate in ref:
                 page = candidate
                 break
@@ -1351,7 +1356,7 @@ def chat():
             ttrpg_titles = {
                 "dune": "Dune: Adventures in the Imperium",
                 "the-one-ring": "The Witcher",
-                "call-of-cthulhu": "Zweihander",
+                "zweihander": "Zweihander",
                 "mouse-guard": "Mouse Guard",
                 "pendragon": "Pendragon 6th Edition"
             }
@@ -1359,7 +1364,7 @@ def chat():
             ttrpg_worlds = {
                 "dune": "the dangerous desert world of Arrakis and the political intrigue of the Imperium",
                 "the-one-ring": "the dangerous, monster‑haunted Continent",
-                "call-of-cthulhu": "the mysterious and horror-filled world of the 1920s",
+                "zweihander": "the mysterious and horror-filled world of the 1920s",
                 "mouse-guard": "the Mouse Territories, where brave mice defend their communities from the dangers of the natural world",
                 "pendragon": "Arthurian Britain, the legendary realm of King Arthur, chivalrous knights, and the Round Table"
             }
@@ -1443,7 +1448,7 @@ def chat():
                 ttrpg_titles = {
                     "dune": "Dune: Adventures in the Imperium",
                     "the-one-ring": "The Witcher", 
-                    "call-of-cthulhu": "Zweihander",
+                    "zweihander": "Zweihander",
                     "mouse-guard": "Mouse Guard",
                     "pendragon": "Pendragon 6th Edition"
                 }
