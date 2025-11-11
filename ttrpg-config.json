@@ -53,16 +53,16 @@
       "setting": "Development template"
     },
     "vampire-the-masquerade": {
-      "display_name": "Vampire: The Masquerade",
-      "description": "Gothic horror in the modern world",
+      "display_name": "Neon Grid",
+      "description": "Cyberpunk operations in a rain-soaked mega-city",
       "active": true,
       "has_custom_page": false,
       "has_embeddings": false,
-      "created_date": "2025-07-15",
-      "version": "1.0",
-      "game_master_title": "Storyteller",
-      "themes": ["gothic horror", "political intrigue", "personal horror"],
-      "setting": "World of Darkness modern vampire setting"
+      "created_date": "2025-11-11",
+      "version": "2.0",
+      "game_master_title": "Mission Director",
+      "themes": ["cyberpunk ops", "corporate intrigue", "tech noir survival"],
+      "setting": "Neon-drenched mega-city dominated by corporations and syndicates"
     },
     "mouse-guard": {
       "display_name": "Mouse Guard",
