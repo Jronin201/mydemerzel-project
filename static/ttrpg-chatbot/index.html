@@ -739,7 +739,8 @@
           // Insert a themed heading for the quick-insert panel
           var heading = document.createElement("h3");
           heading.className = "panel-title";
-          heading.textContent = ttrpgPanelLabels[current] || ttrpgPanelLabels["general"];
+          heading.textContent =
+            ttrpgPanelLabels[current] || ttrpgPanelLabels["general"];
           panel.appendChild(heading);
 
           // Helper: clamp label length to max characters, adding ellipsis if truncated
@@ -863,7 +864,7 @@
             description: "Dark fantasy across the monster-haunted Continent",
           },
           "call-of-cthulhu": {
-            title: "Gothic Mystery: Psychological Horror",
+            title: "Zweihander: Gothic Mystery",
             description: "Investigate cosmic horrors and ancient mysteries",
           },
           "mouse-guard": {
