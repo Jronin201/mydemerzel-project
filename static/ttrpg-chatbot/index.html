@@ -721,10 +721,26 @@
           return `Button ${index + 1}`; // ultimate fallback
         }
 
+        // Themed labels for the quick-insert button panel per system
+        var ttrpgPanelLabels = {
+          dune: "House Intrigue Oracles",
+          "the-one-ring": "Witcher Contracts & Oracles",
+          "call-of-cthulhu": "Horror Investigation Oracles",
+          "mouse-guard": "Mission Seeds & Hazards",
+          pendragon: "Chivalric Trials & Oracles",
+          general: "Quick Inserts",
+        };
+
         async function renderButtons() {
           const current = await detectCurrentTTRPG();
           const bases = [`../${current}/button-texts`, "button-texts"]; // preferred then fallback
           panel.innerHTML = "";
+
+          // Insert a themed heading for the quick-insert panel
+          var heading = document.createElement("h3");
+          heading.className = "panel-title";
+          heading.textContent = ttrpgPanelLabels[current] || ttrpgPanelLabels["general"];
+          panel.appendChild(heading);
 
           // Helper: clamp label length to max characters, adding ellipsis if truncated
           function clampLabel(text, maxLen = 22) {
@@ -839,24 +855,24 @@
         // TTRPG configurations
         var ttrpgConfigs = {
           dune: {
-            title: "Dune",
+            title: "Dune: Intrigue and Survival",
             description: "Enter the dangerous political landscape of Arrakis",
           },
           "the-one-ring": {
-            title: "The Witcher",
+            title: "The Witcher: Contracts and Consequences",
             description: "Dark fantasy across the monster-haunted Continent",
           },
           "call-of-cthulhu": {
-            title: "Zweihander",
+            title: "Gothic Mystery: Psychological Horror",
             description: "Investigate cosmic horrors and ancient mysteries",
           },
           "mouse-guard": {
-            title: "Mouse Guard",
+            title: "Mouse Guard: Patrol Missions",
             description:
               "Heroic mice defending their territories from dangers great and small",
           },
           pendragon: {
-            title: "Pendragon 6th Edition",
+            title: "Pendragon: Gritty Arthurian Legend",
             description:
               "Live the legend of King Arthur, chivalry, and the knights of the Round Table.",
           },
