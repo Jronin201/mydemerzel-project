@@ -40,7 +40,7 @@ print("   chat_histories/")
 print("   ├── Demerzel/")
 print("   │   ├── dune_chat.json")
 print("   │   ├── the-one-ring_chat.json") 
-print("   │   ├── call-of-cthulhu_chat.json")
+print("   │   ├── zweihander_chat.json")
 print("   │   └── master-template_chat.json")
 print("   └── [other-users]/")
 

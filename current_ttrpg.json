@@ -8,8 +8,8 @@
   },
   "available_systems": [
     "dune",
-    "the-one-ring",
-    "call-of-cthulhu",
+  "the-one-ring",
+  "zweihander",
     "master-template"
   ]
 }

@@ -34,7 +34,7 @@ def test_initial_greeting_system():
         ttrpgs = {
             "dune": "Dune: Adventures in the Imperium",
             "the-one-ring": "The Witcher",
-        "call-of-cthulhu": "Zweihander"
+            "zweihander": "Zweihander"
         }
         
         for ttrpg, title in ttrpgs.items():

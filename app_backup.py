@@ -181,15 +181,15 @@ def load_ttrpg_config():
                     "version": "1.0",
                     "game_master_title": "Loremaster"
                 },
-                "call-of-cthulhu": {
+                "zweihander": {
                     "display_name": "Zweihander",
-                    "description": "Cosmic horror investigations in the 1920s",
+                    "description": "Plain Gothic investigations and creeping mysteries",
                     "active": True,
                     "has_custom_page": False,
                     "has_embeddings": False,
                     "created_date": "2024-01-01",
                     "version": "1.0",
-                    "game_master_title": "Keeper"
+                    "game_master_title": "Game Master"
                 }
             },
             "metadata": {
@@ -317,7 +317,7 @@ def dune():
 @app.route("/call-of-cthulhu")
 @login_required
 def call_of_cthulhu():
-    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=call-of-cthulhu')
+    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=zweihander')
 
 @app.route("/master-template")
 @login_required
@@ -632,7 +632,7 @@ def chat():
     elif not page:
         # Try to determine page from referer
         ref = request.headers.get("Referer", "")
-        for candidate in ["the-one-ring", "dune", "call-of-cthulhu", "master-template", "ttrpg-chatbot"]:
+        for candidate in ["the-one-ring", "dune", "zweihander", "master-template", "ttrpg-chatbot"]:
             if candidate in ref:
                 page = candidate
                 break
@@ -653,13 +653,13 @@ def chat():
         ttrpg_titles = {
             "dune": "Dune: Adventures in the Imperium",
             "the-one-ring": "The Witcher",
-            "call-of-cthulhu": "Zweihander"
+            "zweihander": "Zweihander"
         }
         
         ttrpg_worlds = {
             "dune": "the dangerous desert world of Arrakis and the political intrigue of the Imperium",
             "the-one-ring": "the dangerous, monster-haunted roads of the Continent",
-            "call-of-cthulhu": "the mysterious and horror-filled world of the 1920s"
+            "zweihander": "a plain gothic mystery full of creeping dread"
         }
         
         # Create appropriate initial greeting
@@ -711,7 +711,7 @@ def chat():
                 ttrpg_titles = {
                     "dune": "Dune: Adventures in the Imperium",
                     "the-one-ring": "The Witcher", 
-                    "call-of-cthulhu": "Zweihander"
+                    "zweihander": "Zweihander"
                 }
                 
                 char_creation_response = f"Excellent! Before we begin your adventure in {ttrpg_titles.get(page, 'this world')}, let's set up your character. You can either:\n\n1. Create a new character (I can guide you through the process)\n2. Enter existing character information in the Character Information field on the left\n\nWould you like me to help you create a new character, or do you have character details ready to enter?"

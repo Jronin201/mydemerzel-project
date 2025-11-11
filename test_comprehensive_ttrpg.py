@@ -30,8 +30,8 @@ def test_comprehensive_ttrpg_system():
             "keywords": ["Middle-earth", "Tolkien", "Loremaster", "Fellowship"],
             "title": "The Witcher"
         },
-        "call-of-cthulhu": {
-            "keywords": ["Lovecraft", "cosmic horror", "Keeper", "sanity", "1920s"],
+        "zweihander": {
+            "keywords": ["Plain", "Gothic", "investigator", "mystery"],
             "title": "Zweihander"
         }
     }
@@ -74,7 +74,7 @@ def test_comprehensive_ttrpg_system():
         test_messages = {
             "dune": "What political factions should I be aware of?",
             "the-one-ring": "What ancient paths lie before us?", 
-            "call-of-cthulhu": "What strange whispers echo in this old mansion?"
+            "zweihander": "What strange whispers echo in this old mansion?"
         }
         
         for ttrpg, message in test_messages.items():
@@ -128,7 +128,7 @@ def test_comprehensive_ttrpg_system():
                 "character_name": "Brego - Ranger of the North",
                 "character_stats": "Quest: Protect the Shire. Status: Traveling through Mirkwood."
             },
-            "call-of-cthulhu": {
+            "zweihander": {
                 "character_name": "Dr. Henry Armitage - Miskatonic Professor",
                 "character_stats": "Investigation: Strange disappearances. Status: Researching ancient texts."
             }

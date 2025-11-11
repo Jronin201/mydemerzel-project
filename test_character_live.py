@@ -46,7 +46,7 @@ def test_character_info_persistence():
             "character_stats": "A seasoned witcher mutagenically enhanced to hunt monsters. Trained with blades, signs, and alchemy. Stoic but driven by a personal code."
         },
         {
-            "ttrpg": "call-of-cthulhu",
+            "ttrpg": "zweihander",
             "character_name": "Detective Sarah Williams",
             "character_stats": "Experienced investigator with a keen eye for detail. Has encountered the supernatural before and lived to tell the tale."
         }

@@ -372,12 +372,12 @@ git config --global commit.gpgsign false
 ├── chapter_log.py
 ├── character_info
 │ ├── Demerzel
-│ │ ├── call-of-cthulhu_character.json
+│ │ ├── zweihander_character.json
 │ │ ├── dune_character.json
 │ │ ├── mouse-guard_character.json
 │ │ └── the-one-ring_character.json
 │ ├── anonymous
-│ │ ├── call-of-cthulhu
+│ │ ├── zweihander
 │ │ ├── dune
 │ │ ├── the-one-ring
 │ │ ├── the-one-ring_character.json
@@ -495,7 +495,7 @@ git config --global commit.gpgsign false
 ├── start_optimized.sh
 ├── start_simple.sh
 ├── static
-│ ├── call-of-cthulhu
+│ ├── zweihander
 │ │ └── system_prompt.txt
 │ ├── dune
 │ │ └── system_prompt.txt

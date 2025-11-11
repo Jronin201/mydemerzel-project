@@ -28,9 +28,9 @@ def test_ttrpg_chat_prompts():
             "expected_keywords": ["Middle-earth", "Tolkien"]
         },
         {
-            "ttrpg": "call-of-cthulhu",
+            "ttrpg": "zweihander",
             "message": "What mysteries await?",
-            "expected_keywords": ["horror", "investigation", "1920s"]
+            "expected_keywords": ["mystery", "investigation", "gothic"]
         }
     ]
     

@@ -26,7 +26,7 @@ python scripts/test_ttrpg_integration.py; ./deploy.sh
 **Naming:** lowercase-hyphens, 20 button files button1-20.txt
 
 **System Architecture:** Universal system_prompt.txt + TTRPG-specific system_prompt.txt = unique AI personality
-**Active TTRPGs:** dune, mouse-guard, the-one-ring, call-of-cthulhu, vampire-the-masquerade, pendragon, master-template
+**Active TTRPGs:** dune, mouse-guard, the-one-ring, zweihander, vampire-the-masquerade, pendragon, master-template
 **Embeddings:** Supabase-hosted game manuals (env: SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY, SUPABASE_BUCKET_NAME)
 **Response Format:** TRIPARTITE_CHECK (3-stage actions), markdown formatting, 3-5 sentences max, always end with prompt
 

@@ -194,7 +194,7 @@
 │   └── generate_embeddings.py
 ├── split_dune.py
 ├── static
-│   ├── call-of-cthulhu
+│   ├── zweihander
 │   │   └── index.html
 │   ├── dune
 │   │   ├── css

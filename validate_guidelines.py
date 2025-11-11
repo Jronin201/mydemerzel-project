@@ -69,8 +69,15 @@ class GuidelinesValidator:
             return violations
         
         config = json.loads(ttrpg_config_path.read_text())
-        required_ttrpgs = ["dune", "mouse-guard", "the-one-ring", "call-of-cthulhu", 
-                          "vampire-the-masquerade", "pendragon", "master-template"]
+        required_ttrpgs = [
+            "dune",
+            "mouse-guard",
+            "the-one-ring",
+            "zweihander",
+            "vampire-the-masquerade",
+            "pendragon",
+            "master-template",
+        ]
         
         for ttrpg in required_ttrpgs:
             if ttrpg not in config.get("systems", {}):

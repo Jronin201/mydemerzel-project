@@ -17,7 +17,7 @@ tar -czf "${BACKUP_FILE}" \
     embeddings/ \
     static/dune/system_prompt.txt \
     static/the-one-ring/system_prompt.txt \
-    static/call-of-cthulhu/system_prompt.txt \
+    static/zweihander/system_prompt.txt \
     system_prompt.txt \
     2>/dev/null || echo "⚠️  Some files may not exist yet - this is normal for new installations"
 

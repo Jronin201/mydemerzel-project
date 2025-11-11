@@ -28,17 +28,17 @@
       "themes": ["monster hunting", "moral ambiguity", "gritty survival"],
       "setting": "The Continent (Witcher world of sorcery, monsters, and fractured kingdoms)"
     },
-  "zweihander": {
+    "zweihander": {
       "display_name": "Zweihander",
-      "description": "Cosmic horror investigations in the 1920s",
+      "description": "Plain Gothic investigations steeped in creeping dread",
       "active": true,
       "has_custom_page": false,
       "has_embeddings": false,
       "created_date": "2024-01-01",
       "version": "1.0",
-      "game_master_title": "Keeper",
-      "themes": ["cosmic horror", "investigation", "sanity"],
-      "setting": "1920s historical with Lovecraftian horror"
+      "game_master_title": "Game Master",
+      "themes": ["plain gothic", "investigation", "psychological tension"],
+      "setting": "Fog-bound towns, dim sanatoriums, and abandoned manors"
     },
     "master-template": {
       "display_name": "Master Template",

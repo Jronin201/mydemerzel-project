@@ -117,7 +117,7 @@ def test_chat_sessions_api():
             # Create chat histories for multiple TTRPGs
             client.post("/chat", json={"message": "Dune message", "page": "dune"})
             client.post("/chat", json={"message": "Ring message", "page": "the-one-ring"})
-            client.post("/chat", json={"message": "Cthulhu message", "page": "call-of-cthulhu"})
+            client.post("/chat", json={"message": "Zweihander message", "page": "zweihander"})
             
             # Get all sessions
             resp = client.get("/api/chat-sessions")
@@ -130,7 +130,7 @@ def test_chat_sessions_api():
             session_names = [session["ttrpg_system"] for session in data["sessions"]]
             assert "dune" in session_names
             assert "the-one-ring" in session_names
-            assert "call-of-cthulhu" in session_names
+            assert "zweihander" in session_names
 
 
 def test_persistent_chat_history():
