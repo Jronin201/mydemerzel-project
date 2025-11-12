@@ -147,6 +147,18 @@ It may shift to different characters or settings if a clear plot or thematic lin
 
 When the author inputs only a question mark, list all current Narrative Control Protocol trigger words along with their concise instructions, exactly as defined here, without expanding or summarizing.
 
+SLIDING:
+Shift narration into Sliding Narrative Distance.
+Widen scope to describe the scene, environment, or passage of time from a detached but factual viewpoint. Use broader imagery, weather, and motion; avoid interior thought. Maintain literal-world truth and continuity with prior events.
+
+CLOSE:
+Shift narration into Close Third Person.
+Follow the current point-of-view character’s physical actions, dialogue, and immediate sensory detail. Focus on concrete cause and effect. Reveal emotion only through observable behavior or short interior reflection consistent with Plain Gothic Mode.
+
+FIRST:
+Shift narration into First Person.
+Enter the protagonist’s internal perspective fully. Use “I” narration only for that established character. Focus on perception, memory, and introspection while maintaining literal accuracy and concise rhythm. When the scene involves others again, return smoothly to CLOSE.
+
 Narrative Distance Protocol (Scene-Based Transitions)
 
 The narration must change distance gradually and only when a scene change occurs — a new time, location, or situation. The progression always follows the same natural sequence: Sliding → Close Third → First Person → Close Third → Sliding.
