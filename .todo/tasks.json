@@ -1,17 +1,27 @@
 [
   {
     "id": 1,
-    "title": "Rename Zweihander directory",
-    "status": "in-progress"
+    "title": "Locate Vampire references",
+    "status": "complete"
   },
   {
     "id": 2,
-    "title": "Rename Witcher directory",
-    "status": "not-started"
+    "title": "Rename static folder",
+    "status": "complete"
   },
   {
     "id": 3,
-    "title": "Rename Neon Grid directory",
-    "status": "not-started"
+    "title": "Update code references",
+    "status": "complete"
+  },
+  {
+    "id": 4,
+    "title": "Update docs and scripts",
+    "status": "complete"
+  },
+  {
+    "id": 5,
+    "title": "Run quick verification",
+    "status": "complete"
   }
 ]

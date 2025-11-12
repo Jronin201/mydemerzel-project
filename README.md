@@ -381,7 +381,7 @@ git config --global commit.gpgsign false
 │ │ ├── dune
 │ │ ├── the-one-ring
 │ │ ├── the-one-ring_character.json
-│ │ └── vampire-the-masquerade
+│ │ └── cyberpunk
 │ ├── casual_user
 │ │ └── dune_character.json
 │ ├── detailed_user
@@ -1030,7 +1030,7 @@ git config --global commit.gpgsign false
 │ │ ├── the-one-ring
 │ │ │ ├── the-one-ring-core-rules.txt
 │ │ │ └── the-one-ring-starter-shire.txt
-│ │ └── vampire-the-masquerade
+│ │ └── cyberpunk
 │ ├── the-one-ring
 │ │ ├── css
 │ │ │ └── main.css
@@ -1041,7 +1041,7 @@ git config --global commit.gpgsign false
 │ │ └── system_prompt.txt
 │ ├── ttrpg-chatbot
 │ │ └── index.html
-│ └── vampire-the-masquerade
+│ └── cyberpunk
 │ ├── css
 │ ├── images
 │ ├── js

@@ -52,8 +52,8 @@
       "themes": ["template", "development"],
       "setting": "Development template"
     },
-    "vampire-the-masquerade": {
-      "display_name": "Neon Grid",
+    "cyberpunk": {
+      "display_name": "Cyberpunk Ops",
       "description": "Cyberpunk operations in a rain-soaked mega-city",
       "active": true,
       "has_custom_page": false,

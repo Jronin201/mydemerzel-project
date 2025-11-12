@@ -6,7 +6,7 @@ import glob
 import pytest
 
 TTRPGS = [
-    'dune', 'the-witcher', 'zweihander', 'mouse-guard', 'pendragon', 'master-template', 'vampire-the-masquerade'
+    'dune', 'the-witcher', 'zweihander', 'mouse-guard', 'pendragon', 'master-template', 'cyberpunk'
 ]
 BASE = os.path.join('static')
 

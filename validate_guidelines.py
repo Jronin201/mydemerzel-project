@@ -74,7 +74,7 @@ class GuidelinesValidator:
             "mouse-guard",
             "the-witcher",
             "zweihander",
-            "vampire-the-masquerade",
+            "cyberpunk",
             "pendragon",
             "master-template",
         ]
