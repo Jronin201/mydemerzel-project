@@ -6,10 +6,10 @@ def test_character_injury_update():
     """Test if AI updates character information during combat injury scenario"""
     
     response = requests.post('http://localhost:5000/chat', json={
-        'message': 'I draw my sword to fight the orc, but I stumble and get badly wounded in the leg during the battle.',
-        'page': 'the-one-ring',
-        'character_name': 'Gandric the Brave - Level 3 Ranger, HP: 25/25',
-        'character_stats': 'Currently investigating strange happenings near Bree. Spoke with Boromir about potential spy network.'
+        'message': 'I ignite Igni to fend off a wyvern, but its talons tear across my ribs and leave me bleeding.',
+        'page': 'the-witcher',
+        'character_name': 'Geralt of Rivia - Witcher Rank 2, Vitality: 34/42',
+        'character_stats': 'Currently contracted near Novigrad. Carrying specter oil and thunderbolt potion. Tracking Nilfgaardian activity.'
     })
     
     if response.status_code == 200:
@@ -32,10 +32,10 @@ def test_character_level_up():
     """Test if AI updates character information when player gains experience"""
     
     response = requests.post('http://localhost:5000/chat', json={
-        'message': 'After defeating the orc leader, I feel like I have gained enough experience to level up. I want to advance to Level 4.',
-        'page': 'the-one-ring',
-        'character_name': 'Gandric the Brave - Level 3 Ranger, HP: 20/25 (wounded leg)',
-        'character_stats': 'Currently investigating strange happenings near Bree. Recently fought orcs and was injured.'
+        'message': 'After slaying the wyvern and securing proof, I feel ready to advance to Witcher Rank 3. Note my new precision training.',
+        'page': 'the-witcher',
+        'character_name': 'Geralt of Rivia - Witcher Rank 2, Vitality: 28/42 (bleeding)',
+        'character_stats': 'Contract near Novigrad. Carrying specter oil, thunderbolt potion, and fresh wyvern trophy. Shoulder heavily bandaged.'
     })
     
     if response.status_code == 200:

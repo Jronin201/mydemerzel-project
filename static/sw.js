@@ -4,7 +4,7 @@ const STATIC_ASSETS = [
   "/",
   "/static/index.html",
   "/static/dune/index.html",
-  "/static/the-one-ring/index.html",
+  "/static/the-witcher/index.html",
   "/static/zweihander/index.html",
   "/static/master-template/index.html",
 ];
@@ -80,6 +80,7 @@ self.addEventListener("fetch", function (event) {
             event.request.url.endsWith("/") ||
             event.request.url.includes("/dune") ||
             event.request.url.includes("/the-one-ring") ||
+            event.request.url.includes("/the-witcher") ||
             event.request.url.includes("/call-of-cthulhu") ||
             event.request.url.includes("/zweihander") ||
             event.request.url.includes("/master-template")

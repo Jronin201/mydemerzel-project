@@ -72,7 +72,7 @@ class GuidelinesValidator:
         required_ttrpgs = [
             "dune",
             "mouse-guard",
-            "the-one-ring",
+            "the-witcher",
             "zweihander",
             "vampire-the-masquerade",
             "pendragon",

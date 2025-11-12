@@ -27,9 +27,9 @@ if [ -f "embeddings/dune.json" ]; then
     size=$(du -h embeddings/dune.json | cut -f1)
     echo "   • dune.json: $size"
 fi
-if [ -f "embeddings/the-one-ring.json" ]; then
-    size=$(du -h embeddings/the-one-ring.json | cut -f1)
-    echo "   • the-one-ring.json: $size"
+if [ -f "embeddings/the-witcher.json" ]; then
+    size=$(du -h embeddings/the-witcher.json | cut -f1)
+    echo "   • the-witcher.json: $size"
 fi
 
 echo ""
@@ -49,9 +49,9 @@ if [ -f "embeddings/dune_optimized.json" ]; then
     size=$(du -h embeddings/dune_optimized.json | cut -f1)
     echo "   ✅ dune_optimized.json: $size"
 fi
-if [ -f "embeddings/the-one-ring_optimized.json" ]; then
-    size=$(du -h embeddings/the-one-ring_optimized.json | cut -f1)
-    echo "   ✅ the-one-ring_optimized.json: $size"
+if [ -f "embeddings/the-witcher_optimized.json" ]; then
+    size=$(du -h embeddings/the-witcher_optimized.json | cut -f1)
+    echo "   ✅ the-witcher_optimized.json: $size"
 fi
 
 echo ""

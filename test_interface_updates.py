@@ -33,7 +33,7 @@ def test_updated_interface():
         print("✅ Login successful")
         
         # Load the universal chatbot page
-        resp = client.get("/ttrpg-chatbot?ttrpg=the-one-ring")
+        resp = client.get("/ttrpg-chatbot?ttrpg=the-witcher")
         assert resp.status_code == 200
         
         # Check that the new labels are present
@@ -63,14 +63,14 @@ def test_updated_interface():
 
         # Test updating character info with new structure
         resp = client.post("/api/current-ttrpg", json={
-            "ttrpg": "the-one-ring",
-            "character_name": "Frodo Baggins\nHobbit from the Shire\nRing-bearer",
-            "character_stats": "Signs: Aard (Skilled)\nAlchemy: Oils & Decoctions Ready\nNotes: Carries twin witcher blades"
+            "ttrpg": "the-witcher",
+            "character_name": "Geralt of Rivia\nWitcher from Kaer Morhen",
+            "character_stats": "Signs: Aard (Skilled)\nAlchemy: Oils & Decoctions Ready\nNotes: Carries silver and steel blades"
         })
         assert resp.status_code == 200
         updated_data = resp.get_json()
-        assert "Ring-bearer" in updated_data["character_info"]["name"]
-        assert "One Ring" in updated_data["character_info"]["stats"]
+        assert "Geralt" in updated_data["character_info"]["name"]
+        assert "silver and steel" in updated_data["character_info"]["stats"]
         print("✅ Multi-line character information saves correctly")
 
 

@@ -22,11 +22,12 @@ def test_explicit_character_updates():
         
         # Scenario 1: Direct request to update character
         print("\n📝 Test 1: Direct request to update character...")
+
         update_request_data = {
-            'message': 'I gained a level! Update my character to show I am now Level 2 and learned a new skill: Advanced Swordplay.',
-            'page': 'the-one-ring',
-            'character_name': 'Aragorn - Ranger Level 1, Hope: 15, Shadow: 2',
-            'character_stats': 'Strider. Seeks to protect the innocent. Skilled tracker.'
+            'message': 'I brewed superior oils and trained with Vesemir. Update my character to show I reached Rank 2 and mastered the Rend technique.',
+            'page': 'the-witcher',
+            'character_name': 'Geralt of Rivia - Witcher Rank 1, Vitality: 30, Toxicity: 0',
+            'character_stats': 'School of the Wolf witcher. Skilled tracker and swordsman. Uses basic signs and oils.'
         }
         
         update_response = client.post('/chat',
@@ -49,10 +50,10 @@ def test_explicit_character_updates():
         # Scenario 2: Subtle scenario that should trigger updates
         print("\n⚔️ Test 2: Combat with injury that should update character...")
         injury_data = {
-            'message': 'The orc\'s blade cuts deep into my arm. I\'m wounded but still fighting.',
-            'page': 'the-one-ring',
-            'character_name': 'Aragorn - Ranger Level 2, Hope: 15, Shadow: 2',
-            'character_stats': 'Strider. Seeks to protect the innocent. Advanced Swordplay skill.'
+            'message': 'A fiend\'s antlers smashed into my shoulder. I\'m bleeding but still fighting.',
+            'page': 'the-witcher',
+            'character_name': 'Geralt of Rivia - Witcher Rank 2, Vitality: 30, Toxicity: 0',
+            'character_stats': 'School of the Wolf witcher. Master swordsman with Rend. Carries superior oils and a fiend trophy.'
         }
         
         injury_response = client.post('/chat',
@@ -70,10 +71,10 @@ def test_explicit_character_updates():
         # Scenario 3: Story progression
         print("\n📖 Test 3: Important story event...")
         story_data = {
-            'message': 'I discover that Boromir is actually a spy for Saruman! This is shocking news.',
-            'page': 'the-one-ring',
-            'character_name': 'Aragorn - Ranger Level 2, Hope: 15, Shadow: 2, Wounded',
-            'character_stats': 'Strider. Seeks to protect the innocent. Advanced Swordplay skill.'
+            'message': 'I learned the Nilfgaardian envoy is secretly commanding the Wild Hunt. This changes everything.',
+            'page': 'the-witcher',
+            'character_name': 'Geralt of Rivia - Witcher Rank 2, Vitality: 26, Toxicity: 12, Wounded',
+            'character_stats': 'School of the Wolf witcher. Master swordsman with Rend. Carries fiend trophy and superior oils.'
         }
         
         story_response = client.post('/chat',
@@ -86,13 +87,13 @@ def test_explicit_character_updates():
             print(f"📄 AI Response: {ai_response}")
             
             has_updates = '*[AI updated:' in ai_response
-            mentions_boromir = 'Boromir' in ai_response or 'spy' in ai_response.lower()
+            mentions_nilfgaard = 'nilfgaard' in ai_response.lower() or 'wild hunt' in ai_response.lower()
             print(f"✅ AI updated notes for story: {has_updates}")
-            print(f"✅ AI acknowledges story event: {mentions_boromir}")
+            print(f"✅ AI acknowledges story event: {mentions_nilfgaard}")
         
         # Test character info retrieval after updates
         print("\n📖 Checking final character state...")
-        get_response = client.get('/api/character-info?ttrpg=the-one-ring')
+        get_response = client.get('/api/character-info?ttrpg=the-witcher')
         
         if get_response.status_code == 200:
             char_data = json.loads(get_response.data)

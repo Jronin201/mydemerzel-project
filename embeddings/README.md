@@ -23,7 +23,7 @@ The optimized embedding files (`*_optimized.json`) and original embedding files 
 This will generate:
 
 - `embeddings/dune_optimized.json` (~111MB, 2,628 chunks)
-- `embeddings/the-one-ring_optimized.json` (~6.5MB, 153 chunks)
+- `embeddings/the-witcher_optimized.json` (~6.5MB, 153 chunks)
 
 ### Manual Process:
 

@@ -64,7 +64,7 @@ def memory_optimized_embedding_search(
     
     Args:
         query: Search query text
-        system_name: TTRPG system name ('dune', 'the-one-ring', 'mouse-guard')
+    system_name: TTRPG system name ('dune', 'the-witcher', 'mouse-guard')
         max_results: Maximum number of results to return
         min_similarity: Minimum similarity threshold
         

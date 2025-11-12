@@ -41,9 +41,9 @@ def test_character_info_persistence():
             "character_stats": "Duke's son with prescient abilities. Trained in the ways of the Bene Gesserit and the fighting methods of Duncan Idaho."
         },
         {
-            "ttrpg": "the-one-ring", 
-            "character_name": "Frodo Baggins",
-            "character_stats": "A seasoned witcher mutagenically enhanced to hunt monsters. Trained with blades, signs, and alchemy. Stoic but driven by a personal code."
+            "ttrpg": "the-witcher", 
+            "character_name": "Geralt of Rivia",
+            "character_stats": "Veteran witcher with silver and steel blades, adept with signs, alchemy, and monster lore. Stoic but bound by personal codes."
         },
         {
             "ttrpg": "zweihander",

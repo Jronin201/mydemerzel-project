@@ -66,7 +66,7 @@ def test_universal_chatbot_page():
         login(client)
         
     # Test universal chatbot page with TTRPG parameter
-    resp = client.get("/ttrpg-chatbot?ttrpg=the-one-ring")
+    resp = client.get("/ttrpg-chatbot?ttrpg=the-witcher")
     assert resp.status_code == 200
     assert b"The Witcher" in resp.data
 
@@ -81,7 +81,7 @@ def test_legacy_redirects():
         login(client)
         
         # Test legacy routes redirect properly
-        legacy_routes = ["/the-one-ring", "/dune", "/call-of-cthulhu", "/master-template"]
+        legacy_routes = ["/the-witcher", "/the-one-ring", "/dune", "/call-of-cthulhu", "/master-template"]
         for route in legacy_routes:
             resp = client.get(route)
             assert resp.status_code == 302  # Redirect

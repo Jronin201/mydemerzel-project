@@ -51,22 +51,22 @@ def update_embedding_loading():
         content = f.read()
     
     # Replace the embedding loading section
-    old_tor_loading = '''the_one_ring_embeddings = []
-if Path("embeddings/the-one-ring.json").exists():
-    with open("embeddings/the-one-ring.json", "r", encoding="utf-8") as f:
-        the_one_ring_embeddings = json.load(f)'''
+    old_tor_loading = '''the_witcher_embeddings = []
+if Path("embeddings/the-witcher.json").exists():
+    with open("embeddings/the-witcher.json", "r", encoding="utf-8") as f:
+        the_witcher_embeddings = json.load(f)'''
     
-    new_tor_loading = '''# Load The One Ring embeddings (prefer optimized version)
-the_one_ring_embeddings = []
-optimized_tor_path = "embeddings/the-one-ring_optimized.json"
-fallback_tor_path = "embeddings/the-one-ring.json"
+    new_tor_loading = '''# Load The Witcher embeddings (prefer optimized version)
+the_witcher_embeddings = []
+optimized_tor_path = "embeddings/the-witcher_optimized.json"
+fallback_tor_path = "embeddings/the-witcher.json"
 
 if Path(optimized_tor_path).exists():
-    the_one_ring_embeddings = load_optimized_embeddings(optimized_tor_path)
-    print("📚 Loaded optimized The One Ring embeddings")
+    the_witcher_embeddings = load_optimized_embeddings(optimized_tor_path)
+    print("📚 Loaded optimized The Witcher embeddings")
 elif Path(fallback_tor_path).exists():
-    the_one_ring_embeddings = load_optimized_embeddings(fallback_tor_path)
-    print("📚 Loaded standard The One Ring embeddings")'''
+    the_witcher_embeddings = load_optimized_embeddings(fallback_tor_path)
+    print("📚 Loaded standard The Witcher embeddings")'''
     
     old_dune_loading = '''dune_embeddings = []
 if Path("embeddings/dune.json").exists():
@@ -99,7 +99,7 @@ def update_search_logic():
         content = f.read()
     
     # Find and replace The One Ring search logic
-    old_tor_search = '''    if page == "the-one-ring" and the_one_ring_embeddings:
+    old_tor_search = '''    if page == "the-witcher" and the_witcher_embeddings:
         try:
             embedding_client = OpenAI()
             user_embedding = embedding_client.embeddings.create(
@@ -108,7 +108,7 @@ def update_search_logic():
             print("[DEBUG] User embedding generated:", bool(user_embedding))
 
             best = max(
-                the_one_ring_embeddings,
+                the_witcher_embeddings,
                 key=lambda x: cosine_similarity(user_embedding, x["embedding"]),
             )
             best_text = best["text"]
@@ -119,40 +119,40 @@ def update_search_logic():
             )
 
             full_system_prompt += (
-                f"\\n\\n[RELEVANT EXCERPT FROM '{best_source}']\\n"
-                f"Do not reveal this unless the user explicitly asks:\\n{best_text}"
+                f"\n\n[RELEVANT EXCERPT FROM '{best_source}']\n"
+                f"Do not reveal this unless the user explicitly asks:\n{best_text}"
             )
         except Exception as e:
             print("Embedding search failed:", e)'''
     
-    new_tor_search = '''    # Enhanced The One Ring embedding search
-    if page == "the-one-ring" and the_one_ring_embeddings:
+    new_tor_search = '''    # Enhanced The Witcher embedding search
+    if page == "the-witcher" and the_witcher_embeddings:
         try:
             embedding_client = OpenAI()
             user_embedding = embedding_client.embeddings.create(
                 model="text-embedding-3-small", input=user_input
             ).data[0].embedding
-            print("[DEBUG] User embedding generated for The One Ring:", bool(user_embedding))
+            print("[DEBUG] User embedding generated for The Witcher:", bool(user_embedding))
 
             # Use improved search with multiple results and context awareness
-            context_keywords = ["hobbit", "middle-earth", "fellowship", "corruption", "journey", "shire"]
+            context_keywords = ["witcher", "monster", "contract", "signs", "alchemy", "mutagen"]
             reference_text = improved_embedding_search(
                 query=user_input,
                 query_embedding=user_embedding,
-                embeddings=the_one_ring_embeddings,
-                ttrpg_type="the-one-ring",
+                embeddings=the_witcher_embeddings,
+                ttrpg_type="the-witcher",
                 context_keywords=context_keywords
             )
             
             if reference_text:
                 full_system_prompt += (
-                    f"\\n\\n[RELEVANT EXCERPTS FROM THE ONE RING RULES]\\n"
+                    f"\n\n[RELEVANT EXCERPTS FROM THE WITCHER LORE]\n"
                     f"Do not reveal or quote these unless the user explicitly asks:\\n{reference_text}"
                 )
-                print(f"[DEBUG] Added {len(reference_text)} chars of The One Ring reference content")
+                print(f"[DEBUG] Added {len(reference_text)} chars of The Witcher reference content")
             
         except Exception as e:
-            print("The One Ring embedding search failed:", e)'''
+            print("The Witcher embedding search failed:", e)'''
     
     # Find and replace Dune search logic
     old_dune_search = '''    if page == "dune" and dune_embeddings:

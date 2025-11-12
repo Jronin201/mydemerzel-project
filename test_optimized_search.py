@@ -33,11 +33,11 @@ def test_optimized_embeddings():
 
         # Load optimized embeddings
         dune_embeddings = load_optimized_embeddings("embeddings/dune_optimized.json")
-        tor_embeddings = load_optimized_embeddings("embeddings/the-one-ring_optimized.json")
+        witcher_embeddings = load_optimized_embeddings("embeddings/the-witcher_optimized.json")
 
         print(f"📚 Loaded embeddings:")
         print(f"   • Dune: {len(dune_embeddings)} optimized chunks")
-        print(f"   • The Witcher: {len(tor_embeddings)} optimized chunks")
+        print(f"   • The Witcher: {len(witcher_embeddings)} optimized chunks")
         print()
         
         # Test queries
@@ -52,12 +52,12 @@ def test_optimized_embeddings():
                 ]
             },
             {
-                'system': 'the-one-ring', 
-                'embeddings': tor_embeddings,
+                'system': 'the-witcher', 
+                'embeddings': witcher_embeddings,
                 'queries': [
-                    "How do I create a hobbit character?",
-                    "What are the travel rules?",
-                    "How does corruption work?"
+                    "How do I build a School of the Wolf witcher?",
+                    "What potions are best against specters?",
+                    "Explain toxicity and how to manage it."
                 ]
             }
         ]

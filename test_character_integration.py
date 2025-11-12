@@ -34,7 +34,7 @@ class TestCharacterInfoIntegration(unittest.TestCase):
     def tearDown(self):
         """Clean up test data"""
         # Clean up any test files
-        test_systems = ["dune", "the-one-ring", "zweihander", "general"]
+        test_systems = ["dune", "the-witcher", "zweihander", "general"]
         for system in test_systems:
             delete_user_character_info(self.test_username, system)
         
@@ -110,32 +110,32 @@ class TestCharacterInfoIntegration(unittest.TestCase):
             "character_name": "Paul Atreides",
             "character_stats": "Fremen leader"
         }
-        self.client.post('/api/character-info', 
+        self.client.post('/api/character-info',
                         data=json.dumps(dune_data),
                         content_type='application/json')
         
-    # Save character info for The Witcher
-        ring_data = {
-            "ttrpg": "the-one-ring",
-            "character_name": "Frodo Baggins", 
-            "character_stats": "Hobbit with the Ring"
+        # Save character info for The Witcher
+        witcher_data = {
+            "ttrpg": "the-witcher",
+            "character_name": "Geralt of Rivia", 
+            "character_stats": "White Wolf witcher, master swordsman, signs adept"
         }
         self.client.post('/api/character-info',
-                        data=json.dumps(ring_data),
+                        data=json.dumps(witcher_data),
                         content_type='application/json')
         
         # Load Dune character info
         response = self.client.get('/api/character-info?ttrpg=dune')
         dune_result = json.loads(response.data)
         
-    # Load The Witcher character info
-        response = self.client.get('/api/character-info?ttrpg=the-one-ring')
-        ring_result = json.loads(response.data)
-        
+        # Load The Witcher character info
+        response = self.client.get('/api/character-info?ttrpg=the-witcher')
+        witcher_result = json.loads(response.data)
+
         # Verify they're separate
         self.assertEqual(dune_result['character_name'], "Paul Atreides")
-        self.assertEqual(ring_result['character_name'], "Frodo Baggins")
-        self.assertNotEqual(dune_result['character_name'], ring_result['character_name'])
+        self.assertEqual(witcher_result['character_name'], "Geralt of Rivia")
+        self.assertNotEqual(dune_result['character_name'], witcher_result['character_name'])
     
     def test_character_sessions_api(self):
         """Test getting all character sessions for a user"""
@@ -159,7 +159,7 @@ class TestCharacterInfoIntegration(unittest.TestCase):
         # Save character info for multiple TTRPGs
         ttprgs = [
             {"ttrpg": "dune", "character_name": "Paul", "character_stats": "Duke"},
-            {"ttrpg": "the-one-ring", "character_name": "Frodo", "character_stats": "Hobbit"},
+            {"ttrpg": "the-witcher", "character_name": "Geralt", "character_stats": "Witcher"},
             {"ttrpg": "zweihander", "character_name": "Detective", "character_stats": "Investigator"}
         ]
         
@@ -181,7 +181,7 @@ class TestCharacterInfoIntegration(unittest.TestCase):
                          if session.get('character_name') and session.get('character_name').strip()]
         active_systems = [session['ttrpg_system'] for session in active_sessions]
         self.assertIn('dune', active_systems)
-        self.assertIn('the-one-ring', active_systems)
+        self.assertIn('the-witcher', active_systems)
         self.assertIn('zweihander', active_systems)
     
     def test_character_info_update(self):

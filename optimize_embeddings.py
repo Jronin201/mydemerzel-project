@@ -30,7 +30,7 @@ def check_requirements():
     # Check for document files
     doc_files = [
         "documents/dune/dune.txt",
-        "documents/the-one-ring"
+    "documents/the-witcher"
     ]
     
     for doc_path in doc_files:
@@ -158,7 +158,7 @@ def test_embedding_search():
             "What are the powers of the Bene Gesserit?",
             "Tell me about House Atreides"
         ],
-        "the-one-ring": [
+    "the-witcher": [
             "How do I brew and use potions as a witcher?",
             "How do toxicity and potion duration interact in Witcher alchemy?",
             "How does a witcher negotiate a monster contract?"

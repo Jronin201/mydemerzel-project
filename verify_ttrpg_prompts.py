@@ -20,7 +20,7 @@ def verify_ttrpg_system():
     files_to_check = [
         ("Global", "system_prompt.txt"),
         ("Dune", "static/dune/system_prompt.txt"),
-        ("The Witcher", "static/the-one-ring/system_prompt.txt"),
+    ("The Witcher", "static/the-witcher/system_prompt.txt"),
         ("Zweihander", "static/zweihander/system_prompt.txt")
     ]
     
@@ -37,7 +37,7 @@ def verify_ttrpg_system():
         from app import load_system_prompt
         
         # Test each TTRPG
-        ttrpgs = ["dune", "the-one-ring", "zweihander"]
+        ttrpgs = ["dune", "the-witcher", "zweihander"]
         global_prompt = load_system_prompt("")
         
         print(f"   ✓ Global prompt loaded ({len(global_prompt)} chars)")
@@ -58,7 +58,7 @@ def verify_ttrpg_system():
     
     content_checks = {
         "dune": ["Game Master", "spice", "Atreides", "political intrigue"],
-        "the-one-ring": ["Witcher", "mutagen", "signs", "monster"],
+        "the-witcher": ["Witcher", "mutagen", "signs", "monster"],
         "zweihander": ["Plain", "Gothic", "investigator", "mystery"]
     }
     

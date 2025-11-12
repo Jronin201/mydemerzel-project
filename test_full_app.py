@@ -30,7 +30,7 @@ def test_root_page():
 
 def test_static_pages():
     # These legacy routes now redirect to universal chatbot (302 expected)
-    paths = ["/the-one-ring", "/call-of-cthulhu", "/master-template"]
+    paths = ["/the-witcher", "/the-one-ring", "/call-of-cthulhu", "/master-template"]
     with app.test_client() as client:
         login(client)
         for path in paths:

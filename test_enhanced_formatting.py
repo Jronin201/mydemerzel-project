@@ -55,7 +55,7 @@ def test_formatting():
         {
             "name": "Story Description with Multiple Elements",
             "message": "Describe the mysterious dungeon entrance with details about treasures, dangers, and magical effects",
-            "page": "the-one-ring",
+            "page": "the-witcher",
             "character_name": "Gandalf the Wise",
             "character_stats": "Wizard of great power, keeper of ancient secrets"
         }

@@ -143,7 +143,7 @@ def test_search_performance():
     
     # Load embeddings
     dune_path = Path('embeddings/dune.json')
-    tor_path = Path('embeddings/the-one-ring.json')
+    witcher_path = Path('embeddings/the-witcher.json')
     
     if not openai_available:
         print("⚠️  Cannot test live search without OpenAI API key")
@@ -159,10 +159,10 @@ def test_search_performance():
                 'What are the powers of the Bene Gesserit?',
                 'How does a stillsuit work?'
             ],
-            'the-one-ring': [
-                'How do I create a hobbit character?',
-                'What are the rules for travel in Middle-earth?',
-                'Tell me about the corruption of power'
+            'the-witcher': [
+                'How do I create a witcher from the School of the Wolf?',
+                'What signs work best against specters?',
+                'Explain witcher toxicity and how to manage it'
             ]
         }
         
@@ -244,7 +244,7 @@ def main():
     print("=" * 50)
     
     # Analyze each embedding file
-    for filename in ['dune.json', 'the-one-ring.json']:
+    for filename in ['dune.json', 'the-witcher.json']:
         file_path = Path('embeddings') / filename
         analyze_embedding_file(file_path)
     

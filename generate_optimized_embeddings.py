@@ -296,9 +296,9 @@ def main():
             'source': 'dune.txt'
         },
         {
-            'input': Path("documents/the-one-ring/archive-the-one-ring-starter-rules.txt"),
-            'output': Path("embeddings/the-one-ring_optimized.json"),
-            'source': 'the-one-ring-starter-rules.txt'
+            'input': Path("documents/the-witcher/archive-the-one-ring-starter-rules.txt"),
+            'output': Path("embeddings/the-witcher_optimized.json"),
+            'source': 'the-witcher-starter-rules.txt'
         }
     ]
     

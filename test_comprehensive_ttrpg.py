@@ -26,8 +26,8 @@ def test_comprehensive_ttrpg_system():
             "keywords": ["Dune", "spice", "Atreides", "Game Master", "political", "espionage"],
             "title": "Dune: Adventures in the Imperium"
         },
-        "the-one-ring": {
-            "keywords": ["Middle-earth", "Tolkien", "Loremaster", "Fellowship"],
+        "the-witcher": {
+            "keywords": ["Continent", "witcher", "signs", "monster"],
             "title": "The Witcher"
         },
         "zweihander": {
@@ -73,7 +73,7 @@ def test_comprehensive_ttrpg_system():
         # Test each TTRPG with setting-appropriate questions
         test_messages = {
             "dune": "What political factions should I be aware of?",
-            "the-one-ring": "What ancient paths lie before us?", 
+            "the-witcher": "What contracts are available near Novigrad?", 
             "zweihander": "What strange whispers echo in this old mansion?"
         }
         
@@ -124,9 +124,9 @@ def test_comprehensive_ttrpg_system():
                 "character_name": "Paul Atreides - Duke of Arrakis",
                 "character_stats": "Quest: Uncover the traitor. Status: On Arrakis."
             },
-            "the-one-ring": {
-                "character_name": "Brego - Ranger of the North",
-                "character_stats": "Quest: Protect the Shire. Status: Traveling through Mirkwood."
+            "the-witcher": {
+                "character_name": "Geralt of Rivia - Witcher",
+                "character_stats": "Contract: Hunt leshen near Novigrad. Status: Preparing oils and potions."
             },
             "zweihander": {
                 "character_name": "Dr. Henry Armitage - Miskatonic Professor",

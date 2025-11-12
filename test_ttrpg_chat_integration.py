@@ -23,9 +23,9 @@ def test_ttrpg_chat_prompts():
             "expected_keywords": ["Paul", "Atreides", "Arrakis", "spice"]
         },
         {
-            "ttrpg": "the-one-ring", 
+            "ttrpg": "the-witcher", 
             "message": "What do I see around me?",
-            "expected_keywords": ["Middle-earth", "Tolkien"]
+            "expected_keywords": ["Continent", "witcher", "monster"]
         },
         {
             "ttrpg": "zweihander",

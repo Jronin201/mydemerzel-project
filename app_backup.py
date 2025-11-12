@@ -132,20 +132,18 @@ def logout():
 @login_required
 def root():
     return app.send_static_file("index.html")
-
-
 # --- FIX: Load embeddings and reference texts globally for all routes ---
-the_one_ring_embeddings = []
-if Path("embeddings/the-one-ring.json").exists():
-    with open("embeddings/the-one-ring.json", "r", encoding="utf-8") as f:
-        the_one_ring_embeddings = json.load(f)
-the_one_ring_texts = {}
-tor_dir = os.path.join(app.static_folder or "static", "text", "the-one-ring")
-if os.path.isdir(tor_dir):
-    for fname in os.listdir(tor_dir):
+the_witcher_embeddings = []
+if Path("embeddings/the-witcher.json").exists():
+    with open("embeddings/the-witcher.json", "r", encoding="utf-8") as f:
+        the_witcher_embeddings = json.load(f)
+the_witcher_texts = {}
+witcher_dir = os.path.join(app.static_folder or "static", "text", "the-witcher")
+if os.path.isdir(witcher_dir):
+    for fname in os.listdir(witcher_dir):
         if fname.endswith(".txt"):
-            with open(os.path.join(tor_dir, fname), "r", encoding="utf-8") as f:
-                the_one_ring_texts[fname] = f.read()
+            with open(os.path.join(witcher_dir, fname), "r", encoding="utf-8") as f:
+                the_witcher_texts[fname] = f.read()
 
 dune_embeddings = []
 if Path("embeddings/dune.json").exists():
@@ -171,7 +169,7 @@ def load_ttrpg_config():
                     "version": "1.0",
                     "game_master_title": "Game Master"
                 },
-                "the-one-ring": {
+                "the-witcher": {
                     "display_name": "The Witcher",
                     "description": "Dark fantasy adventures across the Continent amid monsters, mages, and political intrigue",
                     "active": True,
@@ -304,10 +302,16 @@ def ttrpg_chatbot():
     return app.send_static_file("ttrpg-chatbot/index.html")
 
 # --- Keep old routes for backward compatibility (redirect to new universal page) ---
+@app.route("/the-witcher")
+@login_required
+def the_witcher():
+    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=the-witcher')
+
+
 @app.route("/the-one-ring")
 @login_required
 def the_one_ring():
-    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=the-one-ring')
+    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=the-witcher')
 
 @app.route("/dune")
 @login_required
@@ -611,6 +615,11 @@ def chat():
 
     user_input = data.get("message", "").strip()
     page = data.get("page") or ""
+    legacy_slug_map = {
+        "the-one-ring": "the-witcher",
+    }
+    if page in legacy_slug_map:
+        page = legacy_slug_map[page]
     character_name = data.get("character_name", "").strip()
     character_stats = data.get("character_stats", "").strip()
     
@@ -632,10 +641,12 @@ def chat():
     elif not page:
         # Try to determine page from referer
         ref = request.headers.get("Referer", "")
-        for candidate in ["the-one-ring", "dune", "zweihander", "master-template", "ttrpg-chatbot"]:
+        for candidate in ["the-witcher", "the-one-ring", "dune", "zweihander", "master-template", "ttrpg-chatbot"]:
             if candidate in ref:
                 page = candidate
                 break
+        if page in legacy_slug_map:
+            page = legacy_slug_map[page]
         
         # If still no page, check current TTRPG file
         if not page:
@@ -652,13 +663,13 @@ def chat():
         # Define TTRPG-specific greetings
         ttrpg_titles = {
             "dune": "Dune: Adventures in the Imperium",
-            "the-one-ring": "The Witcher",
+            "the-witcher": "The Witcher",
             "zweihander": "Zweihander"
         }
         
         ttrpg_worlds = {
             "dune": "the dangerous desert world of Arrakis and the political intrigue of the Imperium",
-            "the-one-ring": "the dangerous, monster-haunted roads of the Continent",
+            "the-witcher": "the dangerous, monster-haunted roads of the Continent",
             "zweihander": "a plain gothic mystery full of creeping dread"
         }
         
@@ -710,7 +721,7 @@ def chat():
             if not char_name and not char_stats:
                 ttrpg_titles = {
                     "dune": "Dune: Adventures in the Imperium",
-                    "the-one-ring": "The Witcher", 
+                    "the-witcher": "The Witcher", 
                     "zweihander": "Zweihander"
                 }
                 
@@ -772,12 +783,12 @@ Example usage:
         messages = [summary_message] + recent
 
     # Add The Witcher reference text if user is on that page
-    if page == "the-one-ring" and the_one_ring_texts:
+    if page == "the-witcher" and the_witcher_texts:
         parts = []
         total = 0
         trimmed = False
-        for name in sorted(the_one_ring_texts):
-            text = the_one_ring_texts[name]
+        for name in sorted(the_witcher_texts):
+            text = the_witcher_texts[name]
             if total >= 5000:
                 trimmed = True
                 break
@@ -799,7 +810,7 @@ Example usage:
             "Do not reveal or quote this unless the user explicitly asks:\n" + reference
         )
 
-    if page == "the-one-ring" and the_one_ring_embeddings:
+    if page == "the-witcher" and the_witcher_embeddings:
         try:
             embedding_client = OpenAI()
             user_embedding = embedding_client.embeddings.create(
@@ -808,7 +819,7 @@ Example usage:
             print("[DEBUG] User embedding generated (Witcher):", bool(user_embedding))
 
             best = max(
-                the_one_ring_embeddings,
+                the_witcher_embeddings,
                 key=lambda x: cosine_similarity(user_embedding, x["embedding"]),
             )
             best_text = best["text"]

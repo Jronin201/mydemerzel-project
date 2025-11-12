@@ -86,21 +86,21 @@ def test_separate_ttrpg_histories():
             
             # Send message in The Witcher TTRPG
             client.post("/chat", json={
-                "message": "Tell me about the Shire",
-                "page": "the-one-ring"
+                "message": "Tell me about witcher contracts",
+                "page": "the-witcher"
             })
             
             # Check Dune history
             resp = client.get("/api/chat-history?ttrpg=dune")
             dune_data = resp.get_json()
             assert any(msg["content"] == "Tell me about spice" for msg in dune_data["messages"])
-            assert not any(msg["content"] == "Tell me about the Shire" for msg in dune_data["messages"])
+            assert not any("witcher" in msg["content"].lower() for msg in dune_data["messages"])
             
             # Check The Witcher history
-            resp = client.get("/api/chat-history?ttrpg=the-one-ring")
-            tor_data = resp.get_json()
-            assert any(msg["content"] == "Tell me about the Shire" for msg in tor_data["messages"])
-            assert not any(msg["content"] == "Tell me about spice" for msg in tor_data["messages"])
+            resp = client.get("/api/chat-history?ttrpg=the-witcher")
+            witcher_data = resp.get_json()
+            assert any("witcher contracts" in msg["content"].lower() for msg in witcher_data["messages"])
+            assert not any("spice" in msg["content"].lower() for msg in witcher_data["messages"])
 
 
 def test_chat_sessions_api():
@@ -116,7 +116,7 @@ def test_chat_sessions_api():
             
             # Create chat histories for multiple TTRPGs
             client.post("/chat", json={"message": "Dune message", "page": "dune"})
-            client.post("/chat", json={"message": "Ring message", "page": "the-one-ring"})
+            client.post("/chat", json={"message": "Witcher message", "page": "the-witcher"})
             client.post("/chat", json={"message": "Zweihander message", "page": "zweihander"})
             
             # Get all sessions
@@ -129,7 +129,7 @@ def test_chat_sessions_api():
             
             session_names = [session["ttrpg_system"] for session in data["sessions"]]
             assert "dune" in session_names
-            assert "the-one-ring" in session_names
+            assert "the-witcher" in session_names
             assert "zweihander" in session_names
 
 

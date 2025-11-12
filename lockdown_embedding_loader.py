@@ -43,7 +43,7 @@ def download_embeddings_if_missing() -> bool:
     # Updated to match Supabase file names (without _optimized suffix)
     required_files = [
         "embeddings/dune.json",
-        "embeddings/the-one-ring.json", 
+    "embeddings/the-witcher.json", 
         "embeddings/mouse-guard.json"
     ]
     
@@ -202,8 +202,8 @@ def get_embedding_status() -> Dict[str, Any]:
     files_to_check = [
         ("dune_optimized", "embeddings/dune_optimized.json"),
         ("dune_fallback", "embeddings/dune.json"),
-        ("tor_optimized", "embeddings/the-one-ring_optimized.json"),
-        ("tor_fallback", "embeddings/the-one-ring.json"),
+        ("witcher_optimized", "embeddings/the-witcher_optimized.json"),
+        ("witcher_fallback", "embeddings/the-witcher.json"),
         ("mouse_guard_optimized", "embeddings/mouse-guard_optimized.json"),
         ("mouse_guard_fallback", "embeddings/mouse-guard.json")
     ]
@@ -218,7 +218,7 @@ def get_embedding_status() -> Dict[str, Any]:
     
     # Generate recommendations
     missing_optimized = []
-    for system in ["dune", "tor", "mouse_guard"]:
+    for system in ["dune", "witcher", "mouse_guard"]:
         if not status["embedding_files"][f"{system}_optimized"]["exists"]:
             missing_optimized.append(system)
     
@@ -246,8 +246,8 @@ def initialize_embeddings_for_lockdown():
     # Updated for Supabase file names (no _optimized suffix)
     # Force download if any files are missing
     required_files = [
-        "embeddings/the-one-ring.json",
-        "embeddings/dune.json", 
+        "embeddings/the-witcher.json",
+        "embeddings/dune.json",
         "embeddings/mouse-guard.json"
     ]
     
@@ -258,10 +258,10 @@ def initialize_embeddings_for_lockdown():
         download_embeddings_if_missing()
     
     # Load each system's embeddings with correct file names
-    the_one_ring_embeddings = load_embeddings_with_fallback(
-        "embeddings/the-one-ring.json",
-        "embeddings/the-one-ring_fallback.json", 
-        "The One Ring"
+    the_witcher_embeddings = load_embeddings_with_fallback(
+        "embeddings/the-witcher.json",
+        "embeddings/the-witcher_fallback.json",
+        "The Witcher"
     )
     
     dune_embeddings = load_embeddings_with_fallback(
@@ -278,13 +278,13 @@ def initialize_embeddings_for_lockdown():
     
     # Print summary
     total_embeddings = (
-        len(the_one_ring_embeddings) + 
+    len(the_witcher_embeddings) + 
         len(dune_embeddings) + 
         len(mouse_guard_embeddings)
     )
     
     print(f"📊 Embedding Summary:")
-    print(f"   The One Ring: {len(the_one_ring_embeddings)} chunks")
+    print(f"   The Witcher: {len(the_witcher_embeddings)} chunks")
     print(f"   Dune: {len(dune_embeddings)} chunks") 
     print(f"   Mouse Guard: {len(mouse_guard_embeddings)} chunks")
     print(f"   Total: {total_embeddings} chunks")
@@ -294,4 +294,4 @@ def initialize_embeddings_for_lockdown():
         print("   The chatbot will work but with limited TTRPG knowledge.")
         print("   See deployment documentation for embedding setup.")
     
-    return the_one_ring_embeddings, dune_embeddings, mouse_guard_embeddings
+    return the_witcher_embeddings, dune_embeddings, mouse_guard_embeddings

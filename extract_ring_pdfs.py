@@ -16,6 +16,6 @@ def extract_text_from_pdfs(input_dir: Path, output_dir: Path) -> None:
 
 
 if __name__ == "__main__":
-    input_directory = Path('documents/the-one-ring')
-    output_directory = Path('static/text/the-one-ring')
+    input_directory = Path('documents/the-witcher')
+    output_directory = Path('static/text/the-witcher')
     extract_text_from_pdfs(input_directory, output_directory)

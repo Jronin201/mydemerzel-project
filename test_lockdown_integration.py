@@ -17,7 +17,7 @@ def test_lockdown_memory_optimization():
         
         # Test file name configuration
         from memory_optimized_embeddings import embedding_manager
-        expected_files = ['dune.json', 'the-one-ring.json', 'mouse-guard.json']
+        expected_files = ['dune.json', 'the-witcher.json', 'mouse-guard.json']
         actual_files = [files['optimized'].split('/')[-1] for files in embedding_manager.embedding_files.values()]
         
         print(f"✅ File name configuration:")

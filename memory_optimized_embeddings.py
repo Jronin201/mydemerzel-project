@@ -35,9 +35,9 @@ class MemoryOptimizedEmbeddingManager:
                 'optimized': 'embeddings/dune.json',  # Updated to match Supabase
                 'fallback': 'embeddings/dune_fallback.json'
             },
-            'the-one-ring': {
-                'optimized': 'embeddings/the-one-ring.json',  # Updated to match Supabase
-                'fallback': 'embeddings/the-one-ring_fallback.json'
+            'the-witcher': {
+                'optimized': 'embeddings/the-witcher.json',  # Updated to match Supabase
+                'fallback': 'embeddings/the-witcher_fallback.json'
             },
             'mouse-guard': {
                 'optimized': 'embeddings/mouse-guard.json',  # Updated to match Supabase
@@ -88,7 +88,7 @@ class MemoryOptimizedEmbeddingManager:
         Get embeddings for a specific system with lazy loading.
         
         Args:
-            system_name: Name of the TTRPG system ('dune', 'the-one-ring', 'mouse-guard')
+            system_name: Name of the TTRPG system ('dune', 'the-witcher', 'mouse-guard')
             
         Returns:
             List of embedding dictionaries

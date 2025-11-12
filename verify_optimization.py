@@ -25,7 +25,7 @@ def test_embedding_loading():
         from optimized_embedding_search import load_optimized_embeddings
         
         # Test loading existing embeddings
-        for name in ["dune", "the-one-ring"]:
+        for name in ["dune", "the-witcher"]:
             file_path = f"embeddings/{name}.json"
             embeddings = load_optimized_embeddings(file_path)
             if embeddings:

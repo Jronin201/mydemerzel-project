@@ -98,16 +98,16 @@ def simulate_full_user_journey():
             print("   ✅ Chat history contains both messages")
             
             print("\n10. User switches to The Witcher TTRPG...")
-            tor_resp = client.get("/ttrpg-chatbot?ttrpg=the-one-ring")
+            tor_resp = client.get("/ttrpg-chatbot?ttrpg=the-witcher")
             assert tor_resp.status_code == 200
             print("   ✅ Switched to The Witcher TTRPG")
             
             print("\n11. Send message in The Witcher system...")
             tor_chat_resp = client.post("/chat", json={
-                "message": "I want to visit the Shire",
-                "page": "the-one-ring",
-                "character_name": "Bilbo Baggins", 
-                "character_stats": "Burglar: Expert, Luck: Very High"
+                "message": "I will take a contract to hunt the leshen near Novigrad",
+                "page": "the-witcher",
+                "character_name": "Geralt of Rivia", 
+                "character_stats": "School of the Wolf witcher, master swordsman, signs adept"
             })
             assert tor_chat_resp.status_code == 200
             print("   ✅ Message sent in The Witcher system")
@@ -116,12 +116,12 @@ def simulate_full_user_journey():
             # Check Dune history is unchanged
             dune_history = client.get("/api/chat-history?ttrpg=dune").get_json()
             assert dune_history["message_count"] == 4
-            assert not any("visit the Shire" in msg["content"] for msg in dune_history["messages"])
+            assert not any("leshen" in msg["content"] for msg in dune_history["messages"])
             
             # Check The Witcher history has new message
-            tor_history = client.get("/api/chat-history?ttrpg=the-one-ring").get_json()
+            tor_history = client.get("/api/chat-history?ttrpg=the-witcher").get_json()
             assert tor_history["message_count"] == 2  # 1 user + 1 assistant
-            assert any("visit the Shire" in msg["content"] for msg in tor_history["messages"])
+            assert any("leshen" in msg["content"] for msg in tor_history["messages"])
             print("   ✅ Chat histories are properly separated by TTRPG system")
             
             print("\n13. Check user's all chat sessions...")
@@ -130,7 +130,7 @@ def simulate_full_user_journey():
             assert len(sessions_data["sessions"]) == 2
             session_names = [s["ttrpg_system"] for s in sessions_data["sessions"]]
             assert "dune" in session_names
-            assert "the-one-ring" in session_names
+            assert "the-witcher" in session_names
             print("   ✅ All user sessions listed correctly")
             
             print("\n🎉 Complete user journey test passed!")

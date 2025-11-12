@@ -12,17 +12,17 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from app import app
 
-def test_one_ring_character_functionality():
+def test_witcher_character_functionality():
     """Test character functionality with The Witcher (no campaign manager interference)"""
     print("🧪 Testing The Witcher Character Information Processing...")
     
     with app.test_client() as client:
         # Login
         client.post('/login', data={'username': 'Demerzel', 'password': 'Seraphine'})
-        
-    # Save character information for The Witcher
+
+        # Save character information for The Witcher
         char_info_data = {
-            'ttrpg': 'the-one-ring',
+            'ttrpg': 'the-witcher',
             'character_name': 'Geralt of Rivia – Witcher, Vitality: 42, Toxicity: 0',
             'character_stats': 'Mutagenically enhanced monster slayer. Carries steel & silver blades, Signs training, alchemy toolkit.'
         }
@@ -35,8 +35,8 @@ def test_one_ring_character_functionality():
         
         # Test character-aware chat
         chat_data = {
-            'message': 'I want to explore the Old Forest.',
-            'page': 'the-one-ring',
+            'message': 'I want to explore the foggy swamps near Novigrad.',
+            'page': 'the-witcher',
             'character_name': 'Geralt of Rivia – Witcher, Vitality: 42, Toxicity: 0',
             'character_stats': 'Mutagenically enhanced monster slayer. Carries steel & silver blades, Signs training, alchemy toolkit.'
         }
@@ -52,7 +52,7 @@ def test_one_ring_character_functionality():
             print(f"📄 AI Response: {ai_response}")
             
             # Check if AI uses character context
-            mentions_character = 'Bilbo' in ai_response or 'hobbit' in ai_response.lower() or 'shire' in ai_response.lower()
+            mentions_character = 'Geralt' in ai_response or 'witcher' in ai_response.lower() or 'monster' in ai_response.lower()
             print(f"✅ AI uses character context: {mentions_character}")
             
             # Check for updates
@@ -65,8 +65,8 @@ def test_one_ring_character_functionality():
         # Test combat scenario
         print("\n⚔️ Testing combat scenario for proactive updates...")
         combat_data = {
-            'message': 'A pack of wolves attacks me! I try to use my burglar skills to sneak past them.',
-            'page': 'the-one-ring',
+            'message': 'A pack of drowners leaps from the water! I ready my silver sword and cast Igni.',
+            'page': 'the-witcher',
             'character_name': 'Geralt of Rivia – Witcher, Vitality: 42, Toxicity: 0',
             'character_stats': 'Mutagenically enhanced monster slayer. Carries steel & silver blades, Signs training, alchemy toolkit.'
         }
@@ -89,8 +89,8 @@ def test_one_ring_character_functionality():
         # Test character creation scenario
         print("\n🎭 Testing character creation suggestion...")
         creation_data = {
-            'message': 'I want to create a new hobbit character.',
-            'page': 'the-one-ring',
+            'message': 'I want to create a new witcher from the School of the Cat.',
+            'page': 'the-witcher',
             'character_name': '',
             'character_stats': ''
         }
@@ -109,4 +109,4 @@ def test_one_ring_character_functionality():
             print(f"✅ AI offers character creation help: {offers_help}")
 
 if __name__ == '__main__':
-    test_one_ring_character_functionality()
+    test_witcher_character_functionality()

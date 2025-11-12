@@ -35,7 +35,7 @@ def test_embedding_search():
             "What are the powers of the Bene Gesserit?",
             "Tell me about House Atreides"
         ],
-        "the-one-ring": [
+    "the-witcher": [
             "How do I brew and use potions as a witcher?",
             "How does a witcher track a nocturnal flying monster?",
             "How does a witcher negotiate a monster contract?"

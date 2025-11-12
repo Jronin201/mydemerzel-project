@@ -248,9 +248,9 @@ embedding_manager.embedding_files = {
         'optimized': 'embeddings/dune.json',  # Match Supabase names
         'fallback': 'embeddings/dune_optimized.json'  # Reverse priority if both exist
     },
-    'the-one-ring': {
-        'optimized': 'embeddings/the-one-ring.json',  # Match Supabase names
-        'fallback': 'embeddings/the-one-ring_optimized.json'
+    'the-witcher': {
+        'optimized': 'embeddings/the-witcher.json',  # Match Supabase names
+        'fallback': 'embeddings/the-witcher_optimized.json'
     },
     'mouse-guard': {
         'optimized': 'embeddings/mouse-guard.json',  # Match Supabase names
@@ -278,13 +278,13 @@ for system_name, files in embedding_manager.embedding_files.items():
 # This prevents memory exhaustion during startup
 
 # Load Witcher reference texts (replacing previous One Ring/Tolkien materials)
-the_one_ring_texts = {}
-witcher_dir = os.path.join(app.static_folder or "static", "text", "witcher")
+the_witcher_texts = {}
+witcher_dir = os.path.join(app.static_folder or "static", "text", "the-witcher")
 if os.path.isdir(witcher_dir):
     for fname in os.listdir(witcher_dir):
         if fname.endswith(".txt"):
             with open(os.path.join(witcher_dir, fname), "r", encoding="utf-8") as f:
-                the_one_ring_texts[fname] = f.read()
+                the_witcher_texts[fname] = f.read()
 
 # --- Enhanced TTRPG Configuration Management ---
 def load_ttrpg_config():
@@ -305,7 +305,7 @@ def load_ttrpg_config():
                     "version": "1.0",
                     "game_master_title": "Game Master"
                 },
-                "the-one-ring": {
+                "the-witcher": {
                     "display_name": "The Witcher",
                     "description": "Dark fantasy monster hunting and intrigue across the Continent",
                     "active": True,
@@ -454,10 +454,16 @@ def ttrpg_chatbot():
     return app.send_static_file("ttrpg-chatbot/index.html")
 
 # --- Keep old routes for backward compatibility (redirect to new universal page) ---
+@app.route("/the-witcher")
+@login_required
+def the_witcher():
+    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=the-witcher')
+
+
 @app.route("/the-one-ring")
 @login_required
 def the_one_ring():
-    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=the-one-ring')
+    return redirect(url_for('ttrpg_chatbot') + '?ttrpg=the-witcher')
 
 @app.route("/dune")
 @login_required
@@ -1280,6 +1286,11 @@ def chat():
     if not force_primary_requested and any(h in lowered_retry for h in RETRY_HINTS):
         force_primary_requested = True
     page = data.get("page") or ""
+    legacy_slug_map = {
+        "the-one-ring": "the-witcher",
+    }
+    if page in legacy_slug_map:
+        page = legacy_slug_map[page]
     character_name = data.get("character_name", "").strip()
     character_stats = data.get("character_stats", "").strip()
     
@@ -1313,10 +1324,12 @@ def chat():
     elif not page:
         # Try to determine page from referer
         ref = request.headers.get("Referer", "")
-        for candidate in ["the-one-ring", "dune", "zweihander", "mouse-guard", "pendragon", "master-template", "ttrpg-chatbot"]:
+        for candidate in ["the-witcher", "the-one-ring", "dune", "zweihander", "mouse-guard", "pendragon", "master-template", "ttrpg-chatbot"]:
             if candidate in ref:
                 page = candidate
                 break
+        if page in legacy_slug_map:
+            page = legacy_slug_map[page]
         
         # If still no page, check current TTRPG file
         if not page:
@@ -1355,7 +1368,7 @@ def chat():
             # Provide initial greeting for truly new sessions without character info
             ttrpg_titles = {
                 "dune": "Dune: Adventures in the Imperium",
-                "the-one-ring": "The Witcher",
+                "the-witcher": "The Witcher",
                 "zweihander": "Zweihander",
                 "mouse-guard": "Mouse Guard",
                 "pendragon": "Pendragon 6th Edition"
@@ -1363,7 +1376,7 @@ def chat():
             
             ttrpg_worlds = {
                 "dune": "the dangerous desert world of Arrakis and the political intrigue of the Imperium",
-                "the-one-ring": "the dangerous, monster‑haunted Continent",
+                "the-witcher": "the dangerous, monster‑haunted Continent",
                 "zweihander": "the mysterious and horror-filled world of the 1920s",
                 "mouse-guard": "the Mouse Territories, where brave mice defend their communities from the dangers of the natural world",
                 "pendragon": "Arthurian Britain, the legendary realm of King Arthur, chivalrous knights, and the Round Table"
@@ -1447,7 +1460,7 @@ def chat():
             if not char_name and not char_stats:
                 ttrpg_titles = {
                     "dune": "Dune: Adventures in the Imperium",
-                    "the-one-ring": "The Witcher", 
+                    "the-witcher": "The Witcher", 
                     "zweihander": "Zweihander",
                     "mouse-guard": "Mouse Guard",
                     "pendragon": "Pendragon 6th Edition"
@@ -1557,12 +1570,12 @@ UPDATE FORMATS (use exactly these):
             messages = [summary_message] + recent
 
     # Add The Witcher reference text if user is on that page
-    if page == "the-one-ring" and the_one_ring_texts:
+    if page == "the-witcher" and the_witcher_texts:
         parts = []
         total = 0
         trimmed = False
-        for name in sorted(the_one_ring_texts):
-            text = the_one_ring_texts[name]
+        for name in sorted(the_witcher_texts):
+            text = the_witcher_texts[name]
             if total >= 5000:
                 trimmed = True
                 break
@@ -1585,14 +1598,14 @@ UPDATE FORMATS (use exactly these):
         )
 
     # Enhanced The Witcher embedding search
-    if page == "the-one-ring":
+    if page == "the-witcher":
         try:
             print("[DEBUG] Searching The Witcher embeddings...")
             
             # Use memory-optimized search
             search_results = memory_optimized_embedding_search(
                 query=user_input,
-                system_name="the-one-ring",
+                system_name="the-witcher",
                 max_results=5,
                 min_similarity=0.6
             )

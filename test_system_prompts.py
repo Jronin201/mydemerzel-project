@@ -22,7 +22,7 @@ def test_system_prompts():
     print()
     
     # Test each TTRPG system
-    ttrpgs = ["dune", "the-one-ring", "zweihander"]
+    ttrpgs = ["dune", "the-witcher", "zweihander"]
     
     for ttrpg in ttrpgs:
         print(f"Testing {ttrpg}:")
@@ -35,7 +35,7 @@ def test_system_prompts():
             # Check for TTRPG-specific keywords
             keywords = {
                 "dune": ["Dune", "spice", "Atreides", "Game Master"],
-                "the-one-ring": ["Witcher", "mutagen", "signs", "monster"],
+                "the-witcher": ["Witcher", "mutagen", "signs", "monster"],
                 "zweihander": ["Plain", "Gothic", "investigator", "mystery"]
             }
             
