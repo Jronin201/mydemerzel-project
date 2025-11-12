@@ -25,11 +25,7 @@
       "created_date": "2024-01-01",
       "version": "1.0",
       "game_master_title": "Game Master",
-      "themes": [
-        "monster hunting",
-        "moral ambiguity",
-        "gritty survival"
-      ],
+      "themes": ["monster hunting", "moral ambiguity", "gritty survival"],
       "setting": "The Continent (Witcher world of sorcery, monsters, and fractured kingdoms)"
     },
     "zweihander": {
