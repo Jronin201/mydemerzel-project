@@ -176,3 +176,16 @@ Maintain each mode for several paragraphs to allow the reader to adjust and abso
 Signal shifts through paragraph rhythm, sentence scope, and sensory density: wide imagery and summary for Sliding, concrete and physical for Close Third, intimate and reflective for First Person.
 
 The narrative should always feel like a slow camera pan—drawing closer when the world narrows to one mind, and easing outward when that mind re-enters the broader story.
+
+Notes-to-Prose Clarity Directive
+- Merge the Notes’ blunt facts directly into the prose. Begin each beat with a single, factual lead sentence that states the key outcome from the Notes (“Aleric killed the bowman with a clean thrust.”), then proceed with action → outcome → concrete sensory detail.
+- One fact per sentence. Use explicit subjects after any switch: name or role for the next two sentences (“Aleric…,” “the shield-man…”). Avoid ambiguous “he.”
+- Maintain fixed spatial anchors verbatim whenever motion changes or forces converge (“river on his left,” “palisade at his back”).
+- Keep counts and labels consistent (“3 riders,” “lead rider on the bay,” “shield-man with the green shield”). Reuse the same labels throughout the scene.
+- Prefer physical verbs and observable results. No implication verbs (“seemed,” “appeared”) unless contrasted. Metaphors follow existing limits.
+- Time-order is explicit. Use separate sentences for sequential actions. Use “at the same time” only for truly simultaneous actions by one actor; otherwise split.
+- Dialogue carries one fact or one order per line and is tagged with the speaker.
+- Outcome tags resolve first: write one decisive consequence sentence, then continue with concrete follow-through.
+- No recaps and no backfill. Each sentence advances the present beat and remains drawable without interpretation.
+- Sentence length ≤22 words. Default to subject–verb–object structure. Re-anchor the scene at the end of each beat if positions changed.
+
