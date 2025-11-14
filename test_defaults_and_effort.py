@@ -13,7 +13,7 @@ def test_defaults_medium_effort_and_20k(monkeypatch):
         captured['kwargs'] = kwargs
         return {
             'output_text': 'Short',
-            'model': 'gpt-5-defaults',
+            'model': 'gpt-5.1-defaults',
             'used_fallback': False,
             'id': 'resp_defaults',
             'usage': {'input_tokens': 10, 'output_tokens': 2, 'total_tokens': 12},
@@ -37,7 +37,7 @@ def test_high_effort_override(monkeypatch):
         captured['kwargs'] = kwargs
         return {
             'output_text': 'High effort reply',
-            'model': 'gpt-5-high',
+            'model': 'gpt-5.1-high',
             'used_fallback': False,
             'id': 'resp_high',
             'usage': {'input_tokens': 15, 'output_tokens': 5, 'total_tokens': 20},

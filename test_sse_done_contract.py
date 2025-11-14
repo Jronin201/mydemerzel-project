@@ -28,7 +28,7 @@ def test_sse_done_contract(monkeypatch):
     monkeypatch.setenv('OPENAI_STREAM_RESPONSES','true')
     def fake_stream(messages, **kwargs):
         yield ('delta','Hi')
-        yield ('done', {'model':'gpt-5','id':'resp_contract','usage':{'input_tokens':10,'output_tokens':2}})
+        yield ('done', {'model':'gpt-5.1','id':'resp_contract','usage':{'input_tokens':10,'output_tokens':2}})
     monkeypatch.setattr(ai_client, 'request_stream', fake_stream)
     with app.test_client() as c:
         resp = c.post('/chat', json={'message':'Hello','page':'general'}, headers={'Accept':'text/event-stream'})

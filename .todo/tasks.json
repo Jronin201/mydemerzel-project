@@ -1,27 +1,27 @@
 [
   {
     "id": 1,
-    "title": "Locate Vampire references",
+    "title": "Inventory GPT-5 references",
     "status": "complete"
   },
   {
     "id": 2,
-    "title": "Rename static folder",
-    "status": "complete"
+    "title": "Switch code defaults to GPT-5.1",
+    "status": "not-started"
   },
   {
     "id": 3,
-    "title": "Update code references",
-    "status": "complete"
+    "title": "Update tests and fixtures",
+    "status": "not-started"
   },
   {
     "id": 4,
-    "title": "Update docs and scripts",
-    "status": "complete"
+    "title": "Refresh docs and samples",
+    "status": "not-started"
   },
   {
     "id": 5,
-    "title": "Run quick verification",
-    "status": "complete"
+    "title": "Run verification suite",
+    "status": "not-started"
   }
 ]

@@ -591,7 +591,7 @@ def summarize_messages(messages):
             summary_prompt.append(ChatCompletionAssistantMessageParam(role="assistant", content=m["content"]))
 
     # Allow model override via environment variables
-    OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.0")
+    OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.1")
     OPENAI_SUMMARY_MODEL = os.environ.get("OPENAI_SUMMARY_MODEL", OPENAI_CHAT_MODEL)
     response = client.chat.completions.create(
         model=OPENAI_SUMMARY_MODEL, messages=summary_prompt
@@ -880,7 +880,7 @@ Example usage:
 
     full_messages_dicts = [{"role": "system", "content": full_system_prompt}] + filtered
     full_messages = [dict_to_message_param(m) for m in full_messages_dicts]
-    OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.0")
+    OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.1")
     try:
         OPENAI_MAX_TOKENS = int(os.environ.get("OPENAI_MAX_TOKENS", "20000"))
     except ValueError:

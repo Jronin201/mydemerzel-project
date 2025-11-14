@@ -15,7 +15,7 @@ def test_non_stream_latency_log(monkeypatch, capsys):
         return {
             'output_text':'Hello',
             'usage': {'input_tokens':5,'output_tokens':2},
-            'model':'gpt-5',
+            'model':'gpt-5.1',
             'id':'resp_lat',
             'backoff_ms': '-',
             'used_fallback': False

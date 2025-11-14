@@ -15,7 +15,7 @@ def test_chat_route_mixed_history_non_stream(monkeypatch):
         # Provide usage with positive output tokens
         return {
             'output_text': 'OK response',
-            'model': 'gpt-5-2025-08-15',
+            'model': 'gpt-5.1-2025-08-15',
             'used_fallback': False,
             'id': 'resp_mixed_history',
             'usage': {'input_tokens': 25, 'output_tokens': 6, 'total_tokens': 31},
@@ -47,7 +47,7 @@ def test_chat_route_mixed_history_non_stream(monkeypatch):
         assert resp.status_code == 200
         data = resp.get_json()
         assert data['message']
-        assert data['model'].startswith('gpt-5-') or 'gpt-5' in data['model']
+        assert data['model'].startswith('gpt-5.1-') or 'gpt-5.1' in data['model']
         assert data['fallback'] is False
         assert data['usage']['output_tokens'] > 0
 
@@ -58,7 +58,7 @@ def test_chat_route_mixed_history_stream(monkeypatch):
     def fake_stream(messages, **kwargs):
         yield ('delta','O')
         yield ('delta','K')
-        yield ('done', {'model':'gpt-5-2025-08-15','id':'resp_stream_mixed','usage':{'input_tokens':20,'output_tokens':5}})
+        yield ('done', {'model':'gpt-5.1-2025-08-15','id':'resp_stream_mixed','usage':{'input_tokens':20,'output_tokens':5}})
     monkeypatch.setattr(ai_client, 'request_stream', fake_stream)
 
     with app.test_client() as c:
@@ -92,4 +92,4 @@ def test_chat_route_mixed_history_stream(monkeypatch):
         for k in ['model','resp_id','usage','fallback','latency_ms','breaker_state','backoff_ms']:
             assert k in meta
         assert meta['fallback'] is False
-        assert 'gpt-5' in meta['model']
+        assert 'gpt-5.1' in meta['model']

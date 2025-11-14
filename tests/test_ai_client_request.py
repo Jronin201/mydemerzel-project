@@ -15,7 +15,7 @@ class DummyUsage:
         self.total_tokens = input_tokens + output_tokens
 
 class DummyResp:
-    def __init__(self, output_text=None, model="gpt-5-2025-08-07", rid="resp_test_1", usage=None):
+    def __init__(self, output_text=None, model="gpt-5.1-2025-08-07", rid="resp_test_1", usage=None):
         self.output_text = output_text
         self.model = model
         self.id = rid
@@ -42,7 +42,7 @@ class DummyClient:
 @pytest.fixture(autouse=True)
 def patch_client(monkeypatch):
     # Ensure consistent config
-    monkeypatch.setenv("OPENAI_MODEL", "gpt-5")
+    monkeypatch.setenv("OPENAI_MODEL", "gpt-5.1")
     monkeypatch.setenv("OPENAI_MAX_OUTPUT_TOKENS", "256")
     # Replace internal _client after module import
     yield
@@ -54,7 +54,7 @@ def test_returns_plain_text(monkeypatch):
     res = ai_client.request([{"role":"user","content":"Hi"}])
     assert res["output_text"] == "Hello world"
     assert res["usage"]["output_tokens"] == 20
-    assert dummy.calls[0]["model"] == "gpt-5"
+    assert dummy.calls[0]["model"] == "gpt-5.1"
 
 def test_log_observability_and_fallback(monkeypatch, capsys):
     # Hard failure then success fallback
@@ -66,7 +66,7 @@ def test_log_observability_and_fallback(monkeypatch, capsys):
     assert res["used_fallback"] is True
     captured = capsys.readouterr().out
     log_text = captured
-    assert "openai.model=gpt-5" in log_text
+    assert "openai.model=gpt-5.1" in log_text
     assert "fallback_trigger" in log_text
     assert "openai.model=gpt-4o" in log_text or "gpt-4o-2025" in log_text
     assert "openai.resp_id=resp_fallback" in log_text
@@ -130,7 +130,7 @@ def test_fallback_on_hard_error(monkeypatch):
     res = ai_client.request([{"role":"user","content":"Ping"}])
     assert res["output_text"] == "Hi"
     assert res["used_fallback"] is True
-    assert dummy.calls[0]["model"] == "gpt-5"
+    assert dummy.calls[0]["model"] == "gpt-5.1"
     assert dummy.calls[1]["model"] == "gpt-4o"
 
 @pytest.mark.parametrize("exc", [NotFoundError("model_not_found"), HardError("500"),])

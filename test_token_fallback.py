@@ -18,8 +18,8 @@ def test_token_error_then_retry(monkeypatch):
     def fake_request(messages, **kwargs):
         calls["n"] += 1
         if calls["n"] == 1:
-            return {"output_text":"", "model":"gpt-5", "used_fallback": False, "error":"missing_output_text"}
-        return {"output_text":"Recovered after token clamp", "model":"gpt-5", "used_fallback": False, "usage":{}, "id":"test"}
+            return {"output_text":"", "model":"gpt-5.1", "used_fallback": False, "error":"missing_output_text"}
+        return {"output_text":"Recovered after token clamp", "model":"gpt-5.1", "used_fallback": False, "usage":{}, "id":"test"}
     monkeypatch.setattr(ai_client, 'request', fake_request)
     # Directly invoke ai_client.request to confirm second attempt returns output
     res1 = ai_client.request([{"role":"user","content":"Hi"}], max_output_tokens=100)

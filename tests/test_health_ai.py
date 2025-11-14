@@ -12,7 +12,7 @@ class DummyUsage:
         self.total_tokens = input_tokens + output_tokens
 
 class DummyResp:
-    def __init__(self, output_text=None, model="gpt-5-2025-08-07", rid="resp_health", usage=None):
+    def __init__(self, output_text=None, model="gpt-5.1-2025-08-07", rid="resp_health", usage=None):
         self.output_text = output_text
         self.model = model
         self.id = rid
@@ -40,7 +40,7 @@ def test_health_ai_ok(monkeypatch):
         assert r.status_code == 200
         data = r.get_json()
         assert data["ok"] is True
-        assert data["model"].startswith("gpt-5")
+        assert data["model"].startswith("gpt-5.1")
 
 
 def test_health_ai_failure(monkeypatch):

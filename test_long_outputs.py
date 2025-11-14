@@ -12,7 +12,7 @@ def test_long_output_non_stream(monkeypatch):
     def fake_request(messages, **kwargs):
         return {
             'output_text': long_text,
-            'model': 'gpt-5-long-test',
+            'model': 'gpt-5.1-long-test',
             'used_fallback': False,
             'id': 'resp_long_non_stream',
             'usage': {'input_tokens': 800, 'output_tokens': 6000, 'total_tokens': 6800},
@@ -36,7 +36,7 @@ def test_long_output_streaming(monkeypatch):
     def fake_stream(messages, **kwargs):
         for ch in chunks:
             yield ('delta', ch)
-        yield ('done', {'model':'gpt-5-long-test','id':'resp_long_stream','usage':{'input_tokens':900,'output_tokens':5000}})
+        yield ('done', {'model':'gpt-5.1-long-test','id':'resp_long_stream','usage':{'input_tokens':900,'output_tokens':5000}})
     monkeypatch.setattr(ai_client, 'request_stream', fake_stream)
     with app.test_client() as c:
         resp = c.post('/chat', json={'message':'Stream a very long narrative','page':'general'}, headers={'Accept':'text/event-stream'})
@@ -70,7 +70,7 @@ def test_long_output_streaming(monkeypatch):
         def fake_request(messages, **kwargs):
             return {
                 'output_text': txt,
-                'model': 'gpt-5-nearcap',
+                'model': 'gpt-5.1-nearcap',
                 'used_fallback': False,
                 'id': 'resp_near_cap',
                 'usage': {'input_tokens': 1000, 'output_tokens': near_cap_tokens, 'total_tokens': near_cap_tokens+1000},
@@ -95,7 +95,7 @@ def test_long_output_streaming(monkeypatch):
         def fake_request(messages, **kwargs):
             return {
                 'output_text': txt,
-                'model': 'gpt-5-trunc',
+                'model': 'gpt-5.1-trunc',
                 'used_fallback': False,
                 'id': 'resp_trunc',
                 'usage': {'input_tokens': 500, 'output_tokens': cap, 'total_tokens': cap+500},
@@ -119,7 +119,7 @@ def test_long_output_streaming(monkeypatch):
             for i in range(near_cap_tokens):
                 if i < 10:  # keep test runtime small by limiting actual yielded tokens
                     yield ('delta','Z')
-            yield ('done', {'model':'gpt-5-nearcap','id':'resp_nearcap_stream','usage':{'input_tokens':1000,'output_tokens':near_cap_tokens},'near_cap':True,'truncated':False})
+            yield ('done', {'model':'gpt-5.1-nearcap','id':'resp_nearcap_stream','usage':{'input_tokens':1000,'output_tokens':near_cap_tokens},'near_cap':True,'truncated':False})
         monkeypatch.setattr(ai_client, 'request_stream', fake_stream)
         with app.test_client() as c:
             resp = c.post('/chat', json={'message':'Stream near cap','page':'general'}, headers={'Accept':'text/event-stream'})
@@ -138,7 +138,7 @@ def test_long_output_streaming(monkeypatch):
         def fake_stream(messages, **kwargs):
             for i in range(10):
                 yield ('delta','Q')
-            yield ('done', {'model':'gpt-5-trunc','id':'resp_trunc_stream','usage':{'input_tokens':100,'output_tokens':cap},'near_cap':True,'truncated':True})
+            yield ('done', {'model':'gpt-5.1-trunc','id':'resp_trunc_stream','usage':{'input_tokens':100,'output_tokens':cap},'near_cap':True,'truncated':True})
         monkeypatch.setattr(ai_client, 'request_stream', fake_stream)
         with app.test_client() as c:
             resp = c.post('/chat', json={'message':'Stream truncated','page':'general'}, headers={'Accept':'text/event-stream'})

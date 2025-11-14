@@ -9,7 +9,7 @@ def fake_request(messages, **kwargs):
     CALLS['called'] = True
     return {
         'output_text': 'Adjusted OK',
-        'model': 'gpt-5-test',
+        'model': 'gpt-5.1-test',
         'used_fallback': False,
         'id': 'resp_adjust',
         'usage': {'input_tokens': 10, 'output_tokens': 100, 'total_tokens': 110},
