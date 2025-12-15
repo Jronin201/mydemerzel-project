@@ -47,7 +47,7 @@ def test_stream_happy(monkeypatch):
         yield ("delta", deltas[1])
         yield ("delta", deltas[2])
         yield ("delta", deltas[3])
-        yield ("done", {"model":"gpt-5.1","id":"resp_123","usage":{"input_tokens":42,"output_tokens":10}})
+        yield ("done", {"model":"gpt-5.2","id":"resp_123","usage":{"input_tokens":42,"output_tokens":10}})
     monkeypatch.setattr(ai_client, 'request_stream', fake_stream)
     with app.test_client() as c:
         resp = c.post('/chat', json={"message":"Test","page":"general"}, headers={'Accept':'text/event-stream'})
@@ -57,7 +57,7 @@ def test_stream_happy(monkeypatch):
         # Allow either with or without space depending on delta join
         assert token_text.replace(' ', '') == 'Hello,world!'
         done_payload = json.loads([d for e,d in events if e=='done'][0])
-        assert done_payload['model'] == 'gpt-5.1'
+        assert done_payload['model'] == 'gpt-5.2'
         assert done_payload['fallback'] is False
         # enriched fields
         assert 'resp_id' in done_payload
@@ -74,10 +74,10 @@ def test_stream_reasoning_only_retry(monkeypatch):
         attempts['count'] += 1
         if attempts['count'] == 1:
             # no deltas, reasoning only -> done empty
-            yield ("done", {"model":"gpt-5.1","id":"resp_a","usage":{"input_tokens":10,"output_tokens":0}})
+            yield ("done", {"model":"gpt-5.2","id":"resp_a","usage":{"input_tokens":10,"output_tokens":0}})
         else:
             yield ("delta", "Final")
-            yield ("done", {"model":"gpt-5.1","id":"resp_b","usage":{"input_tokens":15,"output_tokens":5}})
+            yield ("done", {"model":"gpt-5.2","id":"resp_b","usage":{"input_tokens":15,"output_tokens":5}})
     monkeypatch.setattr(ai_client, 'request_stream', fake_stream)
     with app.test_client() as c:
         resp = c.post('/chat', json={"message":"Test","page":"general"}, headers={'Accept':'text/event-stream'})
@@ -130,7 +130,7 @@ def test_stream_heartbeat(monkeypatch):
     def fake_stream(messages, **kwargs):
         yield ("delta", "A")
         # simulate long gap by doing nothing (heartbeat handler triggers via time checks in route loop)
-        yield ("done", {"model":"gpt-5.1","id":"resp_hb","usage":{"input_tokens":5,"output_tokens":1}})
+        yield ("done", {"model":"gpt-5.2","id":"resp_hb","usage":{"input_tokens":5,"output_tokens":1}})
     monkeypatch.setattr(ai_client, 'request_stream', fake_stream)
     with app.test_client() as c:
         resp = c.post('/chat', json={"message":"Ping","page":"general"}, headers={'Accept':'text/event-stream'})
@@ -139,5 +139,5 @@ def test_stream_heartbeat(monkeypatch):
         pings = [d for e,d in events if e=='ping']
         assert pings, 'Expected heartbeat ping events'
         done_payload = json.loads([d for e,d in events if e=='done'][0])
-        assert done_payload['model'] == 'gpt-5.1'
+        assert done_payload['model'] == 'gpt-5.2'
         assert done_payload['fallback'] is False

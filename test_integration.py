@@ -7,7 +7,7 @@ from unittest.mock import patch
 from app import app
 import ai_client
 
-def fake_ai_result(text="AI: I understand you're playing Dune!", model="gpt-5.1"):
+def fake_ai_result(text="AI: I understand you're playing Dune!", model="gpt-5.2"):
     return {
         "output_text": text,
         "model": model,

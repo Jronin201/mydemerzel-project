@@ -22,7 +22,7 @@ def test_startup_config_invalid(monkeypatch, env_overrides, needle, capsys):
     for k,v in env_overrides.items():
         monkeypatch.setenv(k, v)
     # Ensure baseline envs present
-    monkeypatch.setenv('OPENAI_MODEL', env_overrides.get('OPENAI_MODEL','gpt-5.1'))
+    monkeypatch.setenv('OPENAI_MODEL', env_overrides.get('OPENAI_MODEL','gpt-5.2'))
     # Force reload
     with pytest.raises(SystemExit):
         import app  # noqa: F401
@@ -34,7 +34,7 @@ def test_startup_config_valid(monkeypatch, capsys):
     if TARGET_MODULE in sys.modules:
         del sys.modules[TARGET_MODULE]
     # Provide valid defaults
-    monkeypatch.setenv('OPENAI_MODEL','gpt-5.1')
+    monkeypatch.setenv('OPENAI_MODEL','gpt-5.2')
     monkeypatch.delenv('OPENAI_REASONING_EFFORT', raising=False)  # falls back to low
     monkeypatch.delenv('OPENAI_MAX_OUTPUT_TOKENS', raising=False)
     monkeypatch.delenv('OPENAI_TOOL_CHOICE', raising=False)

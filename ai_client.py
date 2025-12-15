@@ -10,7 +10,7 @@ class StreamAborted(Exception):
     pass
 
 # Configuration via env
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5.1")  # Primary GPT-5.1 family model
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5.2")  # Primary GPT-5.2 family model
 OPENAI_FALLBACK_MODEL = "gpt-4o"  # Only fallback allowed
 OPENAI_REASONING_EFFORT = os.getenv("OPENAI_REASONING_EFFORT", "medium")  # low|medium|high (default upgraded)
 OPENAI_MAX_OUTPUT_TOKENS = int(os.getenv("OPENAI_MAX_OUTPUT_TOKENS", "20000"))
@@ -20,7 +20,7 @@ OPENAI_STREAM_RESPONSES = os.getenv("OPENAI_STREAM_RESPONSES", "false").lower() 
 AI_BACKOFF_ENABLED = os.getenv("AI_BACKOFF_ENABLED", "true").lower() in ("1","true","yes","on")
 AI_BACKOFF_BASE_MS = int(os.getenv("AI_BACKOFF_BASE_MS", "250"))
 AI_BACKOFF_CAP_MS = int(os.getenv("AI_BACKOFF_CAP_MS", "2000"))
-MODEL_CONTEXT_WINDOW = int(os.getenv("MODEL_CONTEXT_WINDOW", "128000"))  # conservative GPT-5.1 context window default
+MODEL_CONTEXT_WINDOW = int(os.getenv("MODEL_CONTEXT_WINDOW", "128000"))  # conservative GPT-5.2 context window default
 
 # Circuit breaker (primary model only)
 _circuit_failures: Deque[float] = deque(maxlen=20)  # monotonic timestamps of recent primary hard failures
@@ -155,7 +155,7 @@ def request(messages: List[Dict[str,str]],
             force_model: Optional[str]=None,
             req_id: Optional[str]=None,
             high_effort: bool=False) -> Dict[str, Any]:
-    """Perform a GPT-5.1 Responses API call with structured input and fallback.
+    """Perform a GPT-5.2 Responses API call with structured input and fallback.
     Returns dict with keys: output_text, model, used_fallback(bool), id, usage(dict), raw(response or error).
     Will fallback to gpt-4o only on qualified hard errors.
     """
@@ -224,7 +224,7 @@ def request(messages: List[Dict[str,str]],
             }
             # Expose raw kwargs for test inspection (non-production side effect)
             globals()["_last_ai_kwargs"] = kwargs
-            # DO NOT send temperature for GPT-5.1 (per requirements)
+            # DO NOT send temperature for GPT-5.2 (per requirements)
             print(
                 "[AI] start "
                 f"openai.model={mdl} openai.effort={reasoning_effort} "

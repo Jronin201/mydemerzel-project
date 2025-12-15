@@ -39,7 +39,7 @@ def test_abort_during_token(monkeypatch, capsys):
     def fake_stream(messages, **kwargs):
         yield ('delta', 'A')
         yield ('delta', 'B')  # second write will raise
-        yield ('done', {'model':'gpt-5','id':'resp_abort_tok','usage':{'input_tokens':10,'output_tokens':2}})
+        yield ('done', {'model':'gpt-5.2','id':'resp_abort_tok','usage':{'input_tokens':10,'output_tokens':2}})
     monkeypatch.setattr(ai_client, 'request_stream', fake_stream)
     # Monkeypatch sse writer inside app by wrapping Response after generation not trivial; instead simulate BrokenPipe on second token by patching the sse function? Simpler: patch flask Response to raise on second write -> we cannot easily; fallback: mimic raising in route by raising in generator after yielding first token
     calls = {'count':0}
@@ -72,7 +72,7 @@ def test_abort_during_heartbeat(monkeypatch, capsys):
     def fake_stream(messages, **kwargs):
         yield ('delta', 'X')
         # no more events (simulate waiting)
-        yield ('done', {'model':'gpt-5','id':'resp_abort_hb','usage':{'input_tokens':5,'output_tokens':1}})
+        yield ('done', {'model':'gpt-5.2','id':'resp_abort_hb','usage':{'input_tokens':5,'output_tokens':1}})
     monkeypatch.setattr(ai_client, 'request_stream', fake_stream)
     # Patch time to force heartbeat attempt with failure via raising in sse send. We'll simulate by raising after first delta in generator on subsequent iteration by wrapping again.
     sent = {'ping':False}

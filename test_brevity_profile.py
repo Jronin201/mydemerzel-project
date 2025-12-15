@@ -16,7 +16,7 @@ def test_short_scene_default(monkeypatch):
     def fake_request(messages, **kwargs):
         return {
             'output_text': short_scene,
-            'model': 'gpt-5.1-short-test',
+            'model': 'gpt-5.2-short-test',
             'used_fallback': False,
             'id': 'resp_short_scene',
             'usage': {'input_tokens': 100, 'output_tokens': 120, 'total_tokens': 220},
@@ -39,7 +39,7 @@ def test_extended_scene_override(monkeypatch):
     def fake_request(messages, **kwargs):
         return {
             'output_text': extended_scene,
-            'model': 'gpt-5.1-extended-test',
+            'model': 'gpt-5.2-extended-test',
             'used_fallback': False,
             'id': 'resp_extended_scene',
             'usage': {'input_tokens': 100, 'output_tokens': 220, 'total_tokens': 320},

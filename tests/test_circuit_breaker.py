@@ -20,7 +20,7 @@ def setup_client(monkeypatch, fail_primary_times, mono):
     # mutable counters
     state = {'failures':0}
     class DummyResp:
-        def __init__(self, text='hello', rid='id', model='gpt-5'):
+        def __init__(self, text='hello', rid='id', model='gpt-5.2'):
             self.output_text=text
             self.id=rid
             self.model=model

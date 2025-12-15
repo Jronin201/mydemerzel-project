@@ -31,7 +31,7 @@ from openai import OpenAI
 import os
 
 # Allow overriding the model used for campaign creation
-OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.1")
+OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.2")
 
 try:  # Graceful init (tests may not supply key)
     _api_key = os.getenv("OPENAI_API_KEY")

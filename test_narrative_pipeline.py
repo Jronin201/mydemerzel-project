@@ -37,7 +37,7 @@ def _fake_request(messages, **kwargs):
         out = 'The narrative flows onward, untouched by overt mechanics.'
     else:
         out = 'Tension builds as intent sharpens in the dust-charged air.'
-    return {'output_text': out, 'model': 'gpt-5', 'used_fallback': False, 'usage': {'input_tokens':5,'output_tokens':10}, 'id': 'offline_test'}
+    return {'output_text': out, 'model': 'gpt-5.2', 'used_fallback': False, 'usage': {'input_tokens':5,'output_tokens':10}, 'id': 'offline_test'}
 
 _orig_request = ai_client.request
 ai_client.request = _fake_request  # type: ignore
@@ -52,7 +52,7 @@ class _StubResponses:
     def create(self, **kwargs):
         class U: pass
         u=types.SimpleNamespace(input_tokens=1, output_tokens=2, total_tokens=3)
-        return types.SimpleNamespace(output_text='Stubbed response', model=kwargs.get('model','gpt-5'), id='stub', usage=u)
+        return types.SimpleNamespace(output_text='Stubbed response', model=kwargs.get('model','gpt-5.2'), id='stub', usage=u)
 class _StubClient: responses=_StubResponses()
 ai_client._client = _StubClient()  # type: ignore
 

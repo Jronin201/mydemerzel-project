@@ -4,7 +4,7 @@ This repository contains a Flask application with AI-assisted TTRPG (tabletop ro
 
 ## Overview
 
-Unified TTRPG AI assistant using the OpenAI Responses API (GPT-5 primary, gpt-4o fallback) with optional SSE streaming, resilience (single backoff retry + fallback, circuit breaker), structured logging, and multi‑system narrative/game support.
+Unified TTRPG AI assistant using the OpenAI Responses API (GPT-5.2 primary, gpt-4o fallback) with optional SSE streaming, resilience (single backoff retry + fallback, circuit breaker), structured logging, and multi-system narrative/game support.
 
 ## Quick Start
 
@@ -19,7 +19,7 @@ Non-stream request (JSON):
 ```json
 {
   "message": "<assistant text>",
-  "model": "gpt-5-YYYY-MM-DD",
+  "model": "gpt-5.2-YYYY-MM-DD",
   "usage": { "input_tokens": 123, "output_tokens": 456 },
   "fallback": false,
   "request_id": "resp_abc123"
@@ -30,7 +30,7 @@ SSE done payload (final event):
 
 ```json
 {
-  "model": "gpt-5-YYYY-MM-DD",
+  "model": "gpt-5.2-YYYY-MM-DD",
   "resp_id": "resp_abc123",
   "usage": { "input_tokens": 123, "output_tokens": 456 },
   "fallback": false,
@@ -55,13 +55,13 @@ Resilience features: one 429/5xx backoff retry, fallback to gpt-4o on hard error
 
 ## Features
 
-### GPT-5 Integration & Health
+### GPT-5.2 Integration & Health
 
-The application now uses the OpenAI Responses API with GPT-5 by default.
+The application now uses the OpenAI Responses API with GPT-5.2 by default.
 
 Env vars:
 
-- `OPENAI_MODEL` (default: `gpt-5`)
+- `OPENAI_MODEL` (default: `gpt-5.2`)
 - `OPENAI_REASONING_EFFORT` (`low|medium|high`, default `medium`)
 - `OPENAI_MAX_OUTPUT_TOKENS` (default `20000` / no artificial upper clamp; min enforced 64)
 - `OPENAI_TOOL_CHOICE` (default `none`)
@@ -70,7 +70,7 @@ Env vars:
 
 Health check:
 
-- `GET /health/ai` performs a minimal GPT-5 probe and returns 200 only if a valid `output_text` == `ok` is received.
+- `GET /health/ai` performs a minimal GPT-5.2 probe and returns 200 only if a valid `output_text` == `ok` is received.
 
 Fallback:
 
@@ -104,7 +104,7 @@ Non-streaming JSON response schema (when streaming disabled or no SSE Accept hea
 ```json
 {
   "message": "<assistant text + footer>",
-  "model": "gpt-5",
+  "model": "gpt-5.2",
   "usage": { "input_tokens": 123, "output_tokens": 456 },
   "fallback": false,
   "request_id": "resp_..."
@@ -113,7 +113,7 @@ Non-streaming JSON response schema (when streaming disabled or no SSE Accept hea
 
 Environment variables summary:
 
-- `OPENAI_MODEL` (primary model, default gpt-5)
+- `OPENAI_MODEL` (primary model, default gpt-5.2)
 - `OPENAI_FALLBACK_MODEL` (optional explicit fallback, default gpt-4o)
 - `OPENAI_REASONING_EFFORT` (low|medium|high; default medium)
 - `OPENAI_MAX_OUTPUT_TOKENS` (default 20000; minimum enforced 64; no artificial upper clamp)

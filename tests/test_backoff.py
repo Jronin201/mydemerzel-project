@@ -6,7 +6,7 @@ class HardErr(Exception):
         super().__init__(f"{status} error")
 
 class DummyResp:
-    def __init__(self, text='ok', rid='id', model='gpt-5'):
+    def __init__(self, text='ok', rid='id', model='gpt-5.2'):
         self.output_text=text
         self.id=rid
         self.model=model
