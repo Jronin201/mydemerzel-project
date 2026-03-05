@@ -4,7 +4,7 @@
 
 | Category      | Variable                 | Default | Notes                                   |
 | ------------- | ------------------------ | ------- | --------------------------------------- |
-| Core          | OPENAI_MODEL             | gpt-5.2 | Primary model (Responses API)           |
+| Core          | OPENAI_MODEL             | gpt-5.3 | Primary model (Responses API)           |
 | Core          | OPENAI_REASONING_EFFORT  | medium  | low, medium, high (default medium)      |
 | Core          | OPENAI_MAX_OUTPUT_TOKENS | 20000   | Min 64; no artificial upper clamp       |
 | Core          | MODEL_CONTEXT_WINDOW     | 128000  | Approx context window for preflight     |
@@ -17,7 +17,7 @@
 
 ## API Behavior (Responses-only)
 
-Primary path: Responses API + GPT-5.2 using typed parts (input_text / output_text) and text.format.
+Primary path: Responses API + GPT-5.3 using typed parts (input_text / output_text) and text.format.
 
 Fallback: single fallback to gpt-4o only on hard errors (401/403/404/409/429/5xx, model_not_found).
 
@@ -33,7 +33,7 @@ Streaming: SSE emits only token (text deltas), ping (heartbeat ~15s), and one en
 bash -lc 'curl -s http://<HOST>/health/ai | jq'
 ```
 
-Returns 200 only if a GPT-5.2 Responses call yields output_text:"OK" (no fallback needed).
+Returns 200 only if a GPT-5.3 Responses call yields output_text:"OK" (no fallback needed).
 
 ## Streaming (SSE) Client Example
 
@@ -114,7 +114,7 @@ Timeouts: Client timeout set to 180s; for very large 20k-token generations consi
 ## Render Deployment Checklist
 
 ```bash
-OPENAI_MODEL=gpt-5.2
+OPENAI_MODEL=gpt-5.3
 OPENAI_REASONING_EFFORT=medium
 OPENAI_MAX_OUTPUT_TOKENS=20000
 MODEL_CONTEXT_WINDOW=128000
@@ -136,6 +136,6 @@ Save env; restart service.
 Migration Notes:
 
 - Removed legacy Chat Completions paths and shims.
-- Unified on Responses API + GPT-5.2.
+- Unified on Responses API + GPT-5.3.
 - Single enriched done event; no duplicate finals.
 - Deterministic text via typed input_text + text.format.

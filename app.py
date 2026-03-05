@@ -89,7 +89,7 @@ def validate_startup_config():
     errors = []
     raw_model_env = os.getenv("OPENAI_MODEL")
     if raw_model_env is None:
-        model = "gpt-5.2"
+        model = "gpt-5.3"
     else:
         model = raw_model_env.strip()
     if not model:
@@ -778,7 +778,7 @@ except Exception as e:
 messages = []
 # --- OpenAI Model Configuration (override via env) ---
 # Primary chat model used for responses
-OPENAI_CHAT_MODEL = os.environ.get("OPENAI_MODEL", os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.2"))
+OPENAI_CHAT_MODEL = os.environ.get("OPENAI_MODEL", os.environ.get("OPENAI_CHAT_MODEL", "gpt-5.3"))
 # Summary/auxiliary model (defaults to same as chat model if not provided)
 OPENAI_SUMMARY_MODEL = os.environ.get("OPENAI_SUMMARY_MODEL", OPENAI_CHAT_MODEL)
 

@@ -12,7 +12,7 @@ import ai_client
 from app import app
 
 
-def fake_ai_result(text="Hello from OpenAI", model="gpt-5.2"):
+def fake_ai_result(text="Hello from OpenAI", model="gpt-5.3"):
     return {
         "output_text": text,
         "model": model,
