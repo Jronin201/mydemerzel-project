@@ -219,9 +219,11 @@ def request(messages: List[Dict[str,str]],
                 "model": mdl,
                 "input": inp,
                 "max_output_tokens": max_output_tokens,
-                "reasoning": {"effort": reasoning_effort},
                 "tool_choice": tool_choice,
             }
+            # Only add reasoning parameter for models that support it (gpt-5.2, not gpt-5.3)
+            if not mdl.startswith("gpt-5.3"):
+                kwargs["reasoning"] = {"effort": reasoning_effort}
             # Expose raw kwargs for test inspection (non-production side effect)
             globals()["_last_ai_kwargs"] = kwargs
             # DO NOT send temperature for GPT-5.3 (per requirements)
@@ -239,12 +241,14 @@ def request(messages: List[Dict[str,str]],
                 output_text = getattr(resp, 'output_text', None)
                 # Suppress reasoning/backoff retries during half-open probe for single-attempt semantics
                 if (not output_text) and idx == 0 and not primary_retry and not is_half_open:
-                    print("[AI] retry_reasoning_only openai.model={mdl} adjusting_effort=low")
-                    kwargs["reasoning"] = {"effort": "low"}
-                    kwargs["max_output_tokens"] = max(max_output_tokens, 512)
-                    resp = _client.responses.create(**kwargs)
-                    output_text = getattr(resp, 'output_text', None)
-                    primary_retry = True
+                    # Only retry with lower reasoning effort if model supports it
+                    if not mdl.startswith("gpt-5.3"):
+                        print("[AI] retry_reasoning_only openai.model={mdl} adjusting_effort=low".format(mdl=mdl))
+                        kwargs["reasoning"] = {"effort": "low"}
+                        kwargs["max_output_tokens"] = max(max_output_tokens, 512)
+                        resp = _client.responses.create(**kwargs)
+                        output_text = getattr(resp, 'output_text', None)
+                        primary_retry = True
                 break
             # soft missing text case handled below
             if not output_text:
@@ -476,11 +480,13 @@ def request_stream(messages: List[Dict[str,str]],
         "model": mdl,
         "input": inp,
         "max_output_tokens": max_output_tokens,
-        "reasoning": {"effort": reasoning_effort},
         "tool_choice": tool_choice,
         "stream": True,
         "text_format": {"type": "text"},  # enforce plain text channel
     }
+    # Only add reasoning parameter for models that support it (gpt-5.2, not gpt-5.3)
+    if not mdl.startswith("gpt-5.3"):
+        kwargs["reasoning"] = {"effort": reasoning_effort}
     globals()["_last_ai_kwargs"] = kwargs
     print("[AI] stream_start openai.model={mdl} openai.effort={effort} openai.max_output_tokens={tok}".format(
         mdl=mdl, effort=reasoning_effort, tok=max_output_tokens
