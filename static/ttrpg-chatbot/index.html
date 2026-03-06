@@ -1302,7 +1302,12 @@
               uploadedPdfFileId = data.file_id;
               uploadedPdfFileName = data.filename || file.name;
               pdfClearButton.style.display = "inline-block";
-              setPdfStatus("Attached PDF: " + uploadedPdfFileName, "success");
+              setPdfStatus(
+                "Attached PDF: " +
+                  uploadedPdfFileName +
+                  " (it will be used for your next prompts)",
+                "success"
+              );
             },
           );
         }

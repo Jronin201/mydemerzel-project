@@ -1560,6 +1560,13 @@ UPDATE FORMATS (use exactly these):
 
     # Build final system prompt (after we have outcome_block & char context)
     full_system_prompt = build_system_prompt(page, outcome_block, char_context_block)
+    if uploaded_file_id:
+        full_system_prompt += (
+            "\n\n[DOCUMENT CONTEXT]\n"
+            "A PDF document is attached to the latest user message as an input_file. "
+            "Use the attached document as a primary source when answering document-related questions. "
+            "If the answer cannot be found in the document, say so clearly."
+        )
     print(f"[NARRATIVE] Game={page} outcomes={outcome_tags} chars_added={len(char_context_block)}")
 
     full_messages_preview = [{"role": "system", "content": full_system_prompt}] + filtered
@@ -2064,6 +2071,8 @@ UPDATE FORMATS (use exactly these):
         "usage": usage,
         "fallback": fallback_used,
         "fallback_used": fallback_used,  # legacy compatibility
+        "file_id": uploaded_file_id or None,
+        "document_attached": bool(uploaded_file_id),
         "mode": session.get("chat_mode", MODE_NARRATIVE),
         "mechanics_inactivity": session.get("mechanics_inactivity", 0),
         "mode_reason": mode_info.get("reason"),

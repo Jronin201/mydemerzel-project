@@ -137,10 +137,15 @@ def _build_responses_input(messages: List[Dict[str, str]], file_ids: Optional[Li
     # answer about the document in the same request as the text prompt.
     if file_ids and last_user_index >= 0:
         user_parts = converted[last_user_index]["content"]
+        file_parts: List[Dict[str, Any]] = []
         for fid in file_ids:
             if not fid:
                 continue
-            user_parts.append({"type": "input_file", "file_id": fid})
+            file_parts.append({"type": "input_file", "file_id": fid})
+        if file_parts:
+            # Put file parts first so the attached document context is explicit
+            # before reading the user's question text.
+            converted[last_user_index]["content"] = file_parts + user_parts
 
     # Preflight guard: ensure no assistant message remains with input_text
     for item in converted:
