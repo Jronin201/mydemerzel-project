@@ -443,6 +443,57 @@
         flex: 1;
       }
 
+      #pdf-upload-panel {
+        margin-bottom: 0.8em;
+      }
+
+      #pdf-dropzone {
+        border: 1px dashed #5f6f7f;
+        border-radius: 8px;
+        padding: 0.8em 1em;
+        text-align: center;
+        color: #cfd8dc;
+        background: #1b232d;
+        cursor: pointer;
+        transition: border-color 0.2s, background-color 0.2s;
+      }
+
+      #pdf-dropzone:hover,
+      #pdf-dropzone.drag-active {
+        border-color: #81d4fa;
+        background: #203343;
+      }
+
+      #pdf-upload-status {
+        margin-top: 0.5em;
+        font-size: 0.92em;
+        color: #b0bec5;
+      }
+
+      #pdf-upload-status.success {
+        color: #9ccc65;
+      }
+
+      #pdf-upload-status.error {
+        color: #ef9a9a;
+      }
+
+      #pdf-clear-button {
+        margin-top: 0.5em;
+        background-color: #2a2a2a;
+        color: #e0e0e0;
+        border: 1px solid #555;
+        border-radius: 4px;
+        padding: 0.35em 0.7em;
+        font-size: 0.9em;
+        cursor: pointer;
+        display: none;
+      }
+
+      #pdf-clear-button:hover {
+        background-color: #3a3a3a;
+      }
+
       /* Undo & Clear buttons styles */
       #undo-button {
         background-color: #333;
@@ -639,6 +690,25 @@
         aria-live="polite"
         aria-label="Chat messages"
       ></div>
+      <div id="pdf-upload-panel" aria-label="PDF upload area">
+        <input
+          id="pdfFileInput"
+          type="file"
+          accept="application/pdf,.pdf"
+          class="sr-only"
+          aria-label="Upload a PDF"
+        />
+        <div
+          id="pdf-dropzone"
+          role="button"
+          tabindex="0"
+          aria-label="Drop PDF here or click to upload"
+        >
+          Drop a PDF here or click to upload
+        </div>
+        <div id="pdf-upload-status" aria-live="polite">No PDF attached.</div>
+        <button id="pdf-clear-button" type="button">Remove PDF</button>
+      </div>
       <label for="userInput" class="sr-only">Enter your message</label>
       <div class="input-container">
         <div class="input-wrapper">
@@ -1133,11 +1203,134 @@
         var input = document.getElementById("userInput");
         var undoButton = document.getElementById("undo-button");
         var clearButton = document.getElementById("clear-button");
+        var pdfDropzone = document.getElementById("pdf-dropzone");
+        var pdfInput = document.getElementById("pdfFileInput");
+        var pdfStatus = document.getElementById("pdf-upload-status");
+        var pdfClearButton = document.getElementById("pdf-clear-button");
+        var uploadedPdfFileId = null;
+        var uploadedPdfFileName = "";
+        var PDF_MAX_BYTES = 20 * 1024 * 1024;
 
-        if (!messages || !input || !undoButton || !clearButton) {
+        if (
+          !messages ||
+          !input ||
+          !undoButton ||
+          !clearButton ||
+          !pdfDropzone ||
+          !pdfInput ||
+          !pdfStatus ||
+          !pdfClearButton
+        ) {
           console.error("Required chat elements not found");
           return;
         }
+
+        function setPdfStatus(message, statusType) {
+          pdfStatus.textContent = message;
+          pdfStatus.className = "";
+          if (statusType === "success") {
+            pdfStatus.className = "success";
+          } else if (statusType === "error") {
+            pdfStatus.className = "error";
+          }
+        }
+
+        function clearUploadedPdf() {
+          uploadedPdfFileId = null;
+          uploadedPdfFileName = "";
+          pdfInput.value = "";
+          pdfClearButton.style.display = "none";
+          setPdfStatus("No PDF attached.", "");
+        }
+
+        function validatePdfFile(file) {
+          if (!file) {
+            return "No file selected.";
+          }
+          var name = (file.name || "").toLowerCase();
+          if (!name.endsWith(".pdf")) {
+            return "Only PDF files are allowed.";
+          }
+          if (file.size > PDF_MAX_BYTES) {
+            return "File is too large (max 20 MB).";
+          }
+          return null;
+        }
+
+        function uploadPdfFile(file) {
+          var validationError = validatePdfFile(file);
+          if (validationError) {
+            setPdfStatus(validationError, "error");
+            return;
+          }
+
+          setPdfStatus("Uploading PDF...", "");
+          var formData = new FormData();
+          formData.append("file", file);
+
+          makeFetchRequest(
+            "/api/upload-pdf",
+            {
+              method: "POST",
+              body: formData,
+            },
+            function (error, data) {
+              if (error) {
+                setPdfStatus("Upload failed: " + error.message, "error");
+                return;
+              }
+              if (!data || !data.success || !data.file_id) {
+                setPdfStatus("Upload failed: invalid server response.", "error");
+                return;
+              }
+
+              uploadedPdfFileId = data.file_id;
+              uploadedPdfFileName = data.filename || file.name;
+              pdfClearButton.style.display = "inline-block";
+              setPdfStatus("Attached PDF: " + uploadedPdfFileName, "success");
+            }
+          );
+        }
+
+        addEvent(pdfDropzone, "click", function () {
+          pdfInput.click();
+        });
+
+        addEvent(pdfDropzone, "keydown", function (e) {
+          var keyCode = e.keyCode || e.which;
+          if (keyCode === 13 || keyCode === 32) {
+            e.preventDefault();
+            pdfInput.click();
+          }
+        });
+
+        addEvent(pdfInput, "change", function (e) {
+          var files = e.target && e.target.files;
+          if (files && files.length > 0) {
+            uploadPdfFile(files[0]);
+          }
+        });
+
+        addEvent(pdfDropzone, "dragover", function (e) {
+          e.preventDefault();
+          pdfDropzone.classList.add("drag-active");
+        });
+
+        addEvent(pdfDropzone, "dragleave", function (e) {
+          e.preventDefault();
+          pdfDropzone.classList.remove("drag-active");
+        });
+
+        addEvent(pdfDropzone, "drop", function (e) {
+          e.preventDefault();
+          pdfDropzone.classList.remove("drag-active");
+          var files = e.dataTransfer && e.dataTransfer.files;
+          if (files && files.length > 0) {
+            uploadPdfFile(files[0]);
+          }
+        });
+
+        addEvent(pdfClearButton, "click", clearUploadedPdf);
 
         // Function to update undo button state
         function updateUndoButtonState() {
@@ -1549,6 +1742,9 @@
                   : "",
                 character_stats: statOneInput ? statOneInput.value : "",
               };
+              if (uploadedPdfFileId) {
+                requestData.file_id = uploadedPdfFileId;
+              }
 
               makeFetchRequest(
                 "/chat",
@@ -1613,6 +1809,9 @@
                               : "",
                             force_primary: true,
                           };
+                          if (uploadedPdfFileId) {
+                            forceData.file_id = uploadedPdfFileId;
+                          }
                           btn.disabled = true;
                           makeFetchRequest(
                             "/chat",

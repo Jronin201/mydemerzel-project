@@ -106,7 +106,7 @@ def reset_circuit():  # test helper
     _circuit_open_until=0.0
     _circuit_failures.clear()
 
-def _build_responses_input(messages: List[Dict[str, str]]) -> List[Dict[str, Any]]:
+def _build_responses_input(messages: List[Dict[str, str]], file_ids: Optional[List[str]]=None) -> List[Dict[str, Any]]:
     """Convert message history to Responses API 'input' schema.
 
     Mapping rules per API contract:
@@ -117,17 +117,31 @@ def _build_responses_input(messages: List[Dict[str, str]]) -> List[Dict[str, Any
     We auto-correct any assistant entries accidentally marked as input_text to avoid 400 errors.
     """
     converted: List[Dict[str, Any]] = []
-    for m in messages:
+    last_user_index = -1
+    for idx, m in enumerate(messages):
         role = m.get('role', 'user')
         text = m.get('content', '')
         if role == 'assistant':
             part_type = 'output_text'
         else:
             part_type = 'input_text'
+        content_parts: List[Dict[str, Any]] = [{"type": part_type, "text": text}]
+        if role == 'user':
+            last_user_index = idx
         converted.append({
             "role": role,
-            "content": [{"type": part_type, "text": text}]
+            "content": content_parts
         })
+
+    # Attach uploaded file references to the latest user turn so the model can
+    # answer about the document in the same request as the text prompt.
+    if file_ids and last_user_index >= 0:
+        user_parts = converted[last_user_index]["content"]
+        for fid in file_ids:
+            if not fid:
+                continue
+            user_parts.append({"type": "input_file", "file_id": fid})
+
     # Preflight guard: ensure no assistant message remains with input_text
     for item in converted:
         if item.get('role') == 'assistant':
@@ -154,7 +168,8 @@ def request(messages: List[Dict[str,str]],
             tool_choice: Optional[str]=None,
             force_model: Optional[str]=None,
             req_id: Optional[str]=None,
-            high_effort: bool=False) -> Dict[str, Any]:
+            high_effort: bool=False,
+            file_ids: Optional[List[str]]=None) -> Dict[str, Any]:
     """Perform a GPT-5.3 Responses API call with structured input and fallback.
     Returns dict with keys: output_text, model, used_fallback(bool), id, usage(dict), raw(response or error).
     Will fallback to gpt-4o only on qualified hard errors.
@@ -214,7 +229,7 @@ def request(messages: List[Dict[str,str]],
         if offline:
             break
         try:
-            inp = _build_responses_input(messages)
+            inp = _build_responses_input(messages, file_ids=file_ids)
             kwargs = {
                 "model": mdl,
                 "input": inp,
@@ -431,7 +446,8 @@ def request_stream(messages: List[Dict[str,str]],
                    force_model: Optional[str]=None,
                    reasoning_effort: Optional[str]=None,
                    max_output_tokens: Optional[int]=None,
-                   tool_choice: Optional[str]=None) -> Iterator[Tuple[str, Any]]:
+                   tool_choice: Optional[str]=None,
+                   file_ids: Optional[List[str]]=None) -> Iterator[Tuple[str, Any]]:
     """Stream text deltas using Responses API.
     Yields tuples:
       ("delta", text_fragment) for each output_text delta
@@ -468,7 +484,7 @@ def request_stream(messages: List[Dict[str,str]],
             print(f"[AI] preflight_adjust_stream est_input={est_input_tokens} orig_output={max_output_tokens} adj_output={new_max} window={MODEL_CONTEXT_WINDOW}")
             max_output_tokens = new_max
             adjusted = True
-    inp = _build_responses_input(messages)
+    inp = _build_responses_input(messages, file_ids=file_ids)
     kwargs = {
         "model": mdl,
         "input": inp,
@@ -530,3 +546,17 @@ def request_stream(messages: List[Dict[str,str]],
             pass
     if not aborted and final_meta:
         yield ("done", final_meta)
+
+
+def upload_user_file(file_path: str, purpose: str="user_data") -> Dict[str, Any]:
+    """Upload a user document to OpenAI Files API and return metadata."""
+    if _client is None:
+        raise RuntimeError("client_offline")
+    with open(file_path, "rb") as file_obj:
+        uploaded = _client.files.create(file=file_obj, purpose=purpose)
+    return {
+        "id": getattr(uploaded, "id", None),
+        "filename": getattr(uploaded, "filename", None),
+        "bytes": getattr(uploaded, "bytes", None),
+        "purpose": getattr(uploaded, "purpose", purpose),
+    }

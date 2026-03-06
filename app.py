@@ -1,6 +1,7 @@
 import os
 import datetime
 import time
+import tempfile
 from typing import List, Dict, Any, Optional, Tuple
 from dotenv import load_dotenv
 
@@ -56,6 +57,8 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent / "scripts"))
 import random
+
+MAX_PDF_UPLOAD_BYTES = int(os.getenv("MAX_PDF_UPLOAD_BYTES", str(20 * 1024 * 1024)))
 
 try:
     pass
@@ -1268,6 +1271,9 @@ def chat():
         globals()['scene_style'] = 'short'
 
     user_input = data.get("message", "").strip()
+    uploaded_file_id = (data.get("file_id") or "").strip()
+    if uploaded_file_id and not uploaded_file_id.startswith("file-"):
+        return jsonify({"error": "Invalid file_id"}), 400
     # Natural-language request to retry primary model detection (before any model call)
     force_primary_requested = bool(data.get("force_primary"))
     lowered_retry = user_input.lower()
@@ -1760,7 +1766,23 @@ UPDATE FORMATS (use exactly these):
                 eff = reasoning_effort
                 if eff is None and high_effort:
                     eff = 'high'
-                for kind, payload in ai_client.request_stream(primary_messages, force_model=force_model, reasoning_effort=eff, max_output_tokens=max_output_tokens):
+                file_ids = [uploaded_file_id] if uploaded_file_id else None
+                try:
+                    stream_iter = ai_client.request_stream(
+                        primary_messages,
+                        force_model=force_model,
+                        reasoning_effort=eff,
+                        max_output_tokens=max_output_tokens,
+                        file_ids=file_ids,
+                    )
+                except TypeError:
+                    stream_iter = ai_client.request_stream(
+                        primary_messages,
+                        force_model=force_model,
+                        reasoning_effort=eff,
+                        max_output_tokens=max_output_tokens,
+                    )
+                for kind, payload in stream_iter:
                     now = time.time()
                     if now - last_beat >= HEARTBEAT_INTERVAL:
                         try:
@@ -1913,6 +1935,7 @@ UPDATE FORMATS (use exactly these):
         'reasoning_effort': ai_client.OPENAI_REASONING_EFFORT,
         'max_output_tokens': cap_used,
         'high_effort': high_effort,
+        'file_ids': [uploaded_file_id] if uploaded_file_id else None,
         # Extra convenience: include a pre-expanded reasoning dict for monkeypatched tests to inspect
         'reasoning': {'effort': ('high' if high_effort else ai_client.OPENAI_REASONING_EFFORT)}
     }
@@ -2095,6 +2118,59 @@ UPDATE FORMATS (use exactly these):
     extra_meta['truncated'] = truncated_flag if not ended_by_marker else False
     extra_meta['ended_by_marker'] = ended_by_marker
     return jsonify({"message": response_to_send, "response": response_to_send, **extra_meta})
+
+
+@app.route("/api/upload-pdf", methods=["POST"])
+@login_required
+def upload_pdf():
+    """Upload a PDF to OpenAI Files API on the server side and return a file ID."""
+    uploaded = request.files.get("file")
+    if uploaded is None:
+        return jsonify({"error": "No file provided"}), 400
+
+    filename = (uploaded.filename or "").strip()
+    if not filename:
+        return jsonify({"error": "Missing filename"}), 400
+    if not filename.lower().endswith(".pdf"):
+        return jsonify({"error": "Only PDF files are allowed"}), 400
+
+    tmp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
+            tmp_path = tmp_file.name
+            uploaded.save(tmp_path)
+
+        file_size = os.path.getsize(tmp_path)
+        if file_size <= 0:
+            return jsonify({"error": "Uploaded file is empty"}), 400
+        if file_size > MAX_PDF_UPLOAD_BYTES:
+            max_mb = round(MAX_PDF_UPLOAD_BYTES / (1024 * 1024), 1)
+            return jsonify({"error": f"File exceeds size limit ({max_mb} MB)"}), 400
+
+        with open(tmp_path, "rb") as check_file:
+            header = check_file.read(5)
+        if header != b"%PDF-":
+            return jsonify({"error": "Invalid PDF file"}), 400
+
+        uploaded_meta = ai_client.upload_user_file(tmp_path, purpose="user_data")
+        if not uploaded_meta.get("id"):
+            return jsonify({"error": "Upload failed: missing file ID"}), 502
+
+        return jsonify({
+            "success": True,
+            "file_id": uploaded_meta.get("id"),
+            "filename": filename,
+            "size_bytes": file_size,
+        })
+    except Exception as e:
+        print(f"[PDF_UPLOAD] error={e}")
+        return jsonify({"error": "Failed to upload PDF"}), 502
+    finally:
+        if tmp_path and os.path.exists(tmp_path):
+            try:
+                os.remove(tmp_path)
+            except Exception as cleanup_err:
+                print(f"[PDF_UPLOAD] cleanup_error={cleanup_err} path={tmp_path}")
 
 
 # Health check endpoint for personal deployment

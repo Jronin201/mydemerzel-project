@@ -125,6 +125,37 @@ Observability:
 
 Structured log lines for `/chat` (JSON mode: `[CHAT] ...`, streaming: `[CHAT_STREAM] ...`) include: model, resp_id, usage input/output tokens, fallback flag, latency_ms (streaming), and attempt outcomes.
 
+### PDF Upload + Chat Context
+
+The TTRPG chat UI now supports drag-and-drop and click-to-upload for PDFs.
+
+- Upload route: `POST /api/upload-pdf` (server-side only; OpenAI API key remains backend-only)
+- Upload validation: PDF extension/signature check and size limit (default `20MB`)
+- File storage target: OpenAI Files API (`purpose=user_data`)
+- Chat usage: send `file_id` in `/chat` JSON to include `input_file` with the user prompt via Responses API
+- Temp-file cleanup: upload route deletes server temp files in a `finally` block
+
+Optional env var:
+
+- `MAX_PDF_UPLOAD_BYTES` (default `20971520`)
+
+Example `/chat` request body with file context:
+
+```json
+{
+  "message": "Summarize chapter 2 and list key NPCs.",
+  "page": "the-witcher",
+  "file_id": "file-abc123"
+}
+```
+
+Quick manual test:
+
+1. Open `/ttrpg-chatbot` and upload a `.pdf` in the new upload area.
+2. Confirm UI shows `Attached PDF: ...`.
+3. Ask a question about the uploaded document.
+4. Verify response is grounded in the PDF and chat UX remains unchanged.
+
 - **Multiple Game Systems**: Supports Dune, The One Ring, Zweihander, Mouse Guard, Pendragon, and more
 - **PC-Optimized Interface**: Three-column layout designed for desktop monitors
 - **Cross-Browser Compatibility**: Works on modern desktop browsers
