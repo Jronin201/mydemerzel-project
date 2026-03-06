@@ -58,7 +58,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent / "scripts"))
 import random
 
-MAX_PDF_UPLOAD_BYTES = int(os.getenv("MAX_PDF_UPLOAD_BYTES", str(20 * 1024 * 1024)))
+MAX_PDF_UPLOAD_BYTES = int(os.getenv("MAX_PDF_UPLOAD_BYTES", str(80 * 1024 * 1024)))
 
 try:
     pass

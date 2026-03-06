@@ -130,14 +130,14 @@ Structured log lines for `/chat` (JSON mode: `[CHAT] ...`, streaming: `[CHAT_STR
 The TTRPG chat UI now supports drag-and-drop and click-to-upload for PDFs.
 
 - Upload route: `POST /api/upload-pdf` (server-side only; OpenAI API key remains backend-only)
-- Upload validation: PDF extension/signature check and size limit (default `20MB`)
+- Upload validation: PDF extension/signature check and size limit (default `80MB`)
 - File storage target: OpenAI Files API (`purpose=user_data`)
 - Chat usage: send `file_id` in `/chat` JSON to include `input_file` with the user prompt via Responses API
 - Temp-file cleanup: upload route deletes server temp files in a `finally` block
 
 Optional env var:
 
-- `MAX_PDF_UPLOAD_BYTES` (default `20971520`)
+- `MAX_PDF_UPLOAD_BYTES` (default `83886080`)
 
 Example `/chat` request body with file context:
 
