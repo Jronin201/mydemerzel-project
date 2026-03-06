@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,8 +15,8 @@
       body {
         background-color: #121212;
         color: #e0e0e0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, Arial,
-          Helvetica;
+        font-family:
+          "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, Arial, Helvetica;
         font-size: 1.15em;
         margin: 0;
         padding: 10px;
@@ -455,7 +455,9 @@
         color: #cfd8dc;
         background: #1b232d;
         cursor: pointer;
-        transition: border-color 0.2s, background-color 0.2s;
+        transition:
+          border-color 0.2s,
+          background-color 0.2s;
       }
 
       #pdf-dropzone:hover,
@@ -503,7 +505,10 @@
         padding: 0.7em 1em;
         font-size: 1.05em;
         cursor: pointer;
-        transition: background-color 0.2s, opacity 0.2s, border-color 0.2s;
+        transition:
+          background-color 0.2s,
+          opacity 0.2s,
+          border-color 0.2s;
         min-width: 60px;
         height: 3.2em;
         display: flex;
@@ -519,7 +524,10 @@
         padding: 0.7em 1em;
         font-size: 1.05em;
         cursor: pointer;
-        transition: background-color 0.2s, opacity 0.2s, border-color 0.2s;
+        transition:
+          background-color 0.2s,
+          opacity 0.2s,
+          border-color 0.2s;
         min-width: 70px;
         height: 3.2em;
         display: flex;
@@ -618,7 +626,10 @@
         padding: 0.8em 1em; /* PC-optimized enhanced padding */
         margin: 0;
         cursor: pointer;
-        transition: background 0.2s, border-color 0.2s, color 0.2s;
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          color 0.2s;
         outline: none;
         width: 100%; /* Full width for PC */
         min-height: 2.5em; /* PC-optimized minimum height */
@@ -763,7 +774,7 @@
           } catch (e) {
             console.warn(
               "Could not detect current TTRPG, using general fallback",
-              e
+              e,
             );
           }
           return "ttrpg-chatbot"; // fallback identifier
@@ -1073,13 +1084,13 @@
                   "Loaded " +
                     data.messages.length +
                     " previous messages for " +
-                    currentTTRPG
+                    currentTTRPG,
                 );
               } else {
                 // Update undo button state even if no messages loaded
                 updateUndoButtonState();
               }
-            }
+            },
           );
         }
 
@@ -1116,10 +1127,10 @@
                     currentTTRPG +
                     " (last updated: " +
                     data.last_updated +
-                    ")"
+                    ")",
                 );
               }
-            }
+            },
           );
         }
 
@@ -1149,10 +1160,11 @@
                 console.error("Error saving character info:", error);
               } else {
                 console.log(
-                  "Character info saved successfully for " + window.currentTTRPG
+                  "Character info saved successfully for " +
+                    window.currentTTRPG,
                 );
               }
-            }
+            },
           );
         }
 
@@ -1280,7 +1292,10 @@
                 return;
               }
               if (!data || !data.success || !data.file_id) {
-                setPdfStatus("Upload failed: invalid server response.", "error");
+                setPdfStatus(
+                  "Upload failed: invalid server response.",
+                  "error",
+                );
                 return;
               }
 
@@ -1288,7 +1303,7 @@
               uploadedPdfFileName = data.filename || file.name;
               pdfClearButton.style.display = "inline-block";
               setPdfStatus("Attached PDF: " + uploadedPdfFileName, "success");
-            }
+            },
           );
         }
 
@@ -1376,7 +1391,7 @@
                 appendMessage(
                   "Error",
                   "Could not undo: " + error.message,
-                  "assistant"
+                  "assistant",
                 );
               } else if (data && data.success) {
                 // Remove messages from UI to match backend state
@@ -1410,7 +1425,7 @@
                     !msgToRemove.textContent.includes("Welcome") &&
                     !msgToRemove.textContent.includes("Would you like") &&
                     !msgToRemove.textContent.includes(
-                      "Excellent! Before we begin"
+                      "Excellent! Before we begin",
                     )
                   ) {
                     msgToRemove.remove();
@@ -1428,7 +1443,7 @@
                   if (input.setSelectionRange) {
                     input.setSelectionRange(
                       input.value.length,
-                      input.value.length
+                      input.value.length,
                     );
                   }
                 }
@@ -1438,13 +1453,13 @@
                 appendMessage(
                   "Error",
                   data.message || "Could not undo chat step",
-                  "assistant"
+                  "assistant",
                 );
               }
 
               updateUndoButtonState();
               messages.scrollTop = messages.scrollHeight;
-            }
+            },
           );
         }
 
@@ -1454,7 +1469,7 @@
           if (clearButton.disabled) return;
           if (
             !confirm(
-              "Clear all chat messages for this session? This cannot be undone."
+              "Clear all chat messages for this session? This cannot be undone.",
             )
           ) {
             return;
@@ -1484,7 +1499,7 @@
                 input.focus();
               }
               updateUndoButtonState();
-            }
+            },
           );
         });
 
@@ -1520,7 +1535,7 @@
             // Add accessibility
             msg.setAttribute(
               "aria-label",
-              "AI response: " + text.substring(0, 100)
+              "AI response: " + text.substring(0, 100),
             );
           } else {
             // User messages with simpler formatting
@@ -1597,36 +1612,36 @@
           for (var word in emojiMap) {
             var regex = new RegExp(
               "\\b" + word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b",
-              "gi"
+              "gi",
             );
             enhancedText = enhancedText.replace(
               regex,
-              emojiMap[word] + " " + word
+              emojiMap[word] + " " + word,
             );
           }
 
           // Enhance dice rolls
           enhancedText = enhancedText.replace(
             /\b(\d+d\d+(?:\+\d+)?)\b/gi,
-            "🎲 **$1**"
+            "🎲 **$1**",
           );
 
           // Enhance damage/healing numbers
           enhancedText = enhancedText.replace(
             /\b(\d+)\s+(damage|healing|health|hp)\b/gi,
-            "**$1** $2"
+            "**$1** $2",
           );
 
           // Enhance status effects
           enhancedText = enhancedText.replace(
             /\b(poisoned|stunned|paralyzed|charmed|frightened|exhausted|unconscious|prone)\b/gi,
-            '<span class="status-effect">$1</span>'
+            '<span class="status-effect">$1</span>',
           );
 
           // Enhance character stats
           enhancedText = enhancedText.replace(
             /\b(strength|dexterity|constitution|intelligence|wisdom|charisma|level|experience|AC|HP)\s*:?\s*(\d+)/gi,
-            '<span class="character-stat">$1: $2</span>'
+            '<span class="character-stat">$1: $2</span>',
           );
 
           // Add line breaks for better readability
@@ -1635,7 +1650,7 @@
           // Enhance important notices
           enhancedText = enhancedText.replace(
             /\*\[(.*?)\]\*/g,
-            '<div class="notice">ℹ️ **$1**</div>'
+            '<div class="notice">ℹ️ **$1**</div>',
           );
 
           return enhancedText;
@@ -1660,7 +1675,9 @@
                 if (!response.ok) {
                   return response.text().then(function (text) {
                     callback(
-                      new Error("Server error " + response.status + ": " + text)
+                      new Error(
+                        "Server error " + response.status + ": " + text,
+                      ),
                     );
                   });
                 }
@@ -1695,8 +1712,8 @@
                 } else {
                   callback(
                     new Error(
-                      "Server error " + xhr.status + ": " + xhr.responseText
-                    )
+                      "Server error " + xhr.status + ": " + xhr.responseText,
+                    ),
                   );
                 }
               }
@@ -1761,7 +1778,7 @@
                       "Error",
                       "There was a problem contacting the server: " +
                         error.message,
-                      "assistant"
+                      "assistant",
                     );
                   } else if (data && data.response) {
                     // No model/version footer and no model badge display
@@ -1788,12 +1805,12 @@
                           var lastUser = null;
                           // Find last user message content from messages container
                           var nodes = document.querySelectorAll(
-                            "#messages .message.user"
+                            "#messages .message.user",
                           );
                           if (nodes.length) {
                             lastUser =
                               nodes[nodes.length - 1].querySelector(
-                                "p"
+                                "p",
                               ).textContent;
                           }
                           if (!lastUser) return;
@@ -1828,7 +1845,7 @@
                                 appendMessage(
                                   "Demerzel",
                                   responseText2,
-                                  "assistant"
+                                  "assistant",
                                 );
                                 // No model badge display
                                 if (!data2.fallback) {
@@ -1836,7 +1853,7 @@
                                   window.retryPrimaryBtn = null;
                                 }
                               }
-                            }
+                            },
                           );
                         });
                         document.body.appendChild(btn);
@@ -1859,13 +1876,13 @@
                     appendMessage(
                       "Error",
                       "Invalid response from server",
-                      "assistant"
+                      "assistant",
                     );
                   }
 
                   messages.scrollTop = messages.scrollHeight;
                   input.focus();
-                }
+                },
               );
             } // Close the Enter key handling if statement
           } // Close the entire function

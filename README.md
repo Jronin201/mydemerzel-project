@@ -205,7 +205,6 @@ Default max output tokens is 20k with medium reasoning effort. A context window 
    ```
 
    **Required values for `.env`**:
-
    - `FLASK_SECRET_KEY`: Generate a random string (e.g., using `python -c "import secrets; print(secrets.token_hex(32))"`)
    - `OPENAI_API_KEY`: Your OpenAI API key from [OpenAI Platform](https://platform.openai.com/api-keys)
 
